@@ -2,6 +2,10 @@
 
 This project follows a folder structure that separates concerns and helps to maintain a clear and organized codebase. The structure consists of four main folders:
 
+- `layouts/`: Contains layouts.
+
+- `routes/`: Contains routes
+
 - `components/`: Contains reusable and composable UI elements that can be used throughout the application.
 
 - `pages/`: Contains components that are responsible for managing state and data for other components.
@@ -25,6 +29,14 @@ The `assets/` folder contains all assets used in the project. Assets should be n
 ## APIs
 
 The `api/` folder contains files used for API calls and data fetching. Each file should be responsible for a specific API endpoint and exported as a function that returns a Promise. Services should be named using camelCase and have a `.js` file extension.
+
+## Layouts
+
+Uses `.jsx` file extension and Named using PascalCase.
+
+## Routes
+
+Uses `.jsx` file extension and Named using PascalCase.
 
 ## Conclusion
 
