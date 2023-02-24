@@ -1,40 +1,32 @@
-/** @type {import('tailwindcss').Config} */
-
 module.exports = {
-  content: ["./src/*/.{js,jsx,ts,tsx}"],
+  content: ["./src/**/*.{js,jsx,ts,tsx}"],
   darkMode: "class",
   theme: {
     fontFamily: {
       display: ["Open Sans", "sans-serif"],
       body: ["Open Sans", "sans-serif"],
     },
-
     extend: {
       fontSize: {
         14: "14px",
       },
-
       backgroundColor: {
         "main-bg": "#FAFBFB",
         "main-blue": "#0064E1",
-        "main-dark-bg": "#20232A",
+        "main-dark-bg": "rgb(0,0,0,1)",
         "secondary-dark-bg": "#33373E",
         "light-gray": "#F7F7F7",
         "half-transparent": "rgba(0, 0, 0, 0.5)",
       },
-
       colors: {
-        gray: "#9C9C9D",
+        gray: "#7A7C88",
       },
-
       borderWidth: {
         1: "1px",
       },
-
       borderColor: {
         color: "rgba(0, 0, 0, 0.1)",
       },
-
       width: {
         400: "400px",
         760: "760px",
@@ -44,11 +36,9 @@ module.exports = {
         1200: "1200px",
         1400: "1400px",
       },
-
       height: {
         80: "80px",
       },
-
       minHeight: {
         590: "590px",
       },
