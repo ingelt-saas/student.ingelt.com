@@ -1,7 +1,12 @@
-import React from "react";
+// Components
+import MessageBox from "../../components/MessageBox/MessageBox";
 
 const Discussions = () => {
-  return <div>Discussions</div>;
+  return (
+    <div className="border border-solid border-red-500">
+      <MessageBox />
+    </div>
+  );
 };
 
 export default Discussions;
