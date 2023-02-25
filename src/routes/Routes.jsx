@@ -13,6 +13,7 @@ import Assignments from "../pages/Assignments/Assignments";
 import Discussions from "../pages/Discussions/Discussions";
 import Documents from "../pages/Documents/Documents";
 import Notes from "../pages/Notes/Notes";
+import Settings from "../pages/Settings/Settings";
 
 const Routes = () => {
   const [loggedIn, setLoggedIn] = useState(true);
@@ -42,6 +43,10 @@ const Routes = () => {
             {
               path: "/notes",
               element: <Notes />,
+            },
+            {
+              path: "/settings",
+              element: <Settings />,
             },
             {
               path: "*",

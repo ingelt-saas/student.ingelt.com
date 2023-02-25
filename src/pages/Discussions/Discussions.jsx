@@ -1,5 +1,5 @@
 // Components
-import MessageBox from "../../components/MessageBox/MessageBox";
+import MessageBox from "../../components/Discussions/MessageBox/MessageBox";
 import { FiSend } from "react-icons/fi";
 
 // Data
@@ -7,7 +7,7 @@ import data from "../../data/message_box";
 
 const Discussions = () => {
   return (
-    <div className="bg-slate-50 flex flex-col items-center w-4/5 p-10">
+    <div className="w-full">
       <h1 className="border-b-1 border-zinc-400 w-full text-4xl font-semibold py-4 mb-10">
         Discussions
       </h1>
