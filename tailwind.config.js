@@ -20,6 +20,7 @@ module.exports = {
       },
       colors: {
         gray: "#7A7C88",
+        blue: "#0064E1",
       },
       borderWidth: {
         1: "1px",
