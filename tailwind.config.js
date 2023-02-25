@@ -13,6 +13,7 @@ module.exports = {
       backgroundColor: {
         "main-bg": "#FAFBFB",
         "main-blue": "#0064E1",
+        "light-blue": "#4396FF",
         "main-dark-bg": "rgb(0,0,0,1)",
         "secondary-dark-bg": "#33373E",
         "light-gray": "#F7F7F7",
@@ -21,6 +22,7 @@ module.exports = {
       colors: {
         gray: "#7A7C88",
         blue: "#0064E1",
+        "light-blue": "#4396FF",
       },
       borderWidth: {
         1: "1px",
