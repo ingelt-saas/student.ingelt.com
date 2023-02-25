@@ -13,6 +13,7 @@ import Pagination from "@mui/material/Pagination";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import SortIcon from "@mui/icons-material/Sort";
+import { IoDocumentsOutline } from "react-icons/io5";
 
 // Data
 import autoCompleteData from "../../data/auto_complete";
@@ -86,7 +87,10 @@ const Documents = () => {
             {rows.map((row) => (
               <TableRow key={row.filename}>
                 <StyledTableCell component="th" scope="row">
-                  <span className="font-semibold">{row.filename}</span>
+                  <span className="font-semibold flex items-center">
+                    <IoDocumentsOutline className="mr-3 text-2xl text-[#72B0FF]" />
+                    {row.filename}
+                  </span>
                 </StyledTableCell>
 
                 <StyledTableCell align="center">
