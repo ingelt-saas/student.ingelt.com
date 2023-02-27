@@ -7,7 +7,7 @@ const PanelLayout = () => {
   return (
     <div className="flex">
       <Sidebar />
-      <div className="h-screen w-full overflow-scroll bg-slate-50 flex flex-col items-center p-10">
+      <div className="h-screen w-full overflow-y-auto bg-slate-50 flex flex-col items-center px-5 2xl:px-10 py-10">
         <Outlet />
       </div>
     </div>
