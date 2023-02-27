@@ -20,9 +20,10 @@ module.exports = {
         "half-transparent": "rgba(0, 0, 0, 0.5)",
       },
       colors: {
-        gray: "#7A7C88",
-        blue: "#0064E1",
-        "light-blue": "#4396FF",
+        'dark-gray': '#E5E7EB',
+        'gray': "#7A7C88",
+        'blue': "#0064E1",
+        'light-blue': "#4396FF"
       },
       borderWidth: {
         1: "1px",
