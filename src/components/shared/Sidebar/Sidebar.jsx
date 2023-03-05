@@ -1,5 +1,8 @@
+// React Support
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
+
+// MUI Support
 import {
   IoNewspaperOutline,
   IoMoonOutline,
@@ -29,56 +32,26 @@ const NavItem = ({ to, children, collapseMenu }) => {
   );
 };
 
-const SideBar = ({ collapseMenu, setCollapseMenu }) => {
+const SideBar = () => {
   const [open, setOpen] = useState(false);
+  const [collapseMenu, setCollapseMenu] = useState(true);
+
+  useState(() => {
+    const navItems = document.querySelectorAll(".navItem");
+    navItems.forEach((ele) => {
+      ele.onmouseover = () => setCollapseMenu(false);
+      ele.onmouseout = () => setCollapseMenu(true);
+    });
+  }, []);
 
   return (
     <>
       {/* Larger device menu */}
-      <div className="hidden lg:flex flex-col h-full justify-between">
-        {/* Button start */}
-        <div className="absolute top-2 right-2">
-          <button
-            onClick={() => setCollapseMenu(!collapseMenu)}
-            className="w-9 h-9 rounded-full shadow-xl border-1 border-[#DCDEE1]"
-          >
-            <span className="w-full h-full relative">
-              {collapseMenu ? (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={2.5}
-                  stroke="currentColor"
-                  className={`w-6 h-6 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2`}
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-                  />
-                </svg>
-              ) : (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={2.5}
-                  stroke="currentColor"
-                  className={`w-6 h-6 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2`}
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
-              )}
-            </span>
-          </button>
-        </div>
-        {/* Button end */}
-
+      <div
+        className={`${
+          collapseMenu && "!w-auto"
+        }  lg:w-56 xl:w-60 2xl:w-80 hidden lg:flex flex-col h-full justify-between`}
+      >
         <div className={`space-y-2 ${collapseMenu ? "mt-6" : "mt-0"}`}>
           <div className="flex items-center justify-center pt-5">
             <img
@@ -87,9 +60,10 @@ const SideBar = ({ collapseMenu, setCollapseMenu }) => {
               className={`w-auto max-w-full duration-500 h-auto`}
             />
           </div>
+
           <div className="flex-1 px-2">
             <ul className="pt-2 pb-4">
-              <li>
+              <li className="navItem">
                 <NavItem to="/" collapseMenu={collapseMenu}>
                   <svg
                     className="w-5 h-5"
@@ -111,7 +85,8 @@ const SideBar = ({ collapseMenu, setCollapseMenu }) => {
                   </span>
                 </NavItem>
               </li>
-              <li>
+
+              <li className="navItem">
                 <NavItem to="/assignments" collapseMenu={collapseMenu}>
                   <svg
                     className="w-5 h-5"
@@ -133,7 +108,8 @@ const SideBar = ({ collapseMenu, setCollapseMenu }) => {
                   </span>
                 </NavItem>
               </li>
-              <li>
+
+              <li className="navItem">
                 <NavItem to="/notes" collapseMenu={collapseMenu}>
                   <svg
                     className="w-5 h-5"
@@ -155,7 +131,8 @@ const SideBar = ({ collapseMenu, setCollapseMenu }) => {
                   </span>
                 </NavItem>
               </li>
-              <li>
+
+              <li className="navItem">
                 <NavItem to="/documents" collapseMenu={collapseMenu}>
                   <svg
                     className="w-5 h-5"
@@ -199,7 +176,8 @@ const SideBar = ({ collapseMenu, setCollapseMenu }) => {
                   </span>
                 </NavItem>
               </li>
-              <li>
+
+              <li className="navItem">
                 <NavItem to="/discussions" collapseMenu={collapseMenu}>
                   <svg
                     className="w-5 h-5"
@@ -228,7 +206,7 @@ const SideBar = ({ collapseMenu, setCollapseMenu }) => {
         <div className="px-2 pb-3">
           <div className="flex-1">
             <ul className="pt-2">
-              <li>
+              <li className="navItem">
                 <NavItem to="/settings" collapseMenu={collapseMenu}>
                   <svg
                     className="w-5 h-5"
@@ -250,7 +228,7 @@ const SideBar = ({ collapseMenu, setCollapseMenu }) => {
                   </span>
                 </NavItem>
               </li>
-              <li>
+              <li className="navItem">
                 <NavItem to="/logout" collapseMenu={collapseMenu}>
                   <svg
                     className="w-5 h-5"
@@ -272,7 +250,7 @@ const SideBar = ({ collapseMenu, setCollapseMenu }) => {
                   </span>
                 </NavItem>
               </li>
-              <li className="mt-2">
+              <li className="mt-2 navItem">
                 <button
                   className={`p-1.5 w-full bg-[#0064E133] ${
                     collapseMenu ? "rounded-md" : "rounded-full"
@@ -306,7 +284,7 @@ const SideBar = ({ collapseMenu, setCollapseMenu }) => {
                   </span>
                 </button>
               </li>
-              <li className="mt-2">
+              <li className="mt-2 navItem">
                 <div
                   className={`flex items-center ${
                     collapseMenu ? "justify-center" : "gap-3 justify-start"
@@ -369,7 +347,7 @@ const SideBar = ({ collapseMenu, setCollapseMenu }) => {
               </div>
               <div className="flex-1 px-2">
                 <ul className="pt-2 pb-4">
-                  <li>
+                  <li className="navItem">
                     <NavItem to="/">
                       <svg
                         className="w-5 h-5"
@@ -385,7 +363,7 @@ const SideBar = ({ collapseMenu, setCollapseMenu }) => {
                       <span className={`duration-300`}>Home</span>
                     </NavItem>
                   </li>
-                  <li>
+                  <li className="navItem">
                     <NavItem to="/database">
                       <svg
                         className="w-5 h-5"
@@ -401,7 +379,7 @@ const SideBar = ({ collapseMenu, setCollapseMenu }) => {
                       <span className={`duration-300`}>Database</span>
                     </NavItem>
                   </li>
-                  <li>
+                  <li className="navItem">
                     <NavItem to="/assignments">
                       <svg
                         className="w-5 h-5"
@@ -417,13 +395,13 @@ const SideBar = ({ collapseMenu, setCollapseMenu }) => {
                       <span className={`duration-300`}>Assignments</span>
                     </NavItem>
                   </li>
-                  <li>
+                  <li className="navItem">
                     <NavItem to="/mocktest">
                       <IoNewspaperOutline className="w-5 h-5" />
                       <span className={`duration-300`}>Mock Test</span>
                     </NavItem>
                   </li>
-                  <li>
+                  <li className="navItem">
                     <NavItem to="/notes">
                       <svg
                         className="w-5 h-5"
@@ -439,7 +417,7 @@ const SideBar = ({ collapseMenu, setCollapseMenu }) => {
                       <span className={`duration-300`}>Notes</span>
                     </NavItem>
                   </li>
-                  <li>
+                  <li className="navItem">
                     <NavItem to="/documents">
                       <svg
                         className="w-5 h-5"
@@ -477,7 +455,7 @@ const SideBar = ({ collapseMenu, setCollapseMenu }) => {
                       <span className={`duration-300`}>Documents</span>
                     </NavItem>
                   </li>
-                  <li>
+                  <li className="navItem">
                     <NavItem to="/discussion">
                       <svg
                         className="w-5 h-5"
@@ -500,7 +478,7 @@ const SideBar = ({ collapseMenu, setCollapseMenu }) => {
             <div className="px-2 pb-3">
               <div className="flex-1">
                 <ul className="pt-2">
-                  <li>
+                  <li className="navItem">
                     <NavItem to="/setting">
                       <svg
                         className="w-5 h-5"
@@ -516,7 +494,7 @@ const SideBar = ({ collapseMenu, setCollapseMenu }) => {
                       <span className={`duration-300`}>Setting</span>
                     </NavItem>
                   </li>
-                  <li>
+                  <li className="navItem">
                     <NavItem to="/logout">
                       <svg
                         className="w-5 h-5"
