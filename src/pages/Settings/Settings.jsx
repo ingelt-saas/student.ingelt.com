@@ -2,32 +2,27 @@
 import { useState } from "react";
 import dayjs from "dayjs";
 
-// Components
-import { styled } from "@mui/material/styles";
-import Grid from "@mui/material/Grid";
-import Button from "@mui/material/Button";
-import CameraAltIcon from "@mui/icons-material/CameraAlt";
-import TextField from "@mui/material/TextField";
+// MUI Support
+import {
+  styled,
+  Grid,
+  Button,
+  TextField,
+  Select,
+  MenuItem,
+  InputLabel,
+  FormControl,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from "@mui/material";
+import { CameraAlt, Password } from "@mui/icons-material";
+
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
-import Select from "@mui/material/Select";
-import MenuItem from "@mui/material/MenuItem";
-import InputLabel from "@mui/material/InputLabel";
-import FormControl from "@mui/material/FormControl";
-import PasswordIcon from "@mui/icons-material/Password";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
-
-/*
-Student Settings Will Include:
-TODO: Required Fields
-
-!TODO: 3. password
-*/
 
 const StyledButton = styled(Button)(() => ({
   textTransform: "capitalize",
@@ -40,14 +35,6 @@ const Settings = () => {
   const [ielts, setIelts] = useState("");
   const [open, setOpen] = useState(false);
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
   return (
     <div className="flex w-full py-4 h-full">
       <div className="w-3/5 mr-2 flex flex-col items-center mt-4">
@@ -57,13 +44,29 @@ const Settings = () => {
           alt=""
         />
 
-        <StyledButton
-          size="large"
-          variant="outlined"
-          endIcon={<CameraAltIcon />}
-        >
-          Edit Photo
-        </StyledButton>
+        <div className="mb-4">
+          <StyledButton
+            size="large"
+            variant="outlined"
+            endIcon={<CameraAlt />}
+            className="w-52"
+          >
+            Edit Photo
+          </StyledButton>
+        </div>
+
+        <div>
+          <StyledButton
+            variant="outlined"
+            sx={{ color: "#707070", borderColor: "#707070" }}
+            endIcon={<Password />}
+            size="large"
+            className="w-52"
+            onClick={() => setOpen(true)}
+          >
+            Change Password
+          </StyledButton>
+        </div>
       </div>
 
       <Grid
@@ -230,23 +233,10 @@ const Settings = () => {
             required
           />
         </Grid>
-
-        <Grid item xs={6}>
-          <StyledButton
-            className="w-full h-full"
-            variant="outlined"
-            color="secondary"
-            endIcon={<PasswordIcon />}
-            size="large"
-            onClick={handleClickOpen}
-          >
-            Change Password
-          </StyledButton>
-        </Grid>
       </Grid>
 
       {/* Dialog Box */}
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog open={open} onClose={() => setOpen(false)}>
         <DialogTitle>Change User Credentials</DialogTitle>
         <DialogContent>
           <DialogContentText>
@@ -286,9 +276,10 @@ const Settings = () => {
             variant="standard"
           />
         </DialogContent>
+
         <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose}>Update</Button>
+          <Button onClick={() => setOpen(false)}>Cancel</Button>
+          <Button onClick={() => setOpen(false)}>Update</Button>
         </DialogActions>
       </Dialog>
     </div>

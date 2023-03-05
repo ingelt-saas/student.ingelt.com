@@ -7,12 +7,12 @@ import data from "../../data/message_box";
 
 const Discussions = () => {
   return (
-    <div className="w-full">
+    <div className="w-full h-full flex flex-col justify-between">
       <h1 className="border-b-1 border-zinc-400 w-full text-4xl font-semibold py-4 mb-10">
         Discussions
       </h1>
 
-      <div className="flex flex-col items-center justify-center w-full">
+      <div className="flex flex-col items-center justify-center w-full h-[55vh] overflow-y-scroll no-scrollbar pt-80">
         {data.map((item, index) => (
           <MessageBox
             key={index}
@@ -36,7 +36,7 @@ const Discussions = () => {
 
           <button
             type="submit"
-            className="bg-white rounded-md p-2 m-2 text-slate-400 text-3xl duration-200 hover:text-[gray] cursor-pointer flex items-center justify-center"
+            className="bg-white rounded-md m-2 p-1 text-slate-400 text-3xl duration-200 hover:text-[gray] cursor-pointer flex items-center justify-center"
           >
             <FiSend />
           </button>

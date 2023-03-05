@@ -1,131 +1,154 @@
-// Components
-import { styled } from "@mui/material/styles";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell, { tableCellClasses } from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import Button from "@mui/material/Button";
-import FileDownloadIcon from "@mui/icons-material/FileDownload";
-import Pagination from "@mui/material/Pagination";
-import TextField from "@mui/material/TextField";
-import Autocomplete from "@mui/material/Autocomplete";
-import SortIcon from "@mui/icons-material/Sort";
-import { IoDocumentsOutline } from "react-icons/io5";
+// MUI Support
+import {
+  Box,
+  Button,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  Pagination,
+  TableRow,
+} from "@mui/material";
+import { FileDownload, Assignment } from "@mui/icons-material";
 
-// Data
-import autoCompleteData from "../../data/auto_complete";
+// Custom Components
+import SearchBar from "../../components/shared/SearchBar/SearchBar";
+import SortButton from "../../components/shared/SortButton/SortButton";
 
-const StyledTableCell = styled(TableCell)(({ theme }) => ({
-  [`&.${tableCellClasses.head}`]: {
-    color: theme.palette.common.white,
-    fontWeight: "bold",
-  },
-  [`&.${tableCellClasses.body}`]: {
-    fontSize: 14,
-  },
-}));
+const Notes = () => {
+  const data = [1, 2, 3, 4, 5, 6, 7, 8];
 
-const StyledButton = styled(Button)(() => ({
-  textTransform: "capitalize",
-}));
-
-function createData(filename, filesize, subject, date) {
-  return { filename, filesize, subject, date };
-}
-
-const rows = [
-  createData("Listening Mock Tests", 1.59, "Listening", "24/01/23"),
-  createData("Reading Comprehensions", 2.37, "Reading", "24/01/23"),
-  createData("Mock Test Final", 2.62, "Mock Test", "24/01/23"),
-  createData("Mock Test Initial", 3.05, "Mock Test", "24/01/23"),
-  createData("Mock Test Initial", 3.05, "Mock Test", "24/01/23"),
-  createData("Reading Comprehensions", 2.37, "Reading", "24/01/23"),
-  createData("Mock Test Final", 2.62, "Mock Test", "24/01/23"),
-  createData("Mock Test Initial", 3.05, "Mock Test", "24/01/23"),
-];
-
-const Documents = () => {
+  // Component
   return (
-    <div className="w-full flex flex-col items-center">
-      <h1 className="border-b-1 border-zinc-400 w-full text-4xl font-semibold py-4 mb-10">
+    <Box sx={{ width: "100%" }}>
+      <h1 className="border-b-1 border-[#DCDEE1] w-full text-4xl pb-4 mb-6">
         Documents
       </h1>
 
-      <div className="flex justify-between items-center w-full mb-6 py-6">
-        <Autocomplete
-          className="w-2/5 bg-white"
-          id="free-solo-search"
-          freeSolo
-          options={autoCompleteData.map((option) => option)}
-          renderInput={(params) => (
-            <TextField {...params} label="Search for Documents" />
-          )}
-        />
+      <Box
+        display="flex"
+        justifyContent="space-between"
+        sx={{ width: "100%", px: 2, py: 4 }}
+      >
+        <SearchBar />
 
-        <button className="bg-[#F4F4F4] text-[#00000091] py-2 px-3 rounded font-semibold text-md flex items-center justify-center">
-          Sort
-          <SortIcon className="ml-2" />
-        </button>
-      </div>
+        <SortButton />
+      </Box>
 
-      <TableContainer component={Paper} className="mb-10">
-        <Table aria-label="customized table">
-          <TableHead className="bg-[#4396FF]">
+      <Box className="flex flex-col items-center" sx={{ width: "100%" }}>
+        <Table>
+          <TableHead>
             <TableRow>
-              <StyledTableCell>File Name</StyledTableCell>
-              <StyledTableCell align="center">File Size (mb)</StyledTableCell>
-              <StyledTableCell align="center">Subject</StyledTableCell>
-              <StyledTableCell align="center">Date Uploaded</StyledTableCell>
-              <StyledTableCell align="center">Download</StyledTableCell>
+              <TableCell
+                align="center"
+                sx={{ fontWeight: 600, fontSize: "1rem" }}
+              >
+                File Name
+              </TableCell>
+
+              <TableCell
+                align="center"
+                sx={{ fontWeight: 600, fontSize: "1rem" }}
+              >
+                File Size (MB)
+              </TableCell>
+
+              <TableCell
+                align="center"
+                sx={{ fontWeight: 600, fontSize: "1rem" }}
+              >
+                Subject
+              </TableCell>
+
+              <TableCell
+                align="center"
+                sx={{ fontWeight: 600, fontSize: "1rem" }}
+              >
+                Date Uploaded
+              </TableCell>
+
+              <TableCell
+                align="center"
+                sx={{ fontWeight: 600, fontSize: "1rem" }}
+              ></TableCell>
             </TableRow>
           </TableHead>
 
           <TableBody>
-            {rows.map((row) => (
-              <TableRow key={row.filename}>
-                <StyledTableCell component="th" scope="row">
-                  <span className="font-semibold flex items-center">
-                    <IoDocumentsOutline className="mr-3 text-2xl text-[#72B0FF]" />
-                    {row.filename}
-                  </span>
-                </StyledTableCell>
+            {data.map((item) => (
+              <TableRow key={item}>
+                <TableCell
+                  align="center"
+                  sx={{ borderBottomWidth: "0", py: 1, fontWeight: 600 }}
+                >
+                  <Assignment className="mr-3 text-[#4C9BFF]" />
+                  Test Docs
+                </TableCell>
 
-                <StyledTableCell align="center">
-                  <span className="font-semibold text-[gray]">
-                    {row.filesize}
-                  </span>
-                </StyledTableCell>
+                <TableCell
+                  align="center"
+                  sx={{
+                    borderBottomWidth: "0",
+                    py: 1,
+                    fontWeight: 500,
+                    color: "#6D6D6D",
+                  }}
+                >
+                  4.5
+                </TableCell>
 
-                <StyledTableCell align="center">
-                  <span className="font-semibold text-[gray]">
-                    {row.subject}
-                  </span>
-                </StyledTableCell>
+                <TableCell
+                  align="center"
+                  sx={{
+                    borderBottomWidth: "0",
+                    py: 1,
+                    fontWeight: 500,
+                    color: "#6D6D6D",
+                  }}
+                >
+                  Listening
+                </TableCell>
 
-                <StyledTableCell align="center">
-                  <span className="font-semibold text-[gray]">{row.date}</span>
-                </StyledTableCell>
+                <TableCell
+                  align="center"
+                  sx={{
+                    borderBottomWidth: "0",
+                    py: 1,
+                    fontWeight: 500,
+                    color: "#6D6D6D",
+                  }}
+                >
+                  1-02-2023
+                </TableCell>
 
-                <StyledTableCell align="center">
-                  <StyledButton
+                <TableCell
+                  align="center"
+                  sx={{ borderBottomWidth: "0", py: 1 }}
+                >
+                  <Button
                     variant="outlined"
-                    endIcon={<FileDownloadIcon />}
+                    color="primary"
+                    size="small"
+                    sx={{
+                      textTransform: "capitalize",
+                      color: "#0064E1",
+                      borderColor: "#0064E1",
+                      borderRadius: "8px",
+                    }}
                   >
                     Download
-                  </StyledButton>
-                </StyledTableCell>
+                    <FileDownload />
+                  </Button>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
-      </TableContainer>
 
-      <Pagination count={10} />
-    </div>
+        <Pagination count={10} className="mt-6" />
+      </Box>
+    </Box>
   );
 };
 
-export default Documents;
+export default Notes;
