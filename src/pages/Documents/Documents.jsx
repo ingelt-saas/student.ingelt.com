@@ -76,7 +76,14 @@ const Notes = () => {
 
           <TableBody>
             {data.map((item) => (
-              <TableRow key={item}>
+              <TableRow
+                key={item}
+                sx={{
+                  cursor: "pointer",
+                  transition: "0.2s ease-in-out all",
+                  "&:hover": { backgroundColor: "#d0e1f9" },
+                }}
+              >
                 <TableCell
                   align="center"
                   sx={{ borderBottomWidth: "0", py: 1, fontWeight: 600 }}
