@@ -31,6 +31,7 @@ const Assignments = () => {
   };
 
   const statsModalHandle = (value) => {
+    console.log(value);
     setUploadModal(value);
   };
 

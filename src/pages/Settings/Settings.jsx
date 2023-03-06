@@ -1,39 +1,51 @@
 // Modules
 import { useState } from "react";
-import dayjs from "dayjs";
 
-// MUI Support
+// Components
+import { styled } from "@mui/material/styles";
+
+// Date Picker
+// Icons
+import CameraAltIcon from "@mui/icons-material/CameraAlt";
+import PasswordIcon from "@mui/icons-material/Password";
 import {
-  styled,
-  Grid,
+  Box,
   Button,
-  TextField,
-  Select,
-  MenuItem,
-  InputLabel,
-  FormControl,
   Dialog,
   DialogActions,
   DialogContent,
   DialogContentText,
   DialogTitle,
+  FormControl,
+  Grid,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
 } from "@mui/material";
-import { CameraAlt, Password } from "@mui/icons-material";
 
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
-
-const StyledButton = styled(Button)(() => ({
-  textTransform: "capitalize",
-}));
+const StyledButton = styled(Button)(() => ({ textTransform: "capitalize" }));
+const InputFieldSx = {
+  borderRadius: "20px",
+  height: "40px",
+  width: "100%",
+  "& .MuiOutlinedInput-notchedOutline": {
+    borderColor: "black",
+  },
+};
 
 const Settings = () => {
-  const [dob, setDob] = useState(dayjs("01/01/1990"));
-  const [testDate, setTestDate] = useState(dayjs(Date.getDate));
   const [gender, setGender] = useState("");
-  const [ielts, setIelts] = useState("");
   const [open, setOpen] = useState(false);
+  const [expertise, setExpertise] = useState("");
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
     <div className="flex w-full py-4 h-full">
@@ -44,36 +56,24 @@ const Settings = () => {
           alt=""
         />
 
-        <div className="mb-4">
-          <StyledButton
-            size="large"
-            variant="outlined"
-            endIcon={<CameraAlt />}
-            className="w-52"
-          >
-            Edit Photo
-          </StyledButton>
-        </div>
-
-        <div>
-          <StyledButton
-            variant="outlined"
-            sx={{ color: "#707070", borderColor: "#707070" }}
-            endIcon={<Password />}
-            size="large"
-            className="w-52"
-            onClick={() => setOpen(true)}
-          >
-            Change Password
-          </StyledButton>
-        </div>
+        <StyledButton
+          size="large"
+          variant="contained"
+          endIcon={<CameraAltIcon />}
+        >
+          Edit Photo
+        </StyledButton>
       </div>
 
       <Grid
         className="w-2/5 ml-2 flex items-center justify-center px-4"
         container
         rowSpacing={1}
-        columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+        columnSpacing={{
+          xs: 1,
+          sm: 2,
+          md: 3,
+        }}
       >
         <Grid item xs={6}>
           <TextField
@@ -82,6 +82,8 @@ const Settings = () => {
             label="Name"
             typeof="text"
             variant="outlined"
+            size="small"
+            sx={InputFieldSx}
             required
           />
         </Grid>
@@ -93,24 +95,45 @@ const Settings = () => {
             label="Email"
             typeof="email"
             variant="outlined"
+            size="small"
+            sx={InputFieldSx}
             required
           />
         </Grid>
 
         <Grid item xs={6}>
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DesktopDatePicker
-              className="w-full"
-              label="Date of Birth"
-              value={dob}
-              minDate={dayjs("01/01/1920")}
-              onChange={(newValue) => {
-                setDob(newValue);
-              }}
-              renderInput={(params) => <TextField {...params} />}
-              required
-            />
-          </LocalizationProvider>
+          <label className="text-xs text-[#93999C]" htmlFor="DOB">
+            Date Of Birth*
+          </label>
+          <TextField
+            id="DOB"
+            type="date"
+            variant="outlined"
+            size="small"
+            InputProps={{
+              style: { color: "gray" },
+              placeholder: "Select date",
+            }}
+            sx={InputFieldSx}
+            required
+          />
+        </Grid>
+
+        <Grid item xs={6}>
+          <label className="text-xs text-[#93999C]" htmlFor="ExpDate">
+            Expected Test Date
+          </label>
+          <TextField
+            id="ExpDate"
+            type="date"
+            variant="outlined"
+            size="small"
+            InputProps={{
+              style: { color: "gray" },
+              placeholder: "Select date",
+            }}
+            sx={InputFieldSx}
+          />
         </Grid>
 
         <Grid item xs={6}>
@@ -120,78 +143,92 @@ const Settings = () => {
             label="Phone Number"
             typeof="tel"
             variant="outlined"
+            size="small"
+            sx={InputFieldSx}
             required
           />
         </Grid>
 
         <Grid item xs={6}>
-          <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Gender</InputLabel>
+          <FormControl variant="outlined" size="small" sx={InputFieldSx}>
+            <InputLabel id="demo-simple-select-label">Gender*</InputLabel>
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               value={gender}
-              label="Gender"
               onChange={(e) => setGender(e.target.value)}
+              label="Gender"
               required
             >
               <MenuItem value={"M"}>Male</MenuItem>
               <MenuItem value={"F"}>Female</MenuItem>
-              <MenuItem value={"O"}>Others</MenuItem>
+              <MenuItem value={"O"}>Other</MenuItem>
+              <MenuItem value={"R"}>Rather Not Say</MenuItem>
             </Select>
           </FormControl>
         </Grid>
 
+        <Grid className="w-full" item xs={6}>
+          <TextField
+            className="w-full"
+            id="outlined-basic"
+            label="University / School Name"
+            typeof="number"
+            variant="outlined"
+            size="small"
+            sx={InputFieldSx}
+            required
+          />
+        </Grid>
+
         <Grid item xs={6}>
-          <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">IELTS</InputLabel>
+          <FormControl
+            variant="outlined"
+            size="small"
+            sx={{
+              width: "100%",
+              "& .MuiOutlinedInput-notchedOutline": { borderColor: "black" },
+            }}
+          >
+            <InputLabel id="demo-simple-select-label">IELTS *</InputLabel>
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
-              value={ielts}
+              value={expertise}
+              onChange={(e) => setExpertise(e.target.value)}
               label="IELTS"
-              onChange={(e) => setIelts(e.target.value)}
               required
             >
-              <MenuItem value={"A"}>Academic</MenuItem>
-              <MenuItem value={"G"}>General</MenuItem>
+              <MenuItem value={"Academic"}>Academic</MenuItem>
+              <MenuItem value={"General"}>General</MenuItem>
             </Select>
           </FormControl>
         </Grid>
 
         <Grid item xs={6}>
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DesktopDatePicker
-              className="w-full"
-              label="Decided Test Date"
-              value={testDate}
-              minDate={dayjs(Date.getDate)}
-              onChange={(newValue) => {
-                setTestDate(newValue);
-              }}
-              renderInput={(params) => <TextField {...params} />}
-            />
-          </LocalizationProvider>
-        </Grid>
-
-        <Grid className="w-full" item xs={6}>
-          <TextField
-            className="w-full"
-            id="outlined-basic"
-            label="Previous Score"
-            typeof="number"
+          <FormControl
             variant="outlined"
-          />
-        </Grid>
-
-        <Grid className="w-full" item xs={6}>
-          <TextField
-            className="w-full"
-            id="outlined-basic"
-            label="Target Score"
-            typeof="number"
-            variant="outlined"
-          />
+            size="small"
+            sx={{
+              width: "100%",
+              "& .MuiOutlinedInput-notchedOutline": { borderColor: "black" },
+            }}
+          >
+            <InputLabel id="demo-simple-select-label">Status *</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={expertise}
+              onChange={(e) => setExpertise(e.target.value)}
+              label="Status"
+              required
+            >
+              <MenuItem value={"Student"}>Student</MenuItem>
+              <MenuItem value={"Working Professional"}>
+                Working Professional
+              </MenuItem>
+            </Select>
+          </FormControl>
         </Grid>
 
         <Grid item xs={6}>
@@ -200,6 +237,8 @@ const Settings = () => {
             id="outlined-basic"
             label="City"
             variant="outlined"
+            size="small"
+            sx={InputFieldSx}
             required
           />
         </Grid>
@@ -210,6 +249,8 @@ const Settings = () => {
             id="outlined-basic"
             label="State"
             variant="outlined"
+            size="small"
+            sx={InputFieldSx}
             required
           />
         </Grid>
@@ -220,6 +261,8 @@ const Settings = () => {
             id="outlined-basic"
             label="Pincode"
             variant="outlined"
+            size="small"
+            sx={InputFieldSx}
             required
           />
         </Grid>
@@ -230,13 +273,106 @@ const Settings = () => {
             id="outlined-basic"
             label="Country"
             variant="outlined"
+            size="small"
+            sx={InputFieldSx}
             required
           />
         </Grid>
+
+        <Grid className="w-full" item xs={6}>
+          <TextField
+            className="w-full"
+            id="outlined-basic"
+            label="Registration Date"
+            typeof="date"
+            variant="outlined"
+            size="small"
+            sx={InputFieldSx}
+            disabled
+          />
+        </Grid>
+
+        <Grid className="w-full" item xs={6}>
+          <label className="text-xs text-[#93999C]" htmlFor="outlined-basic">
+            Previous Score
+          </label>
+          <TextField
+            className="w-full"
+            id="outlined-basic"
+            label="Previous Score"
+            typeof="number"
+            variant="outlined"
+            size="small"
+            sx={InputFieldSx}
+          />
+        </Grid>
+
+        <Grid className="w-full" item xs={6}>
+          <label className="text-xs text-[#93999C]" htmlFor="outlined-basic">
+            Target Score
+          </label>
+          <TextField
+            className="w-full"
+            id="outlined-basic"
+            label="Previous Score"
+            typeof="number"
+            variant="outlined"
+            size="small"
+            sx={InputFieldSx}
+          />
+        </Grid>
+
+        <Grid className="w-full" item xs={6}>
+          <label className="text-xs text-[#93999C]" htmlFor="outlined-basic">
+            Student ID
+          </label>
+          <TextField
+            className="w-full"
+            id="outlined-basic"
+            label="Student ID"
+            typeof="number"
+            variant="outlined"
+            size="small"
+            sx={InputFieldSx}
+            disabled
+          />
+        </Grid>
+
+        <Grid item xs={6}>
+          <label className="text-xs text-[#93999C]" htmlFor="outlined-basic">
+            Change Password
+          </label>
+          <StyledButton
+            className="w-full h-full"
+            variant="outlined"
+            sx={{
+              "& .MuiOutlinedInput-notchedOutline": {
+                borderColor: "black",
+              },
+            }}
+            color="secondary"
+            endIcon={<PasswordIcon />}
+            onClick={handleClickOpen}
+          >
+            Change Password
+          </StyledButton>
+        </Grid>
+        <Box
+          sx={{
+            width: "100%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "end",
+          }}
+        >
+          <Button sx={{ px: 5 }} variant="outlined">
+            Save
+          </Button>
+        </Box>
       </Grid>
 
       {/* Dialog Box */}
-      <Dialog open={open} onClose={() => setOpen(false)}>
+      <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Change User Credentials</DialogTitle>
         <DialogContent>
           <DialogContentText>
@@ -276,10 +412,9 @@ const Settings = () => {
             variant="standard"
           />
         </DialogContent>
-
         <DialogActions>
-          <Button onClick={() => setOpen(false)}>Cancel</Button>
-          <Button onClick={() => setOpen(false)}>Update</Button>
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleClose}>Update</Button>
         </DialogActions>
       </Dialog>
     </div>
