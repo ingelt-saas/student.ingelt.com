@@ -229,7 +229,6 @@ const Assignments = () => {
 
       {/* Stats modal */}
       <StatsModal statsModal={statsModal} statsModalHandle={statsModalHandle} />
-    </Box>
   );
 };
 
