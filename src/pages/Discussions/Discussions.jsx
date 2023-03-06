@@ -38,7 +38,7 @@ const Discussions = () => {
 
           <button
             type="submit"
-            className="bg-white rounded-md p-2 m-2 text-slate-400 text-3xl duration-200 hover:text-[gray] cursor-pointer flex items-center justify-center"
+            className="bg-white rounded-md m-2 p-1 text-slate-400 text-3xl duration-200 hover:text-[gray] cursor-pointer flex items-center justify-center"
           >
             <FiSend />
           </button>
