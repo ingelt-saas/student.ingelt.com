@@ -1,11 +1,18 @@
+// React Support
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
+
+// React Icons
 import {
   IoNewspaperOutline,
   IoMoonOutline,
   IoSunnyOutline,
 } from "react-icons/io5";
+
+// MUI Support
 import Drawer from "@mui/material/Drawer";
+
+// Sidebar SVGs
 import {
   AssignmentSVG,
   DatabaseSVG,
@@ -20,6 +27,7 @@ import {
 //assets
 import logo from "../../../assets/images/logo.svg";
 
+// Navbar Item Components
 const NavItem = ({ to, children, collapseMenu }) => {
   return (
     <NavLink
