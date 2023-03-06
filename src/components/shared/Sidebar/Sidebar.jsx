@@ -362,7 +362,7 @@ const SideBar = () => {
                   <li className="navItem">
                     <NavItem to="/setting">
                       <SettingSVG />
-                      <span className={`duration-300`}>Setting</span>
+                      <span className={`duration-300`}>Settings</span>
                     </NavItem>
                   </li>
                   <li className="navItem">
