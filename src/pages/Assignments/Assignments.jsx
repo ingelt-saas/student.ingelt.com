@@ -82,8 +82,8 @@ const Assignments = () => {
           </Box>
           <Box sx={{ border: 2, borderStyle: 'dashed', py: 2, textAlign: 'center', mt: 3 }}>
             <svg className="w-8 h-8 mx-auto" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M32.5 4C32.5 6.33141 32.5 18.4547 32.5 48.2967V4ZM32.5 4L48.8198 20.3198M32.5 4L16.1802 20.3198M3 61.2784V56.6156V40.2958V61.2784ZM3 61.2784H61.2852V40.2958" stroke="black" stroke-width="5" stroke-linecap="round" />
-              <path d="M3 47.2911V40.2969" stroke="black" stroke-width="5" stroke-linecap="round" />
+              <path d="M32.5 4C32.5 6.33141 32.5 18.4547 32.5 48.2967V4ZM32.5 4L48.8198 20.3198M32.5 4L16.1802 20.3198M3 61.2784V56.6156V40.2958V61.2784ZM3 61.2784H61.2852V40.2958" stroke="black" strokeWidth="5" strokeLinecap="round" />
+              <path d="M3 47.2911V40.2969" stroke="black" strokeWidth="5" strokeLinecap="round" />
             </svg>
             <Typography variant="body2" sx={{ mt: 1, fontWeight: 600 }}>Drag & Drop or Choose file to upload</Typography>
             <Typography variant="body2" sx={{ mt: 1, fontWeight: 500 }}>PDF or DOCS</Typography>
@@ -131,7 +131,7 @@ const Assignments = () => {
     >
       <Box height="100%" width="100%" display="flex" justifyContent="flex-end" alignItems="center">
         <Box width="330px" maxWidth="100%" height="100%" sx={{ borderRadius: 2, overflowY: 'auto', backgroundColor: '#fff', position: 'relative' }}>
-          <Button sx={{ color: '#fff', position: 'absolute', top: '.5rem', right: '0.1rem' }} disableRipple={true} onClick={()=> setStatsModal(false)}>
+          <Button sx={{ color: '#fff', position: 'absolute', top: '.5rem', right: '0.1rem' }} disableRipple={true} onClick={() => setStatsModal(false)}>
             <Close fontSize="small" />
           </Button>
           <Box sx={{ py: 2, backgroundColor: '#4C9BFF', color: '#fff' }}>

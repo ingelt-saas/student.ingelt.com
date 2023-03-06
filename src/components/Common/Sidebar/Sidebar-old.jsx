@@ -26,6 +26,7 @@ const CustomSidebar = () => {
   const { collapsed } = useProSidebar();
   const [currentTheme, setCurrentTheme] = useState("Light");
   const [isDarkMode, setIsDarkMode] = useState(true);
+
   const handleChange = () => {
     setIsDarkMode(!isDarkMode);
     if (isDarkMode) {
@@ -40,7 +41,7 @@ const CustomSidebar = () => {
 
   return (
     <div className={`h-screen flex ${currentTheme === "Dark" ? "dark" : ""}`}>
-      <Sidebar backgroundColor={navColor}>
+      <Sidebar backgroundColor={navColor} defaultCollapsed={true}>
         <Menu>
           <MenuItem
             className=""
