@@ -1,13 +1,15 @@
 import { Outlet } from "react-router-dom";
-
-// Sidebar
-import Sidebar from "../../components/Common/Sidebar/Sidebar";
+import SideBar from "../../components/shared/Sidebar/Sidebar";
 
 const PanelLayout = () => {
   return (
-    <div className="flex">
-      <Sidebar />
-      <div className="h-screen w-full overflow-y-auto bg-slate-50 flex flex-col items-center px-5 2xl:px-10 py-10">
+    <div className="flex flex-col lg:flex-row h-screen">
+      <div
+        className={`sidebar border-r border-[#DCDEE1] overflow-y-auto no-scrollbar relative`}
+      >
+        <SideBar />
+      </div>
+      <div className="flex-1 overflow-y-auto bg-slate-50 px-5 2xl:px-10 py-10">
         <Outlet />
       </div>
     </div>

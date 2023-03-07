@@ -1,25 +1,44 @@
+// React Support
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
+
+// React Icons
 import {
   IoNewspaperOutline,
   IoMoonOutline,
   IoSunnyOutline,
 } from "react-icons/io5";
+
+// MUI Support
 import Drawer from "@mui/material/Drawer";
-import { AssignmentSVG, DatabaseSVG, DiscussionSVG, DocumentsSVG, HomeSVG, LogoutSVG, NotesSVG, SettingSVG } from './SidebarSVG.jsx';
+
+// Sidebar SVGs
+import {
+  AssignmentSVG,
+  DatabaseSVG,
+  DiscussionSVG,
+  DocumentsSVG,
+  HomeSVG,
+  LogoutSVG,
+  NotesSVG,
+  SettingSVG,
+} from "./SidebarSVG.jsx";
 
 //assets
 import logo from "../../../assets/images/logo.svg";
 
+// Navbar Item Components
 const NavItem = ({ to, children, collapseMenu }) => {
   return (
     <NavLink
       to={to}
       className={({ isActive }) =>
-        `${isActive
-          ? "bg-[#0064E133] text-[#0064E1]"
-          : "bg-transparent text-[#7A7C88]"
-        } ${collapseMenu ? "justify-center gap-0" : "justify-start gap-3"
+        `${
+          isActive
+            ? "bg-[#0064E133] text-[#0064E1]"
+            : "bg-transparent text-[#7A7C88]"
+        } ${
+          collapseMenu ? "justify-center gap-0" : "justify-start gap-3"
         } flex items-center text-base font-semibold  rounded-md duration-300 px-3 py-2 hover:bg-[#0064E133] hover:text-[#0064E1]`
       }
     >
@@ -29,15 +48,13 @@ const NavItem = ({ to, children, collapseMenu }) => {
 };
 
 const SideBar = () => {
-
   const [open, setOpen] = useState(false);
   const [collapseMenu, setCollapseMenu] = useState(true);
 
   useEffect(() => {
+    const navItems = document.querySelectorAll(".navItem");
 
-    const navItems = document.querySelectorAll('.navItem');
-
-    navItems.forEach(ele => {
+    navItems.forEach((ele) => {
       ele.onmouseover = () => setCollapseMenu(false);
       ele.onmouseout = () => setCollapseMenu(true);
     });
@@ -46,8 +63,11 @@ const SideBar = () => {
   return (
     <>
       {/* Larger device menu */}
-      <div className={`${collapseMenu && '!w-auto'}  lg:w-56 xl:w-60 2xl:w-80 hidden lg:flex flex-col h-full justify-between`}>
-
+      <div
+        className={`${
+          collapseMenu && "!w-auto"
+        }  lg:w-56 xl:w-60 2xl:w-80 hidden lg:flex flex-col h-full justify-between`}
+      >
         {/* Button start */}
         {/* <div className="absolute top-2 right-2">
           <button
@@ -105,8 +125,9 @@ const SideBar = () => {
                 <NavItem to="/" collapseMenu={collapseMenu}>
                   <HomeSVG />
                   <span
-                    className={`${collapseMenu ? "w-0 h-0" : "w-auto h-auto"
-                      } overflow-hidden duration-300`}
+                    className={`${
+                      collapseMenu ? "w-0 h-0" : "w-auto h-auto"
+                    } overflow-hidden duration-300`}
                   >
                     Home
                   </span>
@@ -116,8 +137,9 @@ const SideBar = () => {
                 <NavItem to="/assignments" collapseMenu={collapseMenu}>
                   <AssignmentSVG />
                   <span
-                    className={`${collapseMenu ? "w-0 h-0" : "w-auto h-auto"
-                      } overflow-hidden duration-300`}
+                    className={`${
+                      collapseMenu ? "w-0 h-0" : "w-auto h-auto"
+                    } overflow-hidden duration-300`}
                   >
                     Assignments
                   </span>
@@ -127,8 +149,9 @@ const SideBar = () => {
                 <NavItem to="/notes" collapseMenu={collapseMenu}>
                   <NotesSVG />
                   <span
-                    className={`${collapseMenu ? "w-0 h-0" : "w-auto h-auto"
-                      } overflow-hidden duration-300`}
+                    className={`${
+                      collapseMenu ? "w-0 h-0" : "w-auto h-auto"
+                    } overflow-hidden duration-300`}
                   >
                     Notes
                   </span>
@@ -138,8 +161,9 @@ const SideBar = () => {
                 <NavItem to="/documents" collapseMenu={collapseMenu}>
                   <DocumentsSVG />
                   <span
-                    className={`${collapseMenu ? "w-0 h-0" : "w-auto h-auto"
-                      } overflow-hidden duration-300`}
+                    className={`${
+                      collapseMenu ? "w-0 h-0" : "w-auto h-auto"
+                    } overflow-hidden duration-300`}
                   >
                     Documents
                   </span>
@@ -149,8 +173,9 @@ const SideBar = () => {
                 <NavItem to="/discussions" collapseMenu={collapseMenu}>
                   <DiscussionSVG />
                   <span
-                    className={`${collapseMenu ? "w-0 h-0" : "w-auto h-auto"
-                      } overflow-hidden duration-300`}
+                    className={`${
+                      collapseMenu ? "w-0 h-0" : "w-auto h-auto"
+                    } overflow-hidden duration-300`}
                   >
                     Discussion
                   </span>
@@ -167,8 +192,9 @@ const SideBar = () => {
                 <NavItem to="/settings" collapseMenu={collapseMenu}>
                   <SettingSVG />
                   <span
-                    className={`${collapseMenu ? "w-0 h-0" : "w-auto h-auto"
-                      } overflow-hidden duration-300`}
+                    className={`${
+                      collapseMenu ? "w-0 h-0" : "w-auto h-auto"
+                    } overflow-hidden duration-300`}
                   >
                     Setting
                   </span>
@@ -178,8 +204,9 @@ const SideBar = () => {
                 <NavItem to="/logout" collapseMenu={collapseMenu}>
                   <LogoutSVG />
                   <span
-                    className={`${collapseMenu ? "w-0 h-0" : "w-auto h-auto"
-                      } overflow-hidden duration-300`}
+                    className={`${
+                      collapseMenu ? "w-0 h-0" : "w-auto h-auto"
+                    } overflow-hidden duration-300`}
                   >
                     Log Out
                   </span>
@@ -187,27 +214,31 @@ const SideBar = () => {
               </li>
               <li className="mt-2 navItem">
                 <button
-                  className={`p-1.5 w-full bg-[#0064E133] ${collapseMenu ? "rounded-md" : "rounded-full"
-                    }`}
+                  className={`p-1.5 w-full bg-[#0064E133] ${
+                    collapseMenu ? "rounded-md" : "rounded-full"
+                  }`}
                 >
                   <span className="w-full h-9 block relative">
                     <span
-                      className={`h-full grid place-items-center absolute top-0 opacity-0 dark:opacity-100 duration-300 ${collapseMenu ? "invisible" : "left-1/4 -translate-x-1/2"
-                        }`}
+                      className={`h-full grid place-items-center absolute top-0 opacity-0 dark:opacity-100 duration-300 ${
+                        collapseMenu ? "invisible" : "left-1/4 -translate-x-1/2"
+                      }`}
                     >
                       <IoSunnyOutline className="w-6 h-6 text-[#000000]" />
                     </span>
                     <span
-                      className={`h-full grid place-items-center absolute top-0 opacity-100 dark:opacity-0 duration-300 ${collapseMenu ? "invisible" : "right-1/4 translate-x-1/2"
-                        }`}
+                      className={`h-full grid place-items-center absolute top-0 opacity-100 dark:opacity-0 duration-300 ${
+                        collapseMenu ? "invisible" : "right-1/4 translate-x-1/2"
+                      }`}
                     >
                       <IoMoonOutline className="w-6 h-6 text-[#000000]" />
                     </span>
                     <span
-                      className={`block bg-[#0064E1] h-full duration-300 ${collapseMenu
-                        ? "rounded-md"
-                        : "rounded-full absolute w-1/2 top-0 left-0 dark:right-0"
-                        }`}
+                      className={`block bg-[#0064E1] h-full duration-300 ${
+                        collapseMenu
+                          ? "rounded-md"
+                          : "rounded-full absolute w-1/2 top-0 left-0 dark:right-0"
+                      }`}
                     >
                       <IoSunnyOutline className="w-6 h-6 text-white absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 duration-300 opacity-100 dark:opacity-0" />
                       <IoMoonOutline className="w-6 h-6 text-white absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 duration-300 opacity-0 dark:opacity-100" />
@@ -217,8 +248,9 @@ const SideBar = () => {
               </li>
               <li className="mt-2 navItem">
                 <div
-                  className={`flex items-center ${collapseMenu ? "justify-center" : "gap-3 justify-start"
-                    }`}
+                  className={`flex items-center ${
+                    collapseMenu ? "justify-center" : "gap-3 justify-start"
+                  }`}
                 >
                   <span className="block w-12 h-12 overflow-hidden rounded-full">
                     <img
@@ -228,8 +260,9 @@ const SideBar = () => {
                     />
                   </span>
                   <span
-                    className={`${collapseMenu ? "w-0 h-0" : "w-auto h-auto"
-                      } overflow-hidden duration-300`}
+                    className={`${
+                      collapseMenu ? "w-0 h-0" : "w-auto h-auto"
+                    } overflow-hidden duration-300`}
                   >
                     <p className="text-base font-semibold leading-none">
                       Sundor Pichai
@@ -329,7 +362,7 @@ const SideBar = () => {
                   <li className="navItem">
                     <NavItem to="/setting">
                       <SettingSVG />
-                      <span className={`duration-300`}>Setting</span>
+                      <span className={`duration-300`}>Settings</span>
                     </NavItem>
                   </li>
                   <li className="navItem">
