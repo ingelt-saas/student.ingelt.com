@@ -7,11 +7,10 @@ import data from "../../data/message_box";
 
 const Discussions = () => {
   return (
-    <div className="w-full h-screen flex flex-col">
-      <h1 className="border-b-1 border-zinc-400 w-full text-4xl font-semibold py-4 mb-10">
+    <div className="w-full h-full flex flex-col">
+      <h1 className="border-b-1 border-zinc-400 w-full text-4xl font-semibold pb-4 mb-5">
         Discussions
       </h1>
-
       <div className="flex-1 overflow-y-auto border-2 rounded-xl border-slate-400 px-4" style={{ boxShadow: '0px 2px 50px 0px rgba(0,0,0,0.05) inset' }} id='discussionMsgBox'>
         <div className="flex flex-col items-center justify-center w-full">
           {data.map((item, index) => (
@@ -27,7 +26,7 @@ const Discussions = () => {
         </div>
       </div>
 
-      <form className="w-full my-4">
+      <form className="w-full mt-2">
         <p className="my-2 font-medium text-md">Send a Message</p>
         <div className="flex justify-center items-center w-full border border-slate-400 rounded-md bg-white">
           <input
