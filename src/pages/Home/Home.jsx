@@ -20,7 +20,7 @@ const Home = () => {
               />
 
               <h1 className="text-3xl font-semibold text-right py-5 px-5">
-                Welcome Harshita
+                Welcome Harshita!
               </h1>
             </div>
 
