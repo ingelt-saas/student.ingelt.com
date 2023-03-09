@@ -18,6 +18,8 @@ import Settings from "../pages/Settings/Settings";
 const Routes = () => {
   const [loggedIn, setLoggedIn] = useState(true);
 
+  setLoggedIn(true);
+
   const router = loggedIn
     ? createBrowserRouter([
         {
