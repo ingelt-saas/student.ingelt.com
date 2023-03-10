@@ -12,7 +12,12 @@ import {
   Pagination,
   TableRow,
 } from "@mui/material";
-import { FileUpload, FileDownload, Assignment } from "@mui/icons-material";
+import {
+  FileUpload,
+  FileDownload,
+  Assignment,
+  RemoveRedEye,
+} from "@mui/icons-material";
 
 // Custom Components
 import SearchBar from "../../components/shared/SearchBar/SearchBar";
@@ -103,16 +108,6 @@ const Assignments = () => {
               >
                 Marks
               </TableCell>
-
-              <TableCell
-                align="center"
-                sx={{ fontWeight: 600, fontSize: "1rem" }}
-              ></TableCell>
-
-              <TableCell
-                align="center"
-                sx={{ fontWeight: 600, fontSize: "1rem" }}
-              ></TableCell>
             </TableRow>
           </TableHead>
 
@@ -201,8 +196,8 @@ const Assignments = () => {
                       borderRadius: "8px",
                     }}
                   >
-                    Upload
-                    <FileUpload />
+                    Submit
+                    <FileUpload sx={{ marginLeft: "2px" }} />
                   </Button>
                 </TableCell>
 
@@ -222,7 +217,7 @@ const Assignments = () => {
                     }}
                   >
                     Download
-                    <FileDownload />
+                    <FileDownload sx={{ marginLeft: "2px" }} />
                   </Button>
                 </TableCell>
               </TableRow>
