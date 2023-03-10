@@ -196,7 +196,7 @@ const SideBar = () => {
                       collapseMenu ? "w-0 h-0" : "w-auto h-auto"
                     } overflow-hidden duration-300`}
                   >
-                    Setting
+                    Settings
                   </span>
                 </NavItem>
               </li>
@@ -349,7 +349,7 @@ const SideBar = () => {
                   <li className="navItem">
                     <NavItem to="/discussion">
                       <DiscussionSVG />
-                      <span className={`duration-300`}>Discussion</span>
+                      <span className={`duration-300`}>Discussions</span>
                     </NavItem>
                   </li>
                 </ul>

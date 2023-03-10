@@ -12,12 +12,7 @@ import {
   Pagination,
   TableRow,
 } from "@mui/material";
-import {
-  FileUpload,
-  FileDownload,
-  Assignment,
-  RemoveRedEye,
-} from "@mui/icons-material";
+import { FileUpload, FileDownload, Assignment } from "@mui/icons-material";
 
 // Custom Components
 import SearchBar from "../../components/shared/SearchBar/SearchBar";
