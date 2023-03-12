@@ -16,10 +16,10 @@ import Notes from "../pages/Notes/Notes";
 import Settings from "../pages/Settings/Settings";
 
 const Routes = () => {
-  const [loggedIn, setLoggedIn] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
-    setLoggedIn(true);
+    setLoggedIn(false);
   }, [loggedIn]);
 
   const router = loggedIn
