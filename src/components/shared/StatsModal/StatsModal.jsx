@@ -17,11 +17,7 @@ const StatsModal = ({ statsModal, statsModalHandle }) => {
     <Modal
       open={statsModal}
       onClose={() => statsModalHandle(false)}
-      sx={{
-        display: 'flex',
-        justifyContent: "flex-end",
-        alignItems: "center"
-      }}
+      className='flex justify-center sm:justify-end items-center'
     >
       {/* Stats modal start */}
       <Box

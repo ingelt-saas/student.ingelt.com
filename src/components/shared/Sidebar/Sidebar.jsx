@@ -76,49 +76,6 @@ const SideBar = () => {
         className={`${collapseMenu && "!w-auto"
           }  lg:w-56 xl:w-60 2xl:w-80 hidden lg:flex flex-col h-full justify-between`}
       >
-        {/* Button start */}
-        {/* <div className="absolute top-2 right-2">
-          <button
-            onClick={() => setCollapseMenu(!collapseMenu)}
-            className="w-9 h-9 rounded-full shadow-xl border-1 border-[#DCDEE1]"
-          >
-            <span className="w-full h-full relative">
-              {collapseMenu ? (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={2.5}
-                  stroke="currentColor"
-                  className={`w-6 h-6 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2`}
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-                  />
-                </svg>
-              ) : (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={2.5}
-                  stroke="currentColor"
-                  className={`w-6 h-6 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2`}
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
-              )}
-            </span>
-          </button>
-        </div> */}
-        {/* Button end */}
-
         <div className={`space-y-2 ${collapseMenu ? "mt-6" : "mt-0"}`}>
           <div className="flex items-center justify-center pt-5">
             <img
@@ -275,27 +232,33 @@ const SideBar = () => {
 
       {/* mobile navbar  */}
       <div className="lg:hidden">
-        <button
-          onClick={() => setOpen(true)}
-          className="fixed top-10 left-0 z-40 bg-[#222831] text-white w-12 h-10 grid place-items-center shadow-2xl rounded-r-full py-2"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={2.5}
-            stroke="currentColor"
-            className={`w-6 h-6`}
+        <div className="py-2 px-5 flex items-center justify-between border-b border-[#DCDEE1]">
+          <button
+            onClick={() => setOpen(true)}
+            className="text-black"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-            />
-          </svg>
-        </button>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={2.5}
+              stroke="currentColor"
+              className={`w-6 h-6`}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+              />
+            </svg>
+          </button>
+          <h2 className="text-xl font-semibold md:hidden">Welcome Harshita</h2>
+          <div className="w-10 h-10 overflow-hidden rounded-full border-2">
+            <img src='https://th.bing.com/th/id/OIP.aNCvbHsT65-Zr4xg3wtBeQHaHa?pid=ImgDet&rs=1' alt='profile' className="rounded-full w-full h-full object-cover" />
+          </div>
+        </div>
         <Drawer anchor={"left"} open={open} onClose={() => setOpen(false)}>
-          <div className="w-64 bg-[#fff] h-full flex flex-col justify-between">
+          <div className="w-64 bg-[#fff] h-full flex flex-col justify-between rounded-r-2xl">
             <div className={`space-y-2 ${collapseMenu ? "mt-6" : "mt-0"}`}>
               <div className="flex items-center justify-center pt-5">
                 <img
@@ -343,7 +306,7 @@ const SideBar = () => {
                     </NavItem>
                   </li>
                   <li className="navItem">
-                    <NavItem to="/discussion">
+                    <NavItem to="/discussions">
                       <DiscussionSVG />
                       <span className={`duration-300`}>Discussion</span>
                     </NavItem>

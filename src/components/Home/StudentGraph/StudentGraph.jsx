@@ -64,7 +64,7 @@ const StudentGraph = () => {
 
     return (
         <div>
-            <div className='flex justify-between items-start'>
+            <div className='flex px-4 md:px-0 flex-col gap-y-5 md:flex-row justify-between items-start'>
                 <div>
                     <h1 className='text-2xl font-semibold'>Performance</h1>
                     <div className='flex gap-x-3 mt-2'>

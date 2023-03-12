@@ -28,16 +28,15 @@ const Notes = () => {
       <Box
         display="flex"
         justifyContent="space-between"
-        sx={{ width: "100%", px: 2, py: 4 }}
+        className='w-full md:px-2 py-4'
       >
         <SearchBar />
-
         <SortButton />
       </Box>
 
       <Box className="flex flex-col items-center" sx={{ width: "100%" }}>
         <Table>
-          <TableHead>
+          <TableHead className="!hidden md:!table-header-group">
             <TableRow>
               <TableCell
                 align="center"
@@ -76,62 +75,28 @@ const Notes = () => {
 
           <TableBody>
             {data.map((item) => (
-              <TableRow
-                key={item}
-                sx={{
-                  cursor: "pointer",
-                  transition: "0.2s ease-in-out all",
-                  "&:hover": { backgroundColor: "#d0e1f9" },
-                }}
-              >
-                <TableCell
-                  align="center"
-                  sx={{ borderBottomWidth: "0", py: 1, fontWeight: 600 }}
-                >
-                  <Assignment className="mr-3 text-[#4C9BFF]" />
-                  Test Notes
-                </TableCell>
-
-                <TableCell
-                  align="center"
-                  sx={{
-                    borderBottomWidth: "0",
-                    py: 1,
-                    fontWeight: 500,
-                    color: "#6D6D6D",
-                  }}
-                >
+              <tr key={item} className='cursor-pointer duration-300 hover:bg-[#d0e1f9] border-b md:border-0 border-[#C0C0C0]'>
+                <td className="text-left md:text-center py-2">
+                  <div className="flex items-center">
+                    <Assignment className="mr-3 text-[#4C9BFF]" />
+                    <div className="inline">
+                      <span className="font-semibold block"> Test Notes</span>
+                      <span className="text-sm font-semibold md:hidden text-[#6D6D6D]">
+                        200KB - Jan 4, 2023
+                      </span>
+                    </div>
+                  </div>
+                </td>
+                <td className="py-2 text-center text-sm hidden md:table-cell text-[#6D6D6D]">
                   4.5
-                </TableCell>
-
-                <TableCell
-                  align="center"
-                  sx={{
-                    borderBottomWidth: "0",
-                    py: 1,
-                    fontWeight: 500,
-                    color: "#6D6D6D",
-                  }}
-                >
+                </td>
+                <td className="py-2 text-center text-sm hidden md:table-cell text-[#6D6D6D]">
                   Listening
-                </TableCell>
-
-                <TableCell
-                  align="center"
-                  sx={{
-                    borderBottomWidth: "0",
-                    py: 1,
-                    fontWeight: 500,
-                    color: "#6D6D6D",
-                  }}
-                >
+                </td>
+                <td className="py-2 text-center text-sm hidden md:table-cell text-[#6D6D6D]">
                   1-02-2023
-                </TableCell>
-
-                <TableCell
-                  align="center"
-                  sx={{ borderBottomWidth: "0", py: 1 }}
-                >
+                </td>
+                <td className="py-2 text-center hidden md:table-cell">
                   <Button
                     variant="outlined"
                     color="primary"
@@ -146,8 +111,13 @@ const Notes = () => {
                     Download
                     <FileDownload />
                   </Button>
-                </TableCell>
-              </TableRow>
+                </td>
+                <td className="py-2 text-center md:hidden">
+                  <button className='text-[#0064E1]'>
+                    <FileDownload />
+                  </button>
+                </td>
+              </tr>
             ))}
           </TableBody>
         </Table>

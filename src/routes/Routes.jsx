@@ -20,51 +20,51 @@ const Routes = () => {
 
   const router = loggedIn
     ? createBrowserRouter([
-        {
-          path: "/",
-          element: <PanelLayout />,
-          children: [
-            {
-              path: "/",
-              element: <Home />,
-            },
-            {
-              path: "/assignments",
-              element: <Assignments />,
-            },
-            {
-              path: "/discussions",
-              element: <Discussions />,
-            },
-            {
-              path: "/documents",
-              element: <Documents />,
-            },
-            {
-              path: "/notes",
-              element: <Notes />,
-            },
-            {
-              path: "/settings",
-              element: <Settings />,
-            },
-            {
-              path: "*",
-              element: <NotFound />,
-            },
-          ],
-        },
-      ])
+      {
+        path: "/",
+        element: <PanelLayout />,
+        children: [
+          {
+            path: "/",
+            element: <Home />,
+          },
+          {
+            path: "/assignments",
+            element: <Assignments />,
+          },
+          {
+            path: "/discussions",
+            element: <Discussions />,
+          },
+          {
+            path: "/documents",
+            element: <Documents />,
+          },
+          {
+            path: "/notes",
+            element: <Notes />,
+          },
+          {
+            path: "/setting",
+            element: <Settings />,
+          },
+          {
+            path: "*",
+            element: <NotFound />,
+          },
+        ],
+      },
+    ])
     : createBrowserRouter([
-        {
-          path: "/",
-          element: <LoginLayout />,
-        },
-        {
-          path: "*",
-          element: <NotFound />,
-        },
-      ]);
+      {
+        path: "/",
+        element: <LoginLayout />,
+      },
+      {
+        path: "*",
+        element: <NotFound />,
+      },
+    ]);
 
   return <RouterProvider router={router} />;
 };
