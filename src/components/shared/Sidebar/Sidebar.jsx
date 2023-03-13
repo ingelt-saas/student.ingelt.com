@@ -1,6 +1,6 @@
 // React Support
 import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 // React Icons
 import {
@@ -256,7 +256,9 @@ const SideBar = () => {
           </button>
           <h2 className="text-xl font-semibold md:hidden">Welcome Harshita</h2>
           <div className="w-10 h-10 overflow-hidden rounded-full border-2">
-            <img src='https://th.bing.com/th/id/OIP.aNCvbHsT65-Zr4xg3wtBeQHaHa?pid=ImgDet&rs=1' alt='profile' className="rounded-full w-full h-full object-cover" />
+            <Link to='/settings'>
+              <img src='https://th.bing.com/th/id/OIP.aNCvbHsT65-Zr4xg3wtBeQHaHa?pid=ImgDet&rs=1' alt='profile' className="rounded-full w-full h-full object-cover" />
+            </Link>
           </div>
         </div>
         <Drawer anchor={"left"} open={open} onClose={() => setOpen(false)}>

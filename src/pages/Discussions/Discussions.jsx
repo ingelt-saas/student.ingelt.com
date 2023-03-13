@@ -12,7 +12,7 @@ const Discussions = () => {
         Discussions
       </h1>
 
-      <div className="flex-1 overflow-y-auto border-2 rounded-xl border-slate-400 px-2 md:px-4" style={{ boxShadow: '0px 2px 50px 0px rgba(0,0,0,0.05) inset' }} id='discussionMsgBox'>
+      <div className="flex-1 overflow-y-auto no-scrollbar rounded-xl border-slate-400 px-2 md:px-4" style={{ boxShadow: '0px 2px 50px 0px rgba(0,0,0,0.05) inset' }} >
         <div className="flex flex-col items-center justify-center w-full">
           {data.map((item, index) => (
             <MessageBox
