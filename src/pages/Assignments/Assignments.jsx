@@ -43,31 +43,22 @@ const Assignments = () => {
         Assignments
       </h1>
 
-      <Box
-        display="flex"
-        justifyContent="space-between"
-        sx={{
-          width: "100%",
-          px: {
-            md: 2
-          },
-          py: 4
-        }}
-      >
+      <Box className='flex flex-col items-center gap-y-4 sm:flex-row sm:justify-between w-full md:px-2 py-4'>
         <SearchBar />
-        <Button
-          variant="contained"
-          sx={{
-            fontWeight: 600,
-            textTransform: "capitalize",
-            borderRadius: 2,
-          }}
-          onClick={() => setStatsModal(true)}
-        >
-          Show Stats
-        </Button>
-
-        <SortButton />
+        <div className="flex justify-center sm:justify-between gap-x-9 w-full sm:w-1/2">
+          <Button
+            variant="contained"
+            sx={{
+              fontWeight: 600,
+              textTransform: "capitalize",
+              borderRadius: 2,
+            }}
+            onClick={() => setStatsModal(true)}
+          >
+            Show Stats
+          </Button>
+          <SortButton />
+        </div>
       </Box>
 
       <Box className="flex-col items-center flex" sx={{ width: "100%" }}>
