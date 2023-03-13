@@ -19,11 +19,16 @@ import SearchBar from "../../components/shared/SearchBar/SearchBar";
 import SortButton from "../../components/shared/SortButton/SortButton";
 import UploadModal from "../../components/shared/UploadModal/UploadModal";
 import StatsModal from "../../components/shared/StatsModal/StatsModal";
+import PopOver from "../../components/shared/PopOverModal/PopOverModal";
+import PDFViewerModal from "../../components/shared/PDFViewerModal/PDFViewerModal";
 
 const Assignments = () => {
   // States
   const [uploadModal, setUploadModal] = useState(false);
   const [statsModal, setStatsModal] = useState(false);
+
+  // popover state
+  const [anchorEl, setAnchorEl] = useState(null);
 
   // Event Handlers
   const uploadModalHandle = (value) => {
@@ -32,6 +37,10 @@ const Assignments = () => {
 
   const statsModalHandle = (value) => {
     setStatsModal(value);
+  };
+
+  const popOverHandle = (event) => {
+    setAnchorEl(event.currentTarget);
   };
 
   const data = [1, 2, 3, 4, 5, 6, 7, 8];
@@ -158,7 +167,7 @@ const Assignments = () => {
                   </Button>
                 </td>
                 <td className="py-2 text-right md:hidden">
-                  <button>
+                  <button onClick={popOverHandle}>
                     <MoreVert />
                   </button>
                 </td>
@@ -178,6 +187,10 @@ const Assignments = () => {
 
       {/* Stats modal */}
       <StatsModal statsModal={statsModal} statsModalHandle={statsModalHandle} />
+
+      {/* popover modal */}
+      <PopOver anchorEl={anchorEl} setAnchorEl={setAnchorEl} assignment={{}} />
+
     </Box>
   );
 };
