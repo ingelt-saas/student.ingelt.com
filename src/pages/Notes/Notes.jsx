@@ -77,7 +77,7 @@ const Notes = () => {
             {data.map((item) => (
               <tr key={item} className='cursor-pointer duration-300 hover:bg-[#d0e1f9] border-b md:border-0 border-[#C0C0C0]'>
                 <td className="text-left md:text-center py-2">
-                  <div className="flex items-center">
+                  <div className="flex items-center justify-start md:justify-center">
                     <Assignment className="mr-3 text-[#4C9BFF]" />
                     <div className="inline">
                       <span className="font-semibold block"> Test Notes</span>

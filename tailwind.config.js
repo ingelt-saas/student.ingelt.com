@@ -47,6 +47,14 @@ module.exports = {
         590: "590px",
       },
     },
+    screens: {
+      'sm': '640px',
+      'md': '768px',
+      'foo': '900px', // new breakpoint
+      'lg': '1024px',
+      'xl': '1280px',
+      '2xl': '1536px'
+    }
   },
   plugins: [],
 };
