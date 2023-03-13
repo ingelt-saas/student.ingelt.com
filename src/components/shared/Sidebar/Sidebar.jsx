@@ -28,9 +28,10 @@ import {
 import logo from "../../../assets/images/logo.svg";
 
 // Navbar Item Components
-const NavItem = ({ to, children, collapseMenu }) => {
+const NavItem = ({ to, children, collapseMenu, ...props }) => {
   return (
     <NavLink
+      {...props}
       to={to}
       className={({ isActive }) =>
         `${isActive
@@ -67,6 +68,7 @@ const SideBar = () => {
       ele.onmouseover = () => setCollapseMenu(false);
       ele.onmouseout = () => setCollapseMenu(true);
     });
+
   }, []);
 
   return (
@@ -258,7 +260,7 @@ const SideBar = () => {
           </div>
         </div>
         <Drawer anchor={"left"} open={open} onClose={() => setOpen(false)}>
-          <div className="w-64 bg-[#fff] h-full flex flex-col justify-between rounded-r-2xl">
+          <div className="w-64 bg-[#fff] h-full flex flex-col justify-between rounded-r-2xl" id='mobileNavbar'>
             <div className={`space-y-2 ${collapseMenu ? "mt-6" : "mt-0"}`}>
               <div className="flex items-center justify-center pt-5">
                 <img
@@ -269,46 +271,44 @@ const SideBar = () => {
               </div>
               <div className="flex-1 px-2">
                 <ul className="pt-2 pb-4">
-                  <li className="navItem">
-                    <NavItem to="/">
+                  <li className="navItem mb-2">
+                    <NavItem to="/" onClick={() => setOpen(false)}>
                       <HomeSVG />
-                      <span className={`duration-300`}>Home</span>
+                      <span>
+                        Home
+                      </span>
                     </NavItem>
                   </li>
-                  <li className="navItem">
-                    <NavItem to="/database">
-                      <DatabaseSVG />
-                      <span className={`duration-300`}>Database</span>
-                    </NavItem>
-                  </li>
-                  <li className="navItem">
-                    <NavItem to="/assignments">
+                  <li className="navItem mb-2">
+                    <NavItem to="/assignments" onClick={() => setOpen(false)}>
                       <AssignmentSVG />
-                      <span className={`duration-300`}>Assignments</span>
+                      <span>
+                        Assignments
+                      </span>
                     </NavItem>
                   </li>
-                  <li className="navItem">
-                    <NavItem to="/mocktest">
-                      <IoNewspaperOutline className="w-5 h-5" />
-                      <span className={`duration-300`}>Mock Test</span>
-                    </NavItem>
-                  </li>
-                  <li className="navItem">
-                    <NavItem to="/notes">
+                  <li className="navItem mb-2">
+                    <NavItem to="/notes" onClick={() => setOpen(false)}>
                       <NotesSVG />
-                      <span className={`duration-300`}>Notes</span>
+                      <span>
+                        Notes
+                      </span>
                     </NavItem>
                   </li>
-                  <li className="navItem">
-                    <NavItem to="/documents">
+                  <li className="navItem mb-2">
+                    <NavItem to="/documents" onClick={() => setOpen(false)}>
                       <DocumentsSVG />
-                      <span className={`duration-300`}>Documents</span>
+                      <span>
+                        Documents
+                      </span>
                     </NavItem>
                   </li>
-                  <li className="navItem">
-                    <NavItem to="/discussions">
+                  <li className="navItem mb-2">
+                    <NavItem to="/discussions" onClick={() => setOpen(false)}>
                       <DiscussionSVG />
-                      <span className={`duration-300`}>Discussions</span>
+                      <span>
+                        Discussion
+                      </span>
                     </NavItem>
                   </li>
                 </ul>
@@ -319,19 +319,20 @@ const SideBar = () => {
               <div className="flex-1">
                 <ul className="pt-2">
                   <li className="navItem">
-                    <NavItem to="/setting">
+                    <NavItem to="/settings" onClick={() => setOpen(false)}>
                       <SettingSVG />
                       <span className={`duration-300`}>Settings</span>
                     </NavItem>
                   </li>
                   <li className="navItem">
-                    <NavItem to="/logout">
+                    <NavItem to="/logout" onClick={() => setOpen(false)}>
                       <LogoutSVG />
                       <span className={`duration-300`}>Log Out</span>
                     </NavItem>
                   </li>
                   <li className="mt-2">
                     <button
+                      onClick={darkModeHandler}
                       className={`p-1.5 w-full bg-[#0064E133] rounded-full`}
                     >
                       <span className="w-full h-9 block relative">
