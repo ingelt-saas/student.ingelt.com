@@ -35,6 +35,7 @@ const InputFieldSx = {
 };
 
 const Settings = () => {
+
   const [gender, setGender] = useState("");
   const [open, setOpen] = useState(false);
   const [expertise, setExpertise] = useState("");
@@ -48,10 +49,10 @@ const Settings = () => {
   };
 
   return (
-    <div className="flex w-full py-4 h-full">
-      <div className="w-3/5 mr-2 flex flex-col items-center mt-4">
+    <div className="flex flex-col md:flex-row w-full gap-y-5 py-4 h-full">
+      <div className=" md:w-3/5 mr-2 flex flex-col items-center mt-4">
         <img
-          className="rounded-full object-cover object-center h-64 w-64 mb-4"
+          className="rounded-full object-cover object-center h-52 w-52 md:h-64 md:w-64 mb-4"
           src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=776&q=80"
           alt=""
         />
@@ -66,7 +67,7 @@ const Settings = () => {
       </div>
 
       <Grid
-        className="w-2/5 ml-2 flex items-center justify-center px-4"
+        className="w-2/5 ml-2 flex items-center justify-center md:px-4 pb-10"
         container
         rowSpacing={1}
         columnSpacing={{
@@ -75,7 +76,7 @@ const Settings = () => {
           md: 3,
         }}
       >
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={6}>
           <TextField
             className="w-full"
             id="outlined-basic"
@@ -88,7 +89,7 @@ const Settings = () => {
           />
         </Grid>
 
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={6}>
           <TextField
             className="w-full"
             id="outlined-basic"
@@ -101,7 +102,7 @@ const Settings = () => {
           />
         </Grid>
 
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={6}>
           <label className="text-xs text-[#93999C]" htmlFor="DOB">
             Date Of Birth*
           </label>
@@ -119,7 +120,7 @@ const Settings = () => {
           />
         </Grid>
 
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={6}>
           <label className="text-xs text-[#93999C]" htmlFor="ExpDate">
             Expected Test Date
           </label>
@@ -136,7 +137,7 @@ const Settings = () => {
           />
         </Grid>
 
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={6}>
           <TextField
             className="w-full"
             id="outlined-basic"
@@ -149,7 +150,7 @@ const Settings = () => {
           />
         </Grid>
 
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={6}>
           <FormControl variant="outlined" size="small" sx={InputFieldSx}>
             <InputLabel id="demo-simple-select-label">Gender*</InputLabel>
             <Select
@@ -168,7 +169,7 @@ const Settings = () => {
           </FormControl>
         </Grid>
 
-        <Grid className="w-full" item xs={6}>
+        <Grid className="w-full" item xs={12} sm={6}>
           <TextField
             className="w-full"
             id="outlined-basic"
@@ -181,7 +182,7 @@ const Settings = () => {
           />
         </Grid>
 
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={6}>
           <FormControl
             variant="outlined"
             size="small"
@@ -205,7 +206,7 @@ const Settings = () => {
           </FormControl>
         </Grid>
 
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={6}>
           <FormControl
             variant="outlined"
             size="small"
@@ -231,7 +232,7 @@ const Settings = () => {
           </FormControl>
         </Grid>
 
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={6}>
           <TextField
             className="w-full"
             id="outlined-basic"
@@ -243,7 +244,7 @@ const Settings = () => {
           />
         </Grid>
 
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={6}>
           <TextField
             className="w-full"
             id="outlined-basic"
@@ -255,7 +256,7 @@ const Settings = () => {
           />
         </Grid>
 
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={6}>
           <TextField
             className="w-full"
             id="outlined-basic"
@@ -267,7 +268,7 @@ const Settings = () => {
           />
         </Grid>
 
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={6}>
           <TextField
             className="w-full"
             id="outlined-basic"
@@ -279,7 +280,7 @@ const Settings = () => {
           />
         </Grid>
 
-        <Grid className="w-full" item xs={6}>
+        <Grid className="w-full" item xs={12} sm={6}>
           <TextField
             className="w-full"
             id="outlined-basic"
@@ -292,7 +293,7 @@ const Settings = () => {
           />
         </Grid>
 
-        <Grid className="w-full" item xs={6}>
+        <Grid className="w-full" item xs={12} sm={6}>
           <label className="text-xs text-[#93999C]" htmlFor="outlined-basic">
             Previous Score
           </label>
@@ -307,7 +308,7 @@ const Settings = () => {
           />
         </Grid>
 
-        <Grid className="w-full" item xs={6}>
+        <Grid className="w-full" item xs={12} sm={6}>
           <label className="text-xs text-[#93999C]" htmlFor="outlined-basic">
             Target Score
           </label>
@@ -322,7 +323,7 @@ const Settings = () => {
           />
         </Grid>
 
-        <Grid className="w-full" item xs={6}>
+        <Grid className="w-full" item xs={12} sm={6}>
           <label className="text-xs text-[#93999C]" htmlFor="outlined-basic">
             Student ID
           </label>
@@ -338,7 +339,7 @@ const Settings = () => {
           />
         </Grid>
 
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={6}>
           <label className="text-xs text-[#93999C]" htmlFor="outlined-basic">
             Change Password
           </label>
@@ -357,9 +358,11 @@ const Settings = () => {
             Change Password
           </StyledButton>
         </Grid>
+
         <Box
           sx={{
             width: "100%",
+            marginTop: '1rem',
             display: "flex",
             alignItems: "center",
             justifyContent: "end",

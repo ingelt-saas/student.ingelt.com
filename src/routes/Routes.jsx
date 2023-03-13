@@ -14,61 +14,72 @@ import Discussions from "../pages/Discussions/Discussions";
 import Documents from "../pages/Documents/Documents";
 import Notes from "../pages/Notes/Notes";
 import Settings from "../pages/Settings/Settings";
+import SingleAssignment from "../pages/Assignments/SingleAssignment";
 
 const Routes = () => {
   const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
-    setLoggedIn(false);
+    setLoggedIn(true);
   }, [loggedIn]);
 
   const router = loggedIn
     ? createBrowserRouter([
-        {
-          path: "/",
-          element: <PanelLayout />,
-          children: [
-            {
-              path: "/",
-              element: <Home />,
-            },
-            {
-              path: "/assignments",
-              element: <Assignments />,
-            },
-            {
-              path: "/discussions",
-              element: <Discussions />,
-            },
-            {
-              path: "/documents",
-              element: <Documents />,
-            },
-            {
-              path: "/notes",
-              element: <Notes />,
-            },
-            {
-              path: "/settings",
-              element: <Settings />,
-            },
-            {
-              path: "*",
-              element: <NotFound />,
-            },
-          ],
-        },
-      ])
+      {
+        path: "/",
+        element: <PanelLayout />,
+        children: [
+          {
+            path: "/",
+            element: <Home />,
+          },
+          {
+            path: "/assignments",
+            children: [
+              {
+                path: '/assignments',
+                element: <Assignments />,
+              },
+              {
+                // it's route for mobile 
+                path: '/assignments/:assignmentId',
+                element: <SingleAssignment />,
+              }
+            ]
+          },
+          {
+            path: "/discussions",
+            element: <Discussions />,
+          },
+          {
+            path: "/documents",
+            element: <Documents />,
+          },
+          {
+            path: "/notes",
+            element: <Notes />,
+          },
+          {
+            path: "/settings",
+            element: <Settings />,
+          },
+          {
+            path: "*",
+            element: <NotFound />,
+          },
+        ],
+      },
+    ])
     : createBrowserRouter([
-        {
-          path: "/",
-          element: <LoginLayout />,
-        },
-        {
-          path: "*",
-          element: <NotFound />,
-        },
-      ]);
+      {
+        path: "/",
+        element: <LoginLayout />,
+      },
+      {
+        path: "*",
+        element: <NotFound />,
+      },
+    ]);
 
   return <RouterProvider router={router} />;
 };

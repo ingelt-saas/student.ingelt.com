@@ -12,7 +12,7 @@ import {
   Pagination,
   TableRow,
 } from "@mui/material";
-import { FileUpload, FileDownload, Assignment } from "@mui/icons-material";
+import { FileUpload, FileDownload, Assignment, MoreVert } from "@mui/icons-material";
 
 // Custom Components
 import SearchBar from "../../components/shared/SearchBar/SearchBar";
@@ -31,8 +31,7 @@ const Assignments = () => {
   };
 
   const statsModalHandle = (value) => {
-    console.log(value);
-    setUploadModal(value);
+    setStatsModal(value);
   };
 
   const data = [1, 2, 3, 4, 5, 6, 7, 8];
@@ -47,7 +46,13 @@ const Assignments = () => {
       <Box
         display="flex"
         justifyContent="space-between"
-        sx={{ width: "100%", px: 2, py: 4 }}
+        sx={{
+          width: "100%",
+          px: {
+            md: 2
+          },
+          py: 4
+        }}
       >
         <SearchBar />
         <Button
@@ -65,9 +70,9 @@ const Assignments = () => {
         <SortButton />
       </Box>
 
-      <Box className="flex flex-col items-center" sx={{ width: "100%" }}>
+      <Box className="flex-col items-center flex" sx={{ width: "100%" }}>
         <Table>
-          <TableHead>
+          <TableHead className="!hidden md:!table-header-group">
             <TableRow>
               <TableCell
                 align="center"
@@ -75,7 +80,6 @@ const Assignments = () => {
               >
                 File Name
               </TableCell>
-
               <TableCell
                 align="center"
                 sx={{ fontWeight: 600, fontSize: "1rem" }}
@@ -107,79 +111,30 @@ const Assignments = () => {
           </TableHead>
 
           <TableBody>
-            {data.map((item) => (
-              <TableRow
-                key={item}
-                sx={{
-                  cursor: "pointer",
-                  transition: "0.2s ease-in-out all",
-                  "&:hover": { backgroundColor: "#d0e1f9" },
-                }}
-              >
-                <TableCell
-                  align="center"
-                  sx={{
-                    borderBottomWidth: "0",
-                    py: 1,
-                    fontWeight: 600,
-                  }}
-                >
-                  <Assignment className="mr-3 text-[#4C9BFF]" />
-                  Assignment 1.pdf
-                </TableCell>
-
-                <TableCell
-                  align="center"
-                  sx={{
-                    borderBottomWidth: "0",
-                    py: 1,
-                    fontWeight: 500,
-                    color: "#6D6D6D",
-                  }}
-                >
+            {data.map((item, index) => (
+              <tr key={item} className='cursor-pointer duration-300 hover:bg-[#d0e1f9]'>
+                <td className="text-left md:text-center py-2">
+                  <div className="flex items-center">
+                    <Assignment className="mr-3 text-[#4C9BFF]" />
+                    <div className="inline">
+                      <span className="font-semibold block">Assignment {index}.pdf</span>
+                      <span className="text-sm font-normal md:hidden">Not Complete</span>
+                    </div>
+                  </div>
+                </td>
+                <td className="py-2 text-center text-sm hidden md:table-cell text-[#6D6D6D]">
                   Not Complete
-                </TableCell>
-
-                <TableCell
-                  align="center"
-                  sx={{
-                    borderBottomWidth: "0",
-                    py: 1,
-                    fontWeight: 500,
-                    color: "#6D6D6D",
-                  }}
-                >
+                </td>
+                <td className="py-2 text-center text-sm hidden md:table-cell text-[#6D6D6D]">
                   1-02-2023
-                </TableCell>
-
-                <TableCell
-                  align="center"
-                  sx={{
-                    borderBottomWidth: "0",
-                    py: 1,
-                    fontWeight: 500,
-                    color: "#6D6D6D",
-                  }}
-                >
+                </td>
+                <td className="py-2 text-center text-sm hidden md:table-cell text-[#6D6D6D]">
                   1-02-2023
-                </TableCell>
-
-                <TableCell
-                  align="center"
-                  sx={{
-                    borderBottomWidth: "0",
-                    py: 1,
-                    fontWeight: 500,
-                    color: "#6D6D6D",
-                  }}
-                >
+                </td>
+                <td className="py-2 text-center text-sm hidden md:table-cell text-[#6D6D6D] font-bold">
                   7.2
-                </TableCell>
-
-                <TableCell
-                  align="center"
-                  sx={{ borderBottomWidth: "0", py: 1 }}
-                >
+                </td>
+                <td className="py-2 text-center hidden md:table-cell">
                   <Button
                     onClick={() => setUploadModal(true)}
                     variant="outlined"
@@ -194,12 +149,8 @@ const Assignments = () => {
                     Submit
                     <FileUpload sx={{ marginLeft: "2px" }} />
                   </Button>
-                </TableCell>
-
-                <TableCell
-                  align="center"
-                  sx={{ borderBottomWidth: "0", py: 1 }}
-                >
+                </td>
+                <td className="py-2 text-center hidden md:table-cell">
                   <Button
                     variant="outlined"
                     color="primary"
@@ -214,8 +165,13 @@ const Assignments = () => {
                     Download
                     <FileDownload sx={{ marginLeft: "2px" }} />
                   </Button>
-                </TableCell>
-              </TableRow>
+                </td>
+                <td className="py-2 text-right md:hidden">
+                  <button>
+                    <MoreVert />
+                  </button>
+                </td>
+              </tr>
             ))}
           </TableBody>
         </Table>

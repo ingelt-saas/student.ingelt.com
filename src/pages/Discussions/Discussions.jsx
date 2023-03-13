@@ -8,10 +8,11 @@ import data from "../../data/message_box";
 const Discussions = () => {
   return (
     <div className="w-full h-full flex flex-col">
-      <h1 className="border-b-1 border-zinc-400 w-full text-4xl font-semibold pb-4 mb-5">
+      <h1 className="border-b-1 border-zinc-400 w-full text-4xl font-semibold pb-4 mb-5 hidden md:block">
         Discussions
       </h1>
-      <div className="flex-1 overflow-y-auto border-2 rounded-xl border-slate-400 px-4" style={{ boxShadow: '0px 2px 50px 0px rgba(0,0,0,0.05) inset' }} id='discussionMsgBox'>
+
+      <div className="flex-1 overflow-y-auto border-2 rounded-xl border-slate-400 px-2 md:px-4" style={{ boxShadow: '0px 2px 50px 0px rgba(0,0,0,0.05) inset' }} id='discussionMsgBox'>
         <div className="flex flex-col items-center justify-center w-full">
           {data.map((item, index) => (
             <MessageBox

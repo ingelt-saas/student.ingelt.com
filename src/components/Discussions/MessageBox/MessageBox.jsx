@@ -1,6 +1,6 @@
 const MessageBox = ({ sender_name, sender_img, designation, text, date }) => {
   return (
-    <div className="w-full px-6 py-8 bg-white rounded-lg m-2 shadow-xl shadow-slate-100">
+    <div className="w-full px-2 md:px-6 py-8 bg-white rounded-lg m-2 shadow-xl shadow-slate-100">
       <div className="flex justify-between items-center mb-4">
         <div className="flex ">
           <img
