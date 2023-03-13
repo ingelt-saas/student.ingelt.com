@@ -1,14 +1,68 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 //assets
-import welcomeSVG from '../../assets/images/welcome.svg';
-import frameSVG from '../../assets/images/profile-frame.svg';
-import meetSVG from '../../assets/images/meeting.svg';
+import welcomeSVG from "../../assets/images/welcome.svg";
+import frameSVG from "../../assets/images/profile_frame.svg";
+import meetSVG from "../../assets/images/meeting.svg";
 import StudentGraph from "../../components/Home/StudentGraph/StudentGraph";
 
-const Home = () => {
+// MUI
+import { Tooltip, Button } from "@mui/material";
+import {
+  Person2,
+  LocationOn,
+  LocalPhone,
+  Email,
+  Female,
+  Male,
+  Transgender,
+  Badge,
+  Cake,
+  Tv,
+  ContentCopy,
+  Assessment,
+  Quiz,
+  GpsFixed,
+} from "@mui/icons-material";
+
+// Student Info Block
+const StudentInfoBlock = ({ title, text, IconName }) => {
   return (
-    <>
+    <div className="flex items-center gap-x-3">
+      <div className="bg-black text-white p-2 rounded-full flex justify-center align-center">
+        <IconName fontSize="medium" />
+      </div>
+
+      <div className="flex-1">
+        <p className="text-[#6A6A6A] text-base font-normal">{title}</p>
+
+        <p className="text-black text-base font-semibold break-words">{text}</p>
+      </div>
+    </div>
+  );
+};
+
+const Home = () => {
+  const [gender, setGender] = useState("m");
+  const [isCopied, setIsCopied] = useState(false);
+
+  const handleCopy = async (text) => {
+    text = "1234";
+
+    try {
+      await navigator.clipboard.writeText(text);
+      setIsCopied(true);
+    } catch (error) {
+      console.error("Failed to copy text: ", error);
+    }
+  };
+
+  useEffect(() => {
+    setGender("m");
+  }, [gender]);
+
+  return (
+    <div>
       <div className="flex flex-row flex-wrap w-full">
         {/* welcome message */}
         <div className="lg:w-8/12 md:w-7/12 hidden md:block">
@@ -193,7 +247,7 @@ const Home = () => {
       <div className="border w-full rounded-lg mt-10 border-[#78787840]">
         <div className="px-10 py-10">
           <h1 className="text-2xl font-semibold">Mock Test Performance</h1>
-          <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-10">
+          <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-x-10">
             <div className="rounded-lg p-2 bg-[#0064E11A]">
               <div className="flex flex-col items-center gap-3 bg-[#fff] rounded-lg py-3">
                 <svg className="w-20 h-20" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -204,33 +258,38 @@ const Home = () => {
                 <span className="block text-2xl font-bold">7.5</span>
               </div>
             </div>
-            <div className="rounded-lg p-2 bg-[#0064E11A]">
-              <div className="flex flex-col items-center gap-3 bg-[#fff] rounded-lg py-3">
-                <svg className="w-20 h-20" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="50" cy="50" r="50" fill="#0064E1" />
-                  <path d="M80.2675 54.25C79.4328 60.859 76.4232 67.0025 71.7129 71.7129C67.0025 76.4232 60.859 79.4328 54.25 80.2675V88H46.75V80.2675C40.141 79.4328 33.9975 76.4232 29.2871 71.7129C24.5768 67.0025 21.5672 60.859 20.7325 54.25H13V46.75H20.7325C21.5672 40.141 24.5768 33.9975 29.2871 29.2871C33.9975 24.5768 40.141 21.5672 46.75 20.7325V13H54.25V20.7325C60.859 21.5672 67.0025 24.5768 71.7129 29.2871C76.4232 33.9975 79.4328 40.141 80.2675 46.75H88V54.25H80.2675ZM50.5 73C56.4674 73 62.1903 70.6295 66.4099 66.4099C70.6295 62.1903 73 56.4674 73 50.5C73 44.5326 70.6295 38.8097 66.4099 34.5901C62.1903 30.3705 56.4674 28 50.5 28C44.5326 28 38.8097 30.3705 34.5901 34.5901C30.3705 38.8097 28 44.5326 28 50.5C28 56.4674 30.3705 62.1903 34.5901 66.4099C38.8097 70.6295 44.5326 73 50.5 73ZM50.5 61.75C53.4837 61.75 56.3452 60.5647 58.455 58.455C60.5647 56.3452 61.75 53.4837 61.75 50.5C61.75 47.5163 60.5647 44.6548 58.455 42.545C56.3452 40.4353 53.4837 39.25 50.5 39.25C47.5163 39.25 44.6548 40.4353 42.545 42.545C40.4353 44.6548 39.25 47.5163 39.25 50.5C39.25 53.4837 40.4353 56.3452 42.545 58.455C44.6548 60.5647 47.5163 61.75 50.5 61.75Z" fill="white" />
-                </svg>
-                <h1 className="text-[#787878] text-xl font-semibold">Target Score</h1>
-                <span className="block text-2xl font-bold">7.5</span>
+
+            <div className="border border-[#78787840] w-full px-8 py-4 flex justify-between items-center my-1">
+              <div className="bg-black p-2 text-white rounded-md mr-12 w-fit flex items-center justify-center">
+                <GpsFixed />
+              </div>
+
+              <div className="flex justify-around items-center">
+                <span className="font-semibold text-xl mr-4">Target Score</span>
+                <span className="text-lg font-semibold text-white bg-[#404040] rounded-md px-2 py-1">
+                  8.0
+                </span>
               </div>
             </div>
-            <div className="rounded-lg p-2 bg-[#0064E11A]">
-              <div className="flex flex-col items-center gap-3 bg-[#fff] rounded-lg py-3">
-                <svg className="w-20 h-20" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="50" cy="50" r="50" fill="#0064E1" />
-                  <path fillRule="evenodd" clipRule="evenodd" d="M70.667 36.2214C70.667 34.8511 71.2113 33.5369 72.1803 32.568C73.1492 31.599 74.4634 31.0547 75.8337 31.0547C77.2039 31.0547 78.5181 31.599 79.487 32.568C80.456 33.5369 81.0003 34.8511 81.0003 36.2214V71.1876L75.8337 78.9376L70.667 71.1876V36.2214ZM75.8337 34.4991C75.3769 34.4991 74.9388 34.6806 74.6159 35.0036C74.2929 35.3265 74.1114 35.7646 74.1114 36.2214V70.144L75.8337 72.7273L77.5559 70.144V36.2214C77.5559 35.7646 77.3744 35.3265 77.0515 35.0036C76.7285 34.6806 76.2904 34.4991 75.8337 34.4991Z" fill="white" />
-                  <path fillRule="evenodd" clipRule="evenodd" d="M79.2778 43.1111H72.3889V39.6667H79.2778V43.1111ZM25.8889 22.4444C24.9754 22.4444 24.0993 22.8073 23.4533 23.4533C22.8073 24.0993 22.4444 24.9754 22.4444 25.8889V74.1111C22.4444 75.0246 22.8073 75.9007 23.4533 76.5467C24.0993 77.1927 24.9754 77.5556 25.8889 77.5556H60.3333C61.2469 77.5556 62.123 77.1927 62.7689 76.5467C63.4149 75.9007 63.7778 75.0246 63.7778 74.1111V25.8889C63.7778 24.9754 63.4149 24.0993 62.7689 23.4533C62.123 22.8073 61.2469 22.4444 60.3333 22.4444H25.8889ZM19 25.8889C19 24.0618 19.7258 22.3096 21.0177 21.0177C22.3096 19.7258 24.0618 19 25.8889 19H60.3333C62.1604 19 63.9126 19.7258 65.2045 21.0177C66.4964 22.3096 67.2222 24.0618 67.2222 25.8889V74.1111C67.2222 75.9382 66.4964 77.6904 65.2045 78.9823C63.9126 80.2742 62.1604 81 60.3333 81H25.8889C24.0618 81 22.3096 80.2742 21.0177 78.9823C19.7258 77.6904 19 75.9382 19 74.1111V25.8889Z" fill="white" />
-                  <path fillRule="evenodd" clipRule="evenodd" d="M43.1116 34.4996C43.1116 34.0428 43.293 33.6048 43.616 33.2818C43.939 32.9588 44.377 32.7773 44.8338 32.7773H58.6116C59.0683 32.7773 59.5064 32.9588 59.8293 33.2818C60.1523 33.6048 60.3338 34.0428 60.3338 34.4996C60.3338 34.9563 60.1523 35.3944 59.8293 35.7174C59.5064 36.0403 59.0683 36.2218 58.6116 36.2218H44.8338C44.377 36.2218 43.939 36.0403 43.616 35.7174C43.293 35.3944 43.1116 34.9563 43.1116 34.4996ZM43.1116 41.3885C43.1116 40.9317 43.293 40.4936 43.616 40.1707C43.939 39.8477 44.377 39.6662 44.8338 39.6662H58.6116C59.0683 39.6662 59.5064 39.8477 59.8293 40.1707C60.1523 40.4936 60.3338 40.9317 60.3338 41.3885C60.3338 41.8452 60.1523 42.2833 59.8293 42.6063C59.5064 42.9292 59.0683 43.1107 58.6116 43.1107H44.8338C44.377 43.1107 43.939 42.9292 43.616 42.6063C43.293 42.2833 43.1116 41.8452 43.1116 41.3885ZM43.1116 56.8885C43.1116 56.4317 43.293 55.9936 43.616 55.6707C43.939 55.3477 44.377 55.1662 44.8338 55.1662H58.6116C59.0683 55.1662 59.5064 55.3477 59.8293 55.6707C60.1523 55.9936 60.3338 56.4317 60.3338 56.8885C60.3338 57.3452 60.1523 57.7833 59.8293 58.1063C59.5064 58.4292 59.0683 58.6107 58.6116 58.6107H44.8338C44.377 58.6107 43.939 58.4292 43.616 58.1063C43.293 57.7833 43.1116 57.3452 43.1116 56.8885ZM43.1116 63.7773C43.1116 63.3206 43.293 62.8825 43.616 62.5595C43.939 62.2366 44.377 62.0551 44.8338 62.0551H58.6116C59.0683 62.0551 59.5064 62.2366 59.8293 62.5595C60.1523 62.8825 60.3338 63.3206 60.3338 63.7773C60.3338 64.2341 60.1523 64.6722 59.8293 64.9951C59.5064 65.3181 59.0683 65.4996 58.6116 65.4996H44.8338C44.377 65.4996 43.939 65.3181 43.616 64.9951C43.293 64.6722 43.1116 64.2341 43.1116 63.7773ZM29.3338 56.8885V62.0551H34.5004V56.8885H29.3338ZM27.6116 53.444H36.2227C36.6794 53.444 37.1175 53.6255 37.4405 53.9484C37.7634 54.2714 37.9449 54.7095 37.9449 55.1662V63.7773C37.9449 64.2341 37.7634 64.6722 37.4405 64.9951C37.1175 65.3181 36.6794 65.4996 36.2227 65.4996H27.6116C27.1548 65.4996 26.7167 65.3181 26.3938 64.9951C26.0708 64.6722 25.8893 64.2341 25.8893 63.7773V55.1662C25.8893 54.7095 26.0708 54.2714 26.3938 53.9484C26.7167 53.6255 27.1548 53.444 27.6116 53.444ZM39.1625 33.282C39.4854 33.6049 39.6667 34.0429 39.6667 34.4996C39.6667 34.9562 39.4854 35.3942 39.1625 35.7172L31.056 43.8237L26.3939 39.1616C26.2294 39.0028 26.0982 38.8127 26.008 38.6026C25.9177 38.3925 25.8702 38.1665 25.8682 37.9378C25.8662 37.7091 25.9098 37.4824 25.9964 37.2707C26.083 37.059 26.2109 36.8668 26.3726 36.7051C26.5343 36.5433 26.7266 36.4155 26.9382 36.3289C27.1499 36.2423 27.3767 36.1987 27.6054 36.2007C27.834 36.2027 28.06 36.2502 28.2701 36.3404C28.4803 36.4307 28.6703 36.5619 28.8292 36.7264L31.056 38.9532L36.7273 33.282C37.0502 32.9591 37.4882 32.7777 37.9449 32.7777C38.4016 32.7777 38.8395 32.9591 39.1625 33.282Z" fill="white" />
-                </svg>
 
-                <h1 className="text-[#787878] text-xl font-semibold">Total Tests Taken</h1>
-                <span className="block text-2xl font-bold">5</span>
+            <div className="border border-[#78787840] w-full px-8 py-4 flex justify-between items-center my-1">
+              <div className="bg-black p-2 text-white rounded-md mr-12 w-fit flex items-center justify-center">
+                <Quiz />
+              </div>
+
+              <div className="flex justify-around items-center">
+                <span className="font-semibold text-xl mr-4">
+                  Tests Attempted
+                </span>
+                <span className="text-lg font-semibold text-white bg-[#404040] rounded-md px-2 py-1">
+                  8
+                </span>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -41,14 +41,14 @@ const UploadModal = ({ uploadModal, uploadModalHandle }) => {
             <path
               d="M32.5 4C32.5 6.33141 32.5 18.4547 32.5 48.2967V4ZM32.5 4L48.8198 20.3198M32.5 4L16.1802 20.3198M3 61.2784V56.6156V40.2958V61.2784ZM3 61.2784H61.2852V40.2958"
               stroke="black"
-              stroke-width="5"
-              stroke-linecap="round"
+              strokeWidth="5"
+              strokeLinecap="round"
             />
             <path
               d="M3 47.2911V40.2969"
               stroke="black"
-              stroke-width="5"
-              stroke-linecap="round"
+              strokeWidth="5"
+              strokeLinecap="round"
             />
           </svg>
           <Typography variant="body2" sx={{ mt: 1, fontWeight: 600 }}>

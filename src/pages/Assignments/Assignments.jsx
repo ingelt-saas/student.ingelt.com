@@ -107,16 +107,6 @@ const Assignments = () => {
               >
                 Marks
               </TableCell>
-
-              <TableCell
-                align="center"
-                sx={{ fontWeight: 600, fontSize: "1rem" }}
-              ></TableCell>
-
-              <TableCell
-                align="center"
-                sx={{ fontWeight: 600, fontSize: "1rem" }}
-              ></TableCell>
             </TableRow>
           </TableHead>
 
@@ -156,8 +146,8 @@ const Assignments = () => {
                       borderRadius: "8px",
                     }}
                   >
-                    Upload
-                    <FileUpload />
+                    Submit
+                    <FileUpload sx={{ marginLeft: "2px" }} />
                   </Button>
                 </td>
                 <td className="py-2 text-center hidden md:table-cell">
@@ -173,7 +163,7 @@ const Assignments = () => {
                     }}
                   >
                     Download
-                    <FileDownload />
+                    <FileDownload sx={{ marginLeft: "2px" }} />
                   </Button>
                 </td>
                 <td className="py-2 text-right md:hidden">

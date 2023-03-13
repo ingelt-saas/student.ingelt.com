@@ -1,6 +1,6 @@
 // Modules
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // Layouts
 import PanelLayout from "../layouts/PanelLayout/PanelLayout";
@@ -17,7 +17,11 @@ import Settings from "../pages/Settings/Settings";
 import SingleAssignment from "../pages/Assignments/SingleAssignment";
 
 const Routes = () => {
-  const [loggedIn, setLoggedIn] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  useEffect(() => {
+    setLoggedIn(true);
+  }, [loggedIn]);
 
   const router = loggedIn
     ? createBrowserRouter([
@@ -56,7 +60,7 @@ const Routes = () => {
             element: <Notes />,
           },
           {
-            path: "/setting",
+            path: "/settings",
             element: <Settings />,
           },
           {
