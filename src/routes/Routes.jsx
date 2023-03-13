@@ -14,6 +14,7 @@ import Discussions from "../pages/Discussions/Discussions";
 import Documents from "../pages/Documents/Documents";
 import Notes from "../pages/Notes/Notes";
 import Settings from "../pages/Settings/Settings";
+import SingleAssignment from "../pages/Assignments/SingleAssignment";
 
 const Routes = () => {
   const [loggedIn, setLoggedIn] = useState(true);
@@ -30,7 +31,17 @@ const Routes = () => {
           },
           {
             path: "/assignments",
-            element: <Assignments />,
+            children: [
+              {
+                path: '/assignments',
+                element: <Assignments />,
+              },
+              {
+                // it's route for mobile 
+                path: '/assignments/:assignmentId',
+                element: <SingleAssignment />,
+              }
+            ]
           },
           {
             path: "/discussions",
