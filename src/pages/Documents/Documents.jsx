@@ -1,3 +1,6 @@
+import { useState, useEffect } from "react";
+import document from "../../api/document";
+
 // MUI Support
 import {
   Box,
@@ -6,7 +9,7 @@ import {
   TableBody,
   TableCell,
   TableHead,
-  Pagination,
+  // Pagination,
   TableRow,
 } from "@mui/material";
 import { FileDownload, Assignment } from "@mui/icons-material";
@@ -16,9 +19,18 @@ import SearchBar from "../../components/shared/SearchBar/SearchBar";
 import SortButton from "../../components/shared/SortButton/SortButton";
 
 const Notes = () => {
-  const data = [1, 2, 3, 4, 5, 6, 7, 8];
+  const [documents, setDocuments] = useState([]);
 
-  // Component
+  useEffect(() => {
+    const getAllDocs = async () => {
+      const docs = await document.getDocuments();
+      setDocuments(docs.data);
+    };
+
+    getAllDocs();
+    console.log(documents);
+  }, [documents.length]);
+
   return (
     <Box sx={{ width: "100%" }}>
       <h1 className="border-b-1 border-[#DCDEE1] w-full text-4xl pb-4 mb-6">
@@ -28,7 +40,7 @@ const Notes = () => {
       <Box
         display="flex"
         justifyContent="space-between"
-        className='w-full md:px-2 py-4'
+        className="w-full md:px-2 py-4"
       >
         <SearchBar />
         <SortButton />
@@ -74,27 +86,30 @@ const Notes = () => {
           </TableHead>
 
           <TableBody>
-            {data.map((item) => (
-              <tr key={item} className='cursor-pointer duration-300 hover:bg-[#d0e1f9] border-b md:border-0 border-[#C0C0C0]'>
+            {documents.map((item) => (
+              <tr
+                key={item.id}
+                className="cursor-pointer duration-300 hover:bg-[#d0e1f9] border-b md:border-0 border-[#C0C0C0]"
+              >
                 <td className="text-left md:text-center py-2">
                   <div className="flex items-center justify-start md:justify-center">
                     <Assignment className="mr-3 text-[#4C9BFF]" />
                     <div className="inline">
-                      <span className="font-semibold block"> Test Docs</span>
+                      <span className="font-semibold block">{item.file}</span>
                       <span className="text-sm font-semibold md:hidden text-[#6D6D6D]">
-                        Official note - Jan 4, 2023
+                        {item.file}
                       </span>
                     </div>
                   </div>
                 </td>
                 <td className="py-2 text-center text-sm hidden md:table-cell text-[#6D6D6D]">
-                  4.5
+                  {item.fileSize}
                 </td>
                 <td className="py-2 text-center text-sm hidden md:table-cell text-[#6D6D6D]">
-                  Listening
+                  {item.subject}
                 </td>
                 <td className="py-2 text-center text-sm hidden md:table-cell text-[#6D6D6D]">
-                  1-02-2023
+                  {item.createdAt}
                 </td>
                 <td className="py-2 text-center hidden md:table-cell">
                   <Button
@@ -113,7 +128,7 @@ const Notes = () => {
                   </Button>
                 </td>
                 <td className="py-2 text-center md:hidden">
-                  <button className='text-[#0064E1]'>
+                  <button className="text-[#0064E1]">
                     <FileDownload />
                   </button>
                 </td>
@@ -122,7 +137,7 @@ const Notes = () => {
           </TableBody>
         </Table>
 
-        <Pagination count={10} className="mt-6" />
+        {/* <Pagination count={10} className="mt-6" /> */}
       </Box>
     </Box>
   );

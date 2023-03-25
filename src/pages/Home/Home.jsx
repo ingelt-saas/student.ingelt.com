@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import home from "../../api/home";
+import { StudentContext } from "../../contexts";
 
 //assets
 import welcomeSVG from "../../assets/images/welcome.svg";
@@ -35,18 +37,26 @@ const StudentInfoBlock = ({ title, text, IconName }) => {
 
       <div className="flex-1 overflow-hidden">
         <p className="text-[#6A6A6A] text-base font-normal">{title}</p>
-        <p className="text-black text-base font-semibold break-words" title={text}>{text}</p>
+        <p
+          className="text-black text-base font-semibold break-words"
+          title={text}
+        >
+          {text}
+        </p>
       </div>
     </div>
   );
 };
 
 const Home = () => {
-  const [gender, setGender] = useState("m");
+  const student = useContext(StudentContext);
   const [isCopied, setIsCopied] = useState(false);
+  const [meetLink, setMeetLink] = useState("");
+  const [graphData, setGraphData] = useState([]);
+  const [bands, setBands] = useState();
 
   const handleCopy = async (text) => {
-    text = "1234";
+    text = meetLink.classroomLink || "";
 
     try {
       await navigator.clipboard.writeText(text);
@@ -56,13 +66,28 @@ const Home = () => {
     }
   };
 
+  const takeToClass = () => {
+    window.open(meetLink.classroomLink, "_blank");
+  };
+
   useEffect(() => {
-    setGender("m");
-  }, [gender]);
+    async function getMeetLink() {
+      try {
+        const meetLink = await home.getMeetLink(student.batchId);
+        const bands = await home.getBands();
+        const graphData = await home.getGraphData();
+
+        setMeetLink(meetLink.data);
+        setBands(bands.data);
+        setGraphData(graphData.data);
+      } catch (error) {}
+    }
+
+    getMeetLink();
+  }, [student]);
 
   return (
     <div className="flex flex-row flex-wrap gap-y-10 gap-x-5 w-full">
-
       {/* welcome message */}
       <div className="w-full foo:w-[calc(100%/12*8-10px)] hidden foo:block">
         <div className="relative rounded-xl mt-10 shadow-lg w-11/12 bg-white">
@@ -73,7 +98,7 @@ const Home = () => {
           />
 
           <h1 className="text-3xl font-semibold text-right py-5 px-5 ">
-            Welcome Priyanshi
+            Welcome {student?.name}
           </h1>
         </div>
       </div>
@@ -89,7 +114,7 @@ const Home = () => {
               <h1 className="text-2xl font-semibold">Your Classroom Link</h1>
 
               <p className="truncate relative pr-6 py-1">
-                {`https://meet.google.com/abc-defgi-hji`}
+                {meetLink?.classroomLink || "Your teacher hasn't set the link"}
                 <Tooltip title={isCopied ? "Copied!" : "Copy to Clipboard"}>
                   <button
                     className="text-black absolute top-1/2 right-2 -translate-y-1/2"
@@ -102,6 +127,7 @@ const Home = () => {
             </div>
 
             <Button
+              onClick={takeToClass}
               variant="contained"
               sx={{
                 fontWeight: 600,
@@ -110,7 +136,7 @@ const Home = () => {
                 width: "100%",
               }}
             >
-              Join Meeting
+              Join Class
             </Button>
           </div>
         </div>
@@ -133,10 +159,7 @@ const Home = () => {
             </div>
 
             <div className="text-center mt-5 ">
-              <h1 className="text-2xl font-semibold">Harshita Rathee</h1>
-              <h4 className="text-[#6A6A6A] text-lg font-semibold">
-                IELTS Premium
-              </h4>
+              <h1 className="text-2xl font-semibold">{student?.name}</h1>
               <h4 className="text-[#6A6A6A] text-lg font-semibold">
                 Batch: B1
               </h4>
@@ -148,89 +171,105 @@ const Home = () => {
               <StudentInfoBlock
                 IconName={Person2}
                 title="Father's Name"
-                text="Priyanshu Rathee"
+                text={student?.fathersName}
               />
 
               <StudentInfoBlock
                 IconName={LocationOn}
                 title="Address"
-                text="Delhi"
+                text={`${student?.city}, ${student?.state}, ${student?.country}, pincode - ${student?.pinCode}`}
               />
 
               <StudentInfoBlock
                 IconName={LocalPhone}
                 title="Phone Number"
-                text="+91 90908 99876"
+                text={student?.phoneNo}
               />
 
               <StudentInfoBlock
                 IconName={Email}
                 title="Email"
-                text="priyanshu@ingelt.com"
+                text={student?.email}
               />
 
               <StudentInfoBlock
                 IconName={
-                  (gender === "m" && Male) ||
-                  (gender === "f" && Female) ||
-                  (gender === "o" && Transgender)
+                  (!student.gender && Transgender) ||
+                  (student?.gender === "Male" && Male) ||
+                  (student?.gender === "Female" && Female) ||
+                  (student?.gender === "Others" && Transgender)
                 }
                 title="Gender"
-                text="Male"
+                text={student?.gender}
               />
 
               <StudentInfoBlock
                 IconName={Badge}
                 title="Student ID"
-                text="89866242"
+                text={student?.id}
               />
 
               <StudentInfoBlock
                 IconName={Cake}
                 title="Date of Birth"
-                text="12-09-2002"
+                text={student?.dob}
               />
 
               <StudentInfoBlock
                 IconName={Tv}
                 title="Previous Score"
-                text="7.9"
+                text={student?.previousScore}
               />
             </div>
           </div>
         </div>
       </div>
 
-
       {/* score  */}
       <div className="w-full order-4 foo:order-none foo:w-[calc(100%/12*4-10px)]">
         <div className="border border-[#78787840] shadow-lg rounded-md py-6 px-3 bg-white">
-          <h1 className="font-bold text-2xl">Band Score</h1>
+          <h1 className="font-bold text-2xl">Your Predicted Bands</h1>
           <div className="mt-5 overflow-hidden rounded-md">
             <div className="bg-[#000000] py-2 px-4 text-lg text-[#f2f2f2] font-bold flex items-center justify-between">
-              <h3>Overall Bands</h3>
-              <span>6.5</span>
+              <h3>Total Bands</h3>
+              <span>
+                {(
+                  (bands?.listeningBands +
+                    bands?.writingBands +
+                    bands?.speakingBands +
+                    bands?.readingBands) /
+                  4
+                ).toFixed(2) || "Not Enough Data"}
+              </span>
             </div>
 
             <div className="border-2 border-t-0 border-[#78787840]">
               <div className="py-4 px-4 text-base font-semibold flex items-center justify-between">
                 <h3>Listening</h3>
-                <span>6.5</span>
+                <span>
+                  {bands?.listeningBands.toFixed(2) || "Not Enough Data"}
+                </span>
               </div>
 
               <div className="py-4 px-4 text-base font-semibold flex items-center justify-between">
                 <h3>Reading</h3>
-                <span>6.5</span>
+                <span>
+                  {bands?.readingBands.toFixed(2) || "Not Enough Data"}
+                </span>
               </div>
 
               <div className="py-4 px-4 text-base font-semibold flex items-center justify-between">
                 <h3>Speaking</h3>
-                <span>6.5</span>
+                <span>
+                  {bands?.speakingBands.toFixed(2) || "Not Enough Data"}
+                </span>
               </div>
 
               <div className="py-4 px-4 text-base font-semibold flex items-center justify-between">
                 <h3>Writing</h3>
-                <span>6.5</span>
+                <span>
+                  {bands?.writingBands.toFixed(2) || "Not Enough Data"}
+                </span>
               </div>
             </div>
           </div>
@@ -240,27 +279,29 @@ const Home = () => {
       {/* student graph */}
       <div className="w-full order-3 foo:order-none foo:w-[calc(100%/12*8-10px)]">
         <div className="border border-[#78787840] shadow-lg rounded-lg px-4 py-5 bg-white">
-          <StudentGraph />
+          <StudentGraph data={graphData} />
         </div>
       </div>
 
       {/* mock test Performance */}
       <div className="w-full order-5 foo:order-none foo:w-[calc(100%/12*4-10px)]">
         <div className="border border-[#78787840] shadow-lg rounded-lg px-4 py-5 bg-white">
-          <h1 className="font-semibold text-xl mb-6">
-            Mock Test Performance
-          </h1>
+          <h1 className="font-semibold text-xl mb-6">Mock Test Performance</h1>
 
           <div className="border border-[#78787840] w-full px-3 lg:px-5 xl:px-8 py-4 flex justify-between items-center my-2">
             <div className="bg-black p-2 text-white rounded-md mr-8 xl:mr-12 w-fit flex items-center justify-center">
               <Assessment />
             </div>
             <div className="flex justify-around items-center">
-              <span className="font-semibold text-xl mr-4">
-                Average Score
-              </span>
+              <span className="font-semibold text-xl mr-4">Average Score</span>
               <span className="text-lg font-semibold text-white bg-[#404040] rounded-md px-2 py-1">
-                7.5
+                {(
+                  (bands?.listeningBands +
+                    bands?.writingBands +
+                    bands?.speakingBands +
+                    bands?.readingBands) /
+                  4
+                ).toFixed(2) || "Not Enough Data"}
               </span>
             </div>
           </div>
@@ -273,7 +314,7 @@ const Home = () => {
             <div className="flex justify-around items-center">
               <span className="font-semibold text-xl mr-4">Target Score</span>
               <span className="text-lg font-semibold text-white bg-[#404040] rounded-md px-2 py-1">
-                8.0
+                {student?.targetScore}
               </span>
             </div>
           </div>
@@ -288,7 +329,7 @@ const Home = () => {
                 Tests Attempted
               </span>
               <span className="text-lg font-semibold text-white bg-[#404040] rounded-md px-2 py-1">
-                8
+                {graphData?.length}
               </span>
             </div>
           </div>
