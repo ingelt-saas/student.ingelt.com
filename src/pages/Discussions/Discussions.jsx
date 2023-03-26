@@ -15,8 +15,6 @@ const Discussions = () => {
     const getDiscussions = async () => {
       const _discussions = await discussion.getDiscussions();
       setDiscussions(_discussions.data);
-
-      console.log("DISC:", _discussions.data);
     };
 
     getDiscussions();

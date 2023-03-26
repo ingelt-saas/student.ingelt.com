@@ -28,7 +28,6 @@ const Notes = () => {
     };
 
     getAllDocs();
-    console.log(documents);
   }, [documents.length]);
 
   return (

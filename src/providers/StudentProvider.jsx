@@ -14,7 +14,6 @@ const StudentProvider = ({ children }) => {
 
     async function getStudent() {
       const student = await home.getStudent();
-      console.log(student.data);
       setStudent(student.data);
     }
 

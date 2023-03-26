@@ -1,5 +1,6 @@
 // React Support
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import assignmentApi from "../../api/assignment";
 
 // MUI Support
 import {
@@ -9,10 +10,15 @@ import {
   TableBody,
   TableCell,
   TableHead,
-  Pagination,
+  // Pagination,
   TableRow,
 } from "@mui/material";
-import { FileUpload, FileDownload, Assignment, MoreVert } from "@mui/icons-material";
+import {
+  FileUpload,
+  FileDownload,
+  Assignment,
+  MoreVert,
+} from "@mui/icons-material";
 
 // Custom Components
 import SearchBar from "../../components/shared/SearchBar/SearchBar";
@@ -20,15 +26,19 @@ import SortButton from "../../components/shared/SortButton/SortButton";
 import UploadModal from "../../components/shared/UploadModal/UploadModal";
 import StatsModal from "../../components/shared/StatsModal/StatsModal";
 import PopOver from "../../components/shared/PopOverModal/PopOverModal";
-import PDFViewerModal from "../../components/shared/PDFViewerModal/PDFViewerModal";
+// import PDFViewerModal from "../../components/shared/PDFViewerModal/PDFViewerModal";
 
 const Assignments = () => {
-  // States
   const [uploadModal, setUploadModal] = useState(false);
   const [statsModal, setStatsModal] = useState(false);
-
-  // popover state
   const [anchorEl, setAnchorEl] = useState(null);
+  const [assignments, setAssignments] = useState([]);
+
+  useEffect(() => {
+    assignmentApi.getAllAssignments().then((res) => {
+      setAssignments(res.data);
+    });
+  }, []);
 
   // Event Handlers
   const uploadModalHandle = (value) => {
@@ -45,14 +55,13 @@ const Assignments = () => {
 
   const data = [1, 2, 3, 4, 5, 6, 7, 8];
 
-  // Component
   return (
     <Box sx={{ width: "100%" }}>
       <h1 className="border-b-1 border-[#DCDEE1] w-full text-4xl pb-4 mb-6">
         Assignments
       </h1>
 
-      <Box className='flex flex-col items-center gap-y-4 sm:flex-row sm:justify-between w-full md:px-2 py-4'>
+      <Box className="flex flex-col items-center gap-y-4 sm:flex-row sm:justify-between w-full md:px-2 py-4">
         <SearchBar />
         <div className="flex justify-center sm:justify-between gap-x-9 w-full sm:w-1/2">
           <Button
@@ -111,25 +120,30 @@ const Assignments = () => {
           </TableHead>
 
           <TableBody>
-            {data.map((item, index) => (
-              <tr key={item} className='cursor-pointer duration-300 hover:bg-[#d0e1f9]'>
+            {assignments.map((item) => (
+              <tr
+                key={item.id}
+                className="cursor-pointer duration-300 hover:bg-[#d0e1f9]"
+              >
                 <td className="text-left md:text-center py-2">
                   <div className="flex items-center justify-start md:justify-center">
                     <Assignment className="mr-3 text-[#4C9BFF]" />
                     <div className="inline">
-                      <span className="font-semibold block">Assignment {index}.pdf</span>
-                      <span className="text-sm font-normal md:hidden">Not Complete</span>
+                      <span className="font-semibold block">{item.name}</span>
+                      <span className="text-sm font-normal md:hidden">
+                        STATUS
+                      </span>
                     </div>
                   </div>
                 </td>
                 <td className="py-2 text-center text-sm hidden md:table-cell text-[#6D6D6D]">
-                  Not Complete
+                  STATUS
                 </td>
                 <td className="py-2 text-center text-sm hidden md:table-cell text-[#6D6D6D]">
-                  1-02-2023
+                  {item.assignedDate}
                 </td>
                 <td className="py-2 text-center text-sm hidden md:table-cell text-[#6D6D6D]">
-                  1-02-2023
+                  {item.endDate}
                 </td>
                 <td className="py-2 text-center text-sm hidden md:table-cell text-[#6D6D6D] font-bold">
                   7.2
@@ -176,7 +190,7 @@ const Assignments = () => {
           </TableBody>
         </Table>
 
-        <Pagination count={10} className="mt-6" />
+        {/* <Pagination count={10} className="mt-6" /> */}
       </Box>
 
       {/* Upload modal */}
@@ -190,7 +204,6 @@ const Assignments = () => {
 
       {/* popover modal */}
       <PopOver anchorEl={anchorEl} setAnchorEl={setAnchorEl} assignment={{}} />
-
     </Box>
   );
 };
