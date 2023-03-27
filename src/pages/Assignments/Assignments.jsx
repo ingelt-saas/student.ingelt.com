@@ -29,6 +29,7 @@ import PopOver from "../../components/shared/PopOverModal/PopOverModal";
 // import PDFViewerModal from "../../components/shared/PDFViewerModal/PDFViewerModal";
 
 const Assignments = () => {
+
   const [uploadModal, setUploadModal] = useState(false);
   const [statsModal, setStatsModal] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -41,8 +42,8 @@ const Assignments = () => {
   }, []);
 
   // Event Handlers
-  const uploadModalHandle = (value) => {
-    setUploadModal(value);
+  const uploadModalHandle = () => {
+    setUploadModal(false);
   };
 
   const statsModalHandle = (value) => {
@@ -52,8 +53,6 @@ const Assignments = () => {
   const popOverHandle = (event) => {
     setAnchorEl(event.currentTarget);
   };
-
-  const data = [1, 2, 3, 4, 5, 6, 7, 8];
 
   return (
     <Box sx={{ width: "100%" }}>
@@ -195,12 +194,13 @@ const Assignments = () => {
 
       {/* Upload modal */}
       <UploadModal
-        uploadModal={uploadModal}
+        uploadModal={uploadModal ? true : false}
         uploadModalHandle={uploadModalHandle}
+        assignment={uploadModal}
       />
 
       {/* Stats modal */}
-      <StatsModal statsModal={statsModal} statsModalHandle={statsModalHandle} />
+      <StatsModal statsModal={statsModal} statsModalHandle={statsModalHandle} assignments={assignments} />
 
       {/* popover modal */}
       <PopOver anchorEl={anchorEl} setAnchorEl={setAnchorEl} assignment={{}} />
