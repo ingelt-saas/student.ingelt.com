@@ -19,7 +19,7 @@ const UploadModal = ({ uploadModal, uploadModalHandle, assignment }) => {
 
     const data = new FormData();
     data.append('file', e);
-    data.append('filename', 'palash');
+    data.append('assignmentId', assignment.id);
 
     try {
       const result = await instance.post('/submission', data, {
@@ -64,6 +64,16 @@ const UploadModal = ({ uploadModal, uploadModalHandle, assignment }) => {
     try {
       await assignmentApi.deleteSubmission(id);
       setFile(null);
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  // submit handler 
+  const handleSubmit = async () => {
+    try {
+      await assignmentApi.submitSubmission(submissionId);
+      handleClose();
     } catch (err) {
       console.error(err);
     }
@@ -216,6 +226,7 @@ const UploadModal = ({ uploadModal, uploadModalHandle, assignment }) => {
             type="submit"
             sx={{ textTransform: "capitalize", fontWeight: "600" }}
             disabled={submissionId ? false : true}
+            onClick={handleSubmit}
           >
             Submit
           </Button>
