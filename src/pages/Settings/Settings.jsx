@@ -42,6 +42,8 @@ const Settings = () => {
   const [gender, setGender] = useState("");
   const [open, setOpen] = useState(false);
   const [expertise, setExpertise] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [passwordError, setPasswordError] = useState(null);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -51,19 +53,63 @@ const Settings = () => {
     setOpen(false);
   };
 
-  const updateProfile = (e) => {
+  // profile details handler
+  const updateProfile = async (e) => {
+    e.preventDefault();
     const form = e.target;
+    const fromElement = Array.from(form);
+    const types = ['text', 'email', 'date'];
+    const fromData = {};
+    fromElement.forEach(element => {
+      if (types.includes(element.type) && element.name) {
+        fromData[element.name] = element.value;
+      }
+    });
+    setLoading(true);
+    try {
+      const result = await settingsApi.update(fromData);
+      console.log(result);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
   }
 
   // profile picture update
-  const profilePictureHandler = (e) => {
+  const profilePictureHandler = async (e) => {
     const file = e.target.files[0];
     const Form = new FormData();
     Form.append('image', file);
 
     try {
-      const result = settingsApi.updateProfile(Form);
+      const result = await settingsApi.updateProfile(Form);
       console.log(result);
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  // password change
+  const passwordHandler = async (e) => {
+    e.preventDefault();
+    const form = e.target,
+      password = form.password.value,
+      confirmPassword = form.confirmPassword.value,
+      previousPassword = form.previousPassword.value;
+    setPasswordError(null);
+    if (password !== confirmPassword) {
+      setPasswordError('Password does not match');
+      return;
+    }
+    try {
+      const result = await settingsApi.updatePassword({ password, confirmPassword, previousPassword });
+      if (result?.data?.status === 'bad') {
+        setPasswordError(result?.data?.message);
+      } else {
+        form.reset();
+        handleClose();
+      }
     } catch (err) {
       console.error(err);
     }
@@ -107,6 +153,7 @@ const Settings = () => {
               size="small"
               sx={InputFieldSx}
               required
+              name="name"
             />
           </Grid>
 
@@ -120,6 +167,7 @@ const Settings = () => {
               size="small"
               sx={InputFieldSx}
               required
+              name='email'
             />
           </Grid>
 
@@ -138,10 +186,11 @@ const Settings = () => {
               }}
               sx={InputFieldSx}
               required
+              name='dob'
             />
           </Grid>
 
-          <Grid item xs={12} sm={6}>
+          {/* <Grid item xs={12} sm={6}>
             <label className="text-xs text-[#93999C]" htmlFor="ExpDate">
               Expected Test Date
             </label>
@@ -155,8 +204,9 @@ const Settings = () => {
                 placeholder: "Select date",
               }}
               sx={InputFieldSx}
+              name='testDate'
             />
-          </Grid>
+          </Grid> */}
 
           <Grid item xs={12} sm={6}>
             <TextField
@@ -168,6 +218,21 @@ const Settings = () => {
               size="small"
               sx={InputFieldSx}
               required
+              name='phoneNo'
+            />
+          </Grid>
+
+          <Grid item xs={12} sm={6}>
+            <TextField
+              className="w-full"
+              id="outlined-basic"
+              label="Father Name"
+              typeof="text"
+              variant="outlined"
+              size="small"
+              sx={InputFieldSx}
+              required
+              name='fathersName'
             />
           </Grid>
 
@@ -181,6 +246,7 @@ const Settings = () => {
                 onChange={(e) => setGender(e.target.value)}
                 label="Gender"
                 required
+                name="gender"
               >
                 <MenuItem value={"M"}>Male</MenuItem>
                 <MenuItem value={"F"}>Female</MenuItem>
@@ -190,7 +256,7 @@ const Settings = () => {
             </FormControl>
           </Grid>
 
-          <Grid className="w-full" item xs={12} sm={6}>
+          {/* <Grid className="w-full" item xs={12} sm={6}>
             <TextField
               className="w-full"
               id="outlined-basic"
@@ -201,9 +267,9 @@ const Settings = () => {
               sx={InputFieldSx}
               required
             />
-          </Grid>
+          </Grid> */}
 
-          <Grid item xs={12} sm={6}>
+          {/* <Grid item xs={12} sm={6}>
             <FormControl
               variant="outlined"
               size="small"
@@ -220,14 +286,15 @@ const Settings = () => {
                 onChange={(e) => setExpertise(e.target.value)}
                 label="IELTS"
                 required
+                name='ielts'
               >
                 <MenuItem value={"Academic"}>Academic</MenuItem>
                 <MenuItem value={"General"}>General</MenuItem>
               </Select>
             </FormControl>
-          </Grid>
+          </Grid> */}
 
-          <Grid item xs={12} sm={6}>
+          {/* <Grid item xs={12} sm={6}>
             <FormControl
               variant="outlined"
               size="small"
@@ -244,6 +311,7 @@ const Settings = () => {
                 onChange={(e) => setExpertise(e.target.value)}
                 label="Status"
                 required
+                readOnly
               >
                 <MenuItem value={"Student"}>Student</MenuItem>
                 <MenuItem value={"Working Professional"}>
@@ -251,6 +319,19 @@ const Settings = () => {
                 </MenuItem>
               </Select>
             </FormControl>
+          </Grid> */}
+
+          <Grid item xs={12} sm={6}>
+            <TextField
+              className="w-full"
+              id="outlined-basic"
+              label="Status"
+              variant="outlined"
+              size="small"
+              sx={InputFieldSx}
+              disabled
+              readonly
+            />
           </Grid>
 
           <Grid item xs={12} sm={6}>
@@ -262,6 +343,7 @@ const Settings = () => {
               size="small"
               sx={InputFieldSx}
               required
+              name='city'
             />
           </Grid>
 
@@ -274,6 +356,7 @@ const Settings = () => {
               size="small"
               sx={InputFieldSx}
               required
+              name='state'
             />
           </Grid>
 
@@ -286,6 +369,7 @@ const Settings = () => {
               size="small"
               sx={InputFieldSx}
               required
+              name='pinCode'
             />
           </Grid>
 
@@ -298,6 +382,7 @@ const Settings = () => {
               size="small"
               sx={InputFieldSx}
               required
+              name='country'
             />
           </Grid>
 
@@ -326,6 +411,7 @@ const Settings = () => {
               variant="outlined"
               size="small"
               sx={InputFieldSx}
+              name='previousScore'
             />
           </Grid>
 
@@ -341,6 +427,7 @@ const Settings = () => {
               variant="outlined"
               size="small"
               sx={InputFieldSx}
+              name='targetScore'
             />
           </Grid>
 
@@ -389,7 +476,7 @@ const Settings = () => {
               justifyContent: "end",
             }}
           >
-            <Button sx={{ px: 5 }} variant="outlined" type='submit'>
+            <Button sx={{ px: 5 }} variant="outlined" type='submit' disabled={loading}>
               Save
             </Button>
           </Box>
@@ -398,50 +485,57 @@ const Settings = () => {
 
       {/* Dialog Box */}
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Change User Credentials</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            Try to create a strong password with a combination of numbers,
-            alphabets and special characters.
-          </DialogContentText>
-          <TextField
-            className="my-4"
-            autoFocus
-            margin="dense"
-            id="name"
-            label="Password"
-            type="password"
-            fullWidth
-            variant="standard"
-          />
+        <form onSubmit={passwordHandler}>
+          <DialogTitle>Change User Credentials</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              Try to create a strong password with a combination of numbers,
+              alphabets and special characters.
+            </DialogContentText>
+            <TextField
+              className="my-4"
+              autoFocus
+              margin="dense"
+              id="name"
+              label="Password"
+              type="password"
+              name='password'
+              fullWidth
+              variant="standard"
+            />
 
-          <TextField
-            className="my-4"
-            autoFocus
-            margin="dense"
-            id="name"
-            label="Confirm Password"
-            type="password"
-            fullWidth
-            variant="standard"
-          />
+            <TextField
+              className="my-4"
+              autoFocus
+              margin="dense"
+              id="name"
+              label="Confirm Password"
+              type="password"
+              name='confirmPassword'
+              fullWidth
+              variant="standard"
+            />
 
-          <TextField
-            className="my-4"
-            autoFocus
-            margin="dense"
-            id="name"
-            label="Previous Password"
-            type="password"
-            fullWidth
-            variant="standard"
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose}>Update</Button>
-        </DialogActions>
+            <TextField
+              className="my-4"
+              autoFocus
+              margin="dense"
+              id="name"
+              label="Previous Password"
+              type="password"
+              name='previousPassword'
+              fullWidth
+              variant="standard"
+            />
+            <p className="text-sm text-red-500 text-center mt-4">{passwordError}</p>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose} type='button'>Cancel</Button>
+            <Button type='submit'>Update</Button>
+          </DialogActions>
+        </form>
       </Dialog>
+
     </div>
   );
 };
