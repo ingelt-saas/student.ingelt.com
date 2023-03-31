@@ -1,4 +1,3 @@
-// API
 import home from "../api/home";
 import { StudentContext } from "../contexts";
 import { useState, useEffect } from "react";

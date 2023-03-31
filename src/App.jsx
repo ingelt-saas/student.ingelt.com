@@ -14,13 +14,11 @@ const App = () => {
   }, []);
 
   return (
-    <div>
-      <ProSidebarProvider>
-        <StudentProvider>
-          <Routes />
-        </StudentProvider>
-      </ProSidebarProvider>
-    </div>
+    <ProSidebarProvider>
+      <StudentProvider>
+        <Routes />
+      </StudentProvider>
+    </ProSidebarProvider>
   );
 };
 
