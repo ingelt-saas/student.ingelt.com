@@ -12,7 +12,7 @@ import Home from "../pages/Home/Home";
 import Assignments from "../pages/Assignments/Assignments";
 import Discussions from "../pages/Discussions/Discussions";
 import Documents from "../pages/Documents/Documents";
-import Notes from "../pages/Notes/Notes";
+import Library from "../pages/Library/Library";
 import Settings from "../pages/Settings/Settings";
 import SingleAssignment from "../pages/Assignments/SingleAssignment";
 
@@ -57,8 +57,8 @@ const Routes = () => {
             element: <Documents />,
           },
           {
-            path: "/notes",
-            element: <Notes />,
+            path: "/centralized-library",
+            element: <Library />,
           },
           {
             path: "/settings",

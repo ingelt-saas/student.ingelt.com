@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import notesApi from "../../api/notes";
+// import LibraryApi from "../../api/Library";
 
 // MUI Support
 import {
@@ -18,23 +18,23 @@ import { FileDownload, Assignment } from "@mui/icons-material";
 import SearchBar from "../../components/shared/SearchBar/SearchBar";
 import SortButton from "../../components/shared/SortButton/SortButton";
 
-const Notes = () => {
-  const [notes, setNotes] = useState([]);
+const Library = () => {
+  // const [Library, setLibrary] = useState([]);
 
-  useEffect(() => {
-    const getAllNotes = async () => {
-      const _notes = await notesApi.getNotes();
-      setNotes(_notes.data);
-    };
+  // useEffect(() => {
+  //   const getAllLibrary = async () => {
+  //     const _Library = await LibraryApi.getLibrary();
+  //     setLibrary(_Library.data);
+  //   };
 
-    getAllNotes();
-  }, []);
+  //   getAllLibrary();
+  // }, []);
 
   // Component
   return (
     <Box sx={{ width: "100%" }}>
       <h1 className="border-b-1 border-[#DCDEE1] w-full text-4xl pb-4 mb-6">
-        Notes
+        InGelt's Library
       </h1>
 
       <Box
@@ -85,8 +85,8 @@ const Notes = () => {
             </TableRow>
           </TableHead>
 
-          <TableBody>
-            {notes?.map((item) => (
+          {/* <TableBody>
+            {Library?.map((item) => (
               <tr
                 key={item?.id}
                 className="cursor-pointer duration-300 hover:bg-[#d0e1f9] border-b md:border-0 border-[#C0C0C0]"
@@ -134,7 +134,7 @@ const Notes = () => {
                 </td>
               </tr>
             ))}
-          </TableBody>
+          </TableBody> */}
         </Table>
 
         {/* <Pagination count={10} className="mt-6" /> */}
@@ -143,4 +143,4 @@ const Notes = () => {
   );
 };
 
-export default Notes;
+export default Library;

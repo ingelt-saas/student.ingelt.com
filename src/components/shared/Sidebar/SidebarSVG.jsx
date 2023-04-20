@@ -147,3 +147,13 @@ export const LogoutSVG = () => {
     </svg>
   );
 };
+export const LibrarySVG = () => {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+    width="64" height="64"
+    className='w-6 h-6'
+    viewBox="0,0,256,256">
+    <g fill="#7a7c88" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style={{mixBlendMode: 'normal'}}><g transform="scale(4,4)"><path d="M32,9c0,0 -18,8 -23,8v3h46v-3c-5,0 -23,-8 -23,-8zM32,13c1.104,0 2,0.895 2,2c0,1.105 -0.896,2 -2,2c-1.104,0 -2,-0.895 -2,-2c0,-1.105 0.896,-2 2,-2zM11,22v4h2.16602l0.33398,2h0.94922l-0.44727,17.92773l-3.00195,0.07227v3h42v-4l-3.02344,0.07227l-0.42578,-17.07227h0.94922l0.33398,-2h2.16602v-4zM18.83398,26h2.33203l0.33398,2h0.94922l-0.44336,17.73828l-4.00977,0.0957l-0.44531,-17.83398h0.94922zM26.83398,26h2.33203l0.33398,2h0.94922l-0.4375,17.54688l-4.02148,0.0957l-0.43945,-17.64258h0.94922zM34.83398,26h2.33203l0.33398,2h0.94922l-0.43359,17.35742l-4.0293,0.0957l-0.43555,-17.45312h0.94922zM42.83398,26h2.33203l0.33398,2h0.94922l-0.42773,17.16602l-4.03906,0.0957l-0.43164,-17.26172h0.94922zM8,51v4h48v-3z" fill='currentColor'></path></g></g>
+    </svg>
+  );
+};
