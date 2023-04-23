@@ -49,6 +49,7 @@ const StudentInfoBlock = ({ title, text, IconName }) => {
 };
 
 const Home = () => {
+  
   const student = useContext(StudentContext);
   const [isCopied, setIsCopied] = useState(false);
   const [meetLink, setMeetLink] = useState("");
@@ -80,7 +81,7 @@ const Home = () => {
         setMeetLink(meetLink.data);
         setBands(bands.data);
         setGraphData(graphData.data);
-      } catch (error) {}
+      } catch (error) { }
     }
 
     getMeetLink();
@@ -247,28 +248,28 @@ const Home = () => {
               <div className="py-4 px-4 text-base font-semibold flex items-center justify-between">
                 <h3>Listening</h3>
                 <span>
-                  {bands?.listeningBands.toFixed(2) || "Not Enough Data"}
+                  {bands?.listeningBands?.toFixed(2) || "Not Enough Data"}
                 </span>
               </div>
 
               <div className="py-4 px-4 text-base font-semibold flex items-center justify-between">
                 <h3>Reading</h3>
                 <span>
-                  {bands?.readingBands.toFixed(2) || "Not Enough Data"}
+                  {bands?.readingBands?.toFixed(2) || "Not Enough Data"}
                 </span>
               </div>
 
               <div className="py-4 px-4 text-base font-semibold flex items-center justify-between">
                 <h3>Speaking</h3>
                 <span>
-                  {bands?.speakingBands.toFixed(2) || "Not Enough Data"}
+                  {bands?.speakingBands?.toFixed(2) || "Not Enough Data"}
                 </span>
               </div>
 
               <div className="py-4 px-4 text-base font-semibold flex items-center justify-between">
                 <h3>Writing</h3>
                 <span>
-                  {bands?.writingBands.toFixed(2) || "Not Enough Data"}
+                  {bands?.writingBands?.toFixed(2) || "Not Enough Data"}
                 </span>
               </div>
             </div>

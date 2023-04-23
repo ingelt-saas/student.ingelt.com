@@ -17,11 +17,11 @@ import Settings from "../pages/Settings/Settings";
 import SingleAssignment from "../pages/Assignments/SingleAssignment";
 
 const Routes = () => {
-  
+
   const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
-    setLoggedIn(true);
+    setLoggedIn(false);
   }, [loggedIn]);
 
   const router = loggedIn
