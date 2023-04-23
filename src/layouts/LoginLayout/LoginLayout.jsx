@@ -8,10 +8,18 @@ import GoogleLogo from "../../assets/images/google-logo.png";
 // Components
 import { Menu, MenuItem, Button } from "@mui/material";
 import { KeyboardArrowDown } from "@mui/icons-material";
+import authApi from "../../api/auth";
+import useCookie from "../../hooks/useCookie";
 
 const LoginLayout = () => {
+
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
+
+  const { setCookie } = useCookie();
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -19,9 +27,35 @@ const LoginLayout = () => {
     setAnchorEl(null);
   };
 
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const email = form.email.value;
+    const password = form.password.value;
+
+    setError('');
+    const regex = /(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@[*[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+]*/;
+    if (!regex.test(email)) {
+      setError('Invalid email address');
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const res = await authApi.login({ email, password });
+      setCookie('auth_token', res?.data?.token);
+      window.location.reload();
+    } catch (err) {
+      setError(err?.response?.data?.message);
+    } finally {
+      setLoading(false);
+    }
+
+  }
+
   return (
     <div className="flex h-screen cursor-default">
-      <div className="w-1/2 flex flex-col justify-betwee max-lg:w-full">
+      <div className="w-1/2 flex flex-col justify-between max-lg:w-full">
         <div className="h-[8%] my-3 flex justify-between items-center cursor-pointer">
           <div className="h-full flex items-center px-4">
             <img src={Logo} alt="" className="h-[80%]" />
@@ -62,7 +96,7 @@ const LoginLayout = () => {
           </div>
         </div>
 
-        <div className="flex flex-col justify-center h-full">
+        <div className={`flex flex-col justify-center h-full ${loading && 'opacity-70 pointer-events-none'}`}>
           <div className="px-32 max-sm:px-10 max-lg:px-20">
             <h1 className="font-bold text-3xl mb-2">InGelt Board Login</h1>
 
@@ -76,16 +110,18 @@ const LoginLayout = () => {
 
             <div className="text-center">OR</div>
 
-            <form className="flex flex-col my-8">
+            <form className="flex flex-col my-8" onSubmit={handleLogin} >
               <input
                 type="email"
                 placeholder="Email"
+                name="email"
                 className="border-b-1 my-2 py-2 outline-none px-1"
               />
 
               <input
                 type="password"
                 placeholder="Password"
+                name="password"
                 className="border-b-1 my-2 py-2 outline-none px-1"
               />
 
@@ -99,8 +135,8 @@ const LoginLayout = () => {
                   Forgot Password
                 </div>
               </div>
-
-              <button className="border-2 border-[#0064E1] bg-[#0064E1] mt-9 rounded py-2 font-semibold text-[#fff] hover:bg-white hover:text-[#0064E1] ease-in-out duration-200">
+              {error && <p className="text-center text-red-500 font-medium text-sm mt-5">{error}</p>}
+              <button disabled={loading} className="border-2 border-[#0064E1] bg-[#0064E1] mt-8 rounded py-2 font-semibold text-[#fff] hover:bg-white hover:text-[#0064E1] ease-in-out duration-200">
                 Log in
               </button>
             </form>

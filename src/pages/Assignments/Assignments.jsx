@@ -30,7 +30,7 @@ import PopOver from "../../components/shared/PopOverModal/PopOverModal";
 
 const Assignments = () => {
 
-  const [uploadModal, setUploadModal] = useState(false);
+  const [uploadModal, setUploadModal] = useState(true);
   const [statsModal, setStatsModal] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const [assignments, setAssignments] = useState([]);
@@ -78,119 +78,121 @@ const Assignments = () => {
         </div>
       </Box>
 
-      <Box className="flex-col items-center flex" sx={{ width: "100%" }}>
-        <Table>
-          <TableHead className="!hidden md:!table-header-group">
-            <TableRow>
-              <TableCell
-                align="center"
-                sx={{ fontWeight: 600, fontSize: "1rem" }}
-              >
-                File Name
-              </TableCell>
-              <TableCell
-                align="center"
-                sx={{ fontWeight: 600, fontSize: "1rem" }}
-              >
-                Status
-              </TableCell>
+      {Array.isArray(assignments) && assignments.length > 0 &&
+        <Box className="flex-col items-center flex" sx={{ width: "100%" }}>
+          <Table>
+            <TableHead className="!hidden md:!table-header-group">
+              <TableRow>
+                <TableCell
+                  align="center"
+                  sx={{ fontWeight: 600, fontSize: "1rem" }}
+                >
+                  File Name
+                </TableCell>
+                <TableCell
+                  align="center"
+                  sx={{ fontWeight: 600, fontSize: "1rem" }}
+                >
+                  Status
+                </TableCell>
 
-              <TableCell
-                align="center"
-                sx={{ fontWeight: 600, fontSize: "1rem" }}
-              >
-                Assigned Date
-              </TableCell>
+                <TableCell
+                  align="center"
+                  sx={{ fontWeight: 600, fontSize: "1rem" }}
+                >
+                  Assigned Date
+                </TableCell>
 
-              <TableCell
-                align="center"
-                sx={{ fontWeight: 600, fontSize: "1rem" }}
-              >
-                Deadline
-              </TableCell>
+                <TableCell
+                  align="center"
+                  sx={{ fontWeight: 600, fontSize: "1rem" }}
+                >
+                  Deadline
+                </TableCell>
 
-              <TableCell
-                align="center"
-                sx={{ fontWeight: 600, fontSize: "1rem" }}
-              >
-                Marks
-              </TableCell>
-            </TableRow>
-          </TableHead>
+                <TableCell
+                  align="center"
+                  sx={{ fontWeight: 600, fontSize: "1rem" }}
+                >
+                  Marks
+                </TableCell>
+              </TableRow>
+            </TableHead>
 
-          <TableBody>
-            {assignments.map((item) => (
-              <tr
-                key={item.id}
-                className="cursor-pointer duration-300 hover:bg-[#d0e1f9]"
-              >
-                <td className="text-left md:text-center py-2">
-                  <div className="flex items-center justify-start md:justify-center">
-                    <Assignment className="mr-3 text-[#4C9BFF]" />
-                    <div className="inline">
-                      <span className="font-semibold block">{item.name}</span>
-                      <span className="text-sm font-normal md:hidden">
-                        STATUS
-                      </span>
+            <TableBody>
+              {assignments.map((item) => (
+                <tr
+                  key={item.id}
+                  className="cursor-pointer duration-300 hover:bg-[#d0e1f9]"
+                >
+                  <td className="text-left md:text-center py-2">
+                    <div className="flex items-center justify-start md:justify-center">
+                      <Assignment className="mr-3 text-[#4C9BFF]" />
+                      <div className="inline">
+                        <span className="font-semibold block">{item.name}</span>
+                        <span className="text-sm font-normal md:hidden">
+                          STATUS
+                        </span>
+                      </div>
                     </div>
-                  </div>
-                </td>
-                <td className="py-2 text-center text-sm hidden md:table-cell text-[#6D6D6D]">
-                  STATUS
-                </td>
-                <td className="py-2 text-center text-sm hidden md:table-cell text-[#6D6D6D]">
-                  {item.assignedDate}
-                </td>
-                <td className="py-2 text-center text-sm hidden md:table-cell text-[#6D6D6D]">
-                  {item.endDate}
-                </td>
-                <td className="py-2 text-center text-sm hidden md:table-cell text-[#6D6D6D] font-bold">
-                  7.2
-                </td>
-                <td className="py-2 text-center hidden md:table-cell">
-                  <Button
-                    onClick={() => setUploadModal(true)}
-                    variant="outlined"
-                    size="small"
-                    sx={{
-                      textTransform: "capitalize",
-                      color: "#6D6D6D",
-                      borderColor: "#6D6D6D",
-                      borderRadius: "8px",
-                    }}
-                  >
-                    Submit
-                    <FileUpload sx={{ marginLeft: "2px" }} />
-                  </Button>
-                </td>
-                <td className="py-2 text-center hidden md:table-cell">
-                  <Button
-                    variant="outlined"
-                    color="primary"
-                    size="small"
-                    sx={{
-                      textTransform: "capitalize",
-                      color: "#0064E1",
-                      borderColor: "#0064E1",
-                      borderRadius: "8px",
-                    }}
-                  >
-                    Download
-                    <FileDownload sx={{ marginLeft: "2px" }} />
-                  </Button>
-                </td>
-                <td className="py-2 text-right md:hidden">
-                  <button onClick={popOverHandle}>
-                    <MoreVert />
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </TableBody>
-        </Table>
+                  </td>
+                  <td className="py-2 text-center text-sm hidden md:table-cell text-[#6D6D6D]">
+                    STATUS
+                  </td>
+                  <td className="py-2 text-center text-sm hidden md:table-cell text-[#6D6D6D]">
+                    {item.assignedDate}
+                  </td>
+                  <td className="py-2 text-center text-sm hidden md:table-cell text-[#6D6D6D]">
+                    {item.endDate}
+                  </td>
+                  <td className="py-2 text-center text-sm hidden md:table-cell text-[#6D6D6D] font-bold">
+                    7.2
+                  </td>
+                  <td className="py-2 text-center hidden md:table-cell">
+                    <Button
+                      onClick={() => setUploadModal(true)}
+                      variant="outlined"
+                      size="small"
+                      sx={{
+                        textTransform: "capitalize",
+                        color: "#6D6D6D",
+                        borderColor: "#6D6D6D",
+                        borderRadius: "8px",
+                      }}
+                    >
+                      Submit
+                      <FileUpload sx={{ marginLeft: "2px" }} />
+                    </Button>
+                  </td>
+                  <td className="py-2 text-center hidden md:table-cell">
+                    <Button
+                      variant="outlined"
+                      color="primary"
+                      size="small"
+                      sx={{
+                        textTransform: "capitalize",
+                        color: "#0064E1",
+                        borderColor: "#0064E1",
+                        borderRadius: "8px",
+                      }}
+                    >
+                      Download
+                      <FileDownload sx={{ marginLeft: "2px" }} />
+                    </Button>
+                  </td>
+                  <td className="py-2 text-right md:hidden">
+                    <button onClick={popOverHandle}>
+                      <MoreVert />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </TableBody>
+          </Table>
 
-        {/* <Pagination count={10} className="mt-6" /> */}
-      </Box>
+          {/* <Pagination count={10} className="mt-6" /> */}
+        </Box>
+      }
 
       {/* Upload modal */}
       <UploadModal
@@ -204,7 +206,7 @@ const Assignments = () => {
 
       {/* popover modal */}
       <PopOver anchorEl={anchorEl} setAnchorEl={setAnchorEl} assignment={{}} />
-    </Box>
+    </Box >
   );
 };
 
