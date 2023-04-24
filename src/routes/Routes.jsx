@@ -21,7 +21,7 @@ const Routes = () => {
   const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
-    setLoggedIn(false);
+    setLoggedIn(true);
   }, [loggedIn]);
 
   const router = loggedIn

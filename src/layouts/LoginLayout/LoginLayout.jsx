@@ -9,7 +9,7 @@ import GoogleLogo from "../../assets/images/google-logo.png";
 import { Menu, MenuItem, Button } from "@mui/material";
 import { KeyboardArrowDown } from "@mui/icons-material";
 import authApi from "../../api/auth";
-import useCookie from "../../hooks/useCookie";
+import Cookies from 'js-cookie';
 
 const LoginLayout = () => {
 
@@ -17,8 +17,6 @@ const LoginLayout = () => {
   const [error, setError] = useState('');
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
-
-  const { setCookie } = useCookie();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -43,7 +41,7 @@ const LoginLayout = () => {
     setLoading(true);
     try {
       const res = await authApi.login({ email, password });
-      setCookie('auth_token', res?.data?.token);
+      Cookies.set('auth_token', res?.data?.token, { expires: 7 });
       window.location.reload();
     } catch (err) {
       setError(err?.response?.data?.message);

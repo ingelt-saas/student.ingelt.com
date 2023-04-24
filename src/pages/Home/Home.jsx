@@ -49,7 +49,7 @@ const StudentInfoBlock = ({ title, text, IconName }) => {
 };
 
 const Home = () => {
-  
+
   const student = useContext(StudentContext);
   const [isCopied, setIsCopied] = useState(false);
   const [meetLink, setMeetLink] = useState("");
@@ -213,7 +213,7 @@ const Home = () => {
               <StudentInfoBlock
                 IconName={Cake}
                 title="Date of Birth"
-                text={student?.dob}
+                text={true ? new Date()?.toLocaleDateString()?.replace(/\//g, '-') : ''}
               />
 
               <StudentInfoBlock
