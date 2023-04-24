@@ -68,7 +68,6 @@ const Settings = () => {
     setLoading(true);
     try {
       const result = await settingsApi.update(fromData);
-      console.log(result);
     } catch (err) {
       console.error(err);
     } finally {

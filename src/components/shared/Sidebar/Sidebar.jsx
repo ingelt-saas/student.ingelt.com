@@ -4,7 +4,6 @@ import { Link, NavLink } from "react-router-dom";
 
 // React Icons
 import {
-  IoNewspaperOutline,
   IoMoonOutline,
   IoSunnyOutline,
 } from "react-icons/io5";
@@ -15,13 +14,13 @@ import Drawer from "@mui/material/Drawer";
 // Sidebar SVGs
 import {
   AssignmentSVG,
-  DatabaseSVG,
   DiscussionSVG,
   DocumentsSVG,
   HomeSVG,
   LogoutSVG,
   NotesSVG,
   SettingSVG,
+  LibrarySVG
 } from "./SidebarSVG.jsx";
 
 //assets
@@ -111,17 +110,6 @@ const SideBar = () => {
                 </NavItem>
               </li>
               <li className="navItem mb-2">
-                <NavItem to="/notes" collapseMenu={collapseMenu}>
-                  <NotesSVG />
-                  <span
-                    className={`${collapseMenu ? "w-0 h-0" : "w-auto h-auto"
-                      } overflow-hidden duration-300`}
-                  >
-                    Notes
-                  </span>
-                </NavItem>
-              </li>
-              <li className="navItem mb-2">
                 <NavItem to="/documents" collapseMenu={collapseMenu}>
                   <DocumentsSVG />
                   <span
@@ -131,6 +119,17 @@ const SideBar = () => {
                     Documents
                   </span>
                 </NavItem>
+              <li className="navItem mb-2">
+                <NavItem to="/centralized-library" collapseMenu={collapseMenu}>
+                  <LibrarySVG />
+                  <span
+                    className={`${collapseMenu ? "w-0 h-0" : "w-auto h-auto"
+                      } overflow-hidden duration-300`}
+                  >
+                    Library
+                  </span>
+                </NavItem>
+              </li>
               </li>
               <li className="navItem mb-2">
                 <NavItem to="/discussions" collapseMenu={collapseMenu}>
@@ -290,18 +289,18 @@ const SideBar = () => {
                     </NavItem>
                   </li>
                   <li className="navItem mb-2">
-                    <NavItem to="/notes" onClick={() => setOpen(false)}>
-                      <NotesSVG />
-                      <span>
-                        Notes
-                      </span>
-                    </NavItem>
-                  </li>
-                  <li className="navItem mb-2">
                     <NavItem to="/documents" onClick={() => setOpen(false)}>
                       <DocumentsSVG />
                       <span>
                         Documents
+                      </span>
+                    </NavItem>
+                  </li>
+                  <li className="navItem mb-2">
+                    <NavItem to="/centralized-library" onClick={() => setOpen(false)}>
+                      <LibrarySVG />
+                      <span>
+                        Library
                       </span>
                     </NavItem>
                   </li>

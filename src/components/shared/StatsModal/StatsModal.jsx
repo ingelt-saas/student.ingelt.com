@@ -28,7 +28,7 @@ const StatsModal = ({ statsModal, statsModalHandle, assignments }) => {
 
   useEffect(() => {
     assignmentApi.getAllSubmission()
-      .then(res => setSubmissions(res?.data))
+      .then(res => setSubmissions(Array.isArray(res?.data) ? res?.data : []))
       .catch(err => console.error(err));
   }, []);
 
@@ -59,7 +59,7 @@ const StatsModal = ({ statsModal, statsModalHandle, assignments }) => {
               <DocumentSVG />
               <div className="flex-1 text-center">
                 <h6 className="text-center text-xl font-medium">Total Assignments</h6>
-                <span className="text-2xl font-semibold">{assignments.length}</span>
+                <span className="text-2xl font-semibold">{assignments?.length}</span>
               </div>
             </div>
             <div className="px-4 py-3 flex items-center rounded-xl shadow-[2px_2px_2px_rgba(0,_0,_0,_0.15)]"
@@ -67,7 +67,7 @@ const StatsModal = ({ statsModal, statsModalHandle, assignments }) => {
               <DocumentSVG />
               <div className="flex-1 text-center">
                 <h6 className="text-center text-xl font-medium">Complete Assignments</h6>
-                <span className="text-2xl font-semibold flex justify-center items-center"><small>{submittedSubmissions.length}</small>/{assignments.length}</span>
+                <span className="text-2xl font-semibold flex justify-center items-center"><small>{submittedSubmissions?.length}</small>/{assignments?.length}</span>
               </div>
             </div>
             <div className="flex-1 border-2 border-[#E4E7EC] rounded-xl pb-12">
