@@ -29,7 +29,6 @@ import PopOver from "../../components/shared/PopOverModal/PopOverModal";
 // import PDFViewerModal from "../../components/shared/PDFViewerModal/PDFViewerModal";
 
 const Assignments = () => {
-
   const [uploadModal, setUploadModal] = useState(false);
   const [statsModal, setStatsModal] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -37,7 +36,7 @@ const Assignments = () => {
 
   useEffect(() => {
     assignmentApi.getAllAssignments().then((res) => {
-      setAssignments(res.data);
+      setAssignments([res.data]);
     });
   }, []);
 
@@ -200,7 +199,11 @@ const Assignments = () => {
       />
 
       {/* Stats modal */}
-      <StatsModal statsModal={statsModal} statsModalHandle={statsModalHandle} assignments={assignments} />
+      <StatsModal
+        statsModal={statsModal}
+        statsModalHandle={statsModalHandle}
+        assignments={assignments}
+      />
 
       {/* popover modal */}
       <PopOver anchorEl={anchorEl} setAnchorEl={setAnchorEl} assignment={{}} />
