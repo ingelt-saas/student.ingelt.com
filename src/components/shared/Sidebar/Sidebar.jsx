@@ -25,6 +25,8 @@ import {
 
 //assets
 import logo from "../../../assets/images/logo.svg";
+import { useContext } from "react";
+import { StudentContext } from "../../../contexts.js";
 
 // Navbar Item Components
 const NavItem = ({ to, children, collapseMenu, ...props }) => {
@@ -49,6 +51,15 @@ const SideBar = () => {
 
   const [open, setOpen] = useState(false);
   const [collapseMenu, setCollapseMenu] = useState(true);
+  const { student, logOut } = useContext(StudentContext);
+
+  const navItemsArr = [
+    { name: 'Home', path: '/', icon: <HomeSVG /> },
+    { name: 'Assignments', path: '/assignments', icon: <AssignmentSVG /> },
+    { name: 'Library', path: '/centralized-library', icon: <LibrarySVG /> },
+    { name: 'Discussion', path: '/discussion', icon: <DiscussionSVG /> },
+    { name: 'Notes', path: '/notes', icon: <NotesSVG /> },
+  ];
 
   const darkModeHandler = () => {
     if (localStorage.theme) {
@@ -74,74 +85,33 @@ const SideBar = () => {
     <>
       {/* Larger device menu */}
       <div
-        className={`${collapseMenu && "!w-auto"
-          }  lg:w-56 xl:w-60 2xl:w-80 hidden lg:flex flex-col h-full justify-between`}
+        className={`${collapseMenu && "max-w-sm"
+          }  lg:max-w-56 xl:max-w-60 2xl:max-w-80 hidden lg:flex flex-col h-full justify-between`}
       >
         <div className={`space-y-2 ${collapseMenu ? "mt-6" : "mt-0"}`}>
           <div className="flex items-center justify-center pt-5">
-            <img
-              src={logo}
-              alt="Logo"
-              className={`w-auto max-w-full duration-500 h-auto`}
-            />
+            <Link to='/'>
+              <img
+                src={logo}
+                alt="Logo"
+                className={`w-auto max-w-full duration-500 h-auto`}
+              />
+            </Link>
           </div>
           <div className="flex-1 px-2">
             <ul className="pt-2 pb-4 navbar">
-              <li className="navItem mb-2">
-                <NavItem to="/" collapseMenu={collapseMenu}>
-                  <HomeSVG />
-                  <span
-                    className={`${collapseMenu ? "w-0 h-0" : "w-auto h-auto"
-                      } overflow-hidden duration-300`}
-                  >
-                    Home
-                  </span>
-                </NavItem>
-              </li>
-              <li className="navItem mb-2">
-                <NavItem to="/assignments" collapseMenu={collapseMenu}>
-                  <AssignmentSVG />
-                  <span
-                    className={`${collapseMenu ? "w-0 h-0" : "w-auto h-auto"
-                      } overflow-hidden duration-300`}
-                  >
-                    Assignments
-                  </span>
-                </NavItem>
-              </li>
-              <li className="navItem mb-2">
-                <NavItem to="/documents" collapseMenu={collapseMenu}>
-                  <DocumentsSVG />
-                  <span
-                    className={`${collapseMenu ? "w-0 h-0" : "w-auto h-auto"
-                      } overflow-hidden duration-300`}
-                  >
-                    Documents
-                  </span>
-                </NavItem>
-              <li className="navItem mb-2">
-                <NavItem to="/centralized-library" collapseMenu={collapseMenu}>
-                  <LibrarySVG />
-                  <span
-                    className={`${collapseMenu ? "w-0 h-0" : "w-auto h-auto"
-                      } overflow-hidden duration-300`}
-                  >
-                    Library
-                  </span>
-                </NavItem>
-              </li>
-              </li>
-              <li className="navItem mb-2">
-                <NavItem to="/discussions" collapseMenu={collapseMenu}>
-                  <DiscussionSVG />
-                  <span
-                    className={`${collapseMenu ? "w-0 h-0" : "w-auto h-auto"
-                      } overflow-hidden duration-300`}
-                  >
-                    Discussion
-                  </span>
-                </NavItem>
-              </li>
+              {navItemsArr.map((item, index) =>
+                <li className="navItem mb-2" key={index}>
+                  <NavItem to={item.path} collapseMenu={collapseMenu}>
+                    {item.icon}
+                    <span
+                      className={`${collapseMenu ? "max-w-0 max-h-0" : "max-w-xs max-h-10"
+                        } overflow-hidden duration-300`}
+                    >
+                      {item.name}
+                    </span>
+                  </NavItem>
+                </li>)}
             </ul>
           </div>
         </div>
@@ -152,7 +122,7 @@ const SideBar = () => {
                 <NavItem to="/settings" collapseMenu={collapseMenu}>
                   <SettingSVG />
                   <span
-                    className={`${collapseMenu ? "w-0 h-0" : "w-auto h-auto"
+                    className={`${collapseMenu ? "max-w-0 max-h-0" : "max-w-xs max-h-10"
                       } overflow-hidden duration-300`}
                   >
                     Settings
@@ -160,10 +130,10 @@ const SideBar = () => {
                 </NavItem>
               </li>
               <li className="navItem mb-2">
-                <NavItem to="/logout" collapseMenu={collapseMenu}>
+                <NavItem onClick={logOut} collapseMenu={collapseMenu}>
                   <LogoutSVG />
                   <span
-                    className={`${collapseMenu ? "w-0 h-0" : "w-auto h-auto"
+                    className={`${collapseMenu ? "max-w-0 max-h-0" : "max-w-xs max-h-10"
                       } overflow-hidden duration-300`}
                   >
                     Log Out
@@ -202,7 +172,7 @@ const SideBar = () => {
                 </button>
               </li>
               <li className="mt-2 navItem">
-                <div
+                <span
                   className={`flex items-center ${collapseMenu ? "justify-center" : "gap-3 justify-start"
                     }`}
                 >
@@ -214,17 +184,17 @@ const SideBar = () => {
                     />
                   </span>
                   <span
-                    className={`${collapseMenu ? "w-0 h-0" : "w-auto h-auto"
+                    className={`${collapseMenu ? "w-0 h-0" : "max-w-xs max-h-10"
                       } overflow-hidden duration-300`}
                   >
-                    <p className="text-base font-semibold leading-none">
-                      Sundor Pichai
+                    <p className="text-base font-semibold leading-none overflow-hidden">
+                      {student.name}
                     </p>
-                    <p className="text-sm text-[#787878] leading-none mt-1 font-semibold">
-                      sundor@gmail.com
+                    <p className="text-sm text-[#787878] leading-none mt-1 font-semibold overflow-hidden">
+                      {student.email}
                     </p>
                   </span>
-                </div>
+                </span>
               </li>
             </ul>
           </div>
@@ -272,46 +242,16 @@ const SideBar = () => {
               </div>
               <div className="flex-1 px-2">
                 <ul className="pt-2 pb-4">
-                  <li className="navItem mb-2">
-                    <NavItem to="/" onClick={() => setOpen(false)}>
-                      <HomeSVG />
-                      <span>
-                        Home
-                      </span>
-                    </NavItem>
-                  </li>
-                  <li className="navItem mb-2">
-                    <NavItem to="/assignments" onClick={() => setOpen(false)}>
-                      <AssignmentSVG />
-                      <span>
-                        Assignments
-                      </span>
-                    </NavItem>
-                  </li>
-                  <li className="navItem mb-2">
-                    <NavItem to="/documents" onClick={() => setOpen(false)}>
-                      <DocumentsSVG />
-                      <span>
-                        Documents
-                      </span>
-                    </NavItem>
-                  </li>
-                  <li className="navItem mb-2">
-                    <NavItem to="/centralized-library" onClick={() => setOpen(false)}>
-                      <LibrarySVG />
-                      <span>
-                        Library
-                      </span>
-                    </NavItem>
-                  </li>
-                  <li className="navItem mb-2">
-                    <NavItem to="/discussions" onClick={() => setOpen(false)}>
-                      <DiscussionSVG />
-                      <span>
-                        Discussion
-                      </span>
-                    </NavItem>
-                  </li>
+                  {navItemsArr.map((item, index) =>
+                    <li className="navItem mb-2" key={index}>
+                      <NavItem to={item.path} onClick={() => setOpen(false)}>
+                        {item.icon}
+                        <span>
+                          {item.name}
+                        </span>
+                      </NavItem>
+                    </li>
+                  )}
                 </ul>
               </div>
             </div>
@@ -357,7 +297,7 @@ const SideBar = () => {
                     </button>
                   </li>
                   <li className="mt-3">
-                    <div className={`flex items-center gap-3 justify-start`}>
+                    <span className={`flex items-center gap-3 justify-start`}>
                       <span className="block w-12 h-12 overflow-hidden rounded-full">
                         <img
                           src="https://th.bing.com/th/id/OIP.qhQ600gF84qfOJOgjXFEzwHaFj?pid=ImgDet&rs=1"
@@ -373,7 +313,7 @@ const SideBar = () => {
                           sundor@gmail.com
                         </p>
                       </span>
-                    </div>
+                    </span>
                   </li>
                 </ul>
               </div>

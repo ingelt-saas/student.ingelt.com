@@ -50,7 +50,7 @@ const StudentInfoBlock = ({ title, text, IconName }) => {
 
 const Home = () => {
 
-  const student = useContext(StudentContext);
+  const { student } = useContext(StudentContext);
   const [isCopied, setIsCopied] = useState(false);
   const [meetLink, setMeetLink] = useState("");
   const [graphData, setGraphData] = useState([]);
