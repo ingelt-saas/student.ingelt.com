@@ -29,8 +29,6 @@ const StudentProvider = ({ children }) => {
 
   }, []);
 
-  console.log(student)
-
   return (
     <StudentContext.Provider value={{ student, loading, logOut }}>
       {children}

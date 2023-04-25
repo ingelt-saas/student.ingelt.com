@@ -26,19 +26,21 @@ import SortButton from "../../components/shared/SortButton/SortButton";
 import UploadModal from "../../components/shared/UploadModal/UploadModal";
 import StatsModal from "../../components/shared/StatsModal/StatsModal";
 import PopOver from "../../components/shared/PopOverModal/PopOverModal";
+import moment from "moment/moment";
 // import PDFViewerModal from "../../components/shared/PDFViewerModal/PDFViewerModal";
 
 const Assignments = () => {
 
-  const [uploadModal, setUploadModal] = useState(true);
+  const [uploadModal, setUploadModal] = useState({ open: false, value: null });
   const [statsModal, setStatsModal] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const [assignments, setAssignments] = useState([]);
 
   useEffect(() => {
-    assignmentApi.getAllAssignments().then((res) => {
-      setAssignments(res.data);
-    });
+    assignmentApi.getAllAssignments()
+      .then((res) => {
+        setAssignments(res.data);
+      });
   }, []);
 
   // Event Handlers
@@ -116,6 +118,8 @@ const Assignments = () => {
                 >
                   Marks
                 </TableCell>
+                <TableCell></TableCell>
+                <TableCell></TableCell>
               </TableRow>
             </TableHead>
 
@@ -131,26 +135,28 @@ const Assignments = () => {
                       <div className="inline">
                         <span className="font-semibold block">{item.name}</span>
                         <span className="text-sm font-normal md:hidden">
-                          STATUS
+                          {item.submissions ? (item.submissions.evaluated ? 'Evaluated' : 'Submitted') : 'Not Done'}
                         </span>
                       </div>
                     </div>
                   </td>
                   <td className="py-2 text-center text-sm hidden md:table-cell text-[#6D6D6D]">
-                    STATUS
+                    {item.submissions ? (item.submissions.evaluated ? 'Evaluated' : 'Submitted') : 'Not Done'}
                   </td>
                   <td className="py-2 text-center text-sm hidden md:table-cell text-[#6D6D6D]">
-                    {item.assignedDate}
+                    {moment(item.assignedDate).format('ll')}
                   </td>
                   <td className="py-2 text-center text-sm hidden md:table-cell text-[#6D6D6D]">
-                    {item.endDate}
+                    {moment(item.endDate).format('ll')}
+                    <small className="ml-1">{moment(item.endDate).format('LT')}</small>
+
                   </td>
                   <td className="py-2 text-center text-sm hidden md:table-cell text-[#6D6D6D] font-bold">
                     7.2
                   </td>
                   <td className="py-2 text-center hidden md:table-cell">
                     <Button
-                      onClick={() => setUploadModal(true)}
+                      onClick={() => setUploadModal({ open: true, value: item })}
                       variant="outlined"
                       size="small"
                       sx={{
@@ -195,14 +201,14 @@ const Assignments = () => {
       }
 
       {/* Upload modal */}
-      <UploadModal
-        uploadModal={uploadModal ? true : false}
+      {uploadModal.value && <UploadModal
+        uploadModal={uploadModal.open}
         uploadModalHandle={uploadModalHandle}
-        assignment={uploadModal}
-      />
+        assignment={uploadModal.value}
+      />}
 
       {/* Stats modal */}
-      <StatsModal statsModal={statsModal} statsModalHandle={statsModalHandle} assignments={assignments} />
+      {/* <StatsModal statsModal={statsModal} statsModalHandle={statsModalHandle} assignments={assignments} /> */}
 
       {/* popover modal */}
       <PopOver anchorEl={anchorEl} setAnchorEl={setAnchorEl} assignment={{}} />

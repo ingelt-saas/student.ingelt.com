@@ -13,9 +13,7 @@ const PDFViewerModal = ({ modalOpen, modalClose, fileUrl }) => {
                     <Close fontSize='medium' />
                 </button>
                 {fileUrl &&
-                    <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.3.122/build/pdf.worker.min.js">
-                        <Viewer fileUrl={fileUrl} defaultScale={SpecialZoomLevel.PageFit} />;
-                    </Worker>
+                    <Viewer fileUrl={fileUrl} defaultScale={SpecialZoomLevel.PageFit} />
                 }
             </div>
         </Modal>
