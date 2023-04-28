@@ -45,6 +45,13 @@ module.exports = {
       },
       minHeight: {
         590: "590px",
+      }
+    },
+    keyframes: {
+      "shimmer": {
+        "100%": {
+          "transform": "translateX(100%)",
+        },
       },
     },
     screens: {
@@ -54,7 +61,7 @@ module.exports = {
       'lg': '1024px',
       'xl': '1280px',
       '2xl': '1536px'
-    }
+    },
   },
   plugins: [],
 };

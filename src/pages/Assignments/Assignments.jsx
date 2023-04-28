@@ -37,10 +37,9 @@ const Assignments = () => {
   const [assignments, setAssignments] = useState([]);
 
   useEffect(() => {
-    assignmentApi.getAllAssignments()
-      .then((res) => {
-        setAssignments(res.data);
-      });
+    assignmentApi.getAllAssignments().then((res) => {
+      setAssignments(res.data);
+    });
   }, []);
 
   // Event Handlers
@@ -80,7 +79,7 @@ const Assignments = () => {
         </div>
       </Box>
 
-      {Array.isArray(assignments) && assignments.length > 0 &&
+      {Array.isArray(assignments) && assignments.length > 0 && (
         <Box className="flex-col items-center flex" sx={{ width: "100%" }}>
           <Table>
             <TableHead className="!hidden md:!table-header-group">
@@ -198,7 +197,7 @@ const Assignments = () => {
 
           {/* <Pagination count={10} className="mt-6" /> */}
         </Box>
-      }
+      )}
 
       {/* Upload modal */}
       {uploadModal.value && <UploadModal
@@ -208,11 +207,11 @@ const Assignments = () => {
       />}
 
       {/* Stats modal */}
-      {/* <StatsModal statsModal={statsModal} statsModalHandle={statsModalHandle} assignments={assignments} /> */}
+      <StatsModal statsModal={statsModal} statsModalHandle={statsModalHandle} assignments={assignments} />
 
       {/* popover modal */}
       <PopOver anchorEl={anchorEl} setAnchorEl={setAnchorEl} assignment={{}} />
-    </Box >
+    </Box>
   );
 };
 

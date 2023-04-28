@@ -11,7 +11,7 @@ const StudentProvider = ({ children }) => {
   const logOut = () => {
     Cookies.remove('auth_token');
     setStudent(null);
-    window.location.reload();
+    window.location.pathname = '/';
   }
 
   useEffect(() => {
