@@ -1,6 +1,6 @@
 // Modules
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 // Layouts
 import PanelLayout from "../layouts/PanelLayout/PanelLayout";
@@ -15,16 +15,20 @@ import Documents from "../pages/Documents/Documents";
 import Library from "../pages/Library/Library";
 import Settings from "../pages/Settings/Settings";
 import SingleAssignment from "../pages/Assignments/SingleAssignment";
+import { StudentContext } from "../contexts";
+import Loader from "../components/shared/Loader/Loader";
 
 const Routes = () => {
 
   const [loggedIn, setLoggedIn] = useState(false);
+  // student provider context 
+  const { loading, student } = useContext(StudentContext);
 
   useEffect(() => {
     setLoggedIn(false);
   }, [loggedIn]);
 
-  const router = loggedIn
+  const router = student
     ? createBrowserRouter([
       {
         path: "/",
@@ -82,7 +86,7 @@ const Routes = () => {
       },
     ]);
 
-  return <RouterProvider router={router} />;
+  return loading ? <Loader /> : <RouterProvider router={router} />;
 };
 
 export default Routes;

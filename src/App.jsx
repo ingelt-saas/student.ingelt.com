@@ -5,6 +5,7 @@ import { ProSidebarProvider } from "react-pro-sidebar";
 
 // Routes
 import Routes from "./routes/Routes";
+import { Worker } from "@react-pdf-viewer/core";
 
 const App = () => {
   useEffect(() => {
@@ -16,7 +17,9 @@ const App = () => {
   return (
     <ProSidebarProvider>
       <StudentProvider>
-        <Routes />
+        <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.3.122/build/pdf.worker.min.js">
+          <Routes />
+        </Worker>
       </StudentProvider>
     </ProSidebarProvider>
   );

@@ -49,15 +49,14 @@ const StudentInfoBlock = ({ title, text, IconName }) => {
 };
 
 const Home = () => {
-  
-  const student = useContext(StudentContext);
+
+  const { student } = useContext(StudentContext);
   const [isCopied, setIsCopied] = useState(false);
-  const [meetLink, setMeetLink] = useState("");
   const [graphData, setGraphData] = useState([]);
   const [bands, setBands] = useState();
 
   const handleCopy = async (text) => {
-    text = meetLink.classroomLink || "";
+    text = student?.batch?.classroomLink || "";
 
     try {
       await navigator.clipboard.writeText(text);
@@ -68,17 +67,16 @@ const Home = () => {
   };
 
   const takeToClass = () => {
-    window.open(meetLink.classroomLink, "_blank");
+    if (student?.batch?.classroomLink) {
+      window.open(student?.batch?.classroomLink, "_blank");
+    }
   };
 
   useEffect(() => {
     async function getMeetLink() {
       try {
-        const meetLink = await home.getMeetLink(student.batchId);
         const bands = await home.getBands();
         const graphData = await home.getGraphData();
-
-        setMeetLink(meetLink.data);
         setBands(bands.data);
         setGraphData(graphData.data);
       } catch (error) { }
@@ -115,7 +113,7 @@ const Home = () => {
               <h1 className="text-2xl font-semibold">Your Classroom Link</h1>
 
               <p className="truncate relative pr-6 py-1">
-                {meetLink?.classroomLink || "Your teacher hasn't set the link"}
+                {student?.batch?.classroomLink || "Your teacher hasn't set the link"}
                 <Tooltip title={isCopied ? "Copied!" : "Copy to Clipboard"}>
                   <button
                     className="text-black absolute top-1/2 right-2 -translate-y-1/2"
@@ -162,7 +160,7 @@ const Home = () => {
             <div className="text-center mt-5 ">
               <h1 className="text-2xl font-semibold">{student?.name}</h1>
               <h4 className="text-[#6A6A6A] text-lg font-semibold">
-                Batch: B1
+                Batch: {student?.batch?.name}
               </h4>
             </div>
           </div>
@@ -213,7 +211,7 @@ const Home = () => {
               <StudentInfoBlock
                 IconName={Cake}
                 title="Date of Birth"
-                text={student?.dob}
+                text={true ? new Date()?.toLocaleDateString()?.replace(/\//g, '-') : ''}
               />
 
               <StudentInfoBlock
