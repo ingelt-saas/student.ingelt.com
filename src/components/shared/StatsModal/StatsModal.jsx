@@ -1,4 +1,4 @@
-import { Box, Button, Modal, Table, TableBody, TableCell, TableHead, TableRow, Typography } from "@mui/material";
+import { Modal } from "@mui/material";
 import { Close, KeyboardArrowDown } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import assignmentApi from "../../../api/assignment";
@@ -21,22 +21,18 @@ const DocumentSVG = () => {
   );
 }
 
-const StatsModal = ({ statsModal, statsModalHandle, assignments }) => {
+const StatsModal = ({ statsModal, statsModalHandle, totalAssignments }) => {
 
   const [submissions, setSubmissions] = useState([]);
   const [seeMoreBtn, setSeeMoreBtn] = useState(false);
 
   useEffect(() => {
     assignmentApi.getAllSubmission()
-      .then(res => setSubmissions(Array.isArray(res?.data) ? res?.data : []))
-      .catch(err => console.error(err));
+      .then(res => {
+        setSubmissions(res?.data)
+      })
   }, []);
 
-  // filter submitted submission
-  const submittedSubmissions = submissions.filter(i => i.status === 'submitted');
-
-  // get assignment by submission
-  const getAssignment = (assignmentId) => assignments.find(i => i.id === assignmentId);
 
   return (
     <Modal
@@ -59,7 +55,7 @@ const StatsModal = ({ statsModal, statsModalHandle, assignments }) => {
               <DocumentSVG />
               <div className="flex-1 text-center">
                 <h6 className="text-center text-xl font-medium">Total Assignments</h6>
-                <span className="text-2xl font-semibold">{assignments?.length}</span>
+                <span className="text-2xl font-semibold">{totalAssignments}</span>
               </div>
             </div>
             <div className="px-4 py-3 flex items-center rounded-xl shadow-[2px_2px_2px_rgba(0,_0,_0,_0.15)]"
@@ -67,7 +63,7 @@ const StatsModal = ({ statsModal, statsModalHandle, assignments }) => {
               <DocumentSVG />
               <div className="flex-1 text-center">
                 <h6 className="text-center text-xl font-medium">Complete Assignments</h6>
-                <span className="text-2xl font-semibold flex justify-center items-center"><small>{submittedSubmissions?.length}</small>/{assignments?.length}</span>
+                <span className="text-2xl font-semibold flex justify-center items-center">{submissions?.length}/{totalAssignments}</span>
               </div>
             </div>
             <div className="flex-1 border-2 border-[#E4E7EC] rounded-xl pb-12">
@@ -79,10 +75,10 @@ const StatsModal = ({ statsModal, statsModalHandle, assignments }) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {submittedSubmissions.map((submission, index) => (
-                    <tr className="border-b text-[#787878] border-[#E4E7EC]">
-                      <td className="text-center py-4 px-2 font-semibold">{getAssignment(submission?.assignmentId)?.name}</td>
-                      <td className="text-center py-4 px-2 font-semibold">{submission?.score}</td>
+                  {submissions.map((submission, index) => (
+                    <tr className="border-b text-[#787878] border-[#E4E7EC]" key={index}>
+                      <td className="text-center py-4 px-2 font-semibold">{submission?.assignment?.name}</td>
+                      <td className="text-center py-4 px-2 font-semibold">{submission?.evaluated ? submission?.scores : 'Not Evaluated'}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -91,7 +87,7 @@ const StatsModal = ({ statsModal, statsModalHandle, assignments }) => {
             <div className="text-center absolute w-full h-auto bottom-0 left-0 bg-white pt-1 pb-3">
               <button className="flex items-center gap-x-1 border border-[#0064E1] font-semibold rounded-lg px-7 py-1.5 text-[#0064E1] cursor-pointer mx-auto" onClick={() => setSeeMoreBtn(!seeMoreBtn)}>
                 See More
-                <KeyboardArrowDown fontSize="medium" />
+                <KeyboardArrowDown className={`duration-300 ${seeMoreBtn ? 'rotate-180' : 'rotate-0'}`} fontSize="medium" />
               </button>
             </div>
           </div>

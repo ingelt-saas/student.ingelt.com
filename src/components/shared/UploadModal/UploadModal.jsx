@@ -241,7 +241,9 @@ const UploadModal = ({ uploadModal, uploadModalHandle, assignment }) => {
           }
 
           {submission.value && // submission file showing 
-            <SubmitPDFViewer fileKey={submission?.value?.file} />
+            <div className="h-[60vh] overflow-y-auto">
+              <SubmitPDFViewer fileKey={submission?.value?.file} />
+            </div>
           }
 
           <Box

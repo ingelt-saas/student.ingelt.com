@@ -3,14 +3,15 @@ import { Box, Input } from "@mui/material";
 import React from "react";
 // Data
 
-const SearchBar = () => {
+const SearchBar = ({ handleSubmit }) => {
   return (
-    <form onSubmit={(event) => event.preventDefault()}>
+    <form onSubmit={handleSubmit}>
       <Box className="rounded-full px-2 py-1 bg-white w-[220px] flex items-center shadow-md">
         <Search sx={{ fontSize: "1.2rem", mr: 1 }} />
         <Input
           // sx={{ fontSize: ".9rem", border: "none", py: 0, width: "15vw" }}
           disableUnderline={true}
+          name="search"
           placeholder="Search for"
           className="flex-1"
         />
