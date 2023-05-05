@@ -21,6 +21,7 @@ const Discussions = () => {
   }, []);
 
   const createDiscussion = async () => {
+    
     const res = await discussion.postDiscussion({
       batchId: student.batchId,
       senderId: student.id,
@@ -45,7 +46,7 @@ const Discussions = () => {
         style={{ boxShadow: "0px 2px 50px 0px rgba(0,0,0,0.05) inset" }}
       >
         <div className="flex flex-col items-center justify-center w-full">
-          {discussions?.map((item) => (
+          {Array.isArray(discussions) && discussions?.map((item) => (
             <MessageBox
               key={item?.id}
               sender_name={item?.senderName}

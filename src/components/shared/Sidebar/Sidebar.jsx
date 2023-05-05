@@ -15,7 +15,6 @@ import Drawer from "@mui/material/Drawer";
 import {
   AssignmentSVG,
   DiscussionSVG,
-  DocumentsSVG,
   HomeSVG,
   LogoutSVG,
   NotesSVG,
@@ -24,9 +23,10 @@ import {
 } from "./SidebarSVG.jsx";
 
 //assets
-import logo from "../../../assets/images/logo.svg";
+import logo from "../../../assets/images/logo.png";
 import { useContext } from "react";
 import { StudentContext } from "../../../contexts.js";
+import Image from "../Image/Image.jsx";
 
 // Navbar Item Components
 const NavItem = ({ to, children, collapseMenu, ...props }) => {
@@ -90,11 +90,11 @@ const SideBar = () => {
       >
         <div className={`space-y-2 ${collapseMenu ? "mt-6" : "mt-0"}`}>
           <div className="flex items-center justify-center pt-5">
-            <Link to='/'>
+            <Link to='/' className="px-3">
               <img
                 src={logo}
                 alt="Logo"
-                className={`w-auto max-w-full duration-500 h-auto`}
+                className={`w-16 max-w-full duration-500 h-auto`}
               />
             </Link>
           </div>
@@ -177,11 +177,7 @@ const SideBar = () => {
                     }`}
                 >
                   <span className="block w-12 h-12 overflow-hidden rounded-full">
-                    <img
-                      src="https://th.bing.com/th/id/OIP.qhQ600gF84qfOJOgjXFEzwHaFj?pid=ImgDet&rs=1"
-                      alt="Teacher"
-                      className="w-full h-full object-cover"
-                    />
+                    <Image src={student?.image} alt={student?.name} className='w-full h-full object-cover' />
                   </span>
                   <span
                     className={`${collapseMenu ? "w-0 h-0" : "max-w-xs max-h-10"
@@ -223,10 +219,10 @@ const SideBar = () => {
               />
             </svg>
           </button>
-          <h2 className="text-xl font-semibold md:hidden">Welcome Harshita</h2>
+          <h2 className="text-xl font-semibold md:hidden">Welcome {student?.name}</h2>
           <div className="w-10 h-10 overflow-hidden rounded-full border-2">
             <Link to='/settings'>
-              <img src='https://th.bing.com/th/id/OIP.aNCvbHsT65-Zr4xg3wtBeQHaHa?pid=ImgDet&rs=1' alt='profile' className="rounded-full w-full h-full object-cover" />
+              <Image src={student?.image} alt={student?.name} className='rounded-full w-full h-full object-cover' />
             </Link>
           </div>
         </div>
@@ -237,7 +233,7 @@ const SideBar = () => {
                 <img
                   src={logo}
                   alt="Logo"
-                  className={`w-auto max-w-full duration-500 h-auto`}
+                  className={`w-16 max-w-full duration-500 h-auto`}
                 />
               </div>
               <div className="flex-1 px-2">
@@ -266,7 +262,11 @@ const SideBar = () => {
                     </NavItem>
                   </li>
                   <li className="navItem">
-                    <NavItem to="/logout" onClick={() => setOpen(false)}>
+                    <NavItem to="/logout"
+                      onClick={() => {
+                        setOpen(false);
+                        logOut();
+                      }}>
                       <LogoutSVG />
                       <span className={`duration-300`}>Log Out</span>
                     </NavItem>
@@ -299,18 +299,14 @@ const SideBar = () => {
                   <li className="mt-3">
                     <span className={`flex items-center gap-3 justify-start`}>
                       <span className="block w-12 h-12 overflow-hidden rounded-full">
-                        <img
-                          src="https://th.bing.com/th/id/OIP.qhQ600gF84qfOJOgjXFEzwHaFj?pid=ImgDet&rs=1"
-                          alt="Teacher"
-                          className="w-full h-full object-cover"
-                        />
+                        <Image src={student?.image} alt={student?.name} className='w-full h-full object-cover' />
                       </span>
                       <span className={`duration-300`}>
                         <p className="text-base font-semibold leading-none">
-                          Sundor Pichai
+                          {student?.name}
                         </p>
                         <p className="text-sm text-[#787878] leading-none mt-1 font-semibold">
-                          sundor@gmail.com
+                          {student?.email}
                         </p>
                       </span>
                     </span>

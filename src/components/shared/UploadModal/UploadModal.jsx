@@ -14,8 +14,8 @@ const SubmitPDFViewer = ({ fileKey }) => {
 
   useEffect(() => {
     getFile(fileKey)
-      .then(data => {
-        setUrl(data);
+      .then(res => {
+        setUrl(res?.data);
       })
   }, [fileKey]);
 

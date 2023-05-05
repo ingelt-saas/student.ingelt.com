@@ -53,7 +53,7 @@ const Routes = () => {
             ]
           },
           {
-            path: "/discussions",
+            path: "/discussion",
             element: <Discussions />,
           },
           {

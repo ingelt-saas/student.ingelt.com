@@ -27,6 +27,7 @@ import UploadModal from "../../components/shared/UploadModal/UploadModal";
 import StatsModal from "../../components/shared/StatsModal/StatsModal";
 import PopOver from "../../components/shared/PopOverModal/PopOverModal";
 import moment from "moment/moment";
+import getFile from "../../api/getFile";
 // import PDFViewerModal from "../../components/shared/PDFViewerModal/PDFViewerModal";
 
 const Assignments = () => {
@@ -41,6 +42,12 @@ const Assignments = () => {
       setAssignments(res.data);
     });
   }, []);
+
+  const downloadAssignment = async (key) => {
+    const res = await getFile(key);
+    // console.log(res)
+    window.open(res?.data, '_blank');
+  }
 
   // Event Handlers
   const uploadModalHandle = () => {
@@ -151,7 +158,7 @@ const Assignments = () => {
 
                   </td>
                   <td className="py-2 text-center text-sm hidden md:table-cell text-[#6D6D6D] font-bold">
-                    7.2
+                    {item.submissions && (item.submissions.evaluated && item.submissions.scores)}
                   </td>
                   <td className="py-2 text-center hidden md:table-cell">
                     <Button
@@ -180,6 +187,7 @@ const Assignments = () => {
                         borderColor: "#0064E1",
                         borderRadius: "8px",
                       }}
+                      onClick={() => downloadAssignment(item?.file)}
                     >
                       Download
                       <FileDownload sx={{ marginLeft: "2px" }} />
