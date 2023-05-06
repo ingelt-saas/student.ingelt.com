@@ -17,6 +17,7 @@ import Settings from "../pages/Settings/Settings";
 import SingleAssignment from "../pages/Assignments/SingleAssignment";
 import { StudentContext } from "../contexts";
 import Loader from "../components/shared/Loader/Loader";
+import Notes from "../pages/Notes/Notes";
 
 const Routes = () => {
 
@@ -57,8 +58,8 @@ const Routes = () => {
             element: <Discussions />,
           },
           {
-            path: "/documents",
-            element: <Documents />,
+            path: "/notes",
+            element: <Notes />,
           },
           {
             path: "/centralized-library",

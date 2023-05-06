@@ -5,10 +5,12 @@ import { useState, useEffect } from "react";
 import {
   Box,
   Button,
+  CircularProgress,
   Table,
   TableBody,
   TableCell,
   TableHead,
+  TablePagination,
   // Pagination,
   TableRow,
 } from "@mui/material";
@@ -17,18 +19,66 @@ import { FileDownload, Assignment } from "@mui/icons-material";
 // Custom Components
 import SearchBar from "../../components/shared/SearchBar/SearchBar";
 import SortButton from "../../components/shared/SortButton/SortButton";
+import libraryApi from "../../api/library";
+import moment from "moment";
+import getFile from "../../api/getFile";
 
 const Library = () => {
-  // const [Library, setLibrary] = useState([]);
 
-  // useEffect(() => {
-  //   const getAllLibrary = async () => {
-  //     const _Library = await LibraryApi.getLibrary();
-  //     setLibrary(_Library.data);
-  //   };
+  const [Library, setLibrary] = useState([]);
+  const [searchValue, setSearchValue] = useState('');
+  const [totalItems, setTotalItems] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const [pagination, setPagination] = useState({ page: 0, rows: 5 });
 
-  //   getAllLibrary();
-  // }, []);
+  // file size converted , bytes into kb, mb, gb, tb
+  const fileSize = (size) => {
+    if (typeof size !== 'number') {
+      return '';
+    }
+    let units = ['B', 'KB', 'MB', 'GB', 'TB'],
+      bytes = size,
+      i;
+
+    for (i = 0; bytes >= 1024 && i < 4; i++) {
+      bytes /= 1024;
+    }
+
+    return bytes.toFixed(2) + ' ' + units[i];
+  };
+
+  const downloadItem = async (key) => {
+    const res = await getFile(key);
+    window.open(res?.data, '_blank');
+  }
+
+  // search library items
+  const searchLibrary = (e) => {
+    e.preventDefault();
+    setSearchValue(e.target.search.value);
+    setPagination({ rows: 5, page: 0 });
+  }
+
+  useEffect(() => {
+    if (searchValue) {
+      setLoading(true);
+      libraryApi.search(searchValue, pagination.page + 1, pagination.rows)
+        .then(res => {
+          setTotalItems(res?.data?.count);
+          setLibrary(res?.data?.rows);
+          setLoading(false);
+        });
+    } else {
+      setLoading(true);
+      libraryApi.getAll(pagination.page + 1, pagination.rows)
+        .then(res => {
+          setTotalItems(res?.data?.count);
+          setLibrary(res?.data?.rows);
+          setLoading(false);
+        });
+    }
+
+  }, [searchValue, pagination]);
 
   // Component
   return (
@@ -42,12 +92,17 @@ const Library = () => {
         justifyContent="space-between"
         className="w-full md:px-2 py-4"
       >
-        <SearchBar />
+        <SearchBar handleSubmit={searchLibrary} />
         <SortButton />
       </Box>
 
-      <Box className="flex flex-col items-center" sx={{ width: "100%" }}>
-        <Table>
+      {loading && <div className="py-10 flex justify-center">
+        <CircularProgress />
+      </div>}
+
+      {!loading && <Box className="flex flex-col items-center" sx={{ width: "100%" }}>
+
+        {Array.isArray(Library) && Library.length > 0 ? <Table>
           <TableHead className="!hidden md:!table-header-group">
             <TableRow>
               <TableCell
@@ -61,7 +116,7 @@ const Library = () => {
                 align="center"
                 sx={{ fontWeight: 600, fontSize: "1rem" }}
               >
-                File Size (MB)
+                File Size
               </TableCell>
 
               <TableCell
@@ -85,7 +140,7 @@ const Library = () => {
             </TableRow>
           </TableHead>
 
-          {/* <TableBody>
+          <TableBody>
             {Library?.map((item) => (
               <tr
                 key={item?.id}
@@ -95,7 +150,7 @@ const Library = () => {
                   <div className="flex items-center justify-start md:justify-center">
                     <Assignment className="mr-3 text-[#4C9BFF]" />
                     <div className="inline">
-                      <span className="font-semibold block">{item?.file}</span>
+                      <span className="font-semibold block">{item?.name}</span>
                       <span className="text-sm font-semibold md:hidden text-[#6D6D6D]">
                         {item?.fileSize} - {item?.createdAt}
                       </span>
@@ -103,13 +158,13 @@ const Library = () => {
                   </div>
                 </td>
                 <td className="py-2 text-center text-sm hidden md:table-cell text-[#6D6D6D]">
-                  {item?.fileSize}
+                  {fileSize(item?.fileSize)}
                 </td>
-                <td className="py-2 text-center text-sm hidden md:table-cell text-[#6D6D6D]">
+                <td className="py-2 text-center capitalize text-sm hidden md:table-cell text-[#6D6D6D]">
                   {item?.subject}
                 </td>
                 <td className="py-2 text-center text-sm hidden md:table-cell text-[#6D6D6D]">
-                  {item?.createdAt}
+                  {moment(item?.createdAt).format('ll')}
                 </td>
                 <td className="py-2 text-center hidden md:table-cell">
                   <Button
@@ -122,6 +177,7 @@ const Library = () => {
                       borderColor: "#0064E1",
                       borderRadius: "8px",
                     }}
+                    onClick={() => downloadItem(item?.file)}
                   >
                     Download
                     <FileDownload />
@@ -134,12 +190,24 @@ const Library = () => {
                 </td>
               </tr>
             ))}
-          </TableBody> */}
-        </Table>
+          </TableBody>
+        </Table> : <p></p>
+        }
 
-        {/* <Pagination count={10} className="mt-6" /> */}
-      </Box>
-    </Box>
+        <TablePagination
+          component='div'
+          color="primary"
+          count={totalItems}
+          rowsPerPageOptions={[5, 10, 25, 50, 100]}
+          page={pagination.page}
+          rowsPerPage={pagination.rows}
+          onPageChange={(_, newPage) => setPagination({ ...pagination, page: newPage })}
+          onRowsPerPageChange={(e) => setPagination({ ...pagination, rows: e.target.value })}
+          className="mt-6" />
+
+      </Box>}
+
+    </Box >
   );
 };
 

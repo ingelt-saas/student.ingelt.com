@@ -1,38 +1,34 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
 import discussion from "../../api/discussion";
 
 // Components
-import MessageBox from "../../components/Discussions/MessageBox/MessageBox";
+import MessageBox from "../../components/Discussions/MessageBox";
 import { FiSend } from "react-icons/fi";
-import { StudentContext } from "../../contexts";
 
 const Discussions = () => {
-  const student = useContext(StudentContext);
+
   const [message, setMessage] = useState("");
   const [discussions, setDiscussions] = useState([]);
 
   useEffect(() => {
     const getDiscussions = async () => {
-      const _discussions = await discussion.getDiscussions();
-      setDiscussions(_discussions.data);
+      const _discussions = await discussion.getDiscussions(1, 1000);
+      setDiscussions(_discussions?.data?.rows);
     };
 
     getDiscussions();
   }, []);
 
   const createDiscussion = async () => {
-    
-    const res = await discussion.postDiscussion({
-      batchId: student.batchId,
-      senderId: student.id,
-      senderName: student.name,
-      message: message,
-      designation: "student",
-    });
 
-    console.log(res);
+    try {
+      await discussion.postDiscussion({
+        message: message,
+      });
 
-    window.location.reload();
+      window.location.reload();
+    } catch (err) { }
+
   };
 
   return (
@@ -49,11 +45,7 @@ const Discussions = () => {
           {Array.isArray(discussions) && discussions?.map((item) => (
             <MessageBox
               key={item?.id}
-              sender_name={item?.senderName}
-              sender_img={"https://i.pravatar.cc/150?img=2"}
-              designation={item?.designation}
-              text={item?.message}
-              date={item?.createdAt}
+              data={item}
             />
           ))}
         </div>

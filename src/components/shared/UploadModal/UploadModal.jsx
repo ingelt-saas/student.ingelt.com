@@ -6,6 +6,7 @@ import instance from "../../../api/config/axios";
 import assignmentApi from "../../../api/assignment";
 import { Viewer, SpecialZoomLevel } from '@react-pdf-viewer/core';
 import getFile from "../../../api/getFile";
+import { toast } from "react-toastify";
 
 
 const SubmitPDFViewer = ({ fileKey }) => {
@@ -100,8 +101,9 @@ const UploadModal = ({ uploadModal, uploadModalHandle, assignment }) => {
     try {
       await assignmentApi.submitSubmission(submission?.value?.id);
       handleClose();
+      toast.success('Solution submission successfully');
     } catch (err) {
-      console.error(err);
+      toast.error('Sorry! something went wrong.');
     }
   }
 
