@@ -6,10 +6,12 @@ import assignmentApi from "../../api/assignment";
 import {
   Box,
   Button,
+  CircularProgress,
   Table,
   TableBody,
   TableCell,
   TableHead,
+  TablePagination,
   // Pagination,
   TableRow,
 } from "@mui/material";
@@ -27,6 +29,7 @@ import UploadModal from "../../components/shared/UploadModal/UploadModal";
 import StatsModal from "../../components/shared/StatsModal/StatsModal";
 import PopOver from "../../components/shared/PopOverModal/PopOverModal";
 import moment from "moment/moment";
+import getFile from "../../api/getFile";
 // import PDFViewerModal from "../../components/shared/PDFViewerModal/PDFViewerModal";
 
 const Assignments = () => {
@@ -34,13 +37,45 @@ const Assignments = () => {
   const [uploadModal, setUploadModal] = useState({ open: false, value: null });
   const [statsModal, setStatsModal] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
-  const [assignments, setAssignments] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [assignments, setAssignments] = useState(null);
+  const [totalAssignments, setTotalAssignments] = useState(0);
+  const [pagination, setPagination] = useState({ rows: 5, page: 0 });
+  const [searchValue, setSearchValue] = useState(null);
 
+
+  // fetch and search assignments
   useEffect(() => {
-    assignmentApi.getAllAssignments().then((res) => {
-      setAssignments(res.data);
-    });
-  }, []);
+    if (searchValue) {
+      setLoading(true);
+      assignmentApi.searchAssignments(searchValue, pagination.page + 1, pagination.rows)
+        .then(res => {
+          setTotalAssignments(res?.data?.count);
+          setAssignments(res.data?.rows);
+          setLoading(false);
+        })
+    } else {
+      setLoading(true);
+      assignmentApi.getAllAssignments(pagination.page + 1, pagination.rows)
+        .then((res) => {
+          setTotalAssignments(res?.data?.count);
+          setAssignments(res.data?.rows);
+          setLoading(false);
+        });
+    }
+  }, [pagination, searchValue]);
+
+  // search assignment form handle
+  const searchAssignments = (e) => {
+    e.preventDefault();
+    setPagination({ page: 0, rows: 5 });
+    setSearchValue(e.target.search.value);
+  }
+
+  const downloadAssignment = async (key) => {
+    const res = await getFile(key);
+    window.open(res?.data, '_blank');
+  }
 
   // Event Handlers
   const uploadModalHandle = () => {
@@ -62,7 +97,7 @@ const Assignments = () => {
       </h1>
 
       <Box className="flex flex-col items-center gap-y-4 sm:flex-row sm:justify-between w-full md:px-2 py-4">
-        <SearchBar />
+        <SearchBar handleSubmit={searchAssignments} />
         <div className="flex justify-center sm:justify-between gap-x-9 w-full sm:w-1/2">
           <Button
             variant="contained"
@@ -79,7 +114,11 @@ const Assignments = () => {
         </div>
       </Box>
 
-      {Array.isArray(assignments) && assignments.length > 0 && (
+      {loading && <div className="py-10 flex justify-center">
+        <CircularProgress />
+      </div>}
+
+      {!loading && Array.isArray(assignments) && assignments.length > 0 && (
         <Box className="flex-col items-center flex" sx={{ width: "100%" }}>
           <Table>
             <TableHead className="!hidden md:!table-header-group">
@@ -140,7 +179,7 @@ const Assignments = () => {
                     </div>
                   </td>
                   <td className="py-2 text-center text-sm hidden md:table-cell text-[#6D6D6D]">
-                    {item.submissions ? (item.submissions.evaluated ? 'Evaluated' : 'Submitted') : 'Not Done'}
+                    {!item.submissions.id ? 'Not Done' : (item.submissions.evaluated ? 'Evaluated' : 'Submitted')}
                   </td>
                   <td className="py-2 text-center text-sm hidden md:table-cell text-[#6D6D6D]">
                     {moment(item.assignedDate).format('ll')}
@@ -148,10 +187,9 @@ const Assignments = () => {
                   <td className="py-2 text-center text-sm hidden md:table-cell text-[#6D6D6D]">
                     {moment(item.endDate).format('ll')}
                     <small className="ml-1">{moment(item.endDate).format('LT')}</small>
-
                   </td>
                   <td className="py-2 text-center text-sm hidden md:table-cell text-[#6D6D6D] font-bold">
-                    7.2
+                    {item.submissions && (item.submissions.evaluated ? item.submissions.scores : '')}
                   </td>
                   <td className="py-2 text-center hidden md:table-cell">
                     <Button
@@ -180,6 +218,7 @@ const Assignments = () => {
                         borderColor: "#0064E1",
                         borderRadius: "8px",
                       }}
+                      onClick={() => downloadAssignment(item?.file)}
                     >
                       Download
                       <FileDownload sx={{ marginLeft: "2px" }} />
@@ -194,8 +233,17 @@ const Assignments = () => {
               ))}
             </TableBody>
           </Table>
+          <TablePagination
+            component='div'
+            color="primary"
+            count={totalAssignments}
+            rowsPerPageOptions={[5, 10, 25, 50, 100]}
+            page={pagination.page}
+            rowsPerPage={pagination.rows}
+            onPageChange={(_, newPage) => setPagination({ ...pagination, page: newPage })}
+            onRowsPerPageChange={(e) => setPagination({ ...pagination, rows: e.target.value })}
+            className="mt-6" />
 
-          {/* <Pagination count={10} className="mt-6" /> */}
         </Box>
       )}
 
@@ -207,7 +255,7 @@ const Assignments = () => {
       />}
 
       {/* Stats modal */}
-      <StatsModal statsModal={statsModal} statsModalHandle={statsModalHandle} assignments={assignments} />
+      <StatsModal statsModal={statsModal} statsModalHandle={statsModalHandle} totalAssignments={totalAssignments} />
 
       {/* popover modal */}
       <PopOver anchorEl={anchorEl} setAnchorEl={setAnchorEl} assignment={{}} />
