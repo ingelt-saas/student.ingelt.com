@@ -5,6 +5,7 @@ const home = {
   getMeetLink: () => instance.get(`/meetLink`),
   getBands: () => instance.get("/bands"),
   getGraphData: () => instance.get("/mockTestMarks"),
+  getSubmissions: () => instance.get('/submissions'),
 };
 
 export default home;
