@@ -6,7 +6,7 @@ import { StudentContext } from "../../contexts";
 import welcomeSVG from "../../assets/images/welcome.svg";
 import frameSVG from "../../assets/images/profile_frame.svg";
 import meetSVG from "../../assets/images/meeting.svg";
-import StudentGraph from "../../components/Home/StudentGraph/StudentGraph";
+import StudentGraph from "../../components/Home/StudentGraph";
 
 // MUI
 import { Tooltip, Button } from "@mui/material";
@@ -26,6 +26,9 @@ import {
   Quiz,
   GpsFixed,
 } from "@mui/icons-material";
+import Image from "../../components/shared/Image/Image";
+import AssignmentGraph from "../../components/Home/AssignmentGraph";
+import Blogs from "../../components/Home/Blogs";
 
 // Student Info Block
 const StudentInfoBlock = ({ title, text, IconName }) => {
@@ -87,6 +90,7 @@ const Home = () => {
 
   return (
     <div className="flex flex-row flex-wrap gap-y-10 gap-x-5 w-full">
+
       {/* welcome message */}
       <div className="w-full foo:w-[calc(100%/12*8-10px)] hidden foo:block">
         <div className="relative rounded-xl mt-10 shadow-lg w-11/12 bg-white">
@@ -147,11 +151,7 @@ const Home = () => {
           <div className="w-4/12 border-r-2 border-[#78787840] px-4 box-border hidden md:block">
             <div className="relative w-fit mx-auto">
               <div className="absolute top-0 left-0 w-full h-full rounded-full overflow-hidden p-5">
-                <img
-                  src="https://th.bing.com/th/id/OIP.aNCvbHsT65-Zr4xg3wtBeQHaHa?pid=ImgDet&rs=1"
-                  alt="profile"
-                  className="rounded-full w-full h-full object-cover"
-                />
+                <Image src={student.image} alt={student.name} className='rounded-full w-full h-full object-cover' />
               </div>
 
               <img src={frameSVG} alt="profile frame svg" className="" />
@@ -224,64 +224,6 @@ const Home = () => {
         </div>
       </div>
 
-      {/* score  */}
-      <div className="w-full order-4 foo:order-none foo:w-[calc(100%/12*4-10px)]">
-        <div className="border border-[#78787840] shadow-lg rounded-md py-6 px-3 bg-white">
-          <h1 className="font-bold text-2xl">Your Predicted Bands</h1>
-          <div className="mt-5 overflow-hidden rounded-md">
-            <div className="bg-[#1A74E4] py-2 px-4 text-lg text-[#f2f2f2] font-bold flex items-center justify-between">
-              <h3>Total Bands</h3>
-              <span>
-                {(
-                  (bands?.listeningBands +
-                    bands?.writingBands +
-                    bands?.speakingBands +
-                    bands?.readingBands) /
-                  4
-                ).toFixed(2) || "Not Enough Data"}
-              </span>
-            </div>
-
-            <div className="border-2 border-t-0 border-[#78787840]">
-              <div className="py-4 px-4 text-base font-semibold flex items-center justify-between">
-                <h3>Listening</h3>
-                <span>
-                  {bands?.listeningBands?.toFixed(2) || "Not Enough Data"}
-                </span>
-              </div>
-
-              <div className="py-4 px-4 text-base font-semibold flex items-center justify-between">
-                <h3>Reading</h3>
-                <span>
-                  {bands?.readingBands?.toFixed(2) || "Not Enough Data"}
-                </span>
-              </div>
-
-              <div className="py-4 px-4 text-base font-semibold flex items-center justify-between">
-                <h3>Speaking</h3>
-                <span>
-                  {bands?.speakingBands?.toFixed(2) || "Not Enough Data"}
-                </span>
-              </div>
-
-              <div className="py-4 px-4 text-base font-semibold flex items-center justify-between">
-                <h3>Writing</h3>
-                <span>
-                  {bands?.writingBands?.toFixed(2) || "Not Enough Data"}
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* student graph */}
-      <div className="w-full order-3 foo:order-none foo:w-[calc(100%/12*8-10px)]">
-        <div className="border border-[#78787840] shadow-lg rounded-lg px-4 py-5 bg-white">
-          <StudentGraph data={graphData} />
-        </div>
-      </div>
-
       {/* mock test Performance */}
       <div className="w-full order-5 foo:order-none foo:w-[calc(100%/12*4-10px)]">
         <div className="border border-[#78787840] shadow-lg rounded-lg px-4 py-5 bg-white">
@@ -334,6 +276,77 @@ const Home = () => {
           </div>
         </div>
       </div>
+
+      {/* student graph */}
+      <div className="w-full order-3 foo:order-none foo:w-[calc(100%/12*8-10px)]">
+        <div className="border border-[#78787840] shadow-lg rounded-lg px-4 py-5 bg-white">
+          <StudentGraph data={graphData} />
+        </div>
+      </div>
+
+      {/* assignment graph  */}
+      <div className="w-full order-4 foo:order-none foo:w-[calc(100%/12*4-10px)]">
+        <AssignmentGraph />
+      </div>
+
+      {/* blogs area */}
+      <div className="w-full order-6 foo:order-none foo:w-[calc(100%/12*8-10px)]">
+        <div className="border border-[#78787840] shadow-lg rounded-lg px-4 py-5 bg-white">
+          <Blogs />
+        </div>
+      </div>
+
+      {/* score  */}
+      <div className="w-full order-4 foo:order-none foo:w-[calc(100%/12*4-10px)]">
+        <div className="border border-[#78787840] shadow-lg rounded-md py-6 px-3 bg-white">
+          <h1 className="font-bold text-2xl">Your Predicted Bands</h1>
+          <div className="mt-5 overflow-hidden rounded-md">
+            <div className="bg-[#1A74E4] py-2 px-4 text-lg text-[#f2f2f2] font-bold flex items-center justify-between">
+              <h3>Total Bands</h3>
+              <span>
+                {(
+                  (bands?.listeningBands +
+                    bands?.writingBands +
+                    bands?.speakingBands +
+                    bands?.readingBands) /
+                  4
+                ).toFixed(2) || "Not Enough Data"}
+              </span>
+            </div>
+
+            <div className="border-2 border-t-0 border-[#78787840]">
+              <div className="py-4 px-4 text-base font-semibold flex items-center justify-between">
+                <h3>Listening</h3>
+                <span>
+                  {bands?.listeningBands?.toFixed(2) || "Not Enough Data"}
+                </span>
+              </div>
+
+              <div className="py-4 px-4 text-base font-semibold flex items-center justify-between">
+                <h3>Reading</h3>
+                <span>
+                  {bands?.readingBands?.toFixed(2) || "Not Enough Data"}
+                </span>
+              </div>
+
+              <div className="py-4 px-4 text-base font-semibold flex items-center justify-between">
+                <h3>Speaking</h3>
+                <span>
+                  {bands?.speakingBands?.toFixed(2) || "Not Enough Data"}
+                </span>
+              </div>
+
+              <div className="py-4 px-4 text-base font-semibold flex items-center justify-between">
+                <h3>Writing</h3>
+                <span>
+                  {bands?.writingBands?.toFixed(2) || "Not Enough Data"}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   );
 };
