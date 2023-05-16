@@ -20,13 +20,8 @@ import Loader from "../components/shared/Loader/Loader";
 import Notes from "../pages/Notes/Notes";
 
 const Routes = () => {
-  const [loggedIn, setLoggedIn] = useState(false);
   // student provider context
   const { loading, student } = useContext(StudentContext);
-
-  useEffect(() => {
-    setLoggedIn(false);
-  }, [loggedIn]);
 
   const router = student
     ? createBrowserRouter([
