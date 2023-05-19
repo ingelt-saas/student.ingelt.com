@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 // Assets
-import Logo from "../../assets/images/logo.svg";
+import Logo from "../../assets/images/logo.png";
 import SideImage from "../../assets/images/login.png";
 import GoogleLogo from "../../assets/images/google-logo.png";
 
