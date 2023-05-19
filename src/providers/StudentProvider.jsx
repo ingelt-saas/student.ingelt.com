@@ -21,6 +21,10 @@ const StudentProvider = ({ children }) => {
         .then(res => {
           setStudent(res?.data);
           setLoading(false);
+        })
+        .catch(() => {
+          setStudent(null);
+          setLoading(false);
         });
     } else {
       setStudent(null);
