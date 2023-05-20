@@ -9,7 +9,7 @@ const StudentProvider = ({ children }) => {
   const [student, setStudent] = useState(null);
 
   const logOut = () => {
-    Cookies.remove('student_auth_token');
+    Cookies.remove('student_auth_token', { path: '', domain: 'ingelt.com' });
     setStudent(null);
     window.location.pathname = '/';
   }
