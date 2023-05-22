@@ -147,7 +147,7 @@ const Home = () => {
 
       {/* profile details */}
       <div className="w-full order-1 foo:order-none foo:w-[calc(100%/12*8-10px)]">
-        <div className="border border-[#78787840] shadow-lg rounded-lg py-5 flex bg-white">
+        <div className="border border-[#78787840] shadow-lg rounded-lg py-5 flex bg-white h-full items-center">
           <div className="w-4/12 border-r-2 border-[#78787840] px-4 box-border hidden md:block">
             <div className="relative w-fit mx-auto">
               <div className="absolute top-0 left-0 w-full h-full rounded-full overflow-hidden p-5">
