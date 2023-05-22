@@ -41,7 +41,7 @@ const LoginLayout = () => {
     setLoading(true);
     try {
       const res = await authApi.login({ email, password });
-      Cookies.set('student_auth_token', res?.data?.token, { expires: 7, path: '' });
+      Cookies.set('student_auth_token', res?.data?.token, { expires: 7, path: '', domain: 'ingelt.com' });
       window.location.reload();
     } catch (err) {
       setError(err?.response?.data?.message);
