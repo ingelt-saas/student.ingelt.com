@@ -86,15 +86,15 @@ const SideBar = () => {
       {/* Larger device menu */}
       <div
         className={`${collapseMenu && "max-w-sm"
-          }  lg:w-48 xl:w-52 2xl:w-60 hidden lg:flex flex-col h-full justify-between`}
+          }  lg:w-48 xl:w-56 hidden lg:flex flex-col h-full justify-between`}
       >
         <div className={`space-y-2 ${collapseMenu ? "mt-6" : "mt-0"}`}>
-          <div className="flex items-center justify-center pt-5">
+          <div className="flex items-start justify-start pt-5 pl-[0.3rem]">
             <Link to='/' className="px-3">
               <img
                 src={logo}
                 alt="Logo"
-                className={`w-52 max-w-full duration-500 h-auto py-8`}
+                className={`w-44 max-w-full duration-500 h-auto py-8`}
               />
             </Link>
           </div>
@@ -130,7 +130,7 @@ const SideBar = () => {
                 </NavItem>
               </li>
               <li className="navItem mb-2">
-                <NavItem onClick={logOut} collapseMenu={collapseMenu}>
+                <NavItem to='/logout' onClick={logOut} collapseMenu={collapseMenu}>
                   <LogoutSVG />
                   <span
                     className={`${collapseMenu ? "max-w-0 max-h-0" : "max-w-xs max-h-10"
@@ -140,7 +140,7 @@ const SideBar = () => {
                   </span>
                 </NavItem>
               </li>
-              <li className="mt-2 navItem">
+              {/* <li className="mt-2 navItem">
                 <button
                   onClick={darkModeHandler}
                   className={`p-1.5 w-full bg-[#0064E133] ${collapseMenu ? "rounded-md" : "rounded-full"
@@ -170,7 +170,7 @@ const SideBar = () => {
                     </span>
                   </span>
                 </button>
-              </li>
+              </li> */}
               <li className="mt-2 navItem">
                 <span
                   className={`flex items-center ${collapseMenu ? "justify-center" : "gap-3 justify-start"
