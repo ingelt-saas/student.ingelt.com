@@ -44,7 +44,7 @@ const LoginLayout = () => {
       Cookies.set("student_auth_token", res?.data?.token, {
         expires: 7,
         path: "",
-        domain: "board.ingelt.com",
+        domain: ".ingelt.com",
       });
       window.location.reload();
     } catch (err) {
@@ -98,9 +98,8 @@ const LoginLayout = () => {
         </div>
 
         <div
-          className={`flex flex-col justify-center h-full ${
-            loading && "opacity-70 pointer-events-none"
-          }`}
+          className={`flex flex-col justify-center h-full ${loading && "opacity-70 pointer-events-none"
+            }`}
         >
           <div className="px-32 max-sm:px-10 max-lg:px-20">
             <h1 className="font-bold text-3xl mb-2">InGelt Board Login</h1>
