@@ -30,16 +30,17 @@ const AssignmentGraph = () => {
     const graphData = Array.isArray(submissions) ? submissions.map(i => ({ name: i?.assignment?.name, score: i.scores })) : []
 
     return (
-        <div className="border border-[#78787840] shadow-lg rounded-md py-6 px-3 bg-white">
+        <div className="border border-[#78787840] shadow-lg rounded-md py-6 px-3 bg-white h-full flex flex-col">
             <div className="flex justify-between items-center">
                 <h1 className="font-bold text-2xl">Assignment</h1>
             </div>
 
-            <div className="mt-5 overflow-hidden rounded-md">
-                {!loading && <div className='w-[calc(100%+30px)] -ml-[30px]'>
+            <div className="mt-5 overflow-hidden rounded-md flex-1">
+                {!loading && <div className='w-[calc(100%+30px)] -ml-[30px] h-full'>
                     <ResponsiveContainer width="100%" height="100%" minHeight={230}>
                         <BarChart
                             width={500}
+
                             height={300}
                             data={graphData}
                         >

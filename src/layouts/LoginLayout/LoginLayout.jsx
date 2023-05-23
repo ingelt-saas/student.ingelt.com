@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 // Assets
-import Logo from "../../assets/images/logo.svg";
+import Logo from "../../assets/images/logo.png";
 import SideImage from "../../assets/images/login.png";
 import GoogleLogo from "../../assets/images/google-logo.png";
 
@@ -41,7 +41,7 @@ const LoginLayout = () => {
     setLoading(true);
     try {
       const res = await authApi.login({ email, password });
-      Cookies.set('auth_token', res?.data?.token, { expires: 7 });
+      Cookies.set('student_auth_token', res?.data?.token, { expires: 7, path: '', domain: 'ingelt.com' });
       window.location.reload();
     } catch (err) {
       setError(err?.response?.data?.message);

@@ -127,7 +127,7 @@ const Settings = () => {
     try {
       const result = await settingsApi.updateProfile(Form);
       student.image = result?.data?.image;
-      toast.success('Sorry! Your profile image has been updated.');
+      toast.success('Your profile image has been updated.');
     } catch (err) {
       toast.error('Sorry! Your profile image has not been updated.');
     } finally {

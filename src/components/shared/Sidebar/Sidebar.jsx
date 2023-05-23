@@ -23,7 +23,7 @@ import {
 } from "./SidebarSVG.jsx";
 
 //assets
-import logo from "../../../assets/images/logo.png";
+import logo from "../../../assets/images/navlogo.png";
 import { useContext } from "react";
 import { StudentContext } from "../../../contexts.js";
 import Image from "../Image/Image.jsx";
@@ -50,14 +50,14 @@ const NavItem = ({ to, children, collapseMenu, ...props }) => {
 const SideBar = () => {
 
   const [open, setOpen] = useState(false);
-  const [collapseMenu, setCollapseMenu] = useState(true);
+  const [collapseMenu, setCollapseMenu] = useState(false);
   const { student, logOut } = useContext(StudentContext);
 
   const navItemsArr = [
     { name: 'Home', path: '/', icon: <HomeSVG /> },
     { name: 'Assignments', path: '/assignments', icon: <AssignmentSVG /> },
     { name: 'Library', path: '/centralized-library', icon: <LibrarySVG /> },
-    { name: 'Discussion', path: '/discussion', icon: <DiscussionSVG /> },
+    { name: 'Community', path: '/discussion', icon: <DiscussionSVG /> },
     { name: 'Notes', path: '/notes', icon: <NotesSVG /> },
   ];
 
@@ -71,30 +71,30 @@ const SideBar = () => {
     }
   }
 
-  useEffect(() => {
-    const navItems = document.querySelectorAll(".navbar");
+  // useEffect(() => {
+  //   const navItems = document.querySelectorAll(".navbar");
 
-    navItems.forEach((ele) => {
-      ele.onmouseover = () => setCollapseMenu(false);
-      ele.onmouseout = () => setCollapseMenu(true);
-    });
+  //   navItems.forEach((ele) => {
+  //     ele.onmouseover = () => setCollapseMenu(false);
+  //     ele.onmouseout = () => setCollapseMenu(true);
+  //   });
 
-  }, []);
+  // }, []);
 
   return (
     <>
       {/* Larger device menu */}
       <div
         className={`${collapseMenu && "max-w-sm"
-          }  lg:max-w-56 xl:max-w-60 2xl:max-w-80 hidden lg:flex flex-col h-full justify-between`}
+          }  lg:w-48 xl:w-56 hidden lg:flex flex-col h-full justify-between`}
       >
         <div className={`space-y-2 ${collapseMenu ? "mt-6" : "mt-0"}`}>
-          <div className="flex items-center justify-center pt-5">
+          <div className="flex items-start justify-start pt-5 pl-[0.3rem]">
             <Link to='/' className="px-3">
               <img
                 src={logo}
                 alt="Logo"
-                className={`w-16 max-w-full duration-500 h-auto`}
+                className={`w-44 max-w-full duration-500 h-auto py-8`}
               />
             </Link>
           </div>
@@ -130,7 +130,7 @@ const SideBar = () => {
                 </NavItem>
               </li>
               <li className="navItem mb-2">
-                <NavItem onClick={logOut} collapseMenu={collapseMenu}>
+                <NavItem to='/logout' onClick={logOut} collapseMenu={collapseMenu}>
                   <LogoutSVG />
                   <span
                     className={`${collapseMenu ? "max-w-0 max-h-0" : "max-w-xs max-h-10"
@@ -140,7 +140,7 @@ const SideBar = () => {
                   </span>
                 </NavItem>
               </li>
-              <li className="mt-2 navItem">
+              {/* <li className="mt-2 navItem">
                 <button
                   onClick={darkModeHandler}
                   className={`p-1.5 w-full bg-[#0064E133] ${collapseMenu ? "rounded-md" : "rounded-full"
@@ -170,7 +170,7 @@ const SideBar = () => {
                     </span>
                   </span>
                 </button>
-              </li>
+              </li> */}
               <li className="mt-2 navItem">
                 <span
                   className={`flex items-center ${collapseMenu ? "justify-center" : "gap-3 justify-start"

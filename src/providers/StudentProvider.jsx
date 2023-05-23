@@ -9,17 +9,21 @@ const StudentProvider = ({ children }) => {
   const [student, setStudent] = useState(null);
 
   const logOut = () => {
-    Cookies.remove('auth_token');
+    Cookies.remove('student_auth_token', { path: '', domain: 'ingelt.com' });
     setStudent(null);
     window.location.pathname = '/';
   }
 
   useEffect(() => {
 
-    if (Cookies.get('auth_token')) {
+    if (Cookies.get('student_auth_token')) {
       home.getStudent()
         .then(res => {
           setStudent(res?.data);
+          setLoading(false);
+        })
+        .catch(() => {
+          setStudent(null);
           setLoading(false);
         });
     } else {
