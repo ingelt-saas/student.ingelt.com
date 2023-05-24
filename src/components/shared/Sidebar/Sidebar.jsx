@@ -3,10 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 
 // React Icons
-import {
-  IoMoonOutline,
-  IoSunnyOutline,
-} from "react-icons/io5";
+import { IoMoonOutline, IoSunnyOutline } from "react-icons/io5";
 
 // MUI Support
 import Drawer from "@mui/material/Drawer";
@@ -19,7 +16,7 @@ import {
   LogoutSVG,
   NotesSVG,
   SettingSVG,
-  LibrarySVG
+  LibrarySVG,
 } from "./SidebarSVG.jsx";
 
 //assets
@@ -35,10 +32,12 @@ const NavItem = ({ to, children, collapseMenu, ...props }) => {
       {...props}
       to={to}
       className={({ isActive }) =>
-        `${isActive
-          ? "bg-[#0064E133] text-[#0064E1]"
-          : "bg-transparent text-[#7A7C88]"
-        } ${collapseMenu ? "justify-center gap-0" : "justify-start gap-3"
+        `${
+          isActive
+            ? "bg-[#0064E133] text-[#0064E1]"
+            : "bg-transparent text-[#7A7C88]"
+        } ${
+          collapseMenu ? "justify-center gap-0" : "justify-start gap-3"
         } flex items-center text-base font-semibold  rounded-md duration-300 px-3 py-2 hover:bg-[#0064E133] hover:text-[#0064E1]`
       }
     >
@@ -48,28 +47,27 @@ const NavItem = ({ to, children, collapseMenu, ...props }) => {
 };
 
 const SideBar = () => {
-
   const [open, setOpen] = useState(false);
   const [collapseMenu, setCollapseMenu] = useState(false);
   const { student, logOut } = useContext(StudentContext);
 
   const navItemsArr = [
-    { name: 'Home', path: '/', icon: <HomeSVG /> },
-    { name: 'Assignments', path: '/assignments', icon: <AssignmentSVG /> },
-    { name: 'Library', path: '/centralized-library', icon: <LibrarySVG /> },
-    { name: 'Community', path: '/discussion', icon: <DiscussionSVG /> },
-    { name: 'Notes', path: '/notes', icon: <NotesSVG /> },
+    { name: "Home", path: "/", icon: <HomeSVG /> },
+    { name: "Assignments", path: "/assignments", icon: <AssignmentSVG /> },
+    { name: "Library", path: "/centralized-library", icon: <LibrarySVG /> },
+    { name: "Community", path: "/discussion", icon: <DiscussionSVG /> },
+    { name: "Notes", path: "/notes", icon: <NotesSVG /> },
   ];
 
   const darkModeHandler = () => {
     if (localStorage.theme) {
-      localStorage.removeItem('theme');
-      document.documentElement.classList.remove('dark');
+      localStorage.removeItem("theme");
+      document.documentElement.classList.remove("dark");
     } else {
-      localStorage.theme = 'dark';
-      document.documentElement.classList.add('dark');
+      localStorage.theme = "dark";
+      document.documentElement.classList.add("dark");
     }
-  }
+  };
 
   // useEffect(() => {
   //   const navItems = document.querySelectorAll(".navbar");
@@ -85,12 +83,13 @@ const SideBar = () => {
     <>
       {/* Larger device menu */}
       <div
-        className={`${collapseMenu && "max-w-sm"
-          }  lg:w-48 xl:w-56 hidden lg:flex flex-col h-full justify-between`}
+        className={`${
+          collapseMenu && "max-w-sm"
+        }  lg:w-48 xl:w-56 hidden lg:flex flex-col h-full justify-between`}
       >
         <div className={`space-y-2 ${collapseMenu ? "mt-6" : "mt-0"}`}>
           <div className="flex items-start justify-start pt-5 pl-[0.3rem]">
-            <Link to='/' className="px-3">
+            <Link to="/" className="px-3">
               <img
                 src={logo}
                 alt="Logo"
@@ -100,18 +99,20 @@ const SideBar = () => {
           </div>
           <div className="flex-1 px-2">
             <ul className="pt-2 pb-4 navbar">
-              {navItemsArr.map((item, index) =>
+              {navItemsArr.map((item, index) => (
                 <li className="navItem mb-2" key={index}>
                   <NavItem to={item.path} collapseMenu={collapseMenu}>
                     {item.icon}
                     <span
-                      className={`${collapseMenu ? "max-w-0 max-h-0" : "max-w-xs max-h-10"
-                        } overflow-hidden duration-300`}
+                      className={`${
+                        collapseMenu ? "max-w-0 max-h-0" : "max-w-xs max-h-10"
+                      } overflow-hidden duration-300`}
                     >
                       {item.name}
                     </span>
                   </NavItem>
-                </li>)}
+                </li>
+              ))}
             </ul>
           </div>
         </div>
@@ -122,19 +123,25 @@ const SideBar = () => {
                 <NavItem to="/settings" collapseMenu={collapseMenu}>
                   <SettingSVG />
                   <span
-                    className={`${collapseMenu ? "max-w-0 max-h-0" : "max-w-xs max-h-10"
-                      } overflow-hidden duration-300`}
+                    className={`${
+                      collapseMenu ? "max-w-0 max-h-0" : "max-w-xs max-h-10"
+                    } overflow-hidden duration-300`}
                   >
                     Settings
                   </span>
                 </NavItem>
               </li>
               <li className="navItem mb-2">
-                <NavItem to='/logout' onClick={logOut} collapseMenu={collapseMenu}>
+                <NavItem
+                  to="/logout"
+                  onClick={logOut}
+                  collapseMenu={collapseMenu}
+                >
                   <LogoutSVG />
                   <span
-                    className={`${collapseMenu ? "max-w-0 max-h-0" : "max-w-xs max-h-10"
-                      } overflow-hidden duration-300`}
+                    className={`${
+                      collapseMenu ? "max-w-0 max-h-0" : "max-w-xs max-h-10"
+                    } overflow-hidden duration-300`}
                   >
                     Log Out
                   </span>
@@ -173,15 +180,21 @@ const SideBar = () => {
               </li> */}
               <li className="mt-2 navItem">
                 <span
-                  className={`flex items-center ${collapseMenu ? "justify-center" : "gap-3 justify-start"
-                    }`}
+                  className={`flex items-center ${
+                    collapseMenu ? "justify-center" : "gap-3 justify-start"
+                  }`}
                 >
                   <span className="block w-12 h-12 overflow-hidden rounded-full">
-                    <Image src={student?.image} alt={student?.name} className='w-full h-full object-cover' />
+                    <Image
+                      src={student?.image}
+                      alt={student?.name}
+                      className="w-full h-full object-cover"
+                    />
                   </span>
                   <span
-                    className={`${collapseMenu ? "w-0 h-0" : "max-w-xs max-h-10"
-                      } overflow-hidden duration-300`}
+                    className={`${
+                      collapseMenu ? "w-0 h-0" : "max-w-xs max-h-10"
+                    } overflow-hidden duration-300`}
                   >
                     <p className="text-base font-semibold leading-none overflow-hidden">
                       {student.name}
@@ -200,10 +213,7 @@ const SideBar = () => {
       {/* mobile navbar  */}
       <div className="lg:hidden">
         <div className="py-2 px-5 flex items-center justify-between border-b border-[#DCDEE1]">
-          <button
-            onClick={() => setOpen(true)}
-            className="text-black"
-          >
+          <button onClick={() => setOpen(true)} className="text-black">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -219,15 +229,24 @@ const SideBar = () => {
               />
             </svg>
           </button>
-          <h2 className="text-xl font-semibold md:hidden">Welcome {student?.name}</h2>
+          <h2 className="text-xl font-semibold md:hidden">
+            Welcome {student?.name}
+          </h2>
           <div className="w-10 h-10 overflow-hidden rounded-full border-2">
-            <Link to='/settings'>
-              <Image src={student?.image} alt={student?.name} className='rounded-full w-full h-full object-cover' />
+            <Link to="/settings">
+              <Image
+                src={student?.image}
+                alt={student?.name}
+                className="rounded-full w-full h-full object-cover"
+              />
             </Link>
           </div>
         </div>
         <Drawer anchor={"left"} open={open} onClose={() => setOpen(false)}>
-          <div className="w-64 bg-[#fff] h-full flex flex-col justify-between rounded-r-2xl" id='mobileNavbar'>
+          <div
+            className="w-64 bg-[#fff] h-full flex flex-col justify-between rounded-r-2xl"
+            id="mobileNavbar"
+          >
             <div className={`space-y-2 ${collapseMenu ? "mt-6" : "mt-0"}`}>
               <div className="flex items-center justify-center pt-5">
                 <img
@@ -238,16 +257,14 @@ const SideBar = () => {
               </div>
               <div className="flex-1 px-2">
                 <ul className="pt-2 pb-4">
-                  {navItemsArr.map((item, index) =>
+                  {navItemsArr.map((item, index) => (
                     <li className="navItem mb-2" key={index}>
                       <NavItem to={item.path} onClick={() => setOpen(false)}>
                         {item.icon}
-                        <span>
-                          {item.name}
-                        </span>
+                        <span>{item.name}</span>
                       </NavItem>
                     </li>
-                  )}
+                  ))}
                 </ul>
               </div>
             </div>
@@ -262,17 +279,19 @@ const SideBar = () => {
                     </NavItem>
                   </li>
                   <li className="navItem">
-                    <NavItem to="/logout"
+                    <NavItem
+                      to="/logout"
                       onClick={() => {
                         setOpen(false);
                         logOut();
-                      }}>
+                      }}
+                    >
                       <LogoutSVG />
                       <span className={`duration-300`}>Log Out</span>
                     </NavItem>
                   </li>
-                  <li className="mt-2">
-                    <button
+                  {/* <li className="mt-2"> */}
+                  {/* <button
                       onClick={darkModeHandler}
                       className={`p-1.5 w-full bg-[#0064E133] rounded-full`}
                     >
@@ -294,12 +313,16 @@ const SideBar = () => {
                           <IoMoonOutline className="w-6 h-6 text-white absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 duration-300 opacity-0 dark:opacity-100" />
                         </span>
                       </span>
-                    </button>
-                  </li>
+                    </button> */}
+                  {/* </li> */}
                   <li className="mt-3">
                     <span className={`flex items-center gap-3 justify-start`}>
                       <span className="block w-12 h-12 overflow-hidden rounded-full">
-                        <Image src={student?.image} alt={student?.name} className='w-full h-full object-cover' />
+                        <Image
+                          src={student?.image}
+                          alt={student?.name}
+                          className="w-full h-full object-cover"
+                        />
                       </span>
                       <span className={`duration-300`}>
                         <p className="text-base font-semibold leading-none">
