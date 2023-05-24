@@ -52,7 +52,6 @@ const StudentInfoBlock = ({ title, text, IconName }) => {
 };
 
 const Home = () => {
-
   const { student } = useContext(StudentContext);
   const [isCopied, setIsCopied] = useState(false);
   const [graphData, setGraphData] = useState([]);
@@ -82,7 +81,7 @@ const Home = () => {
         const graphData = await home.getGraphData();
         setBands(bands.data);
         setGraphData(graphData.data);
-      } catch (error) { }
+      } catch (error) {}
     }
 
     getMeetLink();
@@ -90,10 +89,9 @@ const Home = () => {
 
   return (
     <div className="flex flex-row flex-wrap gap-y-10 gap-x-5 w-full">
-
       {/* welcome message */}
       <div className="w-full foo:w-[calc(100%/12*8-10px)] hidden foo:block">
-        <div className="relative rounded-xl mt-10 shadow-lg w-11/12 bg-white">
+        <div className="relative rounded-xl mt-10 shadow-lg w-12/12 bg-white">
           <img
             src={welcomeSVG}
             alt="welcome svg"
@@ -117,7 +115,8 @@ const Home = () => {
               <h1 className="text-2xl font-semibold">Your Classroom Link</h1>
 
               <p className="truncate relative pr-6 py-1">
-                {student?.batch?.classroomLink || "Your teacher hasn't set the link"}
+                {student?.batch?.classroomLink ||
+                  "Your teacher hasn't set the link"}
                 <Tooltip title={isCopied ? "Copied!" : "Copy to Clipboard"}>
                   <button
                     className="text-black absolute top-1/2 right-2 -translate-y-1/2"
@@ -151,7 +150,11 @@ const Home = () => {
           <div className="w-4/12 border-r-2 border-[#78787840] px-4 box-border hidden md:block">
             <div className="relative w-fit mx-auto">
               <div className="absolute top-0 left-0 w-full h-full rounded-full overflow-hidden p-5">
-                <Image src={student.image} alt={student.name} className='rounded-full w-full h-full object-cover' />
+                <Image
+                  src={student.image}
+                  alt={student.name}
+                  className="rounded-full w-full h-full object-cover"
+                />
               </div>
 
               <img src={frameSVG} alt="profile frame svg" className="" />
@@ -211,7 +214,11 @@ const Home = () => {
               <StudentInfoBlock
                 IconName={Cake}
                 title="Date of Birth"
-                text={true ? new Date()?.toLocaleDateString()?.replace(/\//g, '-') : ''}
+                text={
+                  true
+                    ? new Date()?.toLocaleDateString()?.replace(/\//g, "-")
+                    : ""
+                }
               />
 
               <StudentInfoBlock
@@ -346,7 +353,6 @@ const Home = () => {
           </div>
         </div>
       </div>
-
     </div>
   );
 };
