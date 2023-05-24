@@ -9,7 +9,7 @@ import GoogleLogo from "../../assets/images/google-logo.png";
 import { Menu, MenuItem, Button } from "@mui/material";
 import { KeyboardArrowDown } from "@mui/icons-material";
 import authApi from "../../api/auth";
-import Cookies from "js-cookie";
+// import Cookies from "js-cookie";
 
 const LoginLayout = () => {
   const [loading, setLoading] = useState(false);
@@ -41,11 +41,15 @@ const LoginLayout = () => {
     setLoading(true);
     try {
       const res = await authApi.login({ email, password });
-      Cookies.set("student_auth_token", res?.data?.token, {
-        expires: 7,
-        path: "",
-        domain: ".ingelt.com",
-      });
+
+      // Shifted to LocalStorage from Cookies
+      localStorage.setItem("student_auth_token", res?.data?.token);
+
+      // Cookies.set("student_auth_token", res?.data?.token, {
+      //   expires: 7,
+      //   path: "",
+      //   domain: ".ingelt.com",
+      // });
       window.location.reload();
     } catch (err) {
       setError(err?.response?.data?.message);
@@ -98,8 +102,9 @@ const LoginLayout = () => {
         </div>
 
         <div
-          className={`flex flex-col justify-center h-full ${loading && "opacity-70 pointer-events-none"
-            }`}
+          className={`flex flex-col justify-center h-full ${
+            loading && "opacity-70 pointer-events-none"
+          }`}
         >
           <div className="px-32 max-sm:px-10 max-lg:px-20">
             <h1 className="font-bold text-3xl mb-2">InGelt Board Login</h1>
