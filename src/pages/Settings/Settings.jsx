@@ -239,7 +239,7 @@ const Settings = () => {
       label: "Gender",
       defaultValue: gender,
       type: "select",
-      options: ["Male", "Female", "Other"],
+      options: ["Male", "Female", "Other", "Rather Not Say"],
     },
     // {
     //   name: "status",
