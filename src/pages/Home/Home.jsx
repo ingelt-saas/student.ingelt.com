@@ -90,12 +90,12 @@ const Home = () => {
   return (
     <div className="flex flex-row flex-wrap gap-y-10 gap-x-5 w-full">
       {/* welcome message */}
-      <div className="w-full foo:w-[calc(100%/12*8-10px)] hidden foo:block">
-        <div className="relative rounded-xl mt-10 shadow-lg w-12/12 bg-white">
+      <div className="w-full foo:w-[calc(100%/12*8-10px)] hidden foo:block ">
+        <div className="relative rounded-xl mt-20 shadow-lg w-12/12 bg-white  pb-0.5">
           <img
             src={welcomeSVG}
             alt="welcome svg"
-            className="absolute bottom-0 left-0 w-32"
+            className="absolute bottom-0 left-0 w-50"
           />
 
           <h1 className="text-3xl font-semibold text-right py-5 px-5 ">
@@ -106,7 +106,7 @@ const Home = () => {
 
       {/* meeting link */}
       <div className="w-full order-2 foo:order-none foo:w-[calc(100%/12*4-10px)]">
-        <div className="rounded-xl border border-[#78787840] flex p-2 shadow-lg bg-white">
+        <div className="rounded-xl border border-[#78787840] flex px-2  shadow-lg bg-white">
           <div className="w-4/12">
             <img src={meetSVG} alt="meeting svg" className="w-full h-auto" />
           </div>
