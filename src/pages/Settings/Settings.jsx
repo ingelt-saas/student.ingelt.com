@@ -105,6 +105,15 @@ const Settings = () => {
       return;
     }
 
+    // age validation
+    if (updatedData.dob) {
+      const dob = new Date(updatedData.dob);
+      dob.setFullYear(dob.getFullYear() + 14);
+      if (dob.getTime() > new Date().getTime()) {
+        toast.warn('You must be at least 14 years old');
+        return;
+      }
+    }
     // check any update here
     const newData = {};
 
