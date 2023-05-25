@@ -49,6 +49,7 @@ const Settings = () => {
   let { student } = useContext(StudentContext);
   const {
     id,
+    createdAt,
     image,
     name,
     email,
@@ -255,7 +256,9 @@ const Settings = () => {
     {
       name: "registrationDate",
       label: "Registration Date",
-      defaultValue: "1-20-3203",
+      defaultValue: new Date(createdAt)
+        .toLocaleDateString("en-GB")
+        .replace(/\//g, "-"),
       type: "text",
       readOnly: true,
     },
