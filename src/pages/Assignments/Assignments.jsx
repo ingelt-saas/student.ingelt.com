@@ -78,7 +78,13 @@ const Assignments = () => {
               const status=a.submissions.evaluated;
               return status===0;
             });
-            }
+            
+          }else if (sortOption === "notDone") {
+            sortedRows = sortedRows.filter(a => {
+              const status = a.submissions ? a.submissions.evaluated : null;
+              return status === 0 || status === null;
+            });
+          }
           setAssignments(sortedRows);
           setLoading(false);
         });
@@ -179,14 +185,14 @@ const Assignments = () => {
                 <input type="radio" name="sort" id="sort3" onChange={() => setSortOption('submitted')} />
                 <label htmlFor="sort3">Submitted</label>
                 </div>
+              <div className="flex items-center gap-x-1">
+                <input type="radio" name="sort" id="sort3" onChange={() => setSortOption('notDone')} />
+                <label htmlFor="sort3">Not Done</label>
+                </div>
             </Box>
           </Popover>
         </div>
       </Box>
-
-      {loading && <div className="py-10 flex justify-center">
-        <CircularProgress />
-      </div>}
 
         <Box className="flex-col items-center flex" sx={{ width: "100%" }}>
           <Table>
@@ -229,7 +235,9 @@ const Assignments = () => {
                 <TableCell></TableCell>
               </TableRow>
             </TableHead>
-
+            {loading && <div className="py-10 flex justify-center">
+        <CircularProgress />
+      </div>}
             {!loading && Array.isArray(assignments) && assignments.length > 0 && (
             <TableBody>
               {assignments.map((item) => (
@@ -238,7 +246,7 @@ const Assignments = () => {
                   className="cursor-pointer duration-300 hover:bg-[#d0e1f9]"
                 >
                   <td className="text-left md:text-center py-2">
-                    <div className="flex items-center justify-start md:justify-center">
+                    {/* <div className="flex items-center justify-start md:justify-center">
                       <Assignment className="mr-3 text-[#4C9BFF]" />
                       <div className="inline">
                         <span className="font-semibold block">{item.name}</span>
@@ -246,7 +254,20 @@ const Assignments = () => {
                           {item.submissions ? (item.submissions.evaluated ? 'Evaluated' : 'Submitted') : 'Not Done'}
                         </span>
                       </div>
-                    </div>
+                    </div> */}
+                    <div className="flex items-center justify-start md:justify-end">
+                          <div className='2xl:w-[75%] xl:w-[80%] lg:w-[90%] md:w-[100%] flex'>
+                          <Assignment className="mr-3 text-[#4C9BFF]" />
+                          <div className="inline">
+                            <span className="font-semibold block">
+                              {item.name}
+                            </span>
+                            <span className="text-sm font-normal md:hidden">
+                          {item.submissions ? (item.submissions.evaluated ? 'Evaluated' : 'Submitted') : 'Not Done'}
+                        </span>
+                            </div>
+                          </div>
+                        </div>
                   </td>
                   <td className="py-2 text-center text-sm hidden md:table-cell text-[#6D6D6D]">
                     {!item.submissions.id ? 'Not Done' : (item.submissions.evaluated ? 'Evaluated' : 'Submitted')}
