@@ -6,6 +6,7 @@ import {
   Box,
   Button,
   CircularProgress,
+  Popover,
   Table,
   TableBody,
   TableCell,
@@ -14,7 +15,7 @@ import {
   // Pagination,
   TableRow,
 } from "@mui/material";
-import { FileDownload, Assignment } from "@mui/icons-material";
+import { FileDownload, Assignment, Sort } from "@mui/icons-material";
 
 // Custom Components
 import SearchBar from "../../components/shared/SearchBar/SearchBar";
@@ -26,6 +27,8 @@ import getFile from "../../api/getFile";
 const Library = () => {
 
   const [Library, setLibrary] = useState([]);
+  const [sort,setSort]=useState(false);
+  const [sortOption, setSortOption] = useState('');
   const [searchValue, setSearchValue] = useState('');
   const [totalItems, setTotalItems] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -93,7 +96,56 @@ const Library = () => {
         className="w-full md:px-2 py-4"
       >
         <SearchBar handleSubmit={searchLibrary} />
-        <SortButton />
+        <Button
+            variant="text"
+            sx={{
+              fontWeight: 600,
+              textTransform: "capitalize",
+              borderRadius: 2,
+              color: "#00000085",
+              backgroundColor: "#F4F4F4",
+              display: { xs: 'none', md: 'flex' }
+            }}
+            onClick={() => setSort(true)}
+          >
+            Sort
+            <Sort sx={{ ml: 0.4 }} />
+          </Button>
+          <Button
+            variant="text"
+            sx={{
+              fontWeight: 600,
+              textTransform: "capitalize",
+              borderRadius: 2,
+              color: "#00000085",
+              backgroundColor: "#F4F4F4",
+              display: { xs: 'flex', md: 'none' }
+            }}
+          >
+            <Sort sx={{}} />
+          </Button>
+          <Popover
+            open={sort}
+            onClose={() => setSort(false)}
+            anchorReference="anchorPosition"
+            anchorPosition={{ top: 160, left: 1350 }}
+          >
+            <Box sx={{ p: 2, width: 180 }}>
+              <h3 className="text-lg font-semibold mb-2">Sort By</h3>
+              <div className="flex items-center gap-x-1">
+                <input type="radio" name="sort" id="sort1" onChange={() => setSortOption('name')} />
+                <label htmlFor="sort1">Name</label>
+              </div>
+              {/* <div className="flex items-center gap-x-1">
+                <input type="radio" name="sort" id="sort2" onChange={() => setSortOption('evaluated')} />
+                <label htmlFor="sort2">Evaluated</label>
+              </div>
+              <div className="flex items-center gap-x-1">
+                <input type="radio" name="sort" id="sort3" onChange={() => setSortOption('submitted')} />
+                <label htmlFor="sort3">Submitted</label>
+                </div> */}
+            </Box>
+          </Popover>
       </Box>
 
       {loading && <div className="py-10 flex justify-center">

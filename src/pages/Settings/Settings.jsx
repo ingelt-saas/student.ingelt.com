@@ -211,22 +211,22 @@ const Settings = () => {
     }
   };
 
-  const studentStatus = (text) => {
-    switch (text) {
-      case "PRE":
-        return "Not Applied";
-      case "APPL":
-        return "Applied";
-      case "FEE":
-        return "Fee Paid";
-      case "ADM":
-        return "Admitted";
-      case "COM":
-        return "Completed";
-      default:
-        return "";
-    }
-  };
+  // const studentStatus = (text) => {
+  //   switch (text) {
+  //     case "PRE":
+  //       return "Not Applied";
+  //     case "APPL":
+  //       return "Applied";
+  //     case "FEE":
+  //       return "Fee Paid";
+  //     case "ADM":
+  //       return "Admitted";
+  //     case "COM":
+  //       return "Completed";
+  //     default:
+  //       return "";
+  //   }
+  // };
 
   const inputFieldArr = [
     { name: "name", label: "Name", defaultValue: name, type: "text" },
@@ -251,13 +251,6 @@ const Settings = () => {
       type: "select",
       options: ["Male", "Female", "Other", "Rather Not Say"],
     },
-    // {
-    //   name: "status",
-    //   label: "Status",
-    //   defaultValue: studentStatus(status),
-    //   type: "text",
-    //   readOnly: true,
-    // },
     { name: "city", label: "City", defaultValue: city, type: "text" },
     { name: "state", label: "State", defaultValue: state, type: "text" },
     { name: "country", label: "Country", defaultValue: country, type: "text" },
@@ -312,9 +305,9 @@ const Settings = () => {
 
       <div className="md:w-3/5">
         <Grid
-          className="ml-2 flex items-center justify-center md:px-4 pb-10"
+          className="ml-2 flex items-start justify-start md:px-4 pb-10"
           container
-          rowSpacing={2}
+          rowSpacing={5}
           columnSpacing={{
             xs: 1,
             sm: 2,
@@ -324,16 +317,17 @@ const Settings = () => {
           {inputFieldArr.map((item, index) =>
             item?.type === "date" ? (
               <Grid item xs={12} sm={6} key={index}>
-                <label className="text-xs text-[#93999C]" htmlFor="DOB">
+                {/* <label className="text-xs text-[#93999C]" htmlFor="DOB">
                   {item?.label}*
-                </label>
+                </label> */}
                 <TextField
                   id="DOB"
                   type="date"
+                  label="Date Of Birth"
                   variant="outlined"
                   size="small"
                   InputProps={{
-                    style: { color: "gray" },
+                    // style: { color: "gray" },
                     placeholder: "Select date",
                   }}
                   sx={InputFieldSx}
@@ -402,14 +396,11 @@ const Settings = () => {
               </Grid>
             )
           )}
-
           <Grid className="w-full" item xs={12} sm={6}>
-            <label className="text-xs text-[#93999C]" htmlFor="outlined-basic">
-              Student ID
-            </label>
             <TextField
               className="w-full"
               id="outlined-basic"
+              label="Student ID *"
               typeof="number"
               variant="outlined"
               size="small"
@@ -418,7 +409,6 @@ const Settings = () => {
               value={id}
             />
           </Grid>
-
           <Grid item xs={12} sm={6}>
             <label className="text-xs text-[#93999C]" htmlFor="outlined-basic">
               Change Password
@@ -438,17 +428,16 @@ const Settings = () => {
               Change Password
             </StyledButton>
           </Grid>
-
           <Box
             sx={{
               width: "100%",
-              marginTop: "1rem",
+              marginTop: "3rem",
               display: "flex",
               alignItems: "center",
               justifyContent: "end",
             }}
           >
-            <Button onClick={updateProfile} sx={{ px: 5 }} variant="outlined">
+            <Button onClick={updateProfile} size='large' sx={{ width:'97%' }} variant="contained">
               Save
             </Button>
           </Box>

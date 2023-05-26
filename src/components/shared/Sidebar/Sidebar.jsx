@@ -59,15 +59,15 @@ const SideBar = () => {
     { name: "Notes", path: "/notes", icon: <NotesSVG /> },
   ];
 
-  const darkModeHandler = () => {
-    if (localStorage.theme) {
-      localStorage.removeItem("theme");
-      document.documentElement.classList.remove("dark");
-    } else {
-      localStorage.theme = "dark";
-      document.documentElement.classList.add("dark");
-    }
-  };
+  // const darkModeHandler = () => {
+  //   if (localStorage.theme) {
+  //     localStorage.removeItem("theme");
+  //     document.documentElement.classList.remove("dark");
+  //   } else {
+  //     localStorage.theme = "dark";
+  //     document.documentElement.classList.add("dark");
+  //   }
+  // };
 
   // useEffect(() => {
   //   const navItems = document.querySelectorAll(".navbar");
@@ -200,7 +200,7 @@ const SideBar = () => {
                       {student.name}
                     </p>
                     <p className="text-sm text-[#787878] leading-none mt-1 font-semibold overflow-hidden">
-                      {student.email}
+                      {student.id}
                     </p>
                   </span>
                 </span>

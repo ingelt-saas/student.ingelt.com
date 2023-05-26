@@ -34,7 +34,7 @@ const Discussions = () => {
   return (
     <div className="w-full h-full flex flex-col">
       <h1 className="border-b-1 border-zinc-400 w-full text-4xl font-semibold pb-4 mb-5 hidden md:block">
-        Discussions
+        IELTS Centralized Community
       </h1>
 
       <div

@@ -39,12 +39,12 @@ const StudentInfoBlock = ({ title, text, IconName }) => {
       </div>
 
       <div className="flex-1 overflow-hidden">
-        <p className="text-[#6A6A6A] text-base font-normal">{title}</p>
+        <p className="text-[#6A6A6A] text-base font-normal">{title}</p> 
         <p
           className="text-black text-base font-semibold break-words"
           title={text}
         >
-          {text}
+          {text.length>20?text.slice(0,20)+"...":text}
         </p>
       </div>
     </div>
@@ -117,6 +117,7 @@ const Home = () => {
               <p className="truncate relative pr-6 py-1">
                 {student?.batch?.classroomLink ||
                   "Your teacher hasn't set the link"}
+                  {student?.batch?.classroomLink &&
                 <Tooltip title={isCopied ? "Copied!" : "Copy to Clipboard"}>
                   <button
                     className="text-black absolute top-1/2 right-2 -translate-y-1/2"
@@ -124,7 +125,7 @@ const Home = () => {
                   >
                     <ContentCopy />
                   </button>
-                </Tooltip>
+                </Tooltip>}
               </p>
             </div>
 
@@ -137,6 +138,7 @@ const Home = () => {
                 borderRadius: 2,
                 width: "100%",
               }}
+              disabled={student?.batch?.classroomLink ? false : true}
             >
               Join Class
             </Button>
@@ -159,7 +161,6 @@ const Home = () => {
 
               <img src={frameSVG} alt="profile frame svg" className="" />
             </div>
-
             <div className="text-center mt-5 ">
               <h1 className="text-2xl font-semibold">{student?.name}</h1>
               <h4 className="text-[#6A6A6A] text-lg font-semibold">
