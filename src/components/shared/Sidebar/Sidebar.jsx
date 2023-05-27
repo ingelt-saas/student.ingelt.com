@@ -88,7 +88,7 @@ const SideBar = () => {
         }  lg:w-48 xl:w-56 hidden lg:flex flex-col h-full justify-between`}
       >
         <div className={`space-y-2 ${collapseMenu ? "mt-6" : "mt-0"}`}>
-          <div className="flex items-start justify-start pt-5 pl-[0.3rem]">
+          <div className="flex items-start justify-start pt-5 ">
             <Link to="/" className="px-3">
               <img
                 src={logo}
@@ -248,12 +248,14 @@ const SideBar = () => {
             id="mobileNavbar"
           >
             <div className={`space-y-2 ${collapseMenu ? "mt-6" : "mt-0"}`}>
-              <div className="flex items-center justify-center pt-5">
+              <div className="flex items-center justify-start pt-5">
+                <Link to='/'>
                 <img
                   src={logo}
                   alt="Logo"
-                  className={`w-16 max-w-full duration-500 h-auto`}
+                  className={`w-44 max-w-full duration-500 h-auto pl-2`}
                 />
+                </Link>
               </div>
               <div className="flex-1 px-2">
                 <ul className="pt-2 pb-4">
@@ -329,7 +331,7 @@ const SideBar = () => {
                           {student?.name}
                         </p>
                         <p className="text-sm text-[#787878] leading-none mt-1 font-semibold">
-                          {student?.email}
+                          {student?.id}
                         </p>
                       </span>
                     </span>
