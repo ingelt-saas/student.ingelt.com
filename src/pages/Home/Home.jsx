@@ -44,7 +44,7 @@ const StudentInfoBlock = ({ title, text, IconName }) => {
           className="text-black text-base font-semibold break-words"
           title={text}
         >
-          {text.length>20?text.slice(0,20)+"...":text}
+          {text?.text.length>20?text.slice(0,20)+"...":text}
         </p>
       </div>
     </div>
