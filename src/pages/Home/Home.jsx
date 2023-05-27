@@ -32,6 +32,7 @@ import Blogs from "../../components/Home/Blogs";
 
 // Student Info Block
 const StudentInfoBlock = ({ title, text, IconName }) => {
+  const truncatedText = text? text.length > 20 ? `${text.substring(0, 20)}...` : text : "Not Set";
   return (
     <div className="flex items-center gap-x-3">
       <div className="bg-[#1A74E4] text-white p-2 rounded-full flex justify-center align-center">
@@ -44,7 +45,7 @@ const StudentInfoBlock = ({ title, text, IconName }) => {
           className="text-black text-base font-semibold break-words"
           title={text}
         >
-          {text?.text.length>20?text.slice(0,20)+"...":text}
+          {truncatedText}
         </p>
       </div>
     </div>
@@ -164,7 +165,7 @@ const Home = () => {
             <div className="text-center mt-5 ">
               <h1 className="text-2xl font-semibold">{student?.name}</h1>
               <h4 className="text-[#6A6A6A] text-lg font-semibold">
-                Batch: {student?.batch?.name}
+                Batch: {student?.batch?.name ? student?.batch?.name : "Not Assigned"}
               </h4>
             </div>
           </div>
@@ -174,7 +175,7 @@ const Home = () => {
               <StudentInfoBlock
                 IconName={Person2}
                 title="Father's Name"
-                text={student?.fathersName}
+                text={student?.fathersName !== null ? student?.fathersName.toString() : ""}
               />
 
               <StudentInfoBlock
@@ -263,7 +264,7 @@ const Home = () => {
             <div className="flex justify-around items-center">
               <span className="font-semibold text-xl mr-4">Target Score</span>
               <span className="text-lg font-semibold text-white bg-[#1A74E4] rounded-md px-2 py-1">
-                {student?.targetScore}
+                {student?.targetScore ? student?.targetScore : "Not Set"}
               </span>
             </div>
           </div>
