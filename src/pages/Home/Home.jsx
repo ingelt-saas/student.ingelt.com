@@ -39,12 +39,12 @@ const StudentInfoBlock = ({ title, text, IconName }) => {
       </div>
 
       <div className="flex-1 overflow-hidden">
-        <p className="text-[#6A6A6A] text-base font-normal">{title}</p> 
+        <p className="text-[#6A6A6A] text-base font-normal">{title}</p>
         <p
           className="text-black text-base font-semibold break-words"
           title={text}
         >
-          {text.length>20?text.slice(0,20)+"...":text}
+          {text?.length > 20 ? text.slice(0, 20) + "..." : text}
         </p>
       </div>
     </div>
@@ -52,6 +52,7 @@ const StudentInfoBlock = ({ title, text, IconName }) => {
 };
 
 const Home = () => {
+
   const { student } = useContext(StudentContext);
   const [isCopied, setIsCopied] = useState(false);
   const [graphData, setGraphData] = useState([]);
@@ -81,7 +82,7 @@ const Home = () => {
         const graphData = await home.getGraphData();
         setBands(bands.data);
         setGraphData(graphData.data);
-      } catch (error) {}
+      } catch (error) { }
     }
 
     getMeetLink();
@@ -101,6 +102,7 @@ const Home = () => {
           <h1 className="text-3xl font-semibold text-right py-5 px-5 ">
             Welcome {student?.name}
           </h1>
+
         </div>
       </div>
 
@@ -117,15 +119,15 @@ const Home = () => {
               <p className="truncate relative pr-6 py-1">
                 {student?.batch?.classroomLink ||
                   "Your teacher hasn't set the link"}
-                  {student?.batch?.classroomLink &&
-                <Tooltip title={isCopied ? "Copied!" : "Copy to Clipboard"}>
-                  <button
-                    className="text-black absolute top-1/2 right-2 -translate-y-1/2"
-                    onClick={handleCopy}
-                  >
-                    <ContentCopy />
-                  </button>
-                </Tooltip>}
+                {student?.batch?.classroomLink &&
+                  <Tooltip title={isCopied ? "Copied!" : "Copy to Clipboard"}>
+                    <button
+                      className="text-black absolute top-1/2 right-2 -translate-y-1/2"
+                      onClick={handleCopy}
+                    >
+                      <ContentCopy />
+                    </button>
+                  </Tooltip>}
               </p>
             </div>
 

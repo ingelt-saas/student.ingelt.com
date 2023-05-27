@@ -37,7 +37,7 @@ const StudentGraph = ({ data }) => {
         </div> */}
       </div>
       <div className="mt-10 overflow-x-auto">
-        <div className="min-w-[760px]">
+        <div className="">
           <ResponsiveContainer width="100%" height="100%" minHeight="270px">
             <BarChart
               width="100%"
@@ -57,10 +57,10 @@ const StudentGraph = ({ data }) => {
                 wrapperStyle={{ outline: "none", textTransform: "capitalize" }}
               />
               {/* <Legend /> */}
-              <Bar dataKey="readingBands" fill="#0064E199" />
-              <Bar dataKey="writingBands" fill="#0064E1" />
-              <Bar dataKey="speakingBands" fill="#B3D1F6" />
-              <Bar dataKey="listeningBands" fill="#3383E7" />
+              <Bar barSize={20} dataKey="readingBands" fill="#0064E199" />
+              <Bar barSize={20} dataKey="writingBands" fill="#0064E1" />
+              <Bar barSize={20} dataKey="speakingBands" fill="#B3D1F6" />
+              <Bar barSize={20} dataKey="listeningBands" fill="#3383E7" />
             </BarChart>
           </ResponsiveContainer>
         </div>
