@@ -173,7 +173,7 @@ const LoginLayout = () => {
           </div>
         </div>
       </div>
-      <div className="w-1/2 flex flex-col bg-[#cae6fb] max-lg:hidden">
+      <div className="w-1/2 flex flex-col bg-[#92C0F7] max-lg:hidden">
         
         <img src={cloud1} alt="" className="absolute top-5 w-1/5 floating-left"/>
         <img src={cloud2} alt="" className="absolute w-1/4 top-44 right-16 floating-right"/>
