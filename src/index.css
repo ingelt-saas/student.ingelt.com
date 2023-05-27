@@ -16,6 +16,59 @@ code {
     monospace;
 }
 
+/* floating animation */
+@layer utilities {
+  .floating {
+    animation: floating 3s ease-in-out infinite;
+  }
+
+  @keyframes floating {
+    0% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(15px);
+    }
+    100% {
+      transform: translateY(0px);
+    }
+  }
+}
+
+/* floating left right */
+@layer utilities {
+  .floating-left {
+    animation: floating-left 3s ease-in-out infinite;
+  }
+
+  @keyframes floating-left {
+    0% {
+      transform: translateX(0px);
+    }
+    50% {
+      transform: translateX(-15px);
+    }
+    100% {
+      transform: translateX(0px);
+    }
+  }
+
+  .floating-right {
+    animation: floating-right 3s ease-in-out infinite;
+  }
+
+  @keyframes floating-right {
+    0% {
+      transform: translateX(0px);
+    }
+    50% {
+      transform: translateX(15px);
+    }
+    100% {
+      transform: translateX(0px);
+    }
+  }
+}
 
 
 @layer utilities {
