@@ -58,6 +58,7 @@ const Home = () => {
   const [isCopied, setIsCopied] = useState(false);
   const [graphData, setGraphData] = useState([]);
   const [bands, setBands] = useState();
+  const [greeting, setGreeting] = useState("");
 
   const handleCopy = async (text) => {
     text = student?.batch?.classroomLink || "";
@@ -85,8 +86,33 @@ const Home = () => {
         setGraphData(graphData.data);
       } catch (error) { }
     }
-
     getMeetLink();
+        const getGreeting = () => {
+      const currentHour = new Date().getHours();
+      console.log(currentHour);
+
+      if (currentHour >= 3 && currentHour < 12) {
+        return `Good Morning, ${student?.name} `;
+      } else if (currentHour >= 12 && currentHour < 17) {
+        return `Good Afternoon, ${student?.name} `;
+      } else if (currentHour >= 17 && currentHour < 23) {
+        return `Good Evening, ${student?.name}`;
+      } else {
+        return 'Hey, Night Owl';
+      }
+    }
+
+    const updateGreeting = () => {
+      const newGreeting = getGreeting();
+      setGreeting(newGreeting);
+    };
+
+    updateGreeting(); // Initial update
+
+    const interval = setInterval(updateGreeting, 60000); // Update every minute
+
+    return () => clearInterval(interval); // Clean up interval on component unmount
+
   }, [student]);
 
   return (
@@ -101,7 +127,7 @@ const Home = () => {
           />
 
           <h1 className="text-3xl font-semibold text-right py-5 px-5 ">
-            Welcome {student?.name}
+            {greeting}
           </h1>
 
         </div>
