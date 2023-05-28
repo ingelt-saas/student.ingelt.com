@@ -96,8 +96,8 @@ const LoginLayout = () => {
                 <span className="text-sm">Teacher</span>
               </MenuItem>
 
-              <MenuItem onClick={()=>window.location.assign("https://teacher.ingelt.com")}>
-                <span className="text-sm">Institute</span>
+              <MenuItem onClick={()=>window.location.assign("https://org.ingelt.com")}>
+                <span className="text-sm">Partner</span>
               </MenuItem>
             </Menu>
             </div>
@@ -113,13 +113,14 @@ const LoginLayout = () => {
           
           <div className="max-sm:px-10 max-lg:px-20 w-full">
             <form className="flex flex-col mb-10 items-center w-full" onSubmit={handleLogin}>
-              <TextField name="email" type="email" sx={{width:{xs:'100%',md:'60%'},pt:1}} id="standard-basic" label="Email" variant="standard" />
+              <TextField name="email" required type="email" sx={{width:{xs:'100%',md:'60%'},pt:1}} id="standard-basic" label="Email" variant="standard" />
               <FormControl sx={{ m: 2, width:{xs:'100%',md:'60%'},pt:1}} variant="standard">
           <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
           <Input
             id="standard-adornment-password"
             name="password"
             type={showPassword ? 'text' : 'password'}
+            required
             endAdornment={
               <InputAdornment position="end">
                 <IconButton
@@ -183,57 +184,6 @@ const LoginLayout = () => {
       </div>
     </div>
   );
-};@layer utilities {
-  .floating {
-    animation: floating 3s ease-in-out infinite;
-  }
-
-  @keyframes floating {
-    0% {
-      transform: translateY(0px);
-    }
-    50% {
-      transform: translateY(15px);
-    }
-    100% {
-      transform: translateY(0px);
-    }
-  }
-}
-
-/* floating left right */
-@layer utilities {
-  .floating-left {
-    animation: floating-left 3s ease-in-out infinite;
-  }
-  .floating-right {
-    animation: floating-right 3s ease-in-out infinite;
-  }
-
-  @keyframes floating-left {
-    0% {
-      transform: translateX(0px);
-    }
-    40% {
-      transform: translateX(-15px);
-    }
-    100% {
-      transform: translateX(0px);
-    }
-  }
-
-
-  @keyframes floating-right {
-    0% {
-      transform: translateX(0px);
-    }
-    60% {
-      transform: translateX(15px);
-    }
-    100% {
-      transform: translateX(0px);
-    }
-  }
 }
 
 
