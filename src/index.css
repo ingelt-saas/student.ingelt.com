@@ -45,7 +45,7 @@ code {
     0% {
       transform: translateX(0px);
     }
-    50% {
+    40% {
       transform: translateX(-15px);
     }
     100% {
@@ -61,7 +61,7 @@ code {
     0% {
       transform: translateX(0px);
     }
-    50% {
+    60% {
       transform: translateX(15px);
     }
     100% {
