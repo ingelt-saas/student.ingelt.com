@@ -183,6 +183,58 @@ const LoginLayout = () => {
       </div>
     </div>
   );
-};
+};@layer utilities {
+  .floating {
+    animation: floating 3s ease-in-out infinite;
+  }
+
+  @keyframes floating {
+    0% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(15px);
+    }
+    100% {
+      transform: translateY(0px);
+    }
+  }
+}
+
+/* floating left right */
+@layer utilities {
+  .floating-left {
+    animation: floating-left 3s ease-in-out infinite;
+  }
+  .floating-right {
+    animation: floating-right 3s ease-in-out infinite;
+  }
+
+  @keyframes floating-left {
+    0% {
+      transform: translateX(0px);
+    }
+    40% {
+      transform: translateX(-15px);
+    }
+    100% {
+      transform: translateX(0px);
+    }
+  }
+
+
+  @keyframes floating-right {
+    0% {
+      transform: translateX(0px);
+    }
+    60% {
+      transform: translateX(15px);
+    }
+    100% {
+      transform: translateX(0px);
+    }
+  }
+}
+
 
 export default LoginLayout;
