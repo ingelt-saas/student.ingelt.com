@@ -43,10 +43,10 @@ const StatsModal = ({ statsModal, statsModalHandle, totalAssignments }) => {
       {/* Stats modal start */}
       <div className="sm:w-[400px] w-full h-[90%] overflow-hidden relative rounded-xl bg-white">
         <div className="w-full h-full flex flex-col relative">
-        <button className="absolute right-1 top-1 text-white" onClick={() => statsModalHandle(false)}>
-          <Close fontSize="medium" />
-        </button>
-          <div className="bg-[#4C9BFF] py-3">
+          <button className="absolute right-1 top-1 text-white" onClick={() => statsModalHandle(false)}>
+            <Close fontSize="medium" />
+          </button>
+          <div className="bg-[#0C3C82] py-3">
             <h5 className="text-center text-white text-2xl font-medium">Assignment Stats</h5>
           </div>
           <div className={`flex ${seeMoreBtn ? 'overflow-y-auto' : 'overflow-y-hidden'} flex-col flex-1 px-2 py-5 gap-y-5`}>
@@ -84,13 +84,13 @@ const StatsModal = ({ statsModal, statsModalHandle, totalAssignments }) => {
                 </tbody>
               </table>
             </div>
-            {totalAssignments>6 && 
-            <div className="text-center absolute w-full h-auto bottom-0 left-0 bg-white pt-1 pb-3">
-              <button className="flex items-center gap-x-1 border border-[#0064E1] font-semibold rounded-lg px-7 py-1.5 text-[#0064E1] cursor-pointer mx-auto" onClick={() => setSeeMoreBtn(!seeMoreBtn)}>
-                See More
-                <KeyboardArrowDown className={`duration-300 ${seeMoreBtn ? 'rotate-180' : 'rotate-0'}`} fontSize="medium" />
-              </button>
-            </div>}
+            {totalAssignments > 6 &&
+              <div className="text-center absolute w-full h-auto bottom-0 left-0 bg-white pt-1 pb-3">
+                <button className="flex items-center gap-x-1 border border-[#0064E1] font-semibold rounded-lg px-7 py-1.5 text-[#0064E1] cursor-pointer mx-auto" onClick={() => setSeeMoreBtn(!seeMoreBtn)}>
+                  See More
+                  <KeyboardArrowDown className={`duration-300 ${seeMoreBtn ? 'rotate-180' : 'rotate-0'}`} fontSize="medium" />
+                </button>
+              </div>}
           </div>
         </div>
       </div>
