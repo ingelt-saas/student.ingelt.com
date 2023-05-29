@@ -229,7 +229,7 @@ const Home = () => {
                   (!student.gender && Transgender) ||
                   (student?.gender === "Male" && Male) ||
                   (student?.gender === "Female" && Female) ||
-                  (student?.gender === "Others" && Transgender)
+                  (student?.gender === "Other" && Transgender)
                 }
                 title="Gender"
                 text={student?.gender}
