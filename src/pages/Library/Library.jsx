@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 
 // MUI Support
 import {
+  Alert,
   Box,
   Button,
   CircularProgress,
@@ -27,7 +28,7 @@ import getFile from "../../api/getFile";
 const Library = () => {
 
   const [Library, setLibrary] = useState([]);
-  const [sort,setSort]=useState(false);
+  const [sort, setSort] = useState(false);
   const [sortOption, setSortOption] = useState('');
   const [searchValue, setSearchValue] = useState('');
   const [totalItems, setTotalItems] = useState(0);
@@ -63,23 +64,18 @@ const Library = () => {
   }
 
   useEffect(() => {
-    if (searchValue) {
+    (async () => {
       setLoading(true);
-      libraryApi.search(searchValue, pagination.page + 1, pagination.rows)
-        .then(res => {
-          setTotalItems(res?.data?.count);
-          setLibrary(res?.data?.rows);
-          setLoading(false);
-        });
-    } else {
-      setLoading(true);
-      libraryApi.getAll(pagination.page + 1, pagination.rows)
-        .then(res => {
-          setTotalItems(res?.data?.count);
-          setLibrary(res?.data?.rows);
-          setLoading(false);
-        });
-    }
+      try {
+        const res = await libraryApi.getAll(pagination.page + 1, pagination.rows, searchValue);
+        setTotalItems(res?.data?.count);
+        setLibrary(res?.data?.rows);
+        setLoading(false);
+      } catch (err) {
+        setLibrary([]);
+        setLoading(false);
+      }
+    })();
 
   }, [searchValue, pagination]);
 
@@ -97,46 +93,46 @@ const Library = () => {
       >
         <SearchBar handleSubmit={searchLibrary} />
         <Button
-            variant="text"
-            sx={{
-              fontWeight: 600,
-              textTransform: "capitalize",
-              borderRadius: 2,
-              color: "#00000085",
-              backgroundColor: "#F4F4F4",
-              display: { xs: 'none', md: 'flex' }
-            }}
-            onClick={() => setSort(true)}
-          >
-            Sort
-            <Sort sx={{ ml: 0.4 }} />
-          </Button>
-          <Button
-            variant="text"
-            sx={{
-              fontWeight: 600,
-              textTransform: "capitalize",
-              borderRadius: 2,
-              color: "#00000085",
-              backgroundColor: "#F4F4F4",
-              display: { xs: 'flex', md: 'none' }
-            }}
-          >
-            <Sort sx={{}} />
-          </Button>
-          <Popover
-            open={sort}
-            onClose={() => setSort(false)}
-            anchorReference="anchorPosition"
-            anchorPosition={{ top: 160, left: 1350 }}
-          >
-            <Box sx={{ p: 2, width: 180 }}>
-              <h3 className="text-lg font-semibold mb-2">Sort By</h3>
-              <div className="flex items-center gap-x-1">
-                <input type="radio" name="sort" id="sort1" onChange={() => setSortOption('name')} />
-                <label htmlFor="sort1">Name</label>
-              </div>
-              {/* <div className="flex items-center gap-x-1">
+          variant="text"
+          sx={{
+            fontWeight: 600,
+            textTransform: "capitalize",
+            borderRadius: 2,
+            color: "#00000085",
+            backgroundColor: "#F4F4F4",
+            display: { xs: 'none', md: 'flex' }
+          }}
+          onClick={() => setSort(true)}
+        >
+          Sort
+          <Sort sx={{ ml: 0.4 }} />
+        </Button>
+        <Button
+          variant="text"
+          sx={{
+            fontWeight: 600,
+            textTransform: "capitalize",
+            borderRadius: 2,
+            color: "#00000085",
+            backgroundColor: "#F4F4F4",
+            display: { xs: 'flex', md: 'none' }
+          }}
+        >
+          <Sort sx={{}} />
+        </Button>
+        <Popover
+          open={sort}
+          onClose={() => setSort(false)}
+          anchorReference="anchorPosition"
+          anchorPosition={{ top: 160, left: 1350 }}
+        >
+          <Box sx={{ p: 2, width: 180 }}>
+            <h3 className="text-lg font-semibold mb-2">Sort By</h3>
+            <div className="flex items-center gap-x-1">
+              <input type="radio" name="sort" id="sort1" onChange={() => setSortOption('name')} />
+              <label htmlFor="sort1">Name</label>
+            </div>
+            {/* <div className="flex items-center gap-x-1">
                 <input type="radio" name="sort" id="sort2" onChange={() => setSortOption('evaluated')} />
                 <label htmlFor="sort2">Evaluated</label>
               </div>
@@ -144,8 +140,8 @@ const Library = () => {
                 <input type="radio" name="sort" id="sort3" onChange={() => setSortOption('submitted')} />
                 <label htmlFor="sort3">Submitted</label>
                 </div> */}
-            </Box>
-          </Popover>
+          </Box>
+        </Popover>
       </Box>
 
       {loading && <div className="py-10 flex justify-center">
@@ -154,7 +150,7 @@ const Library = () => {
 
       {!loading && <Box className="flex flex-col items-center" sx={{ width: "100%" }}>
 
-        {Array.isArray(Library) && Library.length > 0 ? <Table>
+        {Array.isArray(Library) && Library.length > 0 ? <> <Table>
           <TableHead className="!hidden md:!table-header-group">
             <TableRow>
               <TableCell
@@ -243,19 +239,22 @@ const Library = () => {
               </tr>
             ))}
           </TableBody>
-        </Table> : <p></p>
+        </Table>
+          <TablePagination
+            component='div'
+            color="primary"
+            count={totalItems}
+            rowsPerPageOptions={[5, 10, 25, 50, 100]}
+            page={pagination.page}
+            rowsPerPage={pagination.rows}
+            onPageChange={(_, newPage) => setPagination({ ...pagination, page: newPage })}
+            onRowsPerPageChange={(e) => setPagination({ ...pagination, rows: e.target.value })}
+            className="mt-6" />
+        </> :
+          <Alert severity="warning" icon={false} className="mx-auto w-fit">No Items Found</Alert>
         }
 
-        <TablePagination
-          component='div'
-          color="primary"
-          count={totalItems}
-          rowsPerPageOptions={[5, 10, 25, 50, 100]}
-          page={pagination.page}
-          rowsPerPage={pagination.rows}
-          onPageChange={(_, newPage) => setPagination({ ...pagination, page: newPage })}
-          onRowsPerPageChange={(e) => setPagination({ ...pagination, rows: e.target.value })}
-          className="mt-6" />
+
 
       </Box>}
 
