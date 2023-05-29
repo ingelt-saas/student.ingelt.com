@@ -307,7 +307,7 @@ const Settings = () => {
         <Grid
           className="ml-2 flex items-start justify-start md:px-4 pb-10"
           container
-          rowSpacing={5}
+          rowSpacing={2}
           columnSpacing={{
             xs: 1,
             sm: 2,
@@ -437,7 +437,7 @@ const Settings = () => {
               justifyContent: "end",
             }}
           >
-            <Button onClick={updateProfile} size='large' sx={{ width:'97%' }} variant="contained">
+            <Button onClick={updateProfile} size='large' sx={{ width: '97%' }} variant="contained">
               Save
             </Button>
           </Box>
