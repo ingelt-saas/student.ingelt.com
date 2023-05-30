@@ -203,8 +203,9 @@ const Home = () => {
               <StudentInfoBlock
                 IconName={Person2}
                 title="Father's Name"
-                text={student?.fathersName !== null ? student?.fathersName.toString() : ""}
+                text={student?.fathersName ? student?.fathersName.toString() : ""}
               />
+
 
               <StudentInfoBlock
                 IconName={LocationOn}
