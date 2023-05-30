@@ -1,266 +1,316 @@
-import { useState, useEffect } from "react";
+import {useState, useEffect} from "react";
 // import LibraryApi from "../../api/Library";
 
 // MUI Support
 import {
-  Box,
-  Button,
-  CircularProgress,
-  Popover,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TablePagination,
-  // Pagination,
-  TableRow,
+    Box,
+    CircularProgress,
+    TablePagination,
+    Typography,
 } from "@mui/material";
-import { FileDownload, Assignment, Sort } from "@mui/icons-material";
+
+//mux video
 
 // Custom Components
 import SearchBar from "../../components/shared/SearchBar/SearchBar";
-import SortButton from "../../components/shared/SortButton/SortButton";
 import libraryApi from "../../api/library";
-import moment from "moment";
 import getFile from "../../api/getFile";
+
+// Image
+import libraryImage from "../../assets/images/Group 1375library.png";
+import pdf from "../../assets/images/Group 1364pdf.png";
+import audio from "../../assets/images/Group 1364audio.png";
+import video from "../../assets/images/videvideo.png";
+import csv from "../../assets/images/Group 1455csv.png";
+import doc from "../../assets/images/docdoc.png";
+import AudioModal from "../../components/shared/AudioModal/AudioModal";
+import VideoModal from "../../components/shared/VideoModal/VideoModal";
 
 const Library = () => {
 
-  const [Library, setLibrary] = useState([]);
-  const [sort,setSort]=useState(false);
-  const [sortOption, setSortOption] = useState('');
-  const [searchValue, setSearchValue] = useState('');
-  const [totalItems, setTotalItems] = useState(0);
-  const [loading, setLoading] = useState(true);
-  const [pagination, setPagination] = useState({ page: 0, rows: 5 });
+    const [Library, setLibrary] = useState([]);
+    const [searchValue, setSearchValue] = useState('');
+    const [totalItems, setTotalItems] = useState(0);
+    const [loading, setLoading] = useState(true);
+    const [pagination, setPagination] = useState({page: 0, rows: 10});
+    const [activeTab, setActiveTab] = useState(1);
+    
+const [selectedFile, setSelectedFile] = useState(null);
+const [showPopup, setShowPopup] = useState(false);
 
-  // file size converted , bytes into kb, mb, gb, tb
-  const fileSize = (size) => {
-    if (typeof size !== 'number') {
-      return '';
-    }
-    let units = ['B', 'KB', 'MB', 'GB', 'TB'],
-      bytes = size,
-      i;
+const openPopup = (file,link) => {
+  setSelectedFile({file,link});
+  setShowPopup(true);
+};
 
-    for (i = 0; bytes >= 1024 && i < 4; i++) {
-      bytes /= 1024;
-    }
+const closePopup = () => {
+  setSelectedFile(null);
+  setShowPopup(false);
+};
 
-    return bytes.toFixed(2) + ' ' + units[i];
-  };
+    const handleTabChange = (index) => {
+        setActiveTab(index);
+    };
 
-  const downloadItem = async (key) => {
-    const res = await getFile(key);
-    window.open(res?.data, '_blank');
-  }
-
-  // search library items
-  const searchLibrary = (e) => {
-    e.preventDefault();
-    setSearchValue(e.target.search.value);
-    setPagination({ rows: 5, page: 0 });
-  }
-
-  useEffect(() => {
-    if (searchValue) {
-      setLoading(true);
-      libraryApi.search(searchValue, pagination.page + 1, pagination.rows)
-        .then(res => {
-          setTotalItems(res?.data?.count);
-          setLibrary(res?.data?.rows);
-          setLoading(false);
-        });
-    } else {
-      setLoading(true);
-      libraryApi.getAll(pagination.page + 1, pagination.rows)
-        .then(res => {
-          setTotalItems(res?.data?.count);
-          setLibrary(res?.data?.rows);
-          setLoading(false);
-        });
-    }
-
-  }, [searchValue, pagination]);
-
-  // Component
-  return (
-    <Box sx={{ width: "100%" }}>
-      <h1 className="border-b-1 border-[#DCDEE1] w-full text-4xl pb-4 mb-6">
-        InGelt's Library
-      </h1>
-
-      <Box
-        display="flex"
-        justifyContent="space-between"
-        className="w-full md:px-2 py-4"
-      >
-        <SearchBar handleSubmit={searchLibrary} />
-        <Button
-            variant="text"
-            sx={{
-              fontWeight: 600,
-              textTransform: "capitalize",
-              borderRadius: 2,
-              color: "#00000085",
-              backgroundColor: "#F4F4F4",
-              display: { xs: 'none', md: 'flex' }
-            }}
-            onClick={() => setSort(true)}
-          >
-            Sort
-            <Sort sx={{ ml: 0.4 }} />
-          </Button>
-          <Button
-            variant="text"
-            sx={{
-              fontWeight: 600,
-              textTransform: "capitalize",
-              borderRadius: 2,
-              color: "#00000085",
-              backgroundColor: "#F4F4F4",
-              display: { xs: 'flex', md: 'none' }
-            }}
-          >
-            <Sort sx={{}} />
-          </Button>
-          <Popover
-            open={sort}
-            onClose={() => setSort(false)}
-            anchorReference="anchorPosition"
-            anchorPosition={{ top: 160, left: 1350 }}
-          >
-            <Box sx={{ p: 2, width: 180 }}>
-              <h3 className="text-lg font-semibold mb-2">Sort By</h3>
-              <div className="flex items-center gap-x-1">
-                <input type="radio" name="sort" id="sort1" onChange={() => setSortOption('name')} />
-                <label htmlFor="sort1">Name</label>
-              </div>
-              {/* <div className="flex items-center gap-x-1">
-                <input type="radio" name="sort" id="sort2" onChange={() => setSortOption('evaluated')} />
-                <label htmlFor="sort2">Evaluated</label>
-              </div>
-              <div className="flex items-center gap-x-1">
-                <input type="radio" name="sort" id="sort3" onChange={() => setSortOption('submitted')} />
-                <label htmlFor="sort3">Submitted</label>
-                </div> */}
-            </Box>
-          </Popover>
-      </Box>
-
-      {loading && <div className="py-10 flex justify-center">
-        <CircularProgress />
-      </div>}
-
-      {!loading && <Box className="flex flex-col items-center" sx={{ width: "100%" }}>
-
-        {Array.isArray(Library) && Library.length > 0 ? <Table>
-          <TableHead className="!hidden md:!table-header-group">
-            <TableRow>
-              <TableCell
-                align="center"
-                sx={{ fontWeight: 600, fontSize: "1rem" }}
-              >
-                File Name
-              </TableCell>
-
-              <TableCell
-                align="center"
-                sx={{ fontWeight: 600, fontSize: "1rem" }}
-              >
-                File Size
-              </TableCell>
-
-              <TableCell
-                align="center"
-                sx={{ fontWeight: 600, fontSize: "1rem" }}
-              >
-                Subject
-              </TableCell>
-
-              <TableCell
-                align="center"
-                sx={{ fontWeight: 600, fontSize: "1rem" }}
-              >
-                Date Uploaded
-              </TableCell>
-
-              <TableCell
-                align="center"
-                sx={{ fontWeight: 600, fontSize: "1rem" }}
-              ></TableCell>
-            </TableRow>
-          </TableHead>
-
-          <TableBody>
-            {Library?.map((item) => (
-              <tr
-                key={item?.id}
-                className="cursor-pointer duration-300 hover:bg-[#d0e1f9] border-b md:border-0 border-[#C0C0C0]"
-              >
-                <td className="text-left md:text-center py-2">
-                  <div className="flex items-center justify-start md:justify-center">
-                    <Assignment className="mr-3 text-[#4C9BFF]" />
-                    <div className="inline">
-                      <span className="font-semibold block">{item?.name}</span>
-                      <span className="text-sm font-semibold md:hidden text-[#6D6D6D]">
-                        {item?.fileSize} - {item?.createdAt}
-                      </span>
-                    </div>
-                  </div>
-                </td>
-                <td className="py-2 text-center text-sm hidden md:table-cell text-[#6D6D6D]">
-                  {fileSize(item?.fileSize)}
-                </td>
-                <td className="py-2 text-center capitalize text-sm hidden md:table-cell text-[#6D6D6D]">
-                  {item?.subject}
-                </td>
-                <td className="py-2 text-center text-sm hidden md:table-cell text-[#6D6D6D]">
-                  {moment(item?.createdAt).format('ll')}
-                </td>
-                <td className="py-2 text-center hidden md:table-cell">
-                  <Button
-                    variant="outlined"
-                    color="primary"
-                    size="small"
-                    sx={{
-                      textTransform: "capitalize",
-                      color: "#0064E1",
-                      borderColor: "#0064E1",
-                      borderRadius: "8px",
-                    }}
-                    onClick={() => downloadItem(item?.file)}
-                  >
-                    Download
-                    <FileDownload />
-                  </Button>
-                </td>
-                <td className="py-2 text-center md:hidden">
-                  <button className="text-[#0064E1]">
-                    <FileDownload />
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </TableBody>
-        </Table> : <p></p>
+    const downloadItem = async (key) => {
+        const res = await getFile(key);
+        const extension = key.split('.').pop().toUpperCase();
+      
+        if (['PDF', 'DOC', 'DOCX', 'CSV'].includes(extension)) {
+          window.open(res?.data, '_blank');
+        } else {
+          openPopup(key,res?.data);
         }
+      };
+      
 
-        <TablePagination
-          component='div'
-          color="primary"
-          count={totalItems}
-          rowsPerPageOptions={[5, 10, 25, 50, 100]}
-          page={pagination.page}
-          rowsPerPage={pagination.rows}
-          onPageChange={(_, newPage) => setPagination({ ...pagination, page: newPage })}
-          onRowsPerPageChange={(e) => setPagination({ ...pagination, rows: e.target.value })}
-          className="mt-6" />
+    // search library items
+    const searchLibrary = (e) => {
+        e.preventDefault();
+        setSearchValue(e.target.search.value);
+        setPagination({rows: 10, page: 0});
+    }
+    useEffect(() => {
+        (async () => {
+            setLoading(true);
+            try {
+                const res = await libraryApi.getAll(pagination.page + 1, pagination.rows, searchValue);
+                setTotalItems(res?.data?.count);
+                if (activeTab === 2) {
+                    setLibrary(res?.data?.rows.filter((item) => item.subject === "reading"));
+                } else if (activeTab === 3) {
+                    setLibrary(res?.data?.rows.filter((item) => item.subject === "writing"));
+                } else if (activeTab === 4) {
+                    setLibrary(res?.data?.rows.filter((item) => item.subject === "speaking"));
+                } else if (activeTab === 5) {
+                    setLibrary(res?.data?.rows.filter((item) => item.subject === "listening"));
+                } else {
+                    setLibrary(res?.data?.rows);
+                }
+                setLoading(false);
+            } catch (err) {
+                setLibrary([]);
+                setLoading(false);
+            }
+        })()
+    }, [searchValue, pagination, activeTab]);
 
-      </Box>}
+    function getFileType(fileName) {
+      const extension = fileName?.split('.').pop().toUpperCase();
+      if (['MP4', 'WEBM','OGG'].includes(extension)) {
+        return 'Video';
+      } else if (['WAV', 'FLAC', 'MP3'].includes(extension)) {
+        return 'Audio';
+      } else {
+        return extension;
+      }
+    }    
+    
+    function getFileImage(fileName){
+        const extension = fileName.split('.').pop().toUpperCase();
+        if (['MP4', 'WEBM','OGG'].includes(extension)) {
+          return video;
+        } else if (['WAV', 'FLAC', 'MP3'].includes(extension)) {
+          return audio;
+        } else if (['CSV'].includes(extension)) {
+          return csv;
+        } else if (['DOC', 'DOCX'].includes(extension)) {
+          return doc;
+        } else if (['PDF'].includes(extension)) {
+          return pdf;
+        } else {
+          return pdf;
+        }
+      }
 
-    </Box >
-  );
+    //   const handleContextMenu = (e) => {
+    //     e.preventDefault(); // Prevent the default right-click behavior
+    //   };
+
+    return (
+        <Box sx={
+            {
+                width: "100%",
+                pr: {xl:8,lg:5},
+                pl:{xl:0,lg:5}
+            }
+        }>
+
+            <Box sx={
+                {
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    width: {md:"65%",xs:"100%"},
+                    height: "20vh",
+                    padding: "2rem",
+                    backgroundColor: "white",
+                    border: "1px solid white",
+                    borderRadius: "2rem",
+                    boxShadow: "0px 10px 36px rgba(0, 0, 0, 0.16), 0px 0px 0px 1px rgba(0, 0, 0, 0.06);"
+                }
+            }>
+                <Box sx={
+                    {
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "flex-start",
+                        flexDirection: "column",
+                        width: {md:"50%",xs:"90%"}
+                    }
+                }>
+                    <Typography sx={
+                        {color: "rgba(0, 0, 0, 0.6);",
+                        display:{md:"flex",xs:"none"}
+                    }
+
+                    }>Welcome To</Typography>
+                    <Typography sx={
+                        {
+                            fontWeight: "bold",
+                            fontSize: "1.5rem"
+                        }
+                    }>InGelt Centralized Library</Typography>
+                </Box>
+                <Box sx={
+                    {width: {md:"60%",xs:"100%"}}
+                }>
+                    <img src={libraryImage}
+                        alt="library"
+                        className="md:relative md:bottom-5 scale-125"/>
+                </Box>
+
+            </Box>
+            <Box sx={
+                {
+                    mt: 5,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: {xs:"space-between",md:'flex-start',lg:'space-between'},
+                    flexWrap:"wrap"
+                }
+            }>
+                <div className="flex items-end justify-start">
+                    <button onClick={
+                            () => handleTabChange(1)
+                        }
+                        className={
+                            `duration-200 transition-none ease-in ${
+                                activeTab === 1 ? 'border-1 py-3 px-5 md:px-8 font-semibold text-[#3D5AF1] border-[#ECECEC] bg-white border-b-0 rounded-t-xl' : 'bg-[#F3F3F3] py-2 px-2 md:px-5 text-sm'
+                            }`
+                    }>All</button>
+                    <button onClick={
+                            () => handleTabChange(2)
+                        }
+                        className={
+                            `duration-200 transition-none ease-in ${
+                                activeTab === 2 ? 'border-1 py-3 px-5 md:px-8 font-semibold text-[#3D5AF1] border-[#ECECEC] bg-white border-b-0 rounded-t-xl' : 'bg-[#F3F3F3] py-2 px-2 md:px-5 text-sm'
+                            }`
+                    }>Reading</button>
+                    <button onClick={
+                            () => handleTabChange(3)
+                        }
+                        className={
+                            `duration-200 transition-none ease-in ${
+                                activeTab === 3 ? 'border-1 py-3 px-5 md:px-8 font-semibold text-[#3D5AF1] border-[#ECECEC] bg-white border-b-0 rounded-t-xl' : 'bg-[#F3F3F3] py-2 px-2 md:px-5 text-sm'
+                            }`
+                    }>Writing</button>
+                    <button onClick={
+                            () => handleTabChange(4)
+                        }
+                        className={
+                            `duration-200 transition-none ease-in ${
+                                activeTab === 4 ? 'border-1 py-3 px-5 md:px-8 font-semibold text-[#3D5AF1] border-[#ECECEC] bg-white border-b-0 rounded-t-xl' : 'bg-[#F3F3F3] py-2 px-2 md:px-5 text-sm'
+                            }`
+                    }>Speaking</button>
+                    <button onClick={
+                            () => handleTabChange(5)
+                        }
+                        className={
+                            `duration-200 transition-none ease-in ${
+                                activeTab === 5 ? 'border-1 py-3 px-5 md:px-8 font-semibold text-[#3D5AF1] border-[#ECECEC] bg-white border-b-0 rounded-t-xl' : 'bg-[#F3F3F3] py-2 px-2 md:px-5 text-sm'
+                            }`
+                    }>Listening</button>
+                </div>
+                <div className="flex items-end justify-end pt-5 sm:pt-0 md:pl-16 xl:pl-0">
+                <SearchBar handleSubmit={searchLibrary}/>
+                </div>
+            </Box>
+            {
+            loading && (
+                <div className="py-10 flex justify-center">
+                    <CircularProgress/>
+                </div>
+            )
+        }
+            {
+            !loading && (Array.isArray(Library) && Library.length > 0 ? <div class="grid 2xl:grid-cols-4 xl:grid-cols-3 lg:grid-cols-2 2xl:gap-x-2 gap-x-4 gap-y-5 pt-10">
+                {
+                Library.map((item, index) => (
+                    <div class="flex flex-col items-center justify-center bg-white rounded-xl h-[34vh] 2xl:w-[19vw] xl:w-[24vw] lg:w-[28vw] shadow-[0px_10px_36px_rgba(0,0,0,0.16),0px_0px_0px_1px_rgba(0,0,0,0.06)] hover:scale-105 duration-200 transition-transform hover:cursor-pointer"
+                        key={index}
+                        onClick={
+                            () => downloadItem(item.file)
+                    }>
+                        <div className="h-[70%] flex items-end justify-center">
+                            {<img src={getFileImage(item.file)} alt=""/>} </div>
+                        <div>
+                            <p className="font-bold px-4 py-2">
+                                {
+                                item?.name
+                            }</p>
+                        </div>
+                        <hr className="w-full text-zinc-300"/>
+                        <div className="flex items-center justify-between w-full px-4 py-4">
+                            <div>
+                                <p className="font-bold">File Type:</p>
+                                <p>{ getFileType(item.file)}</p>
+                            </div>
+                            <div>
+                                <p className="bg-[#0064E1] text-white px-3 py-1 rounded-md">
+                                    {
+                                    item?.subject.slice(0, 1).toUpperCase()
+                                }</p>
+                            </div>
+                        </div>
+                    </div>
+                ))
+            } </div> : <p className="text-center text-red-500 text-xl font-semibold pt-10">
+                Not found
+            </p>)
+        }
+    {selectedFile && selectedFile?.file?.toLowerCase().endsWith('.mp3') ? (
+        <AudioModal file={selectedFile?.link} showPopup={showPopup} closePopup={closePopup}/>
+    ) : (
+     <VideoModal file={selectedFile?.link} showPopup={showPopup} closePopup={closePopup}/>
+    )}
+    <TablePagination component='div' color="primary"
+                    count={totalItems}
+                    rowsPerPageOptions={
+                        [10, 25, 50, 100]
+                    }
+                    page={
+                        pagination.page
+                    }
+                    rowsPerPage={
+                        pagination.rows
+                    }
+                    onPageChange={
+                        (_, newPage) => setPagination({
+                            ...pagination,
+                            page: newPage
+                        })
+                    }
+                    onRowsPerPageChange={
+                        (e) => setPagination({
+                            ...pagination,
+                            rows: e.target.value
+                        })
+                    }
+                    className="mt-6"/>
+
+        </Box>
+    );
 };
 
 export default Library;

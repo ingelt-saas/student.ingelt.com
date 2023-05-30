@@ -132,7 +132,7 @@ const Notes = () => {
         className="w-full md:px-2 py-4"
       >
         <SearchBar handleSubmit={searchNotes} />
-        <Button
+        {/* <Button
           variant="text"
           sx={{
             fontWeight: 600,
@@ -194,7 +194,7 @@ const Notes = () => {
               <label htmlFor="sort3">Writing</label>
             </div>
           </Box>
-        </Popover>
+        </Popover> */}
       </Box>
 
       {loading && (

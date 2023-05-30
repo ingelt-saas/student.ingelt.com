@@ -63,7 +63,6 @@ const Assignments = () => {
       assignmentApi.getAllAssignments(pagination.page + 1, pagination.rows)
         .then((res) => {
           setTotalAssignments(res?.data?.count);
-          console.log(res.data?.rows);
           //sorting
           let sortedRows = res.data?.rows;
           if (sortOption === "name") {
