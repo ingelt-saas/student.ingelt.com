@@ -46,7 +46,7 @@ const StatsModal = ({ statsModal, statsModalHandle, totalAssignments }) => {
           <button className="absolute right-1 top-1 text-white" onClick={() => statsModalHandle(false)}>
             <Close fontSize="medium" />
           </button>
-          <div className="bg-[#0C3C82] py-3">
+          <div className="bg-[#0C3D82] py-3">
             <h5 className="text-center text-white text-2xl font-medium">Assignment Stats</h5>
           </div>
           <div className={`flex ${seeMoreBtn ? 'overflow-y-auto' : 'overflow-y-hidden'} flex-col flex-1 px-2 py-5 gap-y-5`}>
