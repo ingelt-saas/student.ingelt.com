@@ -23,6 +23,7 @@ import {
   Assignment,
   MoreVert,
   Sort,
+  RemoveRedEye
 } from "@mui/icons-material";
 
 // Custom Components
@@ -223,13 +224,6 @@ const Assignments = () => {
                   Assigned Date
                 </TableCell>
 
-                {/* <TableCell
-                  align="center"
-                  sx={{ fontWeight: 600, fontSize: "1rem" }}
-                >
-                  Deadline
-                </TableCell> */}
-
                 <TableCell
                   align="center"
                   sx={{ fontWeight: 600, fontSize: "1rem" }}
@@ -312,8 +306,8 @@ const Assignments = () => {
                       }}
                       onClick={() => downloadAssignment(item?.file)}
                     >
-                      Download
-                      <FileDownload sx={{ marginLeft: "2px" }} />
+                      View
+                      <RemoveRedEye sx={{ marginLeft: "4px" }} />
                     </Button>
                   </td>
                   <td className="py-2 text-right md:hidden">
