@@ -15,7 +15,7 @@ import {
   // Pagination,
   TableRow,
 } from "@mui/material";
-import { FileDownload, Assignment, Sort } from "@mui/icons-material";
+import { Assignment, RemoveRedEye } from "@mui/icons-material";
 
 // Custom Components
 import SearchBar from "../../components/shared/SearchBar/SearchBar";
@@ -279,13 +279,13 @@ const Notes = () => {
                         }}
                         onClick={() => downloadNote(item.file)}
                       >
-                        Download
-                        <FileDownload />
+                        View
+                        <RemoveRedEye sx={{ marginLeft: '4px' }} fontSize="small" />
                       </Button>
                     </td>
                     <td className="py-2 text-center md:hidden">
-                      <button className="text-[#0064E1]">
-                        <FileDownload />
+                      <button onClick={() => downloadNote(item.file)} className="text-[#0064E1]">
+                        <RemoveRedEye />
                       </button>
                     </td>
                   </tr>
