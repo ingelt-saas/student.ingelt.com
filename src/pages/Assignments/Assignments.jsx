@@ -52,44 +52,35 @@ const Assignments = () => {
 
   // fetch and search assignments
   useEffect(() => {
-    if (searchValue) {
-      setLoading(true);
-      assignmentApi.searchAssignments(searchValue, pagination.page + 1, pagination.rows)
-        .then(res => {
-          setTotalAssignments(res?.data?.count);
-          setAssignments(res?.data?.rows);
-          setLoading(false);
-        })
-    } else {
-      setLoading(true);
-      assignmentApi.getAllAssignments(pagination.page + 1, pagination.rows)
-        .then((res) => {
-          setTotalAssignments(res?.data?.count);
-          //sorting
-          let sortedRows = res.data?.rows;
-          if (sortOption === "name") {
-            sortedRows = sortedRows.sort((a, b) => a.name.localeCompare(b.name));
-          } else if (sortOption === "evaluated") {
-            sortedRows = sortedRows.filter(a => {
-              const status = a.submissions.evaluated;
-              return status === 1;
-            });
-          } else if (sortOption === "submitted") {
-            sortedRows = sortedRows.filter(a => {
-              const status = a.submissions.evaluated;
-              return status === 0;
-            });
 
-          } else if (sortOption === "notDone") {
-            sortedRows = sortedRows.filter(a => {
-              const status = a.submissions ? a.submissions.evaluated : null;
-              return status === 0 || status === null;
-            });
-          }
-          setAssignments(sortedRows);
-          setLoading(false);
-        });
-    }
+    setLoading(true);
+    assignmentApi.getAllAssignments(pagination.page + 1, pagination.rows, searchValue)
+      .then((res) => {
+        setTotalAssignments(res?.data?.count);
+        //sorting
+        let sortedRows = res.data?.rows;
+        if (sortOption === "name") {
+          sortedRows = sortedRows.sort((a, b) => a.name.localeCompare(b.name));
+        } else if (sortOption === "evaluated") {
+          sortedRows = sortedRows.filter(a => {
+            const status = a.submissions.evaluated;
+            return status === 1;
+          });
+        } else if (sortOption === "submitted") {
+          sortedRows = sortedRows.filter(a => {
+            const status = a.submissions.evaluated;
+            return status === 0;
+          });
+
+        } else if (sortOption === "notDone") {
+          sortedRows = sortedRows.filter(a => {
+            const status = a.submissions ? a.submissions.evaluated : null;
+            return status === 0 || status === null;
+          });
+        }
+        setAssignments(sortedRows);
+        setLoading(false);
+      });
   }, [pagination, searchValue, sortOption]);
 
   // search assignment form handle
@@ -289,8 +280,16 @@ const Assignments = () => {
                         borderRadius: "8px",
                       }}
                     >
-                      Submit
-                      <FileUpload sx={{ marginLeft: "2px" }} />
+                      {item.submissions?.id ?
+                        <>
+                          View Submission
+                          <RemoveRedEye fontSize="small" sx={{ marginLeft: "2px" }} />
+                        </> :
+                        <>
+                          Submit
+                          <FileUpload sx={{ marginLeft: "2px" }} />
+                        </>
+                      }
                     </Button>
                   </td>
                   <td className="py-2 text-center hidden md:table-cell">
