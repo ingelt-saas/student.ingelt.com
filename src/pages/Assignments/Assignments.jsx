@@ -116,7 +116,7 @@ const Assignments = () => {
 
       <Box className="flex flex-col items-center gap-y-4 sm:flex-row sm:justify-between w-full md:px-2 py-4">
         <SearchBar handleSubmit={searchAssignments} />
-        <div className="flex justify-center sm:justify-between gap-x-9 w-full sm:w-1/2">
+        <div className="flex justify-center sm:justify-end gap-x-9 w-full sm:w-1/2">
           <Button
             variant="contained"
             sx={{
