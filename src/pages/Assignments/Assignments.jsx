@@ -34,6 +34,7 @@ import StatsModal from "../../components/shared/StatsModal/StatsModal";
 import PopOver from "../../components/shared/PopOverModal/PopOverModal";
 import moment from "moment/moment";
 import getFile from "../../api/getFile";
+import UpdateSubmissionModal from "../../components/Submission/UpdateSubmissionModal";
 // import PDFViewerModal from "../../components/shared/PDFViewerModal/PDFViewerModal";
 
 const Assignments = () => {
@@ -48,7 +49,7 @@ const Assignments = () => {
   const [totalAssignments, setTotalAssignments] = useState(0);
   const [pagination, setPagination] = useState({ rows: 10, page: 0 });
   const [searchValue, setSearchValue] = useState(null);
-
+  const [submissionUpdateModal, setSubmissionUpdateModal] = useState(null);
 
   // fetch and search assignments
   useEffect(() => {
@@ -92,6 +93,11 @@ const Assignments = () => {
 
   const downloadAssignment = async (key) => {
     const res = await getFile(key);
+    window.open(res?.data, '_blank');
+  }
+
+  const viewSubmission = async (item) => {
+    const res = await getFile(item?.submissions?.file);
     window.open(res?.data, '_blank');
   }
 
@@ -199,7 +205,19 @@ const Assignments = () => {
                   align="center"
                   sx={{ fontWeight: 600, fontSize: "1rem" }}
                 >
-                  File Name
+                  Topic
+                </TableCell>
+                <TableCell
+                  align="center"
+                  sx={{ fontWeight: 600, fontSize: "1rem" }}
+                >
+                  Module
+                </TableCell>
+                <TableCell
+                  align="center"
+                  sx={{ fontWeight: 600, fontSize: "1rem" }}
+                >
+                  Uploaded By
                 </TableCell>
                 <TableCell
                   align="center"
@@ -207,20 +225,13 @@ const Assignments = () => {
                 >
                   Status
                 </TableCell>
-
-                <TableCell
-                  align="center"
-                  sx={{ fontWeight: 600, fontSize: "1rem" }}
-                >
-                  Assigned Date
-                </TableCell>
-
                 <TableCell
                   align="center"
                   sx={{ fontWeight: 600, fontSize: "1rem" }}
                 >
                   Marks
                 </TableCell>
+
                 <TableCell></TableCell>
                 <TableCell></TableCell>
               </TableRow>
@@ -244,7 +255,7 @@ const Assignments = () => {
                     <div className="flex items-center justify-start md:justify-end">
                       <div className='2xl:w-[75%] xl:w-[80%] lg:w-[90%] md:w-[100%] flex'>
                         <Assignment className="mr-3 text-[#4C9BFF]" />
-                        <div className="inline">
+                        <div className="inline text-left">
                           <span className="font-semibold block">
                             {item.name}
                           </span>
@@ -256,20 +267,48 @@ const Assignments = () => {
                     </div>
                   </td>
                   <td className="py-2 text-center text-sm hidden md:table-cell text-[#6D6D6D]">
+                    <span className="capitalize">{item?.subject}</span>
+                  </td>
+                  <td className="py-2 text-center text-sm hidden md:table-cell text-[#6D6D6D]">
+                    <span className="capitalize">{item?.uploaderName}</span>
+                  </td>
+                  <td className="py-2 text-center text-sm hidden md:table-cell text-[#6D6D6D]">
                     {!item.submissions.id ? 'Not Done' : (item.submissions.evaluated ? 'Evaluated' : 'Submitted')}
                   </td>
                   <td className="py-2 text-center text-sm hidden md:table-cell text-[#6D6D6D]">
-                    {moment(item.assignedDate).format('ll')}
-                  </td>
-                  {/* <td className="py-2 text-center text-sm hidden md:table-cell text-[#6D6D6D]">
-                    {moment(item.endDate).format('ll')}
-                    <small className="ml-1">{moment(item.endDate).format('LT')}</small>
-                  </td> */}
-                  <td className="py-2 text-center text-sm hidden md:table-cell text-[#6D6D6D] font-bold">
                     {item.submissions && (item.submissions.evaluated ? item.submissions.scores : '')}
                   </td>
                   <td className="py-2 text-center hidden md:table-cell">
-                    <Button
+                    {item.submissions?.id && <Button
+                      onClick={() => viewSubmission(item)}
+                      variant="outlined"
+                      size="small"
+                      sx={{
+                        textTransform: "capitalize",
+                        color: "#6D6D6D",
+                        borderColor: "#6D6D6D",
+                        borderRadius: "8px",
+                        marginRight: '0.5rem'
+                      }}
+                    >
+                      View Submission
+                      <RemoveRedEye fontSize="small" sx={{ marginLeft: "2px" }} />
+                    </Button>}
+                    {item.submissions?.id && <Button
+                      onClick={() => setSubmissionUpdateModal(item)}
+                      variant="outlined"
+                      size="small"
+                      sx={{
+                        textTransform: "capitalize",
+                        color: "#6D6D6D",
+                        borderColor: "#6D6D6D",
+                        borderRadius: "8px",
+                        marginRight: '0.5rem'
+                      }}
+                    >
+                      Update Submission
+                    </Button>}
+                    {!item.submissions?.id && <Button
                       onClick={() => setUploadModal({ open: true, value: item })}
                       variant="outlined"
                       size="small"
@@ -278,21 +317,12 @@ const Assignments = () => {
                         color: "#6D6D6D",
                         borderColor: "#6D6D6D",
                         borderRadius: "8px",
+                        marginRight: '0.5rem'
                       }}
                     >
-                      {item.submissions?.id ?
-                        <>
-                          View Submission
-                          <RemoveRedEye fontSize="small" sx={{ marginLeft: "2px" }} />
-                        </> :
-                        <>
-                          Submit
-                          <FileUpload sx={{ marginLeft: "2px" }} />
-                        </>
-                      }
-                    </Button>
-                  </td>
-                  <td className="py-2 text-center hidden md:table-cell">
+                      Submit
+                      <FileUpload sx={{ marginLeft: "2px" }} />
+                    </Button>}
                     <Button
                       variant="outlined"
                       color="primary"
@@ -344,6 +374,14 @@ const Assignments = () => {
 
       {/* popover modal */}
       <PopOver anchorEl={anchorEl} setAnchorEl={setAnchorEl} assignment={{}} />
+
+      {/* update submission modal */}
+      <UpdateSubmissionModal
+        open={Boolean(submissionUpdateModal)}
+        data={submissionUpdateModal}
+        close={() => setSubmissionUpdateModal(null)}
+      />
+
     </Box>
   );
 };

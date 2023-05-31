@@ -65,6 +65,7 @@ const PasswordChangeModal = ({ open, close }) => {
       length: false,
       match: false,
     });
+    setError('');
     close();
   };
 
@@ -286,7 +287,7 @@ const Settings = () => {
       return;
     }
 
-    // Whether it is a float number
+    // float number
     const floatRegex = /^[+-]?((\.\d+)|(\d+(\.\d+)?))$/;
     if (
       updatedData.previousScore &&
@@ -320,7 +321,7 @@ const Settings = () => {
     const newData = {};
 
     for (let key in { ...updatedData }) {
-      if (updatedData[key] !== student[key]) {
+      if (updatedData[key] !== student[key] && updatedData[key]) {
         newData[key] = updatedData[key];
       }
     }
