@@ -131,7 +131,7 @@ const closePopup = () => {
         <Box sx={
             {
                 width: "100%",
-                pr: {xl:8,lg:5},
+                pr: {xl:4,lg:5},
                 pl:{xl:0,lg:5}
             }
         }>
@@ -244,10 +244,10 @@ const closePopup = () => {
             )
         }
             {
-            !loading && (Array.isArray(Library) && Library.length > 0 ? <div class="grid 2xl:grid-cols-4 xl:grid-cols-3 lg:grid-cols-2 2xl:gap-x-2 gap-x-4 gap-y-5 pt-10">
+            !loading && (Array.isArray(Library) && Library.length > 0 ? <div class="grid 2xl:grid-cols-4 xl:grid-cols-3 lg:grid-cols-2 2xl:gap-x-4 gap-x-4 gap-y-5 pt-10">
                 {
                 Library.map((item, index) => (
-                    <div class="flex flex-col items-center justify-center bg-white rounded-xl h-[34vh] 2xl:w-[19vw] xl:w-[24vw] lg:w-[28vw] shadow-[0px_10px_36px_rgba(0,0,0,0.16),0px_0px_0px_1px_rgba(0,0,0,0.06)] hover:scale-105 duration-200 transition-transform hover:cursor-pointer"
+                    <div class="flex flex-col items-center justify-center bg-white rounded-xl h-[34vh] 2xl:w-[19vw] xl:w-[24vw] lg:w-[28vw] shadow-[0px_10px_36px_rgba(0,0,0,0.16),0px_0px_0px_1px_rgba(0,0,0,0.06)] scale-95 hover:scale-100 duration-200 transition-transform hover:cursor-pointer"
                         key={index}
                         onClick={
                             () => downloadItem(item.file)
