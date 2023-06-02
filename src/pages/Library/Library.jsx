@@ -244,21 +244,24 @@ const closePopup = () => {
             )
         }
             {
-            !loading && (Array.isArray(Library) && Library.length > 0 ? <div class="grid 2xl:grid-cols-4 xl:grid-cols-3 lg:grid-cols-2 2xl:gap-x-4 gap-x-4 gap-y-5 pt-10">
+            !loading && (Array.isArray(Library) && Library.length > 0 ? <div class="grid 2xl:grid-cols-4 xl:grid-cols-4 lg:grid-cols-2 gap-x-4 gap-y-5 pt-10">
                 {
                 Library.map((item, index) => (
-                    <div class="flex flex-col items-center justify-center bg-white rounded-xl h-[34vh] 2xl:w-[19vw] xl:w-[24vw] lg:w-[28vw] shadow-[0px_10px_36px_rgba(0,0,0,0.16),0px_0px_0px_1px_rgba(0,0,0,0.06)] scale-95 hover:scale-100 duration-200 transition-transform hover:cursor-pointer"
+                    <div class="flex flex-col items-center justify-center bg-white rounded-xl h-full 2xl:w-[19vw] xl:w-[17vw] lg:w-[28vw] shadow-[0px_10px_36px_rgba(0,0,0,0.16),0px_0px_0px_1px_rgba(0,0,0,0.06)] scale-95 hover:scale-100 duration-200 transition-transform hover:cursor-pointer"
                         key={index}
                         onClick={
                             () => downloadItem(item.file)
                     }>
-                        <div className="h-[70%] flex items-end justify-center">
-                            {<img src={getFileImage(item.file)} alt=""/>} </div>
+                        <div className="h-[70%] flex flex-col items-center justify-center pb-4 pt-10">
+                            <div className="flex">
+                            {<img src={getFileImage(item.file)} alt=""/>} 
+                            </div>
                         <div>
                             <p className="font-bold px-4 py-2">
                                 {
                                 item?.name
                             }</p>
+                        </div>
                         </div>
                         <hr className="w-full text-zinc-300"/>
                         <div className="flex items-center justify-between w-full px-4 py-4">
