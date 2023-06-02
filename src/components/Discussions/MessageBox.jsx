@@ -13,7 +13,7 @@ const MessageBox = ({ data }) => {
   const isStudentMessage = senderId === id;
 
   return (
-    <div className={`w-full mt-4 md:first:mt-32 last:mb-28 overflow-y-auto`}>
+    <div className={`w-full mt-2 lg:mt-4 md:first:mt-32 last:mb-28 overflow-y-auto`}>
       <div className={`chat-message`}>
         {isStudentMessage ? (
          <div className="flex items-end justify-end">
