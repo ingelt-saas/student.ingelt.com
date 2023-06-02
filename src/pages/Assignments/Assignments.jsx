@@ -239,7 +239,7 @@ const Assignments = () => {
             <TableBody>
               {assignments.map((item) => (
                 <tr
-                  key={item.id}
+                  key={item?.id}
                   className="cursor-pointer duration-300 hover:bg-[#d0e1f9]"
                 >
                   <td className="text-left md:text-center py-2">
@@ -273,10 +273,10 @@ const Assignments = () => {
                     <span className="capitalize">{item?.uploaderName}</span>
                   </td>
                   <td className="py-2 text-center text-sm hidden md:table-cell text-[#6D6D6D]">
-                    {!item.submissions.id ? 'Not Done' : (item.submissions.evaluated ? 'Evaluated' : 'Submitted')}
+                    {!item.submissions?.id ? 'Not Done' : (item.submissions?.evaluated ? 'Evaluated' : 'Submitted')}
                   </td>
                   <td className="py-2 text-center text-sm hidden md:table-cell text-[#6D6D6D]">
-                    {item.submissions && (item.submissions.evaluated ? item.submissions.scores : '')}
+                    {item.submissions && (item.submissions?.evaluated ? item.submissions.scores : '')}
                   </td>
                   <td className="py-2 text-center hidden md:table-cell">
                     {item.submissions?.id && <Button
