@@ -1,5 +1,5 @@
 // Modules
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 // Components
 import { styled } from "@mui/material/styles";
@@ -27,6 +27,7 @@ import settingsApi from "../../api/settings";
 import { StudentContext } from "../../contexts";
 import Image from "../../components/shared/Image/Image";
 import { toast } from "react-toastify";
+import { Check } from "@mui/icons-material";
 
 const StyledButton = styled(Button)(() => ({ textTransform: "capitalize" }));
 
@@ -39,10 +40,212 @@ const InputFieldSx = {
   },
 };
 
+const PasswordChangeModal = ({ open, close }) => {
+
+  const [error, setError] = useState('');
+  const [changePwd, setChangePwd] = useState({
+    password: "",
+    confirmPassword: "",
+    prevPassword: "",
+  });
+  const [passwordRequirements, setPasswordRequirements] = useState({
+    uppercase: false,
+    specialChar: false,
+    number: false,
+    length: false,
+    match: false,
+  });
+
+
+  const handleClose = () => {
+    setPasswordRequirements({
+      uppercase: false,
+      specialChar: false,
+      number: false,
+      length: false,
+      match: false,
+    });
+    setError('');
+    close();
+  };
+
+
+  // password change
+  const pwdChangeHandler = async (e) => {
+
+    if (Object.values(passwordRequirements).includes(false)) {
+      return;
+    }
+
+    if (!changePwd.prevPassword) {
+      return;
+    }
+    e.target.disabled = true;
+    setError('');
+    try {
+      const result = await settingsApi.updatePassword({
+        password: changePwd.password,
+        previousPassword: changePwd.prevPassword,
+      });
+      if (result?.data?.status === "bad") {
+        setError(result?.data?.message);
+      } else {
+        handleClose();
+        toast.success("Password updated successfully");
+      }
+    } catch (err) {
+      toast.error("Your password has not been updated.");
+    } finally {
+      e.target.disabled = false;
+    }
+  };
+
+  useEffect(() => {
+    const newRequirements = {
+      uppercase: /^(?=.*[A-Z])/.test(changePwd.password),
+      specialChar: /^(?=.*[~`!@#$%^&*()--+={}\[\]|\\:;"'<>,.?/_₹]).*$/.test(changePwd.password),
+      number: /^(?=.*[0-9]).*$/.test(changePwd.password),
+      length: changePwd.password.length >= 8,
+      match: changePwd.password.length > 0 && changePwd.password === changePwd.confirmPassword
+    };
+    setPasswordRequirements(newRequirements);
+  }, [changePwd]);
+
+  return (
+    <Dialog open={open} onClose={handleClose}>
+      <DialogTitle>Change User Credentials</DialogTitle>
+      <DialogContent>
+        <DialogContentText>
+          Try to create a strong password with a combination of numbers,
+          alphabets and special characters.
+        </DialogContentText>
+        <TextField
+          className="my-4 !text-sm"
+          autoFocus
+          margin="dense"
+          name='password'
+          label="Password"
+          type="password"
+          fullWidth
+          variant="standard"
+          InputLabelProps={{ className: '!text-sm' }}
+          size="small"
+          onChange={(e) => setChangePwd({ ...changePwd, [e.target.name]: e.target.value })}
+        />
+
+        <TextField
+          className="my-4 !text-sm"
+          autoFocus
+          margin="dense"
+          name='confirmPassword'
+          label="Confirm Password"
+          type="password"
+          fullWidth
+          variant="standard"
+          InputLabelProps={{ className: '!text-sm' }}
+          size="small"
+          onChange={(e) => setChangePwd({ ...changePwd, [e.target.name]: e.target.value })}
+        />
+
+        <TextField
+          className="my-4 !text-sm"
+          autoFocus
+          margin="dense"
+          name='prevPassword'
+          label="Previous Password"
+          type="password"
+          fullWidth
+          variant="standard"
+          InputLabelProps={{ className: '!text-sm' }}
+          size="small"
+          onChange={(e) => setChangePwd({ ...changePwd, [e.target.name]: e.target.value })}
+        />
+        <div className="text-xs mt-5 bg-[#1b3c7d1f] pb-5 pt-2 rounded-lg pl-3">
+          <div className="flex items-left mt-0.5 pt-1">
+            <Check
+              className={`${passwordRequirements.uppercase ? "text-green-500" : ""
+                } `}
+              sx={{
+                visibility: passwordRequirements.uppercase
+                  ? "visible"
+                  : "hidden",
+              }}
+            />
+            <p className="ml-2 pt-1">
+              Contains at least one uppercase letter
+            </p>
+          </div>
+          <div className="flex items-left mt-0.5">
+            <Check
+              className={`${passwordRequirements.specialChar ? "text-green-500" : ""
+                }`}
+              sx={{
+                visibility: passwordRequirements.specialChar
+                  ? "visible"
+                  : "hidden",
+              }}
+            />
+            <p className="ml-2 pt-1">
+              Contains at least one special character
+            </p>
+          </div>
+          <div className="flex items-left mt-0.5">
+            <Check
+              className={`${passwordRequirements.number ? "text-green-500" : ""
+                }`}
+              sx={{
+                visibility: passwordRequirements.number
+                  ? "visible"
+                  : "hidden",
+              }}
+            />
+            <p className="ml-2 pt-1">Contains at least one number</p>
+          </div>
+          <div className="flex items-left mt-0.5">
+            <Check
+              className={`${passwordRequirements.length ? "text-green-500" : ""
+                }`}
+              sx={{
+                visibility: passwordRequirements.length
+                  ? "visible"
+                  : "hidden",
+              }}
+            />
+            <p className="ml-2 pt-1">
+              Password length is at least 8 characters
+            </p>
+          </div>
+          <div className="flex items-left mt-0.5">
+            <Check
+              className={`${passwordRequirements.match ? "text-green-500" : ""}`}
+              sx={{
+                visibility: passwordRequirements.match ? "visible" : "hidden",
+              }}
+            />
+            <p className="ml-2 pt-1">
+              Password matches
+            </p>
+          </div>
+        </div>
+        {error && <p className='text-center text-sm text-red-500 py-2'>{error}</p>}
+      </DialogContent>
+
+      <DialogActions sx={{ pb: 2 }}>
+        <Button variant="outlined" onClick={handleClose}>Cancel</Button>
+        <Button
+          variant="outlined"
+          onClick={pwdChangeHandler}
+          disabled={Object.values(passwordRequirements).includes(false)}
+        >Update</Button>
+      </DialogActions>
+    </Dialog>
+  );
+}
+
+
 const Settings = () => {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [passwordError, setPasswordError] = useState(null);
   const [updatedData, setUpdatedData] = useState({});
 
   // student context
@@ -84,7 +287,7 @@ const Settings = () => {
       return;
     }
 
-    // Whether it is a float number
+    // float number
     const floatRegex = /^[+-]?((\.\d+)|(\d+(\.\d+)?))$/;
     if (
       updatedData.previousScore &&
@@ -118,7 +321,7 @@ const Settings = () => {
     const newData = {};
 
     for (let key in { ...updatedData }) {
-      if (updatedData[key] !== student[key]) {
+      if (updatedData[key] !== student[key] && updatedData[key]) {
         newData[key] = updatedData[key];
       }
     }
@@ -163,51 +366,6 @@ const Settings = () => {
     } finally {
       setLoading(false);
       toast.dismiss(toastId);
-    }
-  };
-
-  // password change
-  const passwordHandler = async (e) => {
-    e.preventDefault();
-    const form = e.target,
-      password = form.password.value,
-      confirmPassword = form.confirmPassword.value,
-      previousPassword = form.previousPassword.value;
-    setPasswordError(null);
-
-    if (password !== confirmPassword) {
-      setPasswordError("Your password does not match.");
-      return;
-    }
-
-    if (password.length < 6) {
-      setPasswordError("Your password must be at least 6 characters");
-      return;
-    }
-    if (password.search(/[a-z]/i) < 0) {
-      setPasswordError("Your password must contain at least one letter.");
-      return;
-    }
-    if (password.search(/[0-9]/) < 0) {
-      setPasswordError("Your password must contain at least one digit.");
-      return;
-    }
-
-    try {
-      const result = await settingsApi.updatePassword({
-        password,
-        confirmPassword,
-        previousPassword,
-      });
-      if (result?.data?.status === "bad") {
-        setPasswordError(result?.data?.message);
-      } else {
-        form.reset();
-        handleClose();
-        toast.success("Password updated successfully");
-      }
-    } catch (err) {
-      toast.error("Your password has not been updated.");
     }
   };
 
@@ -445,61 +603,8 @@ const Settings = () => {
       </div>
 
       {/* Dialog Box */}
-      <Dialog open={open} onClose={handleClose}>
-        <form onSubmit={passwordHandler}>
-          <DialogTitle>Change User Credentials</DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-              Try to create a strong password with a combination of numbers,
-              alphabets and special characters.
-            </DialogContentText>
-            <TextField
-              className="my-4"
-              autoFocus
-              margin="dense"
-              id="name"
-              label="Password"
-              type="password"
-              name="password"
-              fullWidth
-              variant="standard"
-            />
+      <PasswordChangeModal open={open} close={handleClose} />
 
-            <TextField
-              className="my-4"
-              autoFocus
-              margin="dense"
-              id="name"
-              label="Confirm Password"
-              type="password"
-              name="confirmPassword"
-              fullWidth
-              variant="standard"
-            />
-
-            <TextField
-              className="my-4"
-              autoFocus
-              margin="dense"
-              id="name"
-              label="Previous Password"
-              type="password"
-              name="previousPassword"
-              fullWidth
-              variant="standard"
-            />
-            <p className="text-sm text-red-500 text-center mt-4">
-              {passwordError}
-            </p>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleClose} type="button">
-              Cancel
-            </Button>
-            <Button type="submit">Update</Button>
-          </DialogActions>
-        </form>
-      </Dialog>
     </div>
   );
 };

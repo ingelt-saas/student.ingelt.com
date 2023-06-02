@@ -102,6 +102,7 @@ const UploadModal = ({ uploadModal, uploadModalHandle, assignment }) => {
       await assignmentApi.submitSubmission(submission?.value?.id);
       handleClose();
       toast.success('Solution submission successfully');
+      window.location.reload();
     } catch (err) {
       toast.error('Sorry! something went wrong.');
     }
