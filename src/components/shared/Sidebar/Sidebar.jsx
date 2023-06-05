@@ -38,7 +38,7 @@ const NavItem = ({ to, children, collapseMenu, ...props }) => {
             : "bg-transparent text-[#7A7C88]"
         } ${
           collapseMenu ? "justify-center gap-0" : "justify-start gap-3"
-        } flex items-center text-base font-semibold  rounded-md duration-300 px-3 py-2 hover:bg-[#1B3B7D33] hover:text-[#1B3B7D]`
+        } flex items-center text-base font-semibold  rounded-md duration-300 px-3 py-2 hover:bg-[#0064E133] hover:text-[#1B3B7D]`
       }
     >
       {children}
