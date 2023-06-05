@@ -59,27 +59,27 @@ const Assignments = () => {
       .then((res) => {
         setTotalAssignments(res?.data?.count);
         //sorting
-        let sortedRows = res.data?.rows;
-        if (sortOption === "name") {
-          sortedRows = sortedRows.sort((a, b) => a.name.localeCompare(b.name));
-        } else if (sortOption === "evaluated") {
-          sortedRows = sortedRows.filter(a => {
-            const status = a.submissions.evaluated;
-            return status === 1;
-          });
-        } else if (sortOption === "submitted") {
-          sortedRows = sortedRows.filter(a => {
-            const status = a.submissions.evaluated;
-            return status === 0;
-          });
+        // let sortedRows = res.data?.rows;
+        // if (sortOption === "name") {
+        //   sortedRows = sortedRows.sort((a, b) => a.name.localeCompare(b.name));
+        // } else if (sortOption === "evaluated") {
+        //   sortedRows = sortedRows.filter(a => {
+        //     const status = a.submissions.evaluated;
+        //     return status === 1;
+        //   });
+        // } else if (sortOption === "submitted") {
+        //   sortedRows = sortedRows.filter(a => {
+        //     const status = a.submissions.evaluated;
+        //     return status === 0;
+        //   });
 
-        } else if (sortOption === "notDone") {
-          sortedRows = sortedRows.filter(a => {
-            const status = a.submissions ? a.submissions.evaluated : null;
-            return status === 0 || status === null;
-          });
-        }
-        setAssignments(sortedRows);
+        // } else if (sortOption === "notDone") {
+        //   sortedRows = sortedRows.filter(a => {
+        //     const status = a.submissions ? a.submissions.evaluated : null;
+        //     return status === 0 || status === null;
+        //   });
+        // }
+        setAssignments(res?.data?.rows);
         setLoading(false);
       });
   }, [pagination, searchValue, sortOption]);
@@ -129,12 +129,13 @@ const Assignments = () => {
               fontWeight: 600,
               textTransform: "capitalize",
               borderRadius: 2,
+              backgroundColor:"#1B3B7D",
             }}
             onClick={() => setStatsModal(true)}
           >
             Show Stats
           </Button>
-          <Button
+          {/* <Button
             variant="text"
             sx={{
               fontWeight: 600,
@@ -188,7 +189,7 @@ const Assignments = () => {
                 <label htmlFor="sort3">Not Done</label>
               </div>
             </Box>
-          </Popover>
+          </Popover> */}
         </div>
       </Box>
 
@@ -244,7 +245,7 @@ const Assignments = () => {
                 >
                   <td className="text-left md:text-center py-2">
                     {/* <div className="flex items-center justify-start md:justify-center">
-                      <Assignment className="mr-3 text-[#4C9BFF]" />
+                      <Assignment className="mr-3 text-[#1B3B7D]" />
                       <div className="inline">
                         <span className="font-semibold block">{item.name}</span>
                         <span className="text-sm font-normal md:hidden">
@@ -254,7 +255,7 @@ const Assignments = () => {
                     </div> */}
                     <div className="flex items-center justify-start md:justify-end">
                       <div className='2xl:w-[75%] xl:w-[80%] lg:w-[90%] md:w-[100%] flex'>
-                        <Assignment className="mr-3 text-[#4C9BFF]" />
+                        <Assignment className="mr-3 text-[#1B3B7D]" />
                         <div className="inline text-left">
                           <span className="font-semibold block">
                             {item.name}
@@ -292,7 +293,7 @@ const Assignments = () => {
                       }}
                     >
                       View Submission
-                      <RemoveRedEye fontSize="small" sx={{ marginLeft: "2px" }} />
+                      <RemoveRedEye fontSize="small" sx={{ marginLeft: "2px",color:"#1B3B7D" }} />
                     </Button>}
                     {item.submissions?.id && <Button
                       onClick={() => setSubmissionUpdateModal(item)}
@@ -329,14 +330,14 @@ const Assignments = () => {
                       size="small"
                       sx={{
                         textTransform: "capitalize",
-                        color: "#0064E1",
-                        borderColor: "#0064E1",
+                        color: "#1B3B7D",
+                        borderColor: "#1B3B7D",
                         borderRadius: "8px",
                       }}
                       onClick={() => downloadAssignment(item?.file)}
                     >
                       View
-                      <RemoveRedEye sx={{ marginLeft: "4px" }} />
+                      <RemoveRedEye sx={{ marginLeft: "4px",color:"#1B3B7D" }} />
                     </Button>
                   </td>
                   <td className="py-2 text-right md:hidden">

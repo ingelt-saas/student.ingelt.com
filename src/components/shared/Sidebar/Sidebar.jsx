@@ -34,11 +34,11 @@ const NavItem = ({ to, children, collapseMenu, ...props }) => {
       className={({ isActive }) =>
         `${
           isActive
-            ? "bg-[#0064E133] text-[#0064E1]"
+            ? "bg-[#1B3B7D33] text-[#1B3B7D]"
             : "bg-transparent text-[#7A7C88]"
         } ${
           collapseMenu ? "justify-center gap-0" : "justify-start gap-3"
-        } flex items-center text-base font-semibold  rounded-md duration-300 px-3 py-2 hover:bg-[#0064E133] hover:text-[#0064E1]`
+        } flex items-center text-base font-semibold  rounded-md duration-300 px-3 py-2 hover:bg-[#1B3B7D33] hover:text-[#1B3B7D]`
       }
     >
       {children}
@@ -150,7 +150,7 @@ const SideBar = () => {
               {/* <li className="mt-2 navItem">
                 <button
                   onClick={darkModeHandler}
-                  className={`p-1.5 w-full bg-[#0064E133] ${collapseMenu ? "rounded-md" : "rounded-full"
+                  className={`p-1.5 w-full bg-[#1B3B7D33] ${collapseMenu ? "rounded-md" : "rounded-full"
                     }`}
                 >
                   <span className="w-full h-9 block relative">
@@ -167,7 +167,7 @@ const SideBar = () => {
                       <IoMoonOutline className="w-6 h-6 text-[#000000]" />
                     </span>
                     <span
-                      className={`block bg-[#0064E1] h-full duration-300 ${collapseMenu
+                      className={`block bg-[#1B3B7D] h-full duration-300 ${collapseMenu
                         ? "rounded-md absolute w-full left-0"
                         : "rounded-full absolute w-1/2 top-0 !dark:left-0 dark:left-1/2"
                         }`}
@@ -295,7 +295,7 @@ const SideBar = () => {
                   {/* <li className="mt-2"> */}
                   {/* <button
                       onClick={darkModeHandler}
-                      className={`p-1.5 w-full bg-[#0064E133] rounded-full`}
+                      className={`p-1.5 w-full bg-[#1B3B7D33] rounded-full`}
                     >
                       <span className="w-full h-9 block relative">
                         <span
@@ -309,7 +309,7 @@ const SideBar = () => {
                           <IoMoonOutline className="w-6 h-6 text-[#000000]" />
                         </span>
                         <span
-                          className={`block bg-[#0064E1] h-full duration-300 rounded-full absolute w-1/2 top-0 left-0 dark:right-0`}
+                          className={`block bg-[#1B3B7D] h-full duration-300 rounded-full absolute w-1/2 top-0 left-0 dark:right-0`}
                         >
                           <IoSunnyOutline className="w-6 h-6 text-white absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 duration-300 opacity-100 dark:opacity-0" />
                           <IoMoonOutline className="w-6 h-6 text-white absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 duration-300 opacity-0 dark:opacity-100" />

@@ -35,7 +35,7 @@ const StudentInfoBlock = ({ title, text, IconName }) => {
   const truncatedText = text? text.length > 20 ? `${text.substring(0, 20)}...` : text : "Not Set";
   return (
     <div className="flex items-center gap-x-3">
-      <div className="bg-[#1A74E4] text-white p-2 rounded-full flex justify-center align-center">
+      <div className="bg-[#1B3B7D] text-white p-2 rounded-full flex justify-center align-center">
         <IconName fontSize="medium" />
       </div>
 
@@ -166,6 +166,7 @@ const Home = () => {
                 textTransform: "capitalize",
                 borderRadius: 2,
                 width: "100%",
+                backgroundColor:"#1B3B7D",
               }}
               disabled={student?.batch?.classroomLink ? false : true}
             >
@@ -268,12 +269,12 @@ const Home = () => {
           <h1 className="font-semibold text-xl mb-6">Mock Test Performance</h1>
 
           <div className="border border-[#78787840] w-full px-3 lg:px-5 xl:px-8 py-4 flex justify-between items-center my-2">
-            <div className="bg-[#1A74E4] p-2 text-white rounded-md mr-8 xl:mr-12 w-fit flex items-center justify-center">
+            <div className="bg-[#1B3B7D] p-2 text-white rounded-md mr-8 xl:mr-12 w-fit flex items-center justify-center">
               <Assessment />
             </div>
             <div className="flex justify-around items-center">
               <span className="font-semibold text-xl mr-4">Average Score</span>
-              <span className="text-lg font-semibold text-white bg-[#1A74E4] rounded-md px-2 py-1">
+              <span className="text-lg font-semibold text-white bg-[#1B3B7D] rounded-md px-2 py-1">
                 {(
                   (bands?.listeningBands +
                     bands?.writingBands +
@@ -286,20 +287,20 @@ const Home = () => {
           </div>
 
           <div className="border border-[#78787840] w-full px-3 lg:px-5 xl:px-8 py-4 flex justify-between items-center my-2">
-            <div className="bg-[#1A74E4] p-2 text-white rounded-md mr-8 xl:mr-12 w-fit flex items-center justify-center">
+            <div className="bg-[#1B3B7D] p-2 text-white rounded-md mr-8 xl:mr-12 w-fit flex items-center justify-center">
               <GpsFixed />
             </div>
 
             <div className="flex justify-around items-center">
               <span className="font-semibold text-xl mr-4">Target Score</span>
-              <span className="text-lg font-semibold text-white bg-[#1A74E4] rounded-md px-2 py-1">
+              <span className="text-lg font-semibold text-white bg-[#1B3B7D] rounded-md px-2 py-1">
                 {student?.targetScore ? student?.targetScore : "Not Set"}
               </span>
             </div>
           </div>
 
           <div className="border border-[#78787840] w-full px-3 lg:px-5 xl:px-8 py-4 flex justify-between items-center my-2">
-            <div className="bg-[#1A74E4] p-2 text-white rounded-md mr-8 xl:mr-12 w-fit flex items-center justify-center">
+            <div className="bg-[#1B3B7D] p-2 text-white rounded-md mr-8 xl:mr-12 w-fit flex items-center justify-center">
               <Quiz />
             </div>
 
@@ -307,7 +308,7 @@ const Home = () => {
               <span className="font-semibold text-xl mr-4">
                 Tests Attempted
               </span>
-              <span className="text-lg font-semibold text-white bg-[#1A74E4] rounded-md px-2 py-1">
+              <span className="text-lg font-semibold text-white bg-[#1B3B7D] rounded-md px-2 py-1">
                 {graphData?.length}
               </span>
             </div>
@@ -339,7 +340,7 @@ const Home = () => {
         <div className="border border-[#78787840] shadow-lg rounded-md py-6 px-3 bg-white">
           <h1 className="font-bold text-2xl">Your Predicted Bands</h1>
           <div className="mt-5 overflow-hidden rounded-md">
-            <div className="bg-[#1A74E4] py-2 px-4 text-lg text-[#f2f2f2] font-bold flex items-center justify-between">
+            <div className="bg-[#1B3B7D] py-2 px-4 text-lg text-[#f2f2f2] font-bold flex items-center justify-between">
               <h3>Total Bands</h3>
               <span>
                 {(

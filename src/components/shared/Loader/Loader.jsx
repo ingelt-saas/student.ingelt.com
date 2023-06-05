@@ -21,7 +21,7 @@ const Loader = () => {
                         cx={50}
                         cy={50}
                         fill="none"
-                        stroke="#5b68e1"
+                        stroke="#1B3B7D"
                         strokeWidth={10}
                         r={35}
                         strokeDasharray="164.93361431346415 56.97787143782138"

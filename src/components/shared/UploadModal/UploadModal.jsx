@@ -232,7 +232,7 @@ const UploadModal = ({ uploadModal, uploadModalHandle, assignment }) => {
                     backgroundColor="#CCCCCC"
                     sx={{ mt: 2, borderRadius: 7 }}
                   >
-                    <div className={`h-full bg-[#3F66BF] rounded-md`} style={{ width: `${progress}%` }}></div>
+                    <div className={`h-full bg-[#1B3B7D] rounded-md`} style={{ width: `${progress}%` }}></div>
                   </Box>
                 </Box> :
                 <Box sx={{ border: 2, borderStyle: 'solid', py: 2, textAlign: 'center', mt: 3 }}>

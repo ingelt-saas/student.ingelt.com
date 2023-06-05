@@ -245,7 +245,7 @@ const Notes = () => {
                     <td className="text-left md:text-center py-2">
                       <div className="flex items-center justify-start md:justify-end">
                         <div className='2xl:w-[65%] xl:w-[70%] lg:w-[80%] md:w-[90%] flex'>
-                          <Assignment className="mr-3 text-[#4C9BFF]" />
+                          <Assignment className="mr-3 text-[#1B3B7D]" />
                           <div className="inline">
                             <span className="font-semibold block">
                               {item.name}
@@ -273,8 +273,8 @@ const Notes = () => {
                         size="small"
                         sx={{
                           textTransform: "capitalize",
-                          color: "#0064E1",
-                          borderColor: "#0064E1",
+                          color: "#1B3B7D",
+                          borderColor: "#1B3B7D",
                           borderRadius: "8px",
                         }}
                         onClick={() => downloadNote(item.file)}
@@ -284,7 +284,7 @@ const Notes = () => {
                       </Button>
                     </td>
                     <td className="py-2 text-center md:hidden">
-                      <button onClick={() => downloadNote(item.file)} className="text-[#0064E1]">
+                      <button onClick={() => downloadNote(item.file)} className="text-[#1B3B7D]">
                         <RemoveRedEye />
                       </button>
                     </td>

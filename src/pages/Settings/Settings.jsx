@@ -506,7 +506,7 @@ const Settings = () => {
             onChange={profilePictureHandler}
           />
           <label
-            className="flex items-center gap-x-2 px-5 py-2 shadow-md cursor-pointer text-white bg-[#1976d2] font-medium rounded-md"
+            className="flex items-center gap-x-2 px-5 py-2 shadow-md cursor-pointer text-white bg-[#1B3B7D] font-medium rounded-md"
             htmlFor="file"
           >
             Edit Photo
@@ -658,7 +658,7 @@ const Settings = () => {
               justifyContent: "end",
             }}
           >
-            <Button type='submit' size='large' sx={{ width: '97%' }} variant="contained">
+            <Button type='submit' size='large' sx={{ width: '97%',backgroundColor:"#1B3B7D" }} variant="contained">
               Save
             </Button>
           </Box>

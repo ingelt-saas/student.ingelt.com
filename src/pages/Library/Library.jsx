@@ -18,11 +18,11 @@ import getFile from "../../api/getFile";
 
 // Image
 import libraryImage from "../../assets/images/Group 1375library.png";
-import pdf from "../../assets/images/Group 1364pdf.png";
-import audio from "../../assets/images/Group 1364audio.png";
-import video from "../../assets/images/videvideo.png";
-import csv from "../../assets/images/Group 1455csv.png";
-import doc from "../../assets/images/docdoc.png";
+import pdf from "../../assets/images/pdf.svg";
+import audio from "../../assets/images/audio.svg";
+import video from "../../assets/images/video.svg";
+import csv from "../../assets/images/csv.svg";
+import doc from "../../assets/images/doc.svg";
 import AudioModal from "../../components/shared/AudioModal/AudioModal";
 import VideoModal from "../../components/shared/VideoModal/VideoModal";
 
@@ -196,7 +196,7 @@ const closePopup = () => {
                         }
                         className={
                             `duration-200 transition-none ease-in ${
-                                activeTab === 1 ? 'border-1 py-3 px-5 md:px-8 font-semibold text-[#3D5AF1] border-[#ECECEC] bg-white border-b-0 rounded-t-xl' : 'bg-[#F3F3F3] py-2 px-2 md:px-5 text-sm'
+                                activeTab === 1 ? 'border-1 py-3 px-5 md:px-8 font-semibold text-[#1B3B7D] border-[#ECECEC] bg-white border-b-0 rounded-t-xl' : 'bg-[#F3F3F3] py-2 px-2 md:px-5 text-sm'
                             }`
                     }>All</button>
                     <button onClick={
@@ -204,7 +204,7 @@ const closePopup = () => {
                         }
                         className={
                             `duration-200 transition-none ease-in ${
-                                activeTab === 2 ? 'border-1 py-3 px-5 md:px-8 font-semibold text-[#3D5AF1] border-[#ECECEC] bg-white border-b-0 rounded-t-xl' : 'bg-[#F3F3F3] py-2 px-2 md:px-5 text-sm'
+                                activeTab === 2 ? 'border-1 py-3 px-5 md:px-8 font-semibold text-[#1B3B7D] border-[#ECECEC] bg-white border-b-0 rounded-t-xl' : 'bg-[#F3F3F3] py-2 px-2 md:px-5 text-sm'
                             }`
                     }>Reading</button>
                     <button onClick={
@@ -212,7 +212,7 @@ const closePopup = () => {
                         }
                         className={
                             `duration-200 transition-none ease-in ${
-                                activeTab === 3 ? 'border-1 py-3 px-5 md:px-8 font-semibold text-[#3D5AF1] border-[#ECECEC] bg-white border-b-0 rounded-t-xl' : 'bg-[#F3F3F3] py-2 px-2 md:px-5 text-sm'
+                                activeTab === 3 ? 'border-1 py-3 px-5 md:px-8 font-semibold text-[#1B3B7D] border-[#ECECEC] bg-white border-b-0 rounded-t-xl' : 'bg-[#F3F3F3] py-2 px-2 md:px-5 text-sm'
                             }`
                     }>Writing</button>
                     <button onClick={
@@ -220,7 +220,7 @@ const closePopup = () => {
                         }
                         className={
                             `duration-200 transition-none ease-in ${
-                                activeTab === 4 ? 'border-1 py-3 px-5 md:px-8 font-semibold text-[#3D5AF1] border-[#ECECEC] bg-white border-b-0 rounded-t-xl' : 'bg-[#F3F3F3] py-2 px-2 md:px-5 text-sm'
+                                activeTab === 4 ? 'border-1 py-3 px-5 md:px-8 font-semibold text-[#1B3B7D] border-[#ECECEC] bg-white border-b-0 rounded-t-xl' : 'bg-[#F3F3F3] py-2 px-2 md:px-5 text-sm'
                             }`
                     }>Speaking</button>
                     <button onClick={
@@ -228,7 +228,7 @@ const closePopup = () => {
                         }
                         className={
                             `duration-200 transition-none ease-in ${
-                                activeTab === 5 ? 'border-1 py-3 px-5 md:px-8 font-semibold text-[#3D5AF1] border-[#ECECEC] bg-white border-b-0 rounded-t-xl' : 'bg-[#F3F3F3] py-2 px-2 md:px-5 text-sm'
+                                activeTab === 5 ? 'border-1 py-3 px-5 md:px-8 font-semibold text-[#1B3B7D] border-[#ECECEC] bg-white border-b-0 rounded-t-xl' : 'bg-[#F3F3F3] py-2 px-2 md:px-5 text-sm'
                             }`
                     }>Listening</button>
                 </div>
@@ -270,7 +270,7 @@ const closePopup = () => {
                                 <p>{ getFileType(item.file)}</p>
                             </div>
                             <div>
-                                <p className="bg-[#0064E1] text-white px-3 py-1 rounded-md">
+                                <p className="bg-[#1B3B7D] text-white px-3 py-1 rounded-md">
                                     {
                                     item?.subject.slice(0, 1).toUpperCase()
                                 }</p>

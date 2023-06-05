@@ -12,7 +12,7 @@ const DocumentSVG = () => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <circle cx="25" cy="25" r="25" fill="#0064E1" />
+      <circle cx="25" cy="25" r="25" fill="#1B3B7D" />
       <path
         d="M16.25 36.25C15.5625 36.25 14.9737 36.0054 14.4837 35.5163C13.9946 35.0263 13.75 34.4375 13.75 33.75V16.25C13.75 15.5625 13.9946 14.9738 14.4837 14.4838C14.9737 13.9946 15.5625 13.75 16.25 13.75H21.5C21.7708 13 22.2242 12.3958 22.86 11.9375C23.495 11.4792 24.2083 11.25 25 11.25C25.7917 11.25 26.5054 11.4792 27.1413 11.9375C27.7763 12.3958 28.2292 13 28.5 13.75H33.75C34.4375 13.75 35.0263 13.9946 35.5163 14.4838C36.0054 14.9738 36.25 15.5625 36.25 16.25V33.75C36.25 34.4375 36.0054 35.0263 35.5163 35.5163C35.0263 36.0054 34.4375 36.25 33.75 36.25H16.25ZM16.25 33.75H33.75V16.25H16.25V33.75ZM18.75 31.25H27.5V28.75H18.75V31.25ZM18.75 26.25H31.25V23.75H18.75V26.25ZM18.75 21.25H31.25V18.75H18.75V21.25ZM25 15.3125C25.2708 15.3125 25.495 15.2238 25.6725 15.0463C25.8492 14.8696 25.9375 14.6458 25.9375 14.375C25.9375 14.1042 25.8492 13.88 25.6725 13.7025C25.495 13.5258 25.2708 13.4375 25 13.4375C24.7292 13.4375 24.5054 13.5258 24.3288 13.7025C24.1513 13.88 24.0625 14.1042 24.0625 14.375C24.0625 14.6458 24.1513 14.8696 24.3288 15.0463C24.5054 15.2238 24.7292 15.3125 25 15.3125ZM16.25 33.75V16.25V33.75Z"
         fill="white"
@@ -68,7 +68,7 @@ const StatsModal = ({ statsModal, statsModalHandle, totalAssignments }) => {
             </div>
             <div className="flex-1 border-2 border-[#E4E7EC] rounded-xl pb-12">
               <table className="w-full">
-                <thead className="bg-[#0064E11A]">
+                <thead className="bg-[#1B3B7D1A]">
                   <tr className="border-b border-[#E4E7EC]">
                     <th className="text-center py-4 px-2 rounded-tl-xl">Assignment</th>
                     <th className="text-center py-4 px-2 rounded-tr-xl">Score</th>
@@ -86,7 +86,7 @@ const StatsModal = ({ statsModal, statsModalHandle, totalAssignments }) => {
             </div>
             {totalAssignments > 6 &&
               <div className="text-center absolute w-full h-auto bottom-0 left-0 bg-white pt-1 pb-3">
-                <button className="flex items-center gap-x-1 border border-[#0064E1] font-semibold rounded-lg px-7 py-1.5 text-[#0064E1] cursor-pointer mx-auto" onClick={() => setSeeMoreBtn(!seeMoreBtn)}>
+                <button className="flex items-center gap-x-1 border border-[#1B3B7D] font-semibold rounded-lg px-7 py-1.5 text-[#1B3B7D] cursor-pointer mx-auto" onClick={() => setSeeMoreBtn(!seeMoreBtn)}>
                   See More
                   <KeyboardArrowDown className={`duration-300 ${seeMoreBtn ? 'rotate-180' : 'rotate-0'}`} fontSize="medium" />
                 </button>
