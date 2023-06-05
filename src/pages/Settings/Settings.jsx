@@ -28,6 +28,11 @@ import { StudentContext } from "../../contexts";
 import Image from "../../components/shared/Image/Image";
 import { toast } from "react-toastify";
 import { Check } from "@mui/icons-material";
+import { Controller, useForm } from "react-hook-form";
+import moment from "moment/moment";
+import { useRef } from "react";
+import 'intl-tel-input/build/css/intlTelInput.css';
+import intlTelInput from 'intl-tel-input';
 
 const StyledButton = styled(Button)(() => ({ textTransform: "capitalize" }));
 
@@ -242,11 +247,11 @@ const PasswordChangeModal = ({ open, close }) => {
   );
 }
 
-
 const Settings = () => {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [updatedData, setUpdatedData] = useState({});
+  const phoneInputRef = useRef();
 
   // student context
   let { student } = useContext(StudentContext);
@@ -264,10 +269,12 @@ const Settings = () => {
     state,
     country,
     pinCode,
-    status,
     previousScore,
     targetScore,
   } = student;
+
+  const { register, setValue, setError, clearErrors, control, handleSubmit, formState: { errors } } = useForm();
+
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -278,53 +285,22 @@ const Settings = () => {
   };
 
   // profile details handler
-  const updateProfile = async (e) => {
-    // check email
-    const emailRegex =
-      /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-    if (updatedData.email && !emailRegex.test(updatedData.email)) {
-      toast.warn("Please, Select valid email address");
+  const updateProfile = async (data) => {
+
+    if (!window.iti.isValidNumber()) {
+      setError('phoneNo', { type: 'custom', message: 'Invalid phone number' });
       return;
     }
 
-    // float number
-    const floatRegex = /^[+-]?((\.\d+)|(\d+(\.\d+)?))$/;
-    if (
-      updatedData.previousScore &&
-      !floatRegex.test(updatedData.previousScore)
-    ) {
-      toast.warn("Please enter the previous score as a 1.2 or 1");
-      return;
-    }
-
-    if (updatedData.targetScore && !floatRegex.test(updatedData.targetScore)) {
-      toast.warn("Please enter the target score as a 1.2 or 1");
-      return;
-    }
-
-    const phoneRegex = /^(\+\d{1,2}\s?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/;
-    if (updatedData.phoneNo && !phoneRegex.test(updatedData.phoneNo)) {
-      toast.warn("Please provide the valid phone number.");
-      return;
-    }
-
-    // age validation
-    if (updatedData.dob) {
-      const dob = new Date(updatedData.dob);
-      dob.setFullYear(dob.getFullYear() + 14);
-      if (dob.getTime() > new Date().getTime()) {
-        toast.warn('You must be at least 14 years old');
-        return;
-      }
-    }
-    // check any update here
     const newData = {};
 
-    for (let key in { ...updatedData }) {
-      if (updatedData[key] !== student[key] && updatedData[key]) {
-        newData[key] = updatedData[key];
+    for (let item in data) {
+      if (data[item] && data[item] !== student[item]) {
+        newData[item] = data[item]
       }
     }
+
+    newData.registrationDate && delete newData.registrationDate;
 
     if (Object.keys(newData).length <= 0) {
       toast.warning("No changes here", {
@@ -387,20 +363,59 @@ const Settings = () => {
   // };
 
   const inputFieldArr = [
-    { name: "name", label: "Name", defaultValue: name, type: "text" },
-    { name: "email", label: "Email", defaultValue: email, type: "email" },
-    { name: "dob", label: "Date Of Birth", defaultValue: dob, type: "date" },
+    {
+      name: "name",
+      label: "Name",
+      defaultValue: name,
+      type: "text",
+      validation: { required: 'Name is required' }
+    },
+    {
+      name: "email",
+      label: "Email",
+      defaultValue: email,
+      type: "email",
+      validation: {
+        required: 'Email is required',
+        pattern: {
+          value: /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/,
+          message: 'Invalid email address',
+        }
+      }
+    },
     {
       name: "phoneNo",
       label: "Phone Number",
       defaultValue: phoneNo,
       type: "tel",
+      inputRef: phoneInputRef
+    },
+    {
+      name: "dob",
+      label: "Date Of Birth",
+      defaultValue: dob,
+      type: "date",
+      validation: {
+        required: 'Date of birth is required',
+        validate: (value) => {
+          const today = new Date();
+          const selectedDate = new Date(value);
+          const age = today.getFullYear() - selectedDate.getFullYear();
+          if (age < 14) {
+            return 'You must be at least 14 years old';
+          }
+          return true;
+        },
+      }
     },
     {
       name: "fathersName",
       label: "Father Name",
       defaultValue: fathersName,
       type: "text",
+      validation: {
+        required: 'Father name is required',
+      }
     },
     {
       name: "gender",
@@ -408,33 +423,72 @@ const Settings = () => {
       defaultValue: gender,
       type: "select",
       options: ["Male", "Female", "Other", "Rather Not Say"],
+      validation: {
+        required: 'Please select gender',
+      }
     },
-    { name: "city", label: "City", defaultValue: city, type: "text" },
-    { name: "state", label: "State", defaultValue: state, type: "text" },
-    { name: "country", label: "Country", defaultValue: country, type: "text" },
-    { name: "pinCode", label: "Pincode", defaultValue: pinCode, type: "text" },
+    { name: "country", label: "Country", defaultValue: country, type: "text", validation: { required: 'Please select country' } },
+    { name: "state", label: "State", defaultValue: state, type: "text", validation: { required: 'Please select state' } },
+    { name: "city", label: "City", defaultValue: city, type: "text", validation: { required: 'Please select city' } },
+    { name: "pinCode", label: "Pincode", defaultValue: pinCode, type: "text", validation: { required: 'Pincode is required' } },
     {
       name: "registrationDate",
       label: "Registration Date",
-      defaultValue: new Date(createdAt)
-        .toLocaleDateString("en-GB")
-        .replace(/\//g, "-"),
-      type: "text",
+      defaultValue: createdAt,
+      type: "date",
       readOnly: true,
+      validation: { required: false },
     },
     {
       name: "previousScore",
       label: "Previous Score",
       defaultValue: previousScore,
       type: "text",
+      validation: {
+        required: 'Previous score is required',
+        pattern: {
+          value: /^[+-]?((\.\d+)|(\d+(\.\d+)?))$/,
+          message: 'Invalid score, score should be like 2.4 or 5',
+        }
+      },
     },
     {
       name: "targetScore",
       label: "Target Score",
       defaultValue: targetScore,
       type: "text",
+      validation: {
+        required: false,
+        pattern: {
+          value: /^[+-]?((\.\d+)|(\d+(\.\d+)?))$/,
+          message: 'Invalid score, score should be like 2.4 or 5',
+        }
+      },
     },
   ];
+
+  useEffect(() => {
+    const inputElement = phoneInputRef.current;
+    let iti;
+    if (inputElement) {
+      iti = intlTelInput(inputElement, {
+        initialCountry: 'auto',
+        separateDialCode: true,
+        formatOnDisplay: true,
+        utilsScript: 'https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js'
+      });
+
+      if (phoneNo) {
+        iti.setNumber(phoneNo);
+      }
+
+      window.iti = iti;
+    }
+
+    return () => {
+      iti && iti.destroy(); // Clean up intl-tel-input instance
+    };
+  }, [phoneNo]);
 
   return (
     <div className="flex flex-col md:flex-row w-full gap-y-5 py-4 h-full">
@@ -461,7 +515,7 @@ const Settings = () => {
         </div>
       </div>
 
-      <div className="md:w-3/5">
+      <form className="md:w-3/5" onSubmit={handleSubmit(updateProfile)}>
         <Grid
           className="ml-2 flex items-start justify-start md:px-4 pb-10"
           container
@@ -475,32 +529,22 @@ const Settings = () => {
           {inputFieldArr.map((item, index) =>
             item?.type === "date" ? (
               <Grid item xs={12} sm={6} key={index}>
-                {/* <label className="text-xs text-[#93999C]" htmlFor="DOB">
-                  {item?.label}*
-                </label> */}
                 <TextField
                   id="DOB"
                   type="date"
-                  label="Date Of Birth"
+                  label={item.label}
                   variant="outlined"
                   size="small"
                   InputProps={{
                     // style: { color: "gray" },
                     placeholder: "Select date",
                   }}
+                  disabled={item?.readOnly}
                   sx={InputFieldSx}
-                  required
-                  defaultValue={
-                    item?.defaultValue && item?.defaultValue.split("T")[0]
-                  }
-                  name={item?.name}
-                  onChange={(e) =>
-                    setUpdatedData({
-                      ...updatedData,
-                      [item?.name]: e.target.value,
-                    })
-                  }
+                  defaultValue={moment(item.defaultValue).format('YYYY-MM-DD')}
+                  {...register(item.name, item.validation)}
                 />
+                {errors[item.name] && <span className="text-xs text-red-500 font-medium">{errors[item.name]?.message}</span>}
               </Grid>
             ) : item?.type === "select" ? (
               <Grid item xs={12} sm={6} key={index}>
@@ -512,15 +556,9 @@ const Settings = () => {
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
                     label="Gender"
-                    required
                     name="gender"
                     defaultValue={item?.defaultValue}
-                    onChange={(e) =>
-                      setUpdatedData({
-                        ...updatedData,
-                        [item?.name]: e.target.value,
-                      })
-                    }
+                    {...register(item.name, item.validation)}
                   >
                     {item?.options.map((i) => (
                       <MenuItem key={i} value={i}>
@@ -529,6 +567,33 @@ const Settings = () => {
                     ))}
                   </Select>
                 </FormControl>
+                {errors[item.name] && <span className="text-xs text-red-500 font-medium">{errors[item.name]?.message}</span>}
+              </Grid>
+            ) : item?.type === 'tel' ? (
+              <Grid item xs={12} sm={6} key={index}>
+                <Controller
+                  control={control}
+                  name={item.name}
+                  rules={item.validation}
+                  render={() => <TextField
+                    className="w-full"
+                    id="outlined-basic"
+                    label={item?.label}
+                    typeof={item?.type}
+                    variant="outlined"
+                    size="small"
+                    inputRef={item?.inputRef}
+                    onChange={() => {
+                      if (!window.iti.isValidNumber()) {
+                        setError(item.name, { type: 'custom', message: 'Invalid phone number' });
+                      } else {
+                        clearErrors(item.name);
+                      }
+                      setValue(item.name, window.iti.getNumber());
+                    }}
+                  />}
+                />
+                {errors[item.name] && <span className="text-xs text-red-500 font-medium">{errors[item.name]?.message}</span>}
               </Grid>
             ) : (
               <Grid item xs={12} sm={6} key={index}>
@@ -536,24 +601,21 @@ const Settings = () => {
                   className="w-full"
                   id="outlined-basic"
                   label={item?.label}
-                  typeof={item?.text}
+                  typeof={item?.type}
                   variant="outlined"
                   size="small"
                   defaultValue={item?.defaultValue}
                   sx={InputFieldSx}
-                  required
                   name={item?.name}
                   disabled={item?.readOnly}
-                  onChange={(e) =>
-                    setUpdatedData({
-                      ...updatedData,
-                      [item?.name]: e.target.value,
-                    })
-                  }
+                  inputRef={item?.inputRef}
+                  {...register(item.name, item.validation)}
                 />
+                {errors[item.name] && <span className="text-xs text-red-500 font-medium">{errors[item.name]?.message}</span>}
               </Grid>
             )
           )}
+
           <Grid className="w-full" item xs={12} sm={6}>
             <TextField
               className="w-full"
@@ -567,6 +629,7 @@ const Settings = () => {
               value={id}
             />
           </Grid>
+
           <Grid item xs={12} sm={6}>
             <label className="text-xs text-[#93999C]" htmlFor="outlined-basic">
               Change Password
@@ -595,12 +658,12 @@ const Settings = () => {
               justifyContent: "end",
             }}
           >
-            <Button onClick={updateProfile} size='large' sx={{ width: '97%' }} variant="contained">
+            <Button type='submit' size='large' sx={{ width: '97%' }} variant="contained">
               Save
             </Button>
           </Box>
         </Grid>
-      </div>
+      </form>
 
       {/* Dialog Box */}
       <PasswordChangeModal open={open} close={handleClose} />
@@ -608,5 +671,21 @@ const Settings = () => {
     </div>
   );
 };
+
+// onChange = {(e) => {
+//   console.log(e)
+//   if (e.target.name === 'phoneNo') {
+//     const inputPhoneNumber = window.iti.getNumber();
+//     if (!window.iti.isValidNumber()) {
+//       setError('phoneNo', {
+//         type: 'custom',
+//         message: 'Invalid phone number',
+//       });
+//     } else {
+//       clearErrors('phoneNo');
+//     }
+//     setValue('phoneNo', inputPhoneNumber);
+//   }
+// }}
 
 export default Settings;
