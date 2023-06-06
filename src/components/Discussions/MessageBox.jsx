@@ -7,7 +7,7 @@ const MessageBox = ({ data }) => {
   // context
   const { student: { id } } = useContext(StudentContext);
 
-  const { message, senderName, senderImage, senderId, createdAt, designation, senderCountry, discussionImages } = data;
+  const { message, senderName, senderImage, senderId, createdAt, senderCountry, discussionImages } = data;
 
   // Check if the message is from the student
   const isStudentMessage = senderId === id;
@@ -19,7 +19,7 @@ const MessageBox = ({ data }) => {
           <div className="flex items-end justify-end">
             <div className="flex flex-col space-y-2 text-lg max-w-xl mx-2 order-1 items-end">
               <div className="flex">
-                <div className="rounded-lg  rounded-br-none py-2 px-3" style={{ backgroundColor: "#4D93EA" }}>
+                <div className="rounded-lg  rounded-br-none py-2 px-3" style={{ backgroundColor: "#1B3B7D" }}>
                   <div className="flex items-end justify-end">
                     <p className="text-lg text-white">
                       {message}

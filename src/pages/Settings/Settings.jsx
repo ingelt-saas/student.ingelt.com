@@ -658,7 +658,7 @@ const Settings = () => {
               justifyContent: "end",
             }}
           >
-            <Button type='submit' size='large' sx={{ width: '97%',backgroundColor:"#1B3B7D" }} variant="contained">
+            <Button type='submit' size='large' sx={{ width: '97%', backgroundColor: "#1B3B7D", '&:hover': { backgroundColor: '#1B3B7D' } }} variant="contained">
               Save
             </Button>
           </Box>
