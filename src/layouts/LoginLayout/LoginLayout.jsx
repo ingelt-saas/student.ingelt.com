@@ -12,7 +12,7 @@ import cloud4 from "../../assets/images/cloud3.png"
 import { Menu, MenuItem, Button, TextField, InputAdornment, IconButton, Input, FormControl, InputLabel, Box, Modal, Typography } from "@mui/material";
 import { KeyboardArrowDown, Visibility, VisibilityOff } from "@mui/icons-material";
 import authApi from "../../api/auth";
-// import Cookies from "js-cookie";
+import Cookies from "js-cookie";
 
 const PasswordResetModal = ({ open, onClose }) => {
 
@@ -146,8 +146,9 @@ const LoginLayout = () => {
     try {
       const res = await authApi.login({ email, password });
 
+      Cookies.set('student_auth_token', res?.data?.token)
       // Shifted to LocalStorage from Cookies
-      localStorage.setItem("student_auth_token", res?.data?.token);
+      // localStorage.setItem("student_auth_token", res?.data?.token);
       window.location.reload();
     } catch (err) {
       setError(err?.response?.data?.message);

@@ -31,7 +31,7 @@ const MessageBox = ({ data }) => {
                   {Array.isArray(discussionImages) && discussionImages.length > 0 && <div className='mt-2 flex justify-end flex-wrap gap-x-2'>
                     {discussionImages.map(item =>
                       <div className="border rounded-md overflow-hidden cursor-pointer relative bg-white" key={item.id}>
-                        <Image src={item.image} alt='' className="w-12 h-12 object-cover" />
+                        <Image src={item.image} alt='' className="w-24 h-24 object-cover" />
                       </div>
                     )}
                   </div>}
@@ -65,7 +65,7 @@ const MessageBox = ({ data }) => {
                     {Array.isArray(discussionImages) && discussionImages.length > 0 && <div className='mt-2 flex justify-end flex-wrap gap-x-2'>
                       {discussionImages.map(item =>
                         <div className="border rounded-md overflow-hidden cursor-pointer relative bg-white" key={item.id}>
-                          <Image src={item.image} alt='' className="w-12 h-12 object-cover" />
+                          <Image src={item.image} alt='' className="w-24 h-24 object-cover" />
                         </div>
                       )}
                     </div>}
