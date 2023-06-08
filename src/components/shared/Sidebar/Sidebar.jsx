@@ -57,6 +57,7 @@ const SideBar = () => {
     { name: "Community", path: "/discussion", icon: <DiscussionSVG /> },
     { name: "Notes", path: "/notes", icon: <NotesSVG /> },
     { name: "Modules", path: "/modules", icon: <ModulesSVG /> },
+    { name: "Find Institute", path: "/find-institute", icon: <ModulesSVG /> },
   ];
 
   // const darkModeHandler = () => {
