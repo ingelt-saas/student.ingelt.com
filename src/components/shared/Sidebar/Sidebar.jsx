@@ -17,6 +17,7 @@ import {
   NotesSVG,
   SettingSVG,
   LibrarySVG,
+  ModulesSVG
 } from "./SidebarSVG.jsx";
 
 //assets
@@ -55,7 +56,7 @@ const SideBar = () => {
     { name: "Library", path: "/centralized-library", icon: <LibrarySVG /> },
     { name: "Community", path: "/discussion", icon: <DiscussionSVG /> },
     { name: "Notes", path: "/notes", icon: <NotesSVG /> },
-    { name: "Modules", path: "/module", icon: <NotesSVG /> },
+    { name: "Modules", path: "/modules", icon: <ModulesSVG /> },
   ];
 
   // const darkModeHandler = () => {

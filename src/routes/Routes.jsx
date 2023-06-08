@@ -58,7 +58,7 @@ const Routes = () => {
             element: <Notes />,
           },
           {
-            path: "/module",
+            path: "/modules",
             element: <Modules />,
           },
           {
