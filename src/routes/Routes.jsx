@@ -19,6 +19,7 @@ import { StudentContext } from "../contexts";
 import Loader from "../components/shared/Loader/Loader";
 import Notes from "../pages/Notes/Notes";
 import SetNewPassword from "../pages/SetNewPassword/SetNewPassword";
+import ShortlistUniversity from "../pages/ShortlistUniversity/ShortlistUniversity";
 
 const Routes = () => {
   // student provider context
@@ -55,6 +56,10 @@ const Routes = () => {
             {
               path: "/notes",
               element: <Notes />,
+            },
+            {
+              path: "/shortlist-university",
+              element: <ShortlistUniversity />,
             },
             {
               path: "/centralized-library",
