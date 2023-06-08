@@ -52,10 +52,27 @@ const SideBar = () => {
 
   const navItemsArr = [
     { name: "Home", path: "/", icon: <HomeSVG /> },
-    { name: "Assignments", path: "/assignments", icon: <AssignmentSVG /> },
+    { name: "Modules", path: "/module", icon: <HomeSVG /> },
+    { name: "Find Institute", path: "/find-institute", icon: <HomeSVG /> },
+    // { name: "Assignments", path: "/assignments", icon: <AssignmentSVG /> },
     { name: "Library", path: "/centralized-library", icon: <LibrarySVG /> },
+    {
+      name: "Shortlist University",
+      path: "/shortlist-university",
+      icon: <LibrarySVG />,
+    },
+    {
+      name: "Education Loan",
+      path: "/education-loan",
+      icon: <LibrarySVG />,
+    },
+    {
+      name: "Visa Application",
+      path: "/visa-application",
+      icon: <LibrarySVG />,
+    },
     { name: "Community", path: "/discussion", icon: <DiscussionSVG /> },
-    { name: "Notes", path: "/notes", icon: <NotesSVG /> },
+    // { name: "Notes", path: "/notes", icon: <NotesSVG /> },
     { name: "Modules", path: "/modules", icon: <ModulesSVG /> },
     { name: "Find Institute", path: "/find-institute", icon: <ModulesSVG /> },
   ];
@@ -98,7 +115,7 @@ const SideBar = () => {
             </Link>
           </div>
           <div className="flex-1 px-2">
-            <ul className="pt-2 pb-4 navbar">
+            <ul className="pt-2 pb-4 navbar  ">
               {navItemsArr.map((item, index) => (
                 <li className="navItem mb-2" key={index}>
                   <NavItem to={item.path} collapseMenu={collapseMenu}>
@@ -245,11 +262,11 @@ const SideBar = () => {
             <div className={`space-y-2 ${collapseMenu ? "mt-6" : "mt-0"}`}>
               <div className="flex items-center justify-start pt-5">
                 <Link to='/'>
-                  <img
-                    src={logo}
-                    alt="Logo"
-                    className={`w-44 max-w-full duration-500 h-auto pl-2`}
-                  />
+                <img
+                  src={logo}
+                  alt="Logo"
+                  className={`w-44 max-w-full duration-500 h-auto pl-2`}
+                />
                 </Link>
               </div>
               <div className="flex-1 px-2">

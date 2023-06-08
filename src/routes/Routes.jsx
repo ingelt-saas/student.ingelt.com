@@ -19,6 +19,7 @@ import { StudentContext } from "../contexts";
 import Loader from "../components/shared/Loader/Loader";
 import Notes from "../pages/Notes/Notes";
 import SetNewPassword from "../pages/SetNewPassword/SetNewPassword";
+import ShortlistUniversity from "../pages/ShortlistUniversity/ShortlistUniversity";
 import Modules from "../pages/Modules/Modules";
 import FindInstitute from "../pages/FindInstitute/FindInstitute";
 
@@ -28,37 +29,41 @@ const Routes = () => {
 
   const router = student
     ? createBrowserRouter([
-      {
-        path: "/",
-        element: <PanelLayout />,
-        children: [
-          {
-            path: "/",
-            element: <Home />,
-          },
-          {
-            path: "/assignments",
-            children: [
-              {
-                path: "/assignments",
-                element: <Assignments />,
-              },
-              {
-                // it's route for mobile
-                path: "/assignments/:assignmentId",
-                element: <SingleAssignment />,
-              },
-            ],
-          },
-          {
-            path: "/discussion",
-            element: <Discussions />,
-          },
-          {
-            path: "/notes",
-            element: <Notes />,
-          },
-          {
+        {
+          path: "/",
+          element: <PanelLayout />,
+          children: [
+            {
+              path: "/",
+              element: <Home />,
+            },
+            {
+              path: "/assignments",
+              children: [
+                {
+                  path: "/assignments",
+                  element: <Assignments />,
+                },
+                {
+                  // it's route for mobile
+                  path: "/assignments/:assignmentId",
+                  element: <SingleAssignment />,
+                },
+              ],
+            },
+            {
+              path: "/discussion",
+              element: <Discussions />,
+            },
+            {
+              path: "/notes",
+              element: <Notes />,
+            },
+            {
+              path: "/shortlist-university",
+              element: <ShortlistUniversity />,
+            },
+            {
             path: "/modules",
             element: <Modules />,
           },
@@ -67,34 +72,34 @@ const Routes = () => {
             element: <FindInstitute />,
           },
           {
-            path: "/centralized-library",
-            element: <Library />,
-          },
-          {
-            path: "/settings",
-            element: <Settings />,
-          },
-          {
-            path: "*",
-            element: <NotFound />,
-          },
-        ],
-      },
-    ])
+              path: "/centralized-library",
+              element: <Library />,
+            },
+            {
+              path: "/settings",
+              element: <Settings />,
+            },
+            {
+              path: "*",
+              element: <NotFound />,
+            },
+          ],
+        },
+      ])
     : createBrowserRouter([
-      {
-        path: "/",
-        element: <LoginLayout />,
-      },
-      {
-        path: "/reset-password",
-        element: <SetNewPassword />,
-      },
-      {
-        path: "*",
-        element: <NotFound />,
-      },
-    ]);
+        {
+          path: "/",
+          element: <LoginLayout />,
+        },
+        {
+          path: "/reset-password",
+          element: <SetNewPassword />,
+        },
+        {
+          path: "*",
+          element: <NotFound />,
+        },
+      ]);
 
   return loading ? <Loader /> : <RouterProvider router={router} />;
 };
