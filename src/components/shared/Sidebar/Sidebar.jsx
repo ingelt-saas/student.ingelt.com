@@ -46,6 +46,7 @@ const NavItem = ({ to, children, collapseMenu, ...props }) => {
 };
 
 const SideBar = () => {
+
   const [open, setOpen] = useState(false);
   const [collapseMenu, setCollapseMenu] = useState(false);
   const { student, logOut } = useContext(StudentContext);
@@ -127,6 +128,19 @@ const SideBar = () => {
                   </NavItem>
                 </li>
               ))}
+              {student?.organizationId &&
+                <li className="navItem mb-2">
+                  <NavItem to="/institute" collapseMenu={collapseMenu}>
+                    <LibrarySVG />
+                    <span
+                      className={`${collapseMenu ? "max-w-0 max-h-0" : "max-w-xs max-h-10"
+                        } overflow-hidden duration-300`}
+                    >
+                      Institute
+                    </span>
+                  </NavItem>
+                </li>
+              }
             </ul>
           </div>
         </div>
@@ -277,6 +291,12 @@ const SideBar = () => {
                       </NavItem>
                     </li>
                   ))}
+                  {student?.organizationId && <li className="navItem">
+                    <NavItem to="/institute" onClick={() => setOpen(false)}>
+                      <LibrarySVG />
+                      <span className={`duration-300`}>Institute</span>
+                    </NavItem>
+                  </li>}
                 </ul>
               </div>
             </div>

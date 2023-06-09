@@ -9,6 +9,7 @@ import OTPlessSdk from "otpless-js-sdk";
 import Routes from "./routes/Routes";
 import { Worker } from "@react-pdf-viewer/core";
 import { ToastContainer } from "react-toastify";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const App = () => {
 
@@ -31,6 +32,8 @@ const App = () => {
     console.log(sdk)
   }, [sdkInstance]);
 
+  const client = new QueryClient();
+
   return (
     <ProSidebarProvider>
       <StudentProvider>
@@ -40,8 +43,10 @@ const App = () => {
               redirectionURL: 'http://localhost:3000'
             })
           }}>OTP</button> */}
-          <Routes />
-          <ToastContainer className='!text-sm' bodyClassName='!my-0' toastClassName='!min-h-fit !py-3' />
+          <QueryClientProvider client={client} >
+            <Routes />
+            <ToastContainer className='!text-sm' bodyClassName='!my-0' toastClassName='!min-h-fit !py-3' />
+          </QueryClientProvider>
         </Worker>
       </StudentProvider >
     </ProSidebarProvider >
