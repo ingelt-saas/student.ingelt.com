@@ -190,8 +190,7 @@ const Discussions = () => {
                     </label>
                     <input className="bg-white sm:w-screen px-4 mx-4 py-3 border-2 border-[#1B3B7D] rounded-xl" type="text" placeholder="Enter your message"
                         value={message}
-                        required
-                        onChange={
+                                    onChange={
                             (e) => setMessage(e.target.value)
                         }
                         onKeyDown={
@@ -206,7 +205,7 @@ const Discussions = () => {
                             }
                         }/>
                     <button disabled={
-                            !(message.trim() !== '' && message.split(' ').length <= 200)
+                            !(message.trim() !== '' && message.split(' ').length <= 200) && !selectedImages.length > 0
                         }
                         className="flex items-center justify-center rounded-xl px-4 py-3 transition duration-500 ease-in-out text-white bg-[#1B3B7D] focus:outline-none mr-2 lg:mr-[13rem] xl:mr-[15rem] 2xl:mr-[15rem] disabled:bg-gray">
                         <p className="pr-2 hidden md:flex">Send</p>

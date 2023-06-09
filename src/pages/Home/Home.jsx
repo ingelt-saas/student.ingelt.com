@@ -32,7 +32,7 @@ import Blogs from "../../components/Home/Blogs";
 
 // Student Info Block
 const StudentInfoBlock = ({ title, text, IconName }) => {
-  const truncatedText = text? text.length > 20 ? `${text.substring(0, 20)}...` : text : "Not Set";
+  const truncatedText = text ? text.length > 20 ? `${text.substring(0, 20)}...` : text : "Not Set";
   return (
     <div className="flex items-center gap-x-3">
       <div className="bg-[#1B3B7D] text-white p-2 rounded-full flex justify-center align-center">
@@ -87,9 +87,8 @@ const Home = () => {
       } catch (error) { }
     }
     getMeetLink();
-        const getGreeting = () => {
+    const getGreeting = () => {
       const currentHour = new Date().getHours();
-      console.log(currentHour);
 
       if (currentHour >= 3 && currentHour < 12) {
         return `Good Morning, ${student?.name} `;
@@ -166,7 +165,7 @@ const Home = () => {
                 textTransform: "capitalize",
                 borderRadius: 2,
                 width: "100%",
-                backgroundColor:"#1B3B7D",
+                backgroundColor: "#1B3B7D",
               }}
               disabled={student?.batch?.classroomLink ? false : true}
             >
