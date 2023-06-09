@@ -52,8 +52,6 @@ const SideBar = () => {
 
   const navItemsArr = [
     { name: "Home", path: "/", icon: <HomeSVG /> },
-    { name: "Modules", path: "/module", icon: <HomeSVG /> },
-    { name: "Find Institute", path: "/find-institute", icon: <HomeSVG /> },
     // { name: "Assignments", path: "/assignments", icon: <AssignmentSVG /> },
     { name: "Library", path: "/centralized-library", icon: <LibrarySVG /> },
     {
@@ -262,11 +260,11 @@ const SideBar = () => {
             <div className={`space-y-2 ${collapseMenu ? "mt-6" : "mt-0"}`}>
               <div className="flex items-center justify-start pt-5">
                 <Link to='/'>
-                <img
-                  src={logo}
-                  alt="Logo"
-                  className={`w-44 max-w-full duration-500 h-auto pl-2`}
-                />
+                  <img
+                    src={logo}
+                    alt="Logo"
+                    className={`w-44 max-w-full duration-500 h-auto pl-2`}
+                  />
                 </Link>
               </div>
               <div className="flex-1 px-2">

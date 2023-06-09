@@ -1,11 +1,11 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import discussion from "../../api/discussion";
 import CryptoJS from 'crypto-js';
-import {useQuery} from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 // Components
 import MessageBox from "../../components/Discussions/MessageBox";
-import {FiSend} from "react-icons/fi";
-import {useRef} from "react";
+import { FiSend } from "react-icons/fi";
+import { useRef } from "react";
 import {
     AttachFile,
     Photo,
@@ -13,7 +13,7 @@ import {
     Remove,
     Send
 } from "@mui/icons-material";
-import {AppBar, Avatar, Toolbar, Typography} from "@mui/material";
+import { AppBar, Avatar, Toolbar, Typography } from "@mui/material";
 import Compressor from "compressorjs";
 
 
@@ -34,25 +34,23 @@ const Discussions = () => {
 
         for (const key in abbreviations) {
             if (Math.abs(number) >= key) {
-                return `${
-                    (number / key).toFixed(1)
-                }${
-                    abbreviations[key]
-                }`;
+                return `${(number / key).toFixed(1)
+                    }${abbreviations[key]
+                    }`;
             }
         }
 
         return number.toString();
     };
-      
+
     useEffect(() => {
-            const getAll = async() => {
-                const {data} = await discussion.count();
-                setOnlineMembers(data.online);
-                setTotalMembers(data.totalMembers);
-            }
-            getAll();
-      }, []);
+        const getAll = async () => {
+            const { data } = await discussion.count();
+            setOnlineMembers(data.online);
+            setTotalMembers(data.totalMembers);
+        }
+        getAll();
+    }, []);
 
 
     const getDiscussions = async () => {
@@ -87,7 +85,7 @@ const Discussions = () => {
             getDiscussions();
             scrollToBottom();
             setSelectedImages([]);
-        } catch (err) {}
+        } catch (err) { }
     };
 
     const handleImageInputChange = async (e) => {
@@ -112,12 +110,12 @@ const Discussions = () => {
         }
         setSelectedImages([
             ...selectedImages,
-            ... compressedImages
+            ...compressedImages
         ]);
     }
 
     const scrollToBottom = () => {
-        messageBoxRef.current?.scrollIntoView({behavior: "smooth"});
+        messageBoxRef.current?.scrollIntoView({ behavior: "smooth" });
     };
 
     const removeSelectedImages = (index) => {
@@ -143,54 +141,54 @@ const Discussions = () => {
                         </div>
                         <p className="text-[#828282] md:text-base text-xs">
                             {
-                            formatNumber(totalMembers)
-                        }
+                                formatNumber(totalMembers)
+                            }
                             &nbsp;Members</p>
                     </div>
                 </div>
             </div>
             <div id="journal-scroll" className="flex flex-col items-center justify-center w-full px-5">
                 {
-                Array.isArray(discussions) && discussions?.map((item) => (
-                    <MessageBox key={
+                    Array.isArray(discussions) && discussions?.map((item) => (
+                        <MessageBox key={
                             item?.id
                         }
-                        data={item}/>
-                ))
-            } </div>
-            <div className="fixed bottom-0 w-full bg-white">
-                {
-                selectedImages.length > 0 && <div className="flex items-center gap-x-3 pt-3 px-2 overflow-x-hidden">
-                    {
-                    selectedImages.map((selectedImage, index) => (
-                        <div key={index}
-                            className="border rounded-md overflow-hidden relative">
-                            <span onClick={
-                                    () => removeSelectedImages(index)
-                                }
-                                className="absolute top-0 right-0 cursor-pointer bg-black rounded-full text-white w-5 h-5 grid place-items-center">
-                                <Remove className='!w-4 -mt-0.5'/>
-                            </span>
-                            <img src={
-                                    URL.createObjectURL(selectedImage)
-                                }
-                                alt=''
-                                className="w-12 h-12 object-cover"/>
-                        </div>
+                            data={item} />
                     ))
                 } </div>
-            }
+            <div className="fixed bottom-0 w-full bg-white">
+                {
+                    selectedImages.length > 0 && <div className="flex items-center gap-x-3 pt-3 px-2 overflow-x-hidden">
+                        {
+                            selectedImages.map((selectedImage, index) => (
+                                <div key={index}
+                                    className="border rounded-md overflow-hidden relative">
+                                    <span onClick={
+                                        () => removeSelectedImages(index)
+                                    }
+                                        className="absolute top-0 right-0 cursor-pointer bg-black rounded-full text-white w-5 h-5 grid place-items-center">
+                                        <Remove className='!w-4 -mt-0.5' />
+                                    </span>
+                                    <img src={
+                                        URL.createObjectURL(selectedImage)
+                                    }
+                                        alt=''
+                                        className="w-12 h-12 object-cover" />
+                                </div>
+                            ))
+                        } </div>
+                }
                 <form onSubmit={createDiscussion}
                     className="py-5 px-4 flex items-center justify-start">
                     <label htmlFor="imageInput" className="text-[#2D2D2D] cursor-pointer">
                         <input type="file" id="imageInput" className="hidden" accept="image/*"
                             onChange={handleImageInputChange}
-                            multiple/>
-                        <AttachFile fontSize="medium"/>
+                            multiple />
+                        <AttachFile fontSize="medium" />
                     </label>
                     <input className="bg-white sm:w-screen px-4 mx-4 py-3 border-2 border-[#1B3B7D] rounded-xl" type="text" placeholder="Enter your message"
                         value={message}
-                                    onChange={
+                        onChange={
                             (e) => setMessage(e.target.value)
                         }
                         onKeyDown={
@@ -203,10 +201,10 @@ const Discussions = () => {
                                     }
                                 }
                             }
-                        }/>
+                        } />
                     <button disabled={
-                            !(message.trim() !== '' && message.split(' ').length <= 200) && !selectedImages.length > 0
-                        }
+                        !(message.trim() !== '' && message.split(' ').length <= 200) && !selectedImages.length > 0
+                    }
                         className="flex items-center justify-center rounded-xl px-4 py-3 transition duration-500 ease-in-out text-white bg-[#1B3B7D] focus:outline-none mr-2 lg:mr-[13rem] xl:mr-[15rem] 2xl:mr-[15rem] disabled:bg-gray">
                         <p className="pr-2 hidden md:flex">Send</p>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-6 w-6 transform rotate-90">
@@ -215,7 +213,7 @@ const Discussions = () => {
                     </button>
                 </form>
             </div>
-            <div ref={messageBoxRef}/>
+            <div ref={messageBoxRef} />
         </div>
     );
 };

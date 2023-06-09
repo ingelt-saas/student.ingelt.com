@@ -1,22 +1,35 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 //assets
 import findImg from '../../assets/images/find-institute.png';
 import { Search } from '@mui/icons-material';
-import DropdownButton from '../../components/shared/DropdownButton/DropdownButton';
 import InstituteItem from '../../components/FindInstitute/InstituteItem';
 import instituteApi from '../../api/institute';
+import { StudentContext } from '../../contexts';
+import { Country, State } from 'country-state-city';
+import { Alert } from '@mui/material';
 
 const FindInstitute = () => {
 
+    //states
     const [institutes, setInstitutes] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [searchQuery, setSearchQuery] = useState({ mode: [], search: '', location: '', });
+    const [nearMe, setNearMe] = useState(false);
+    const [states, setStates] = useState([]);
+
+    // context
+    const { student } = useContext(StudentContext);
 
     useEffect(() => {
         (async () => {
             setLoading(true);
             try {
-                const res = await instituteApi.getInstitutes();
+                const res = await instituteApi.getInstitutes(
+                    searchQuery.mode.join(','),
+                    searchQuery.location,
+                    searchQuery.search
+                );
                 setInstitutes(res.data);
             } catch (err) {
                 console.error(err);
@@ -24,25 +37,75 @@ const FindInstitute = () => {
                 setLoading(false);
             }
         })();
+    }, [searchQuery]);
+
+
+    // class mode handler
+    const modeHandler = (e) => {
+        if (e.target.checked) {
+            setSearchQuery({ ...searchQuery, mode: [...searchQuery.mode, e.target.value] });
+        } else {
+            const newModesArr = searchQuery.mode.filter(i => i !== e.target.value);
+            setSearchQuery({ ...searchQuery, mode: newModesArr });
+        }
+    }
+
+    // search input handler
+    const inputHandler = (e) => {
+        e.preventDefault();
+        setSearchQuery({ ...searchQuery, search: e.target.search.value });
+    }
+
+    // set near me location
+    useEffect(() => {
+        if (nearMe) {
+            setSearchQuery({ ...searchQuery, location: student?.state });
+        } else {
+            setSearchQuery({ ...searchQuery, location: '' });
+        }
+    }, [nearMe, student]);
+
+    // control input placeholder
+    useEffect(() => {
+        const input = document.getElementById('search');
+        const label = document.getElementById('searchLabel');
+
+        input.onkeyup = (e) => {
+            if (e.target.value) {
+                label.classList.add('!opacity-0');
+            } else {
+                label.classList.remove('!opacity-0');
+            }
+        }
+
     }, []);
+
+    // fetch cities
+    useEffect(() => {
+        const findCountry = Country.getAllCountries().find(i => i.name === student.country);
+        if (findCountry) {
+            const findStates = State.getStatesOfCountry(findCountry.isoCode);
+            setStates(findStates.map(i => i.name));
+        }
+    }, [student]);
 
     return (
         <div>
             <div className='flex justify-between items-center px-3 rounded-xl shadow-xl'>
                 <div className='w-full md:w-fit py-3'>
                     <h2 className='text-2xl font-semibold text-[#001E43]'>Find Institute</h2>
-                    <div className="mt-3 flex items-center flex-row max-md:w-full md:w-[500px] bg-[#0C3C821A] rounded-md py-2 px-2">
+                    <form onSubmit={inputHandler} className="mt-3 flex items-center flex-row max-md:w-full md:w-[500px] bg-[#0C3C821A] rounded-md py-2 px-2">
                         <div className="flex-1 relative z-0">
                             <input
                                 className="h-full peer z-20 bg-transparent w-full border-0 focus:outline-none"
-                                type="text"
+                                type="search"
                                 name="search"
-                                required
                                 id="search"
                             />
                             <label
                                 htmlFor="search"
-                                className="peer-valid:opacity-0 absolute opacity-50 duration-200 -z-10 top-1/2 left-0 w-full h-auto -translate-y-1/2 flex gap-x-2 items-center"
+                                id='searchLabel'
+                                className="absolute opacity-50 duration-200 -z-10 top-1/2 left-0 w-full h-auto -translate-y-1/2 flex gap-x-2 items-center"
                             >
                                 <div className=" flex-1 flex gap-x-2 items-center border-r-2 border-[#00000066] ">
                                     <svg
@@ -84,30 +147,45 @@ const FindInstitute = () => {
                             <Search fontSize="small" />
                             Search
                         </button>
-                    </div>
+                    </form>
                     <div className='w-full justify-between flex items-start mt-3'>
                         <div className='flex flex-col gap-y-2 items-start'>
                             <h5 className='text-xl text-[#00285A] font-medium'>Location</h5>
-                            <DropdownButton
-                                data={['Delhi', 'Kolkata']}
-                            />
+                            <div className='md:w-220px w-fit rounded-lg border pr-2 cursor-pointer border-[#0C3C82]'>
+                                <select
+                                    onChange={(e) => {
+                                        setNearMe(false);
+                                        setSearchQuery({ ...searchQuery, location: e.target.value })
+                                    }}
+                                    className='text-center  text-[#0C3C82] px-4 py-3 border-0 bg-transparent font-medium outline-none'>
+                                    <option value=''>Select Location</option>
+                                    {states.map(i => <option key={i} value={i}>{i}</option>)}
+                                </select>
+                            </div>
                             <label htmlFor='nearMe' className='flex items-center w-fit gap-x-2 cursor-pointer'>
-                                <input type='checkbox' id='nearMe' name='classMode' className='accent-[#0C3C82]' />
+                                <input
+                                    onChange={(e) => setNearMe(e.target.checked)}
+                                    checked={nearMe}
+                                    type='checkbox'
+                                    id='nearMe'
+                                    name='classMode'
+                                    className='accent-[#0C3C82]'
+                                />
                                 Near Me
                             </label>
                         </div>
                         <div className='flex flex-col gap-y-2 items-start'>
                             <h5 className='text-xl text-[#00285A] font-medium'>Mode Available</h5>
                             <label htmlFor='online' className='flex items-center w-fit gap-x-2 cursor-pointer'>
-                                <input type='checkbox' id='online' name='classMode' className='accent-[#0C3C82]' />
+                                <input onChange={modeHandler} checked={Boolean(searchQuery.mode.includes('online'))} value='online' type='checkbox' id='online' name='classMode' className='accent-[#0C3C82]' />
                                 Online
                             </label>
                             <label htmlFor='offline' className='flex items-center w-fit gap-x-2 cursor-pointer'>
-                                <input type='checkbox' id='offline' name='classMode' className='accent-[#0C3C82]' />
+                                <input onChange={modeHandler} checked={Boolean(searchQuery.mode.includes('offline'))} value='offline' type='checkbox' id='offline' name='classMode' className='accent-[#0C3C82]' />
                                 Offline
                             </label>
                             <label htmlFor='hybrid' className='flex items-center w-fit gap-x-2 cursor-pointer'>
-                                <input type='checkbox' id='hybrid' name='classMode' className='accent-[#0C3C82]' />
+                                <input onChange={modeHandler} checked={Boolean(searchQuery.mode.includes('hybrid'))} value='hybrid' type='checkbox' id='hybrid' name='classMode' className='accent-[#0C3C82]' />
                                 Hybrid
                             </label>
                         </div>
@@ -119,14 +197,16 @@ const FindInstitute = () => {
             </div>
             <div className='mt-10 flex gap-x-6'>
                 <div className="w-full lg:w-1/2 flex flex-col gap-y-5">
-                    {Array.isArray(institutes) &&
+                    {!loading && (institutes?.length > 0 ?
+                        Array.isArray(institutes) &&
                         institutes.map((institute, index) => (
                             <InstituteItem
                                 key={index}
                                 // applyHandler={applyHandler}
                                 institute={institute}
                             />
-                        ))}
+                        )) : <Alert icon={false} severity='warning' className='w-fit mx-auto'>No Institute Found</Alert>
+                    )}
                 </div>
                 <div className="max-lg:hidden w-1/2">
                     <div className="h-[90vh] rounded-lg overflow-hidden">
