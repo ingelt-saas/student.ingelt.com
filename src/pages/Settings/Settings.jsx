@@ -432,14 +432,6 @@ const Settings = () => {
     { name: "city", label: "City", defaultValue: city, type: "text", validation: { required: 'Please select city' } },
     { name: "pinCode", label: "Pincode", defaultValue: pinCode, type: "text", validation: { required: 'Pincode is required' } },
     {
-      name: "registrationDate",
-      label: "Registration Date",
-      defaultValue: createdAt,
-      type: "date",
-      readOnly: true,
-      validation: { required: false },
-    },
-    {
       name: "previousScore",
       label: "Previous Score",
       defaultValue: previousScore,
@@ -447,7 +439,7 @@ const Settings = () => {
       validation: {
         required: 'Previous score is required',
         pattern: {
-          value: /^[+-]?((\.\d+)|(\d+(\.\d+)?))$/,
+          value: /^(?:9(?:\.[0]*)?|[0-8](?:\.\d+)?)$/,
           message: 'Invalid score, score should be like 2.4 or 5',
         }
       },
@@ -460,10 +452,18 @@ const Settings = () => {
       validation: {
         required: false,
         pattern: {
-          value: /^[+-]?((\.\d+)|(\d+(\.\d+)?))$/,
+          value: /^(?:9(?:\.[0]*)?|[0-8](?:\.\d+)?)$/,
           message: 'Invalid score, score should be like 2.4 or 5',
         }
       },
+    },
+    {
+      name: "registrationDate",
+      label: "Registration Date",
+      defaultValue: createdAt,
+      type: "date",
+      readOnly: true,
+      validation: { required: false },
     },
   ];
 
@@ -658,7 +658,7 @@ const Settings = () => {
               justifyContent: "end",
             }}
           >
-            <Button type='submit' size='large' sx={{ width: '97%',backgroundColor:"#1B3B7D" }} variant="contained">
+            <Button type='submit' size='large' sx={{ width: '97%', backgroundColor: "#1B3B7D", '&:hover': { backgroundColor: '#1B3B7D' } }} variant="contained">
               Save
             </Button>
           </Box>
