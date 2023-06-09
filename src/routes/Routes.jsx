@@ -25,6 +25,7 @@ import EducationLoan from "../pages/EducationLoan/EducationLoan";
 
 import Modules from "../pages/Modules/Modules";
 import FindInstitute from "../pages/FindInstitute/FindInstitute";
+import VisaApplication from "../pages/VisaApplication/VisaApplication";
 
 const Routes = () => {
   // student provider context
@@ -69,6 +70,18 @@ const Routes = () => {
             {
               path: "/education-loan",
               element: <EducationLoan />,
+            },
+            {
+              path: "/visa-application",
+              element: <VisaApplication />,
+            },
+            {
+              path: "/modules",
+              element: <Modules />,
+            },
+            {
+              path: "/find-institute",
+              element: <FindInstitute />,
             },
             {
               path: "/modules",
