@@ -8,6 +8,7 @@ import instituteApi from '../../api/institute';
 import { StudentContext } from '../../contexts';
 import { Country, State } from 'country-state-city';
 import { Alert } from '@mui/material';
+import { toast } from 'react-toastify';
 
 const FindInstitute = () => {
 
@@ -17,10 +18,21 @@ const FindInstitute = () => {
     const [searchQuery, setSearchQuery] = useState({ mode: [], search: '', location: '', });
     const [nearMe, setNearMe] = useState(false);
     const [states, setStates] = useState([]);
+    const [appliedInstitutes, setAppliedInstitutes] = useState([]);
 
     // context
     const { student } = useContext(StudentContext);
 
+    const fetchAppliedInstitutes = async () => {
+        try {
+            const res = await instituteApi.getAppliedInstitutes();
+            setAppliedInstitutes(res.data);
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+    // fetch institutes 
     useEffect(() => {
         (async () => {
             setLoading(true);
@@ -37,8 +49,8 @@ const FindInstitute = () => {
                 setLoading(false);
             }
         })();
+        fetchAppliedInstitutes();
     }, [searchQuery]);
-
 
     // class mode handler
     const modeHandler = (e) => {
@@ -88,6 +100,20 @@ const FindInstitute = () => {
             setStates(findStates.map(i => i.name));
         }
     }, [student]);
+
+    // apply handler
+    const applyHandler = async (e, orgId) => {
+        e.target.disabled = true;
+        try {
+            await instituteApi.applyInstitute({ organizationId: orgId });
+            toast.success('Applied');
+            fetchAppliedInstitutes();
+        } catch (err) {
+            toast.error('Sorry! Something went wrong');
+        } finally {
+            e.target.disabled = false;
+        }
+    }
 
     return (
         <div>
@@ -202,7 +228,8 @@ const FindInstitute = () => {
                         institutes.map((institute, index) => (
                             <InstituteItem
                                 key={index}
-                                // applyHandler={applyHandler}
+                                applyHandler={applyHandler}
+                                appliedInstitutes={appliedInstitutes}
                                 institute={institute}
                             />
                         )) : <Alert icon={false} severity='warning' className='w-fit mx-auto'>No Institute Found</Alert>
