@@ -3,16 +3,18 @@ import React from 'react';
 import assignmentApi from '../../api/assignment';
 import { useState } from 'react';
 import { Alert, Button, CircularProgress, TablePagination } from '@mui/material';
-import { Download, Upload } from '@mui/icons-material';
+import { Download, RemoveRedEye, Upload } from '@mui/icons-material';
 
 //assets
 import assignmentSVG from '../../assets/images/assignment.svg';
 import moment from 'moment';
 import getFile from '../../api/getFile';
+import UploadModal from '../shared/UploadModal/UploadModal';
 
 const Assignments = ({ searchQuery }) => {
 
     const [pagination, setPagination] = useState({ rows: 10, page: 0 });
+    const [uploadModal, setUploadModal] = useState(null);
 
     const { data: assignments, isLoading } = useQuery({
         queryKey: ['assignments', searchQuery, pagination],
@@ -36,6 +38,11 @@ const Assignments = ({ searchQuery }) => {
         a.click();
         URL.revokeObjectURL(url);
     }
+
+    // Event Handlers
+    const uploadModalHandle = () => {
+        setUploadModal(null);
+    };
 
     return (
         <div className='mt-10'>
@@ -77,22 +84,44 @@ const Assignments = ({ searchQuery }) => {
                                 </div>
                             </div>
                             <div className='flex justify-between items-center mt-3'>
-                                <Button
-                                    variant='outlined'
-                                    className='!text-xs 2xl:!text-xl'
-                                    sx={{
-                                        border: '2px solid #00000099',
-                                        borderRadius: '7px',
-                                        textTransform: 'capitalize',
-                                        color: '#00000099',
-                                        fontWeight: 500,
-                                        '&:hover': {
+                                {item?.submissions?.status === 'submitted' ?
+                                    <Button
+                                        variant='outlined'
+                                        className='!text-xs 2xl:!text-xl'
+                                        sx={{
                                             border: '2px solid #00000099',
-                                            backgroundColor: 'transparent',
-                                        }
-                                    }}
-                                    endIcon={<Upload />}
-                                >Upload</Button>
+                                            borderRadius: '7px',
+                                            textTransform: 'capitalize',
+                                            color: '#00000099',
+                                            fontWeight: 500,
+                                            '&:hover': {
+                                                border: '2px solid #00000099',
+                                                backgroundColor: 'transparent',
+                                            }
+                                        }}
+                                        endIcon={<RemoveRedEye />}
+                                        onClick={() => setUploadModal(item)}
+                                    >View</Button>
+                                    :
+                                    <Button
+                                        variant='outlined'
+                                        className='!text-xs 2xl:!text-xl'
+                                        sx={{
+                                            border: '2px solid #00000099',
+                                            borderRadius: '7px',
+                                            textTransform: 'capitalize',
+                                            color: '#00000099',
+                                            fontWeight: 500,
+                                            '&:hover': {
+                                                border: '2px solid #00000099',
+                                                backgroundColor: 'transparent',
+                                            }
+                                        }}
+                                        endIcon={<Upload />}
+                                        onClick={() => setUploadModal(item)}
+                                    >Upload</Button>
+                                }
+
                                 <Button
                                     onClick={() => downloadAssignment(item.file, item.name)}
                                     variant='contained'
@@ -129,6 +158,13 @@ const Assignments = ({ searchQuery }) => {
                 </div>
                 :
                 <Alert icon={false} severity='warning' className='mx-auto w-fit'>No Assignments Found</Alert>)}
+
+            {/* Upload modal */}
+            {uploadModal && <UploadModal
+                uploadModal={Boolean(uploadModal)}
+                uploadModalHandle={uploadModalHandle}
+                assignment={uploadModal}
+            />}
         </div>
     );
 }
