@@ -20,6 +20,7 @@ import Loader from "../components/shared/Loader/Loader";
 import Notes from "../pages/Notes/Notes";
 import SetNewPassword from "../pages/SetNewPassword/SetNewPassword";
 import ShortlistUniversity from "../pages/ShortlistUniversity/ShortlistUniversity";
+import EducationLoan from "../pages/EducationLoan/EducationLoan";
 
 const Routes = () => {
   // student provider context
@@ -60,6 +61,10 @@ const Routes = () => {
             {
               path: "/shortlist-university",
               element: <ShortlistUniversity />,
+            },
+            {
+              path: "/education-loan",
+              element: <EducationLoan />,
             },
             {
               path: "/centralized-library",
