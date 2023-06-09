@@ -129,7 +129,7 @@ const Assignments = () => {
               fontWeight: 600,
               textTransform: "capitalize",
               borderRadius: 2,
-              backgroundColor:"#1B3B7D",
+              backgroundColor: "#1B3B7D",
             }}
             onClick={() => setStatsModal(true)}
           >
@@ -293,7 +293,7 @@ const Assignments = () => {
                       }}
                     >
                       View Submission
-                      <RemoveRedEye fontSize="small" sx={{ marginLeft: "2px",color:"#1B3B7D" }} />
+                      <RemoveRedEye fontSize="small" sx={{ marginLeft: "2px", color: "#1B3B7D" }} />
                     </Button>}
                     {item.submissions?.id && <Button
                       onClick={() => setSubmissionUpdateModal(item)}
@@ -337,7 +337,7 @@ const Assignments = () => {
                       onClick={() => downloadAssignment(item?.file)}
                     >
                       View
-                      <RemoveRedEye sx={{ marginLeft: "4px",color:"#1B3B7D" }} />
+                      <RemoveRedEye sx={{ marginLeft: "4px", color: "#1B3B7D" }} />
                     </Button>
                   </td>
                   <td className="py-2 text-right md:hidden">
