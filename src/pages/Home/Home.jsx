@@ -32,7 +32,11 @@ import Blogs from "../../components/Home/Blogs";
 
 // Student Info Block
 const StudentInfoBlock = ({ title, text, IconName }) => {
-  const truncatedText = text ? text.length > 20 ? `${text.substring(0, 20)}...` : text : "Not Set";
+  const truncatedText = text
+    ? text.length > 20
+      ? `${text.substring(0, 20)}...`
+      : text
+    : "Not Set";
   return (
     <div className="flex items-center gap-x-3">
       <div className="bg-[#1B3B7D] text-white p-2 rounded-full flex justify-center align-center">
@@ -53,7 +57,6 @@ const StudentInfoBlock = ({ title, text, IconName }) => {
 };
 
 const Home = () => {
-
   const { student } = useContext(StudentContext);
   const [isCopied, setIsCopied] = useState(false);
   const [graphData, setGraphData] = useState([]);
@@ -84,7 +87,7 @@ const Home = () => {
         const graphData = await home.getGraphData();
         setBands(bands.data);
         setGraphData(graphData.data);
-      } catch (error) { }
+      } catch (error) {}
     }
     getMeetLink();
     const getGreeting = () => {
@@ -97,9 +100,9 @@ const Home = () => {
       } else if (currentHour >= 17 && currentHour < 23) {
         return `Good Evening, ${student?.name}`;
       } else {
-        return 'Hey, Night Owl';
+        return "Hey, Night Owl";
       }
-    }
+    };
 
     const updateGreeting = () => {
       const newGreeting = getGreeting();
@@ -111,7 +114,6 @@ const Home = () => {
     const interval = setInterval(updateGreeting, 60000); // Update every minute
 
     return () => clearInterval(interval); // Clean up interval on component unmount
-
   }, [student]);
 
   return (
@@ -128,7 +130,6 @@ const Home = () => {
           <h1 className="text-3xl font-semibold text-right py-5 px-5 ">
             {greeting}
           </h1>
-
         </div>
       </div>
 
@@ -145,7 +146,7 @@ const Home = () => {
               <p className="truncate relative pr-6 py-1">
                 {student?.batch?.classroomLink ||
                   "Your teacher hasn't set the link"}
-                {student?.batch?.classroomLink &&
+                {student?.batch?.classroomLink && (
                   <Tooltip title={isCopied ? "Copied!" : "Copy to Clipboard"}>
                     <button
                       className="text-black absolute top-1/2 right-2 -translate-y-1/2"
@@ -153,7 +154,8 @@ const Home = () => {
                     >
                       <ContentCopy />
                     </button>
-                  </Tooltip>}
+                  </Tooltip>
+                )}
               </p>
             </div>
 
@@ -193,7 +195,8 @@ const Home = () => {
             <div className="text-center mt-5 ">
               <h1 className="text-2xl font-semibold">{student?.name}</h1>
               <h4 className="text-[#6A6A6A] text-lg font-semibold">
-                Batch: {student?.batch?.name ? student?.batch?.name : "Not Assigned"}
+                Batch:{" "}
+                {student?.batch?.name ? student?.batch?.name : "Not Assigned"}
               </h4>
             </div>
           </div>
@@ -203,9 +206,10 @@ const Home = () => {
               <StudentInfoBlock
                 IconName={Person2}
                 title="Father's Name"
-                text={student?.fathersName ? student?.fathersName.toString() : ""}
+                text={
+                  student?.fathersName ? student?.fathersName.toString() : ""
+                }
               />
-
 
               <StudentInfoBlock
                 IconName={LocationOn}
@@ -268,12 +272,14 @@ const Home = () => {
           <h1 className="font-semibold text-xl mb-6">Mock Test Performance</h1>
 
           <div className="border border-[#78787840] w-full px-3 lg:px-5 xl:px-8 py-4 flex justify-between items-center my-2">
-            <div className="bg-[#1B3B7D] p-2 text-white rounded-md mr-8 xl:mr-12 w-fit flex items-center justify-center">
+            <div className="bg-[#1B3B7D] p-2 text-white rounded-md mr-8 xl:mr-5 w-fit flex items-center justify-center">
               <Assessment />
             </div>
             <div className="flex justify-around items-center">
-              <span className="font-semibold text-xl mr-4">Average Score</span>
-              <span className="text-lg font-semibold text-white bg-[#1B3B7D] rounded-md px-2 py-1">
+              <span className="font-semibold text-xl mr-4 xl:w-36">
+                Average Score
+              </span>
+              <span className="text-lg font-semibold text-white bg-[#1B3B7D] rounded-md px-2 py-1 w-20">
                 {(
                   (bands?.listeningBands +
                     bands?.writingBands +
@@ -286,28 +292,30 @@ const Home = () => {
           </div>
 
           <div className="border border-[#78787840] w-full px-3 lg:px-5 xl:px-8 py-4 flex justify-between items-center my-2">
-            <div className="bg-[#1B3B7D] p-2 text-white rounded-md mr-8 xl:mr-12 w-fit flex items-center justify-center">
+            <div className="bg-[#1B3B7D] p-2 text-white rounded-md mr-8 xl:mr-5 w-fit flex items-center justify-center">
               <GpsFixed />
             </div>
 
             <div className="flex justify-around items-center">
-              <span className="font-semibold text-xl mr-4">Target Score</span>
-              <span className="text-lg font-semibold text-white bg-[#1B3B7D] rounded-md px-2 py-1">
+              <span className="font-semibold text-xl mr-4 xl:w-36">
+                Target Score
+              </span>
+              <span className="text-lg font-semibold text-white bg-[#1B3B7D] rounded-md px-2 py-1 w-20">
                 {student?.targetScore ? student?.targetScore : "Not Set"}
               </span>
             </div>
           </div>
 
           <div className="border border-[#78787840] w-full px-3 lg:px-5 xl:px-8 py-4 flex justify-between items-center my-2">
-            <div className="bg-[#1B3B7D] p-2 text-white rounded-md mr-8 xl:mr-12 w-fit flex items-center justify-center">
+            <div className="bg-[#1B3B7D] p-2 text-white rounded-md mr-8 xl:mr-5 w-fit flex items-center justify-center">
               <Quiz />
             </div>
 
             <div className="flex justify-around items-center">
-              <span className="font-semibold text-xl mr-4">
+              <span className="font-semibold text-xl mr-4 xl:w-36">
                 Tests Attempted
               </span>
-              <span className="text-lg font-semibold text-white bg-[#1B3B7D] rounded-md px-2 py-1">
+              <span className="text-lg font-semibold text-white bg-[#1B3B7D] rounded-md px-2 py-1 w-20">
                 {graphData?.length}
               </span>
             </div>
