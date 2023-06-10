@@ -38,7 +38,7 @@ const Page2 = () => {
                     <div className="flex relative pb-12">
                       {/* creating line */}
                       <div class="h-full w-10 absolute inset-0 flex items-center justify-center">
-                        <div class="h-full w-3 bg-[#00285A] pointer-events-none"></div>
+                        <div class="h-full w-1 bg-[#00285A] pointer-events-none"></div>
                       </div>
                       <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#00285A] inline-flex items-center justify-center text-white relative z-10">
                         <svg
@@ -66,7 +66,7 @@ const Page2 = () => {
                     <div className="flex relative pb-12">
                       {/* creating line */}
                       <div className="h-full w-10 absolute inset-0 flex items-center justify-center">
-                        <div className="h-full w-3 bg-[#00285A] pointer-events-none"></div>
+                        <div className="h-full w-1 bg-[#00285A] pointer-events-none"></div>
                       </div>
                       <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#00285A] inline-flex items-center justify-center text-white relative z-10">
                         <svg
@@ -94,7 +94,7 @@ const Page2 = () => {
                     <div className="flex relative pb-12">
                       {/* creating line */}
                       <div className="h-full w-10 absolute inset-0 flex items-center justify-center">
-                        <div className="h-full w-3 bg-[#00285A] pointer-events-none"></div>
+                        <div className="h-full w-1 bg-[#00285A] pointer-events-none"></div>
                       </div>
                       <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#00285A] inline-flex items-center justify-center text-white relative z-10">
                         <svg
@@ -112,7 +112,7 @@ const Page2 = () => {
                       </div>
                       <div className="flex-grow pl-4">
                         <h2 className="font-extrabold title-font  text-[#00285A] mb-1 tracking-wider">
-                          Additional Document
+                          File Preparation
                         </h2>
                         <p className="leading-relaxed">
                           Counselors can help you organize and prepare the
@@ -123,7 +123,7 @@ const Page2 = () => {
                     <div className="flex relative pb-12">
                       {/* creating line */}
                       <div className="h-full w-10 absolute inset-0 flex items-center justify-center">
-                        <div className="h-full w-3 bg-[#646669] pointer-events-none "></div>
+                        <div className="h-full w-1 bg-[#646669] pointer-events-none "></div>
                       </div>
                       <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#00285A] inline-flex items-center justify-center text-white relative z-10">
                         <svg
@@ -141,7 +141,7 @@ const Page2 = () => {
                       </div>
                       <div className="flex-grow pl-4">
                         <h2 className="font-extrabold title-font  text-[#00285A] mb-1 tracking-wider">
-                          Document Prepared
+                          Applied for Loan
                         </h2>
                         <p className="leading-relaxed">
                           Counselors can help you organize and prepare the
@@ -166,7 +166,7 @@ const Page2 = () => {
                       </div>
                       <div className="flex-grow pl-4">
                         <h2 className="font-extrabold title-font  text-[#00285A] mb-1 tracking-wider">
-                          File Reviewed
+                          Loan Disbursed
                         </h2>
                         <p className="leading-relaxed">
                           Counselors can help you organize and prepare the
@@ -189,8 +189,12 @@ const EducationLoan = () => {
   const [input1, setInput1] = useState("");
   const [input2, setInput2] = useState("");
   const [input3, setInput3] = useState("");
-  const [input4, setInput4] = useState("");
+  const [selectedDate, setSelectedDate] = useState("");
+
   const [page, setPage] = useState(true);
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
+  };
   // useEffect(() => {
   //   console.log(input1);
   // }, [input1]);
@@ -264,7 +268,9 @@ const EducationLoan = () => {
                   </div>
                   {/* input3 */}
                   <div className="inline-block relative">
-                    <label htmlFor="State">Where do you want to study?</label>
+                    <label htmlFor="State">
+                      What is your family annual income?
+                    </label>
                     <select
                       id="State"
                       value={input3}
@@ -293,13 +299,18 @@ const EducationLoan = () => {
                           type="radio"
                           id="date1"
                           name="dates"
-                          value="date1"
+                          value="Sep 2023"
                           className="sr-only"
                           required
+                          onChange={() => handleDateChange("Sep 2023")}
                         />
                         <label
                           htmlFor="date1"
-                          className="radio-label inline-flex items-center justify-between w-full p-4 text-[#001E43] bg-white rounded-lg cursor-pointer hover:text-white hover:bg-[#001E43]"
+                          className={`radio-label inline-flex items-center justify-between w-full p-4 text-[#001E43]  rounded-lg cursor-pointer ${
+                            selectedDate === "Sep 2023"
+                              ? "bg-[#001E43] text-white"
+                              : "hover:text-white hover:bg-[#001E43]"
+                          }`}
                         >
                           <div className="block">
                             <p className="w-full text-lg font-semibold">
@@ -314,13 +325,18 @@ const EducationLoan = () => {
                           type="radio"
                           id="date2"
                           name="dates"
-                          value="date2"
+                          value="Jan 2024"
                           className="sr-only"
                           required
+                          onChange={() => handleDateChange("Jan 2024")}
                         />
                         <label
                           htmlFor="date2"
-                          className="radio-label inline-flex items-center justify-between w-full p-4 text-[#001E43] bg-white rounded-lg cursor-pointer dark:text-gray-300 dark:bg-gray-800 dark:hover:text-gray-300  hover:text-white hover:bg-[#001E43]"
+                          className={`radio-label inline-flex items-center justify-between w-full p-4 text-[#001E43]  rounded-lg cursor-pointer dark:text-gray-300 dark:bg-gray-800 dark:hover:text-gray-300 ${
+                            selectedDate === "Jan 2024"
+                              ? "bg-[#001E43] text-white"
+                              : "hover:text-white hover:bg-[#001E43]"
+                          }`}
                         >
                           <div className="block">
                             <p className="w-full text-lg font-semibold">
@@ -335,13 +351,18 @@ const EducationLoan = () => {
                           type="radio"
                           id="date3"
                           name="dates"
-                          value="date3"
+                          value="Feb 2024"
                           className="sr-only"
                           required
+                          onChange={() => handleDateChange("Feb 2024")}
                         />
                         <label
                           htmlFor="date3"
-                          className="radio-label inline-flex items-center justify-between w-full p-4 text-[#001E43] bg-white rounded-lg cursor-pointer dark:text-gray-300 dark:bg-gray-800 dark:hover:text-gray-300 hover:text-white hover:bg-[#001E43]"
+                          className={`radio-label inline-flex items-center justify-between w-full p-4 text-[#001E43] rounded-lg cursor-pointer dark:text-gray-300 dark:bg-gray-800 dark:hover:text-gray-300 ${
+                            selectedDate === "Feb 2024"
+                              ? "bg-[#001E43] text-white"
+                              : "hover:text-white hover:bg-[#001E43]"
+                          }`}
                         >
                           <div className="block">
                             <p className="w-full text-lg font-semibold">
