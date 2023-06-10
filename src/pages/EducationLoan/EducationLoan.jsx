@@ -4,23 +4,68 @@ import welcomeSVG from "../../assets/images/scholar.svg";
 import loanSVG from "../../assets/images/loan.svg";
 import darkDownSVG from "../../assets/images/darkDown.svg";
 import img2 from "../../assets/images/Personal finance-pana.svg";
+import {
+  Box,
+  CircularProgress,
+  TablePagination,
+  Typography,
+} from "@mui/material";
 
 const Page2 = () => {
   return (
     <div className="flex flex-row flex-wrap gap-y-10 gap-x-5 w-full  sm:m-auto">
       <div className="w-full h-20 foo:block ">
-        <div className="relative rounded-xl pb-14 shadow-lg bg-white mx-3 ">
-          <h1 className="text-3xl font-semibold text-left pb-5 pt-12 px-5 ">
-            Education Loan
-          </h1>
-          <p className="text-left  px-5 w-1/3 ">
-            Nulla Lorem mollit cupidatat irure. Laborum magna cillum dolor.{" "}
-          </p>
-          <img
-            src={welcomeSVG}
-            alt="welcome svg"
-            className="absolute bottom-0 right-3 h-52 w-auto"
-          />
+        <div className="pt-6 pb-5 pl-3">
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              width: { md: "65%", xs: "100%" },
+              height: "20vh",
+              padding: "2rem",
+              backgroundColor: "white",
+              border: "1px solid white",
+              borderRadius: "2rem",
+              boxShadow:
+                "0px 10px 36px rgba(0, 0, 0, 0.16), 0px 0px 0px 1px rgba(0, 0, 0, 0.06);",
+            }}
+          >
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "flex-start",
+                flexDirection: "column",
+                width: { md: "50%", xs: "90%" },
+              }}
+            >
+              <Typography
+                sx={{
+                  color: "black",
+                  display: { md: "flex", xs: "none" },
+                  fontSize: "1.5rem",
+                  fontWeight: "bold",
+                }}
+              >
+                Shortlisting University
+              </Typography>
+              <Typography
+              // sx={{
+              //   fontSize: "1.5rem",
+              // }}
+              >
+                Nulla Lorem mollit cupidatat irure.
+              </Typography>
+            </Box>
+            <Box sx={{ width: { md: "45%", xs: "100%" } }}>
+              <img
+                src={welcomeSVG}
+                alt="library"
+                className="md:relative md:bottom-7 md:left-10 "
+              />
+            </Box>
+          </Box>
         </div>
         <div className="flex w-full">
           <div className="w-1/2 flex max-lg:hidden">
@@ -190,6 +235,7 @@ const EducationLoan = () => {
   const [input2, setInput2] = useState("");
   const [input3, setInput3] = useState("");
   const [selectedDate, setSelectedDate] = useState("");
+  const [intake, setIntake] = useState("");
 
   const [page, setPage] = useState(true);
   const handleDateChange = (date) => {
@@ -204,7 +250,7 @@ const EducationLoan = () => {
       {page ? (
         <div className="flex flex-row flex-wrap gap-y-10 gap-x-5 w-full ">
           <div className="w-full h-20 foo:block ">
-            <div className="relative rounded-xl pb-14 shadow-lg bg-white mx-3 ">
+            {/* <div className="relative rounded-xl pb-14 shadow-lg bg-white mx-3 ">
               <h1 className="text-3xl font-semibold text-left pb-5 pt-12 px-5 ">
                 Education Loan
               </h1>
@@ -216,6 +262,58 @@ const EducationLoan = () => {
                 alt="welcome svg"
                 className="absolute bottom-0 right-3 h-52 w-auto"
               />
+            </div> */}
+            <div className="pt-3 pb-4 pl-3">
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "left",
+                  alignItems: "center",
+                  width: { md: "65%", xs: "100%" },
+                  height: "20vh",
+                  padding: "2rem",
+                  backgroundColor: "white",
+                  border: "1px solid white",
+                  borderRadius: "2rem",
+                  boxShadow:
+                    "0px 10px 36px rgba(0, 0, 0, 0.16), 0px 0px 0px 1px rgba(0, 0, 0, 0.06);",
+                }}
+              >
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "flex-start",
+                    flexDirection: "column",
+                    width: { md: "50%", xs: "90%" },
+                  }}
+                >
+                  <Typography
+                    sx={{
+                      color: "black",
+                      display: { md: "flex", xs: "none" },
+                      fontSize: "1.5rem",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    Education Loan
+                  </Typography>
+                  <Typography
+                  // sx={{
+                  //   fontSize: "1.5rem",
+                  // }}
+                  >
+                    Nulla Lorem mollit cupidatat irure.
+                  </Typography>
+                </Box>
+                <Box sx={{ width: { md: "30%", xs: "100%" } }}>
+                  <img
+                    src={welcomeSVG}
+                    alt="library"
+                    className="md:relative md:bottom-1  md:left-28 "
+                  />
+                </Box>
+              </Box>
             </div>
             <div className="flex w-full">
               <div className="w-1/2 flex max-lg:hidden">
@@ -289,11 +387,11 @@ const EducationLoan = () => {
                   </div>
                   {/* input4 */}
                   <div className="inline-block relative">
-                    <label className="block">
+                    {/* <label className="block">
                       What’s your preferred intake?
-                    </label>
+                    </label> */}
 
-                    <ul className="grid w-full gap-6 md:grid-cols-3 mt-2">
+                    {/* <ul className="grid w-full gap-6 md:grid-cols-3 mt-2">
                       <li>
                         <input
                           type="radio"
@@ -312,9 +410,9 @@ const EducationLoan = () => {
                               : "hover:text-white hover:bg-[#001E43]"
                           }`}
                         >
-                          <div className="block">
-                            <p className="w-full text-lg font-semibold">
-                              Sep 2023
+                          <div className="flex item-center justify-center boder-2 border-black">
+                            <p className="w-full text-lg font-semibold  text-center ">
+                              Sep 202333
                             </p>
                           </div>
                         </label>
@@ -371,7 +469,47 @@ const EducationLoan = () => {
                           </div>
                         </label>
                       </li>
-                    </ul>
+                    </ul> */}
+                    <p className="mt-5">What's your preferred intake?</p>
+                    <div className="flex gap-x-5 mt-2">
+                      <div
+                        className={`py-3 px-6 cursor-pointer flex items-center justify-center max-lg:px-2 max-lg:border rounded-2xl border-2 border-[#001E43] ${
+                          intake === "September 2023"
+                            ? "bg-[#001E43] text-white"
+                            : "border-2 border-[#001E43]"
+                        }`}
+                        onClick={() => {
+                          setIntake("September 2023");
+                        }}
+                      >
+                        <p className="max-xl:text-xs text-base">Sep 2023</p>
+                      </div>
+                      <div
+                        className={`py-3 px-6 cursor-pointer flex items-center justify-center max-lg:px-2 max-lg:border rounded-2xl border-2 border-[#001E43] ${
+                          intake === "January 2024"
+                            ? "bg-[#001E43] text-white"
+                            : "border-2 border-[#001E43]"
+                        }`}
+                        onClick={() => {
+                          setIntake("January 2024");
+                        }}
+                      >
+                        <p className="max-xl:text-xs text-base">Jan 2024</p>
+                      </div>
+                      <div
+                        className={`py-3 px-6 cursor-pointer flex items-center justify-center max-lg:px-2 max-lg:border rounded-2xl border-2 border-[#001E43] ${
+                          intake === "May 2024"
+                            ? "bg-[#001E43] text-white"
+                            : "border-2 border-[#001E43]"
+                        }`}
+                        onClick={() => {
+                          setIntake("May 2024");
+                        }}
+                      >
+                        <p className="max-xl:text-xs text-base">May 2024</p>
+                      </div>
+                                
+                    </div>
                   </div>
 
                   {/* submit button */}

@@ -12,51 +12,60 @@ import downSVG from "../../assets/images/downArrow.svg";
 import ShortlistSVG from "../../assets/images/shortlist.svg";
 import { Button, Drawer } from "@mui/material";
 import { FilterAlt } from "@mui/icons-material";
-
+import {
+  Box,
+  CircularProgress,
+  TablePagination,
+  Typography,
+} from "@mui/material";
 const RightArrowSVG = ({ className }) => {
-  return <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width={30}
-    height={30}
-    className={className}
-    viewBox="0 0 30 30"
-    fill="none"
-  >
-    <rect
-      x="0.785645"
-      y="0.998047"
-      width="28.5714"
-      height="28.5714"
-      rx="14.2857"
-      fill="#0C3C82"
-      fillOpacity="0.1"
-    />
-    <g clipPath="url(#clip0_1460_1759)">
-      <path
-        d="M11.6882 19.838L16.2319 15.2844L11.6882 10.7308L13.087 9.33203L19.0394 15.2844L13.087 21.2368L11.6882 19.838Z"
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={30}
+      height={30}
+      className={className}
+      viewBox="0 0 30 30"
+      fill="none"
+    >
+      <rect
+        x="0.785645"
+        y="0.998047"
+        width="28.5714"
+        height="28.5714"
+        rx="14.2857"
         fill="#0C3C82"
+        fillOpacity="0.1"
       />
-    </g>
-    <defs>
-      <clipPath id="clip0_1460_1759">
-        <rect
-          width="23.8095"
-          height="23.8095"
-          fill="white"
-          transform="translate(3.1665 3.37891)"
+      <g clipPath="url(#clip0_1460_1759)">
+        <path
+          d="M11.6882 19.838L16.2319 15.2844L11.6882 10.7308L13.087 9.33203L19.0394 15.2844L13.087 21.2368L11.6882 19.838Z"
+          fill="#0C3C82"
         />
-      </clipPath>
-    </defs>
-  </svg>
-}
+      </g>
+      <defs>
+        <clipPath id="clip0_1460_1759">
+          <rect
+            width="23.8095"
+            height="23.8095"
+            fill="white"
+            transform="translate(3.1665 3.37891)"
+          />
+        </clipPath>
+      </defs>
+    </svg>
+  );
+};
 
 const SelectMenue = () => {
   return (
     <div className="bg-white rounded-t-2xl max-xl:hidden">
       <div className="relative">
-        <img src={ShortlistSVG} alt='Shortlist' className="" />
+        <img src={ShortlistSVG} alt="Shortlist" className="" />
         <div className="absolute top-0 left-0 w-full h-full flex flex-col justify-between py-5 px-5">
-          <p className="text-white">need more help in finding your dream course?</p>
+          <p className="text-white">
+            need more help in finding your dream course?
+          </p>
           <button className="bg-[#E7ECF3] w-fit text-[#0C3C82] font-semibold py-3 px-6 rounded-full flex items-center gap-x-2">
             Talk to expert
             <RightArrowSVG />
@@ -224,15 +233,13 @@ const Card = () => {
 };
 
 const ShortlistUniversity = () => {
-
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <>
       <div className="flex flex-row flex-wrap gap-y-10 gap-x-5 w-full ">
         <div className="w-full h-20 foo:block ">
-
-          <div className="rounded-xl shadow-lg bg-white flex justify-between items-center">
+          {/* <div className="rounded-xl shadow-lg bg-white flex justify-between items-center">
             <div className="pl-3 max-md:py-8">
               <h1 className="text-3xl text-[#001E43] font-semibold text-left">
                 Shortlisting University
@@ -246,21 +253,72 @@ const ShortlistUniversity = () => {
               alt="welcome svg"
               className="-mt-12 max-md:hidden"
             />
+          </div> */}
+          <div className="pt-6 pb-5 pl-3">
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                width: { md: "65%", xs: "100%" },
+                height: "20vh",
+                padding: "2rem",
+                backgroundColor: "white",
+                border: "1px solid white",
+                borderRadius: "2rem",
+                boxShadow:
+                  "0px 10px 36px rgba(0, 0, 0, 0.16), 0px 0px 0px 1px rgba(0, 0, 0, 0.06);",
+              }}
+            >
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "flex-start",
+                  flexDirection: "column",
+                  width: { md: "50%", xs: "90%" },
+                }}
+              >
+                <Typography
+                  sx={{
+                    color: "black",
+                    display: { md: "flex", xs: "none" },
+                    fontSize: "1.5rem",
+                    fontWeight: "bold",
+                  }}
+                >
+                  Shortlisting University
+                </Typography>
+                <Typography
+                // sx={{
+                //   fontSize: "1.5rem",
+                // }}
+                >
+                  Nulla Lorem mollit cupidatat irure.
+                </Typography>
+              </Box>
+              <Box sx={{ width: { md: "45%", xs: "100%" } }}>
+                <img
+                  src={welcomeSVG}
+                  alt="library"
+                  className="md:relative md:bottom-7 md:left-10 "
+                />
+              </Box>
+            </Box>
           </div>
-
 
           <div className="flex gap-x-5 mt-10 max-xl:flex-col max-lg:pb-20">
             <div className="w-full xl:w-1/3">
               <Button
-                className='xl:!hidden'
+                className="xl:!hidden"
                 variant="container"
                 sx={{
-                  backgroundColor: '#00285A',
-                  color: 'white',
-                  textTransform: 'capitalize',
-                  '&:hover': {
-                    backgroundColor: '#00285A',
-                    color: 'white'
+                  backgroundColor: "#00285A",
+                  color: "white",
+                  textTransform: "capitalize",
+                  "&:hover": {
+                    backgroundColor: "#00285A",
+                    color: "white",
                   },
                 }}
                 endIcon={<FilterAlt />}
@@ -271,7 +329,7 @@ const ShortlistUniversity = () => {
               <SelectMenue />
             </div>
             <div className="w-full xl:w-2/3 sm:w-2/2">
-              <div className='grid max-md:grid-cols-1 grid-cols-2 gap-x-5'>
+              <div className="grid max-md:grid-cols-1 grid-cols-2 gap-x-5">
                 <Card />
                 <Card />
                 <Card />
@@ -289,14 +347,16 @@ const ShortlistUniversity = () => {
         open={isOpen}
         onClose={() => setIsOpen(false)}
         classes={{
-          paper: '!bg-transparent'
+          paper: "!bg-transparent",
         }}
       >
         <div className="bg-white h-full rounded-t-full max-w-[300px]">
           <div className="relative">
-            <img src={ShortlistSVG} alt='Shortlist' className="" />
+            <img src={ShortlistSVG} alt="Shortlist" className="" />
             <div className="absolute top-0 left-0 w-full h-full flex flex-col justify-between py-5 px-5">
-              <p className="text-white">need more help in finding your dream course?</p>
+              <p className="text-white">
+                need more help in finding your dream course?
+              </p>
               <button className="bg-[#E7ECF3] w-fit text-[#0C3C82] font-semibold py-3 px-6 rounded-full flex items-center gap-x-2">
                 Talk to expert
                 <RightArrowSVG />
