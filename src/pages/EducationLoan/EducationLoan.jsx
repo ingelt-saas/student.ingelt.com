@@ -245,7 +245,7 @@ const EducationLoan = () => {
 
                   {/* input2 */}
                   <div className="inline-block relative">
-                    <label htmlFor="Zone">Where do you want to study?</label>
+                    <label htmlFor="Zone">Where do you live?</label>
                     <select
                       id="Zone"
                       value={input2}
