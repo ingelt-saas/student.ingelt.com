@@ -28,6 +28,7 @@ import FindInstitute from "../pages/FindInstitute/FindInstitute";
 import Institute from "../pages/Institute/Institute";
 
 
+import VisaApplication from "../pages/VisaApplication/VisaApplication";
 
 const Routes = () => {
   // student provider context
@@ -35,6 +36,7 @@ const Routes = () => {
 
   const router = student
     ? createBrowserRouter([
+
       {
         path: "/",
         element: <PanelLayout />,
@@ -71,10 +73,12 @@ const Routes = () => {
           },
           {
 
+
               path: "/education-loan",
               element: <EducationLoan />,
             },
             {
+
 
             path: "/modules",
             element: <Modules />,
@@ -103,6 +107,7 @@ const Routes = () => {
         ],
       },
     ])
+
     : createBrowserRouter([
       {
         path: "/",

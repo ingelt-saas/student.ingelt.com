@@ -17,7 +17,7 @@ import {
   NotesSVG,
   SettingSVG,
   LibrarySVG,
-  ModulesSVG
+  ModulesSVG,
 } from "./SidebarSVG.jsx";
 
 //assets
@@ -33,10 +33,12 @@ const NavItem = ({ to, children, collapseMenu, ...props }) => {
       {...props}
       to={to}
       className={({ isActive }) =>
-        `${isActive
-          ? "bg-[#1B3B7D33] text-[#1B3B7D]"
-          : "bg-transparent text-[#7A7C88]"
-        } ${collapseMenu ? "justify-center gap-0" : "justify-start gap-3"
+        `${
+          isActive
+            ? "bg-[#1B3B7D33] text-[#1B3B7D]"
+            : "bg-transparent text-[#7A7C88]"
+        } ${
+          collapseMenu ? "justify-center gap-0" : "justify-start gap-3"
         } flex items-center text-base font-semibold  rounded-md duration-300 px-3 py-2 hover:bg-[#0064E133] hover:text-[#1B3B7D]`
       }
     >
@@ -100,8 +102,9 @@ const SideBar = () => {
     <>
       {/* Larger device menu */}
       <div
-        className={`${collapseMenu && "max-w-sm"
-          }  lg:w-48 xl:w-56 hidden lg:flex flex-col h-full justify-between`}
+        className={`${
+          collapseMenu && "max-w-sm"
+        }  lg:w-48 xl:w-56 hidden lg:flex flex-col h-full justify-between`}
       >
         <div className={`space-y-2 ${collapseMenu ? "mt-6" : "mt-0"}`}>
           <div className="flex items-start justify-start pt-5 ">
@@ -120,8 +123,9 @@ const SideBar = () => {
                   <NavItem to={item.path} collapseMenu={collapseMenu}>
                     {item.icon}
                     <span
-                      className={`${collapseMenu ? "max-w-0 max-h-0" : "max-w-xs max-h-10"
-                        } overflow-hidden duration-300`}
+                      className={`${
+                        collapseMenu ? "max-w-0 max-h-0" : "max-w-xs max-h-10"
+                      } overflow-hidden duration-300`}
                     >
                       {item.name}
                     </span>
@@ -151,8 +155,9 @@ const SideBar = () => {
                 <NavItem to="/settings" collapseMenu={collapseMenu}>
                   <SettingSVG />
                   <span
-                    className={`${collapseMenu ? "max-w-0 max-h-0" : "max-w-xs max-h-10"
-                      } overflow-hidden duration-300`}
+                    className={`${
+                      collapseMenu ? "max-w-0 max-h-0" : "max-w-xs max-h-10"
+                    } overflow-hidden duration-300`}
                   >
                     Settings
                   </span>
@@ -166,8 +171,9 @@ const SideBar = () => {
                 >
                   <LogoutSVG />
                   <span
-                    className={`${collapseMenu ? "max-w-0 max-h-0" : "max-w-xs max-h-10"
-                      } overflow-hidden duration-300`}
+                    className={`${
+                      collapseMenu ? "max-w-0 max-h-0" : "max-w-xs max-h-10"
+                    } overflow-hidden duration-300`}
                   >
                     Log Out
                   </span>
@@ -206,8 +212,9 @@ const SideBar = () => {
               </li> */}
               <li className="mt-2 navItem">
                 <span
-                  className={`flex items-center ${collapseMenu ? "justify-center" : "gap-3 justify-start"
-                    }`}
+                  className={`flex items-center ${
+                    collapseMenu ? "justify-center" : "gap-3 justify-start"
+                  }`}
                 >
                   <span className="block w-12 h-12 overflow-hidden rounded-full">
                     <Image
@@ -217,8 +224,9 @@ const SideBar = () => {
                     />
                   </span>
                   <span
-                    className={`${collapseMenu ? "w-0 h-0" : "max-w-xs max-h-10"
-                      } overflow-hidden duration-300`}
+                    className={`${
+                      collapseMenu ? "w-0 h-0" : "max-w-xs max-h-10"
+                    } overflow-hidden duration-300`}
                   >
                     <p className="text-base font-semibold leading-none overflow-hidden">
                       {student.name}
@@ -273,7 +281,9 @@ const SideBar = () => {
           >
             <div className={`space-y-2 ${collapseMenu ? "mt-6" : "mt-0"}`}>
               <div className="flex items-center justify-start pt-5">
+
                 <Link to='/'>
+
                   <img
                     src={logo}
                     alt="Logo"
