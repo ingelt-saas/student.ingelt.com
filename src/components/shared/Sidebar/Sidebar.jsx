@@ -19,6 +19,15 @@ import {
   LibrarySVG,
   ModulesSVG,
 } from "./SidebarSVG.jsx";
+// navbar svg
+import img1 from "../../../assets/images/home.svg";
+import img2 from "../../../assets/images/modules.svg";
+import img3 from "../../../assets/images/university.svg";
+import img4 from "../../../assets/images/library.svg";
+import img5 from "../../../assets/images/shortlist.svg";
+import img6 from "../../../assets/images/loan1.svg";
+import img7 from "../../../assets/images/passport.svg";
+import img8 from "../../../assets/images/community.svg";
 
 //assets
 import logo from "../../../assets/images/navlogo.png";
@@ -54,28 +63,35 @@ const SideBar = () => {
   const { student, logOut } = useContext(StudentContext);
 
   const navItemsArr = [
-    { name: "Home", path: "/", icon: <HomeSVG /> },
-    // { name: "Assignments", path: "/assignments", icon: <AssignmentSVG /> },
-    { name: "Library", path: "/centralized-library", icon: <LibrarySVG /> },
+
+    { name: "Home", path: "/", icon: img1 },
+    // { name: "Modules", path: "/module", icon: img2 },
+    { name: "Modules", path: "/modules", icon: img2 },
+    { name: "Find Institute", path: "/find-institute", icon: img3 },
+
+    { name: "Library", path: "/centralized-library", icon: img4 },
+
+//     { name: "Home", path: "/", icon: <HomeSVG /> },
+//     // { name: "Assignments", path: "/assignments", icon: <AssignmentSVG /> },
+//     { name: "Library", path: "/centralized-library", icon: <LibrarySVG /> },
+
     {
       name: "Shortlist University",
       path: "/shortlist-university",
-      icon: <LibrarySVG />,
+      icon: img5,
     },
     {
       name: "Education Loan",
       path: "/education-loan",
-      icon: <LibrarySVG />,
+      icon: img6,
     },
     {
       name: "Visa Application",
       path: "/visa-application",
-      icon: <LibrarySVG />,
+      icon: img7,
     },
-    { name: "Community", path: "/discussion", icon: <DiscussionSVG /> },
+    { name: "Community", path: "/discussion", icon: img8 },
     // { name: "Notes", path: "/notes", icon: <NotesSVG /> },
-    { name: "Modules", path: "/modules", icon: <ModulesSVG /> },
-    { name: "Find Institute", path: "/find-institute", icon: <ModulesSVG /> },
   ];
 
   // const darkModeHandler = () => {
@@ -121,7 +137,9 @@ const SideBar = () => {
               {navItemsArr.map((item, index) => (
                 <li className="navItem mb-2" key={index}>
                   <NavItem to={item.path} collapseMenu={collapseMenu}>
-                    {item.icon}
+                    <div className="bg-blue-500">
+                      <img src={item.icon} alt="svg" className=" " />
+                    </div>
                     <span
                       className={`${
                         collapseMenu ? "max-w-0 max-h-0" : "max-w-xs max-h-10"
@@ -296,7 +314,7 @@ const SideBar = () => {
                   {navItemsArr.map((item, index) => (
                     <li className="navItem mb-2" key={index}>
                       <NavItem to={item.path} onClick={() => setOpen(false)}>
-                        {item.icon}
+                        <img src={item.icon} alt="svg" />
                         <span>{item.name}</span>
                       </NavItem>
                     </li>
