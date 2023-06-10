@@ -186,7 +186,8 @@ const Home = () => {
                 <Image
                   src={student.image}
                   alt={student.name}
-                  className="rounded-full w-full h-full object-cover"
+                  gender={student.gender}
+                  className="rounded-full w-full  h-full object-cover"
                 />
               </div>
 
