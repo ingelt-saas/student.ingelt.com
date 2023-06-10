@@ -16,7 +16,7 @@ import img3 from '../../assets/images/phone-contact.svg';
 import img4 from '../../assets/images/discount.svg';
 import phoneSVG from '../../assets/images/phone.svg';
 
-const InstituteItem = ({ applyHandler, institute }) => {
+const InstituteItem = ({ applyHandler, institute, appliedInstitutes }) => {
 
     // const prevRef = useRef();
     // const nextRef = useRef();
@@ -24,7 +24,7 @@ const InstituteItem = ({ applyHandler, institute }) => {
 
     // destructuring institute object
     const {
-        // id,
+        id,
         name,
         images,
         address,
@@ -41,6 +41,8 @@ const InstituteItem = ({ applyHandler, institute }) => {
     // const { user } = useContext(UserContext);
     // check if logged student have to applied
     // const applied = user && user?.organizations.find((org) => org.id === id);
+
+    const appliedInstitute = Array.isArray(appliedInstitutes) ? appliedInstitutes.find(i => i.organizationId === id) : false;
 
     return (
         <div className="px-4 sm:px-4 py-6 rounded-xl mb-6 flex flex-col lg:flex-row gap-x-4 gap-y-6 shadow-xl bg-white">
@@ -159,7 +161,11 @@ const InstituteItem = ({ applyHandler, institute }) => {
                             Free Video Modules & Resources
                         </h2>
                     </div>
-                    <button className="py-2 px-7 text-white bg-[#0C3C82] rounded-lg font-medium">Apply</button>
+                    <button
+                        disabled={Boolean(appliedInstitute)}
+                        className="py-2 px-7 text-white bg-[#0C3C82] rounded-lg font-medium"
+                        onClick={(e) => applyHandler(e, id)}
+                    >{appliedInstitute ? 'Applied' : 'Apply'}</button>
                 </div>
             </div>
         </div>

@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import discussion from "../../api/discussion";
 import CryptoJS from "crypto-js";
 import Cookies from "js-cookie";
@@ -36,7 +36,9 @@ const Discussions = () => {
 
     for (const key in abbreviations) {
       if (Math.abs(number) >= key) {
-        return `${(number / key).toFixed(1)}${abbreviations[key]}`;
+        return `${(number / key).toFixed(1)
+          }${abbreviations[key]
+          }`;
       }
     }
 
@@ -48,7 +50,7 @@ const Discussions = () => {
       const { data } = await discussion.count();
       setOnlineMembers(data.online);
       setTotalMembers(data.totalMembers);
-    };
+    }
     getAll();
   }, []);
 
@@ -131,8 +133,11 @@ const Discussions = () => {
       const compressedImage = await __compressed(file);
       compressedImages.push(compressedImage);
     }
-    setSelectedImages([...selectedImages, ...compressedImages]);
-  };
+    setSelectedImages([
+      ...selectedImages,
+      ...compressedImages
+    ]);
+  }
 
   const scrollToBottom = () => {
     messageBoxRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -148,104 +153,86 @@ const Discussions = () => {
     <div className="w-full h-full">
       <div className="h-28 bg-white w-full lg:w-[88%] shadow-lg flex items-center justify-center px-5 sticky md:fixed top-0">
         <div className="flex items-start justify-center flex-col w-full flex-[0.7] md:flex-[0.8]">
-          <p className="text-xl md:text-3xl font-medium text-[#1B3B7D]">
-            InGelt Centralized Community
-          </p>
-          <p className="pt-1 text-[#555454] text-sm md:text-base">
-            "Explore The World Through Us"
-          </p>
+          <p className="text-xl md:text-3xl font-medium text-[#1B3B7D]">InGelt Centralized Community</p>
+          <p className="pt-1 text-[#555454] text-sm md:text-base">"Explore The World Through Us"</p>
         </div>
         <div className="w-full flex items-center justify-center flex-[0.3] md:flex-[0.2]">
           <div className="flex items-start justify-center flex-col">
             <div className="flex items-center justify-center">
               <p className="text-[#828282] md:text-base text-xs pr-2">
                 {onlineMembers}
-                &nbsp;Online
-              </p>
+                &nbsp;Online</p>
               <div className="w-2 h-2 rounded-full bg-[#00FF19]"></div>
             </div>
             <p className="text-[#828282] md:text-base text-xs">
-              {formatNumber(totalMembers)}
-              &nbsp;Members
-            </p>
+              {
+                formatNumber(totalMembers)
+              }
+              &nbsp;Members</p>
           </div>
         </div>
       </div>
-      <div
-        id="journal-scroll"
-        className="flex flex-col items-center justify-center w-full px-5"
-      >
-        {Array.isArray(discussions) &&
-          discussions?.map((item) => <MessageBox key={item?.id} data={item} />)}
-      </div>
+      <div id="journal-scroll" className="flex flex-col items-center justify-center w-full px-5">
+        {
+          Array.isArray(discussions) && discussions?.map((item) => (
+            <MessageBox key={
+              item?.id
+            }
+              data={item} />
+          ))
+        } </div>
       <div className="fixed bottom-0 w-full bg-white">
-        {selectedImages.length > 0 && (
-          <div className="flex items-center gap-x-3 pt-3 px-2 overflow-x-hidden">
-            {selectedImages.map((selectedImage, index) => (
-              <div
-                key={index}
-                className="border rounded-md overflow-hidden relative"
-              >
-                <span
-                  onClick={() => removeSelectedImages(index)}
-                  className="absolute top-0 right-0 cursor-pointer bg-black rounded-full text-white w-5 h-5 grid place-items-center"
-                >
-                  <Remove className="!w-4 -mt-0.5" />
-                </span>
-                <img
-                  src={URL.createObjectURL(selectedImage)}
-                  alt=""
-                  className="w-12 h-12 object-cover"
-                />
-              </div>
-            ))}
-          </div>
-        )}
-        <form
-          onSubmit={createDiscussion}
-          className="py-5 px-4 flex items-center justify-start"
-        >
+        {
+          selectedImages.length > 0 && <div className="flex items-center gap-x-3 pt-3 px-2 overflow-x-hidden">
+            {
+              selectedImages.map((selectedImage, index) => (
+                <div key={index}
+                  className="border rounded-md overflow-hidden relative">
+                  <span onClick={
+                    () => removeSelectedImages(index)
+                  }
+                    className="absolute top-0 right-0 cursor-pointer bg-black rounded-full text-white w-5 h-5 grid place-items-center">
+                    <Remove className='!w-4 -mt-0.5' />
+                  </span>
+                  <img src={
+                    URL.createObjectURL(selectedImage)
+                  }
+                    alt=''
+                    className="w-12 h-12 object-cover" />
+                </div>
+              ))
+            } </div>
+        }
+        <form onSubmit={createDiscussion}
+          className="py-5 px-4 flex items-center justify-start">
           <label htmlFor="imageInput" className="text-[#2D2D2D] cursor-pointer">
-            <input
-              type="file"
-              id="imageInput"
-              className="hidden"
-              accept="image/*"
+            <input type="file" id="imageInput" className="hidden" accept="image/*"
               onChange={handleImageInputChange}
-              multiple
-            />
+              multiple />
             <AttachFile fontSize="medium" />
           </label>
-          <input
-            className="bg-white sm:w-screen px-4 mx-4 py-3 border-2 border-[#1B3B7D] rounded-xl"
-            type="text"
-            placeholder="Enter your message"
+          <input className="bg-white sm:w-screen px-4 mx-4 py-3 border-2 border-[#1B3B7D] rounded-xl" type="text" placeholder="Enter your message"
             value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                e.preventDefault();
-                scrollToBottom(); // Prevent the default behavior of the Enter key
-                if (message.trim() !== "" && message.split(" ").length <= 200) {
-                  createDiscussion(e);
+            onChange={
+              (e) => setMessage(e.target.value)
+            }
+            onKeyDown={
+              (e) => {
+                if (e.key === 'Enter') {
+                  e.preventDefault();
+                  scrollToBottom(); // Prevent the default behavior of the Enter key
+                  if (message.trim() !== '' && message.split(' ').length <= 200) {
+                    createDiscussion(e);
+                  }
                 }
               }
-            }}
-          />
-          <button
-            disabled={
-              !(message.trim() !== "" && message.split(" ").length <= 200) &&
-              !selectedImages.length > 0
-            }
-            className="flex items-center justify-center rounded-xl px-4 py-3 transition duration-500 ease-in-out text-white bg-[#1B3B7D] focus:outline-none mr-2 lg:mr-[13rem] xl:mr-[15rem] 2xl:mr-[15rem] disabled:bg-gray"
-          >
+            } />
+          <button disabled={
+            !(message.trim() !== '' && message.split(' ').length <= 200) && !selectedImages.length > 0
+          }
+            className="flex items-center justify-center rounded-xl px-4 py-3 transition duration-500 ease-in-out text-white bg-[#1B3B7D] focus:outline-none mr-2 lg:mr-[13rem] xl:mr-[15rem] 2xl:mr-[15rem] disabled:bg-gray">
             <p className="pr-2 hidden md:flex">Send</p>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-              className="h-6 w-6 transform rotate-90"
-            >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-6 w-6 transform rotate-90">
               <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"></path>
             </svg>
           </button>

@@ -48,14 +48,13 @@ const NavItem = ({ to, children, collapseMenu, ...props }) => {
 };
 
 const SideBar = () => {
+
   const [open, setOpen] = useState(false);
   const [collapseMenu, setCollapseMenu] = useState(false);
   const { student, logOut } = useContext(StudentContext);
 
   const navItemsArr = [
     { name: "Home", path: "/", icon: <HomeSVG /> },
-    { name: "Modules", path: "/module", icon: <HomeSVG /> },
-    { name: "Find Institute", path: "/find-institute", icon: <HomeSVG /> },
     // { name: "Assignments", path: "/assignments", icon: <AssignmentSVG /> },
     { name: "Library", path: "/centralized-library", icon: <LibrarySVG /> },
     {
@@ -133,6 +132,19 @@ const SideBar = () => {
                   </NavItem>
                 </li>
               ))}
+              {student?.organizationId &&
+                <li className="navItem mb-2">
+                  <NavItem to="/institute" collapseMenu={collapseMenu}>
+                    <LibrarySVG />
+                    <span
+                      className={`${collapseMenu ? "max-w-0 max-h-0" : "max-w-xs max-h-10"
+                        } overflow-hidden duration-300`}
+                    >
+                      Institute
+                    </span>
+                  </NavItem>
+                </li>
+              }
             </ul>
           </div>
         </div>
@@ -269,7 +281,9 @@ const SideBar = () => {
           >
             <div className={`space-y-2 ${collapseMenu ? "mt-6" : "mt-0"}`}>
               <div className="flex items-center justify-start pt-5">
-                <Link to="/">
+
+                <Link to='/'>
+
                   <img
                     src={logo}
                     alt="Logo"
@@ -287,6 +301,12 @@ const SideBar = () => {
                       </NavItem>
                     </li>
                   ))}
+                  {student?.organizationId && <li className="navItem">
+                    <NavItem to="/institute" onClick={() => setOpen(false)}>
+                      <LibrarySVG />
+                      <span className={`duration-300`}>Institute</span>
+                    </NavItem>
+                  </li>}
                 </ul>
               </div>
             </div>
