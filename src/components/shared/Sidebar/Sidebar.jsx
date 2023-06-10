@@ -24,7 +24,7 @@ import img1 from "../../../assets/images/home.svg";
 import img2 from "../../../assets/images/modules.svg";
 import img3 from "../../../assets/images/university.svg";
 import img4 from "../../../assets/images/library.svg";
-import img5 from "../../../assets/images/shortlist.svg";
+import img5 from "../../../assets/images/short1.svg";
 import img6 from "../../../assets/images/loan1.svg";
 import img7 from "../../../assets/images/passport.svg";
 import img8 from "../../../assets/images/community.svg";
@@ -57,13 +57,11 @@ const NavItem = ({ to, children, collapseMenu, ...props }) => {
 };
 
 const SideBar = () => {
-
   const [open, setOpen] = useState(false);
   const [collapseMenu, setCollapseMenu] = useState(false);
   const { student, logOut } = useContext(StudentContext);
 
   const navItemsArr = [
-
     { name: "Home", path: "/", icon: img1 },
     // { name: "Modules", path: "/module", icon: img2 },
     { name: "Modules", path: "/modules", icon: img2 },
@@ -71,9 +69,9 @@ const SideBar = () => {
 
     { name: "Library", path: "/centralized-library", icon: img4 },
 
-//     { name: "Home", path: "/", icon: <HomeSVG /> },
-//     // { name: "Assignments", path: "/assignments", icon: <AssignmentSVG /> },
-//     { name: "Library", path: "/centralized-library", icon: <LibrarySVG /> },
+    //     { name: "Home", path: "/", icon: <HomeSVG /> },
+    //     // { name: "Assignments", path: "/assignments", icon: <AssignmentSVG /> },
+    //     { name: "Library", path: "/centralized-library", icon: <LibrarySVG /> },
 
     {
       name: "Shortlist University",
@@ -150,19 +148,20 @@ const SideBar = () => {
                   </NavItem>
                 </li>
               ))}
-              {student?.organizationId &&
+              {student?.organizationId && (
                 <li className="navItem mb-2">
                   <NavItem to="/institute" collapseMenu={collapseMenu}>
                     <LibrarySVG />
                     <span
-                      className={`${collapseMenu ? "max-w-0 max-h-0" : "max-w-xs max-h-10"
-                        } overflow-hidden duration-300`}
+                      className={`${
+                        collapseMenu ? "max-w-0 max-h-0" : "max-w-xs max-h-10"
+                      } overflow-hidden duration-300`}
                     >
                       Institute
                     </span>
                   </NavItem>
                 </li>
-              }
+              )}
             </ul>
           </div>
         </div>
@@ -299,9 +298,7 @@ const SideBar = () => {
           >
             <div className={`space-y-2 ${collapseMenu ? "mt-6" : "mt-0"}`}>
               <div className="flex items-center justify-start pt-5">
-
-                <Link to='/'>
-
+                <Link to="/">
                   <img
                     src={logo}
                     alt="Logo"
@@ -319,12 +316,14 @@ const SideBar = () => {
                       </NavItem>
                     </li>
                   ))}
-                  {student?.organizationId && <li className="navItem">
-                    <NavItem to="/institute" onClick={() => setOpen(false)}>
-                      <LibrarySVG />
-                      <span className={`duration-300`}>Institute</span>
-                    </NavItem>
-                  </li>}
+                  {student?.organizationId && (
+                    <li className="navItem">
+                      <NavItem to="/institute" onClick={() => setOpen(false)}>
+                        <LibrarySVG />
+                        <span className={`duration-300`}>Institute</span>
+                      </NavItem>
+                    </li>
+                  )}
                 </ul>
               </div>
             </div>
