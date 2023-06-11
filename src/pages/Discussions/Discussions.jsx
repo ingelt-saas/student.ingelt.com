@@ -19,6 +19,7 @@ import Compressor from "compressorjs";
 import { SocketContext } from "../../contexts";
 
 const Discussions = () => {
+
   const socket = useContext(SocketContext);
 
   const [message, setMessage] = useState("");
@@ -45,6 +46,22 @@ const Discussions = () => {
     return number.toString();
   };
 
+
+  const scrollToBottom = () => {
+    const messageBox = document.getElementById('scroll-div');
+    if (messageBox) {
+      messageBox.scroll(0, messageBox.scrollHeight);
+
+    }
+    // console.log(messageBox.scrollHeight)
+    // messageBoxRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    const messageBox = document.getElementById('scroll-div');
+    messageBox.scroll(0, messageBox.scrollHeight);
+  }, [discussions]);
+
   useEffect(() => {
     const getAll = async () => {
       const { data } = await discussion.count();
@@ -59,10 +76,6 @@ const Discussions = () => {
       const _discussions = await discussion.getDiscussions(1, 1000);
       setDiscussions(_discussions?.data?.rows);
       scrollToBottom();
-      const childEle = messageBoxRef.current?.children;
-      if (childEle && childEle.length > 0) {
-        messageBoxRef.current.scrollTo(0, childEle[0].clientHeight);
-      }
     } catch (error) {
       console.error(error);
     }
@@ -139,10 +152,6 @@ const Discussions = () => {
     ]);
   }
 
-  const scrollToBottom = () => {
-    messageBoxRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
-
   const removeSelectedImages = (index) => {
     let newSelectedImages = [...selectedImages];
     newSelectedImages.splice(index, 1);
@@ -172,8 +181,8 @@ const Discussions = () => {
           </div>
         </div>
       </div>
-      <div className="w-full overflow-y-auto flex-1">
-        <div id="journal-scroll" className="flex-1 overflow-y-auto flex flex-col items-center justify-center w-full px-5">
+      <div id='scroll-div' className="w-full overflow-y-auto flex-1">
+        <div id="journal-scroll" className="flex-1 flex flex-col items-center justify-center w-full px-5">
           {
             Array.isArray(discussions) && discussions?.map((item) => (
               <MessageBox key={
