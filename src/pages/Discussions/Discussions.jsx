@@ -150,8 +150,8 @@ const Discussions = () => {
   };
 
   return (
-    <div className="w-full h-full">
-      <div className="h-28 bg-white w-full lg:w-[88%] shadow-lg flex items-center justify-center px-5 sticky md:fixed top-0">
+    <div className="w-full h-full flex flex-col">
+      <div className="py-8 bg-white w-full shadow-lg flex items-center justify-center px-5">
         <div className="flex items-start justify-center flex-col w-full flex-[0.7] md:flex-[0.8]">
           <p className="text-xl md:text-3xl font-medium text-[#1B3B7D]">InGelt Centralized Community</p>
           <p className="pt-1 text-[#555454] text-sm md:text-base">"Explore The World Through Us"</p>
@@ -172,16 +172,18 @@ const Discussions = () => {
           </div>
         </div>
       </div>
-      <div id="journal-scroll" className="flex flex-col items-center justify-center w-full px-5">
-        {
-          Array.isArray(discussions) && discussions?.map((item) => (
-            <MessageBox key={
-              item?.id
-            }
-              data={item} />
-          ))
-        } </div>
-      <div className="fixed bottom-0 w-full bg-white">
+      <div className="w-full overflow-y-auto flex-1">
+        <div id="journal-scroll" className="flex-1 overflow-y-auto flex flex-col items-center justify-center w-full px-5">
+          {
+            Array.isArray(discussions) && discussions?.map((item) => (
+              <MessageBox key={
+                item?.id
+              }
+                data={item} />
+            ))
+          } </div>
+      </div>
+      <div className="w-full bg-white">
         {
           selectedImages.length > 0 && <div className="flex items-center gap-x-3 pt-3 px-2 overflow-x-hidden">
             {
@@ -204,33 +206,35 @@ const Discussions = () => {
             } </div>
         }
         <form onSubmit={createDiscussion}
-          className="py-5 px-4 flex items-center justify-start">
+          className="py-5 px-4 flex items-center justify-between w-full">
           <label htmlFor="imageInput" className="text-[#2D2D2D] cursor-pointer">
             <input type="file" id="imageInput" className="hidden" accept="image/*"
               onChange={handleImageInputChange}
               multiple />
             <AttachFile fontSize="medium" />
           </label>
-          <input className="bg-white sm:w-screen px-4 mx-4 py-3 border-2 border-[#1B3B7D] rounded-xl" type="text" placeholder="Enter your message"
-            value={message}
-            onChange={
-              (e) => setMessage(e.target.value)
-            }
-            onKeyDown={
-              (e) => {
-                if (e.key === 'Enter') {
-                  e.preventDefault();
-                  scrollToBottom(); // Prevent the default behavior of the Enter key
-                  if (message.trim() !== '' && message.split(' ').length <= 200) {
-                    createDiscussion(e);
+          <div className="flex-1 px-4">
+            <input className="bg-white px-4 w-full py-3 border-2 border-[#1B3B7D] rounded-xl" type="text" placeholder="Enter your message"
+              value={message}
+              onChange={
+                (e) => setMessage(e.target.value)
+              }
+              onKeyDown={
+                (e) => {
+                  if (e.key === 'Enter') {
+                    e.preventDefault();
+                    scrollToBottom(); // Prevent the default behavior of the Enter key
+                    if (message.trim() !== '' && message.split(' ').length <= 200) {
+                      createDiscussion(e);
+                    }
                   }
                 }
-              }
-            } />
+              } />
+          </div>
           <button disabled={
             !(message.trim() !== '' && message.split(' ').length <= 200) && !selectedImages.length > 0
           }
-            className="flex items-center justify-center rounded-xl px-4 py-3 transition duration-500 ease-in-out text-white bg-[#1B3B7D] focus:outline-none mr-2 lg:mr-[13rem] xl:mr-[15rem] 2xl:mr-[15rem] disabled:bg-gray">
+            className="flex items-center justify-center rounded-xl px-4 py-3 transition duration-500 ease-in-out text-white bg-[#1B3B7D] focus:outline-none disabled:bg-gray">
             <p className="pr-2 hidden md:flex">Send</p>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-6 w-6 transform rotate-90">
               <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"></path>
