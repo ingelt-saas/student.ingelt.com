@@ -4,23 +4,68 @@ import welcomeSVG from "../../assets/images/scholar.svg";
 import loanSVG from "../../assets/images/loan.svg";
 import darkDownSVG from "../../assets/images/darkDown.svg";
 import img2 from "../../assets/images/Personal finance-pana.svg";
+import {
+  Box,
+  CircularProgress,
+  TablePagination,
+  Typography,
+} from "@mui/material";
 
 const Page2 = () => {
   return (
     <div className="flex flex-row flex-wrap gap-y-10 gap-x-5 w-full  sm:m-auto">
       <div className="w-full h-20 foo:block ">
-        <div className="relative rounded-xl pb-14 shadow-lg bg-white mx-3 ">
-          <h1 className="text-3xl font-semibold text-left pb-5 pt-12 px-5 ">
-            Education Loan
-          </h1>
-          <p className="text-left  px-5 w-1/3 ">
-            Nulla Lorem mollit cupidatat irure. Laborum magna cillum dolor.{" "}
-          </p>
-          <img
-            src={welcomeSVG}
-            alt="welcome svg"
-            className="absolute bottom-0 right-3 h-52 w-auto"
-          />
+        <div className="pt-6 pb-5 pl-3">
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              width: { md: "65%", xs: "100%" },
+              height: "20vh",
+              padding: "2rem",
+              backgroundColor: "white",
+              border: "1px solid white",
+              borderRadius: "2rem",
+              boxShadow:
+                "0px 10px 36px rgba(0, 0, 0, 0.16), 0px 0px 0px 1px rgba(0, 0, 0, 0.06);",
+            }}
+          >
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "flex-start",
+                flexDirection: "column",
+                width: { md: "50%", xs: "90%" },
+              }}
+            >
+              <Typography
+                sx={{
+                  color: "black",
+                  display: { md: "flex", xs: "none" },
+                  fontSize: "1.5rem",
+                  fontWeight: "bold",
+                }}
+              >
+                Shortlisting University
+              </Typography>
+              <Typography
+              // sx={{
+              //   fontSize: "1.5rem",
+              // }}
+              >
+                Nulla Lorem mollit cupidatat irure.
+              </Typography>
+            </Box>
+            <Box sx={{ width: { md: "45%", xs: "100%" } }}>
+              <img
+                src={welcomeSVG}
+                alt="library"
+                className="md:relative md:bottom-7 md:left-10 "
+              />
+            </Box>
+          </Box>
         </div>
         <div className="flex w-full">
           <div className="w-1/2 flex max-lg:hidden">
@@ -38,7 +83,7 @@ const Page2 = () => {
                     <div className="flex relative pb-12">
                       {/* creating line */}
                       <div class="h-full w-10 absolute inset-0 flex items-center justify-center">
-                        <div class="h-full w-3 bg-[#00285A] pointer-events-none"></div>
+                        <div class="h-full w-1 bg-[#00285A] pointer-events-none"></div>
                       </div>
                       <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#00285A] inline-flex items-center justify-center text-white relative z-10">
                         <svg
@@ -66,7 +111,7 @@ const Page2 = () => {
                     <div className="flex relative pb-12">
                       {/* creating line */}
                       <div className="h-full w-10 absolute inset-0 flex items-center justify-center">
-                        <div className="h-full w-3 bg-[#00285A] pointer-events-none"></div>
+                        <div className="h-full w-1 bg-[#00285A] pointer-events-none"></div>
                       </div>
                       <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#00285A] inline-flex items-center justify-center text-white relative z-10">
                         <svg
@@ -94,7 +139,7 @@ const Page2 = () => {
                     <div className="flex relative pb-12">
                       {/* creating line */}
                       <div className="h-full w-10 absolute inset-0 flex items-center justify-center">
-                        <div className="h-full w-3 bg-[#00285A] pointer-events-none"></div>
+                        <div className="h-full w-1 bg-[#00285A] pointer-events-none"></div>
                       </div>
                       <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#00285A] inline-flex items-center justify-center text-white relative z-10">
                         <svg
@@ -112,7 +157,7 @@ const Page2 = () => {
                       </div>
                       <div className="flex-grow pl-4">
                         <h2 className="font-extrabold title-font  text-[#00285A] mb-1 tracking-wider">
-                          Additional Document
+                          File Preparation
                         </h2>
                         <p className="leading-relaxed">
                           Counselors can help you organize and prepare the
@@ -123,7 +168,7 @@ const Page2 = () => {
                     <div className="flex relative pb-12">
                       {/* creating line */}
                       <div className="h-full w-10 absolute inset-0 flex items-center justify-center">
-                        <div className="h-full w-3 bg-[#646669] pointer-events-none "></div>
+                        <div className="h-full w-1 bg-[#646669] pointer-events-none "></div>
                       </div>
                       <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#00285A] inline-flex items-center justify-center text-white relative z-10">
                         <svg
@@ -141,7 +186,7 @@ const Page2 = () => {
                       </div>
                       <div className="flex-grow pl-4">
                         <h2 className="font-extrabold title-font  text-[#00285A] mb-1 tracking-wider">
-                          Document Prepared
+                          Applied for Loan
                         </h2>
                         <p className="leading-relaxed">
                           Counselors can help you organize and prepare the
@@ -166,7 +211,7 @@ const Page2 = () => {
                       </div>
                       <div className="flex-grow pl-4">
                         <h2 className="font-extrabold title-font  text-[#00285A] mb-1 tracking-wider">
-                          File Reviewed
+                          Loan Disbursed
                         </h2>
                         <p className="leading-relaxed">
                           Counselors can help you organize and prepare the
@@ -189,8 +234,13 @@ const EducationLoan = () => {
   const [input1, setInput1] = useState("");
   const [input2, setInput2] = useState("");
   const [input3, setInput3] = useState("");
-  const [input4, setInput4] = useState("");
+  const [selectedDate, setSelectedDate] = useState("");
+  const [intake, setIntake] = useState("");
+
   const [page, setPage] = useState(true);
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
+  };
   // useEffect(() => {
   //   console.log(input1);
   // }, [input1]);
@@ -200,7 +250,7 @@ const EducationLoan = () => {
       {page ? (
         <div className="flex flex-row flex-wrap gap-y-10 gap-x-5 w-full ">
           <div className="w-full h-20 foo:block ">
-            <div className="relative rounded-xl pb-14 shadow-lg bg-white mx-3 ">
+            {/* <div className="relative rounded-xl pb-14 shadow-lg bg-white mx-3 ">
               <h1 className="text-3xl font-semibold text-left pb-5 pt-12 px-5 ">
                 Education Loan
               </h1>
@@ -212,6 +262,58 @@ const EducationLoan = () => {
                 alt="welcome svg"
                 className="absolute bottom-0 right-3 h-52 w-auto"
               />
+            </div> */}
+            <div className="pt-3 pb-4 pl-3">
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "left",
+                  alignItems: "center",
+                  width: { md: "65%", xs: "100%" },
+                  height: "20vh",
+                  padding: "2rem",
+                  backgroundColor: "white",
+                  border: "1px solid white",
+                  borderRadius: "2rem",
+                  boxShadow:
+                    "0px 10px 36px rgba(0, 0, 0, 0.16), 0px 0px 0px 1px rgba(0, 0, 0, 0.06);",
+                }}
+              >
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "flex-start",
+                    flexDirection: "column",
+                    width: { md: "50%", xs: "90%" },
+                  }}
+                >
+                  <Typography
+                    sx={{
+                      color: "black",
+                      display: { md: "flex", xs: "none" },
+                      fontSize: "1.5rem",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    Education Loan
+                  </Typography>
+                  <Typography
+                  // sx={{
+                  //   fontSize: "1.5rem",
+                  // }}
+                  >
+                    Nulla Lorem mollit cupidatat irure.
+                  </Typography>
+                </Box>
+                <Box sx={{ width: { md: "30%", xs: "100%" } }}>
+                  <img
+                    src={welcomeSVG}
+                    alt="library"
+                    className="md:relative md:bottom-1  md:left-28 "
+                  />
+                </Box>
+              </Box>
             </div>
             <div className="flex w-full">
               <div className="w-1/2 flex max-lg:hidden">
@@ -245,7 +347,7 @@ const EducationLoan = () => {
 
                   {/* input2 */}
                   <div className="inline-block relative">
-                    <label htmlFor="Zone">Where do you want to study?</label>
+                    <label htmlFor="Zone">Where do you live?</label>
                     <select
                       id="Zone"
                       value={input2}
@@ -264,7 +366,9 @@ const EducationLoan = () => {
                   </div>
                   {/* input3 */}
                   <div className="inline-block relative">
-                    <label htmlFor="State">Where do you want to study?</label>
+                    <label htmlFor="State">
+                      What is your family annual income?
+                    </label>
                     <select
                       id="State"
                       value={input3}
@@ -283,27 +387,32 @@ const EducationLoan = () => {
                   </div>
                   {/* input4 */}
                   <div className="inline-block relative">
-                    <label className="block">
+                    {/* <label className="block">
                       What’s your preferred intake?
-                    </label>
+                    </label> */}
 
-                    <ul className="grid w-full gap-6 md:grid-cols-3 mt-2">
+                    {/* <ul className="grid w-full gap-6 md:grid-cols-3 mt-2">
                       <li>
                         <input
                           type="radio"
                           id="date1"
                           name="dates"
-                          value="date1"
+                          value="Sep 2023"
                           className="sr-only"
                           required
+                          onChange={() => handleDateChange("Sep 2023")}
                         />
                         <label
                           htmlFor="date1"
-                          className="radio-label inline-flex items-center justify-between w-full p-4 text-[#001E43] bg-white rounded-lg cursor-pointer hover:text-white hover:bg-[#001E43]"
+                          className={`radio-label inline-flex items-center justify-between w-full p-4 text-[#001E43]  rounded-lg cursor-pointer ${
+                            selectedDate === "Sep 2023"
+                              ? "bg-[#001E43] text-white"
+                              : "hover:text-white hover:bg-[#001E43]"
+                          }`}
                         >
-                          <div className="block">
-                            <p className="w-full text-lg font-semibold">
-                              Sep 2023
+                          <div className="flex item-center justify-center boder-2 border-black">
+                            <p className="w-full text-lg font-semibold  text-center ">
+                              Sep 202333
                             </p>
                           </div>
                         </label>
@@ -314,13 +423,18 @@ const EducationLoan = () => {
                           type="radio"
                           id="date2"
                           name="dates"
-                          value="date2"
+                          value="Jan 2024"
                           className="sr-only"
                           required
+                          onChange={() => handleDateChange("Jan 2024")}
                         />
                         <label
                           htmlFor="date2"
-                          className="radio-label inline-flex items-center justify-between w-full p-4 text-[#001E43] bg-white rounded-lg cursor-pointer dark:text-gray-300 dark:bg-gray-800 dark:hover:text-gray-300  hover:text-white hover:bg-[#001E43]"
+                          className={`radio-label inline-flex items-center justify-between w-full p-4 text-[#001E43]  rounded-lg cursor-pointer dark:text-gray-300 dark:bg-gray-800 dark:hover:text-gray-300 ${
+                            selectedDate === "Jan 2024"
+                              ? "bg-[#001E43] text-white"
+                              : "hover:text-white hover:bg-[#001E43]"
+                          }`}
                         >
                           <div className="block">
                             <p className="w-full text-lg font-semibold">
@@ -335,13 +449,18 @@ const EducationLoan = () => {
                           type="radio"
                           id="date3"
                           name="dates"
-                          value="date3"
+                          value="Feb 2024"
                           className="sr-only"
                           required
+                          onChange={() => handleDateChange("Feb 2024")}
                         />
                         <label
                           htmlFor="date3"
-                          className="radio-label inline-flex items-center justify-between w-full p-4 text-[#001E43] bg-white rounded-lg cursor-pointer dark:text-gray-300 dark:bg-gray-800 dark:hover:text-gray-300 hover:text-white hover:bg-[#001E43]"
+                          className={`radio-label inline-flex items-center justify-between w-full p-4 text-[#001E43] rounded-lg cursor-pointer dark:text-gray-300 dark:bg-gray-800 dark:hover:text-gray-300 ${
+                            selectedDate === "Feb 2024"
+                              ? "bg-[#001E43] text-white"
+                              : "hover:text-white hover:bg-[#001E43]"
+                          }`}
                         >
                           <div className="block">
                             <p className="w-full text-lg font-semibold">
@@ -350,7 +469,47 @@ const EducationLoan = () => {
                           </div>
                         </label>
                       </li>
-                    </ul>
+                    </ul> */}
+                    <p className="mt-5">What's your preferred intake?</p>
+                    <div className="flex gap-x-5 mt-2">
+                      <div
+                        className={`py-3 px-6 cursor-pointer flex items-center justify-center max-lg:px-2 max-lg:border rounded-2xl border-2 border-[#001E43] ${
+                          intake === "September 2023"
+                            ? "bg-[#001E43] text-white"
+                            : "border-2 border-[#001E43]"
+                        }`}
+                        onClick={() => {
+                          setIntake("September 2023");
+                        }}
+                      >
+                        <p className="max-xl:text-xs text-base">Sep 2023</p>
+                      </div>
+                      <div
+                        className={`py-3 px-6 cursor-pointer flex items-center justify-center max-lg:px-2 max-lg:border rounded-2xl border-2 border-[#001E43] ${
+                          intake === "January 2024"
+                            ? "bg-[#001E43] text-white"
+                            : "border-2 border-[#001E43]"
+                        }`}
+                        onClick={() => {
+                          setIntake("January 2024");
+                        }}
+                      >
+                        <p className="max-xl:text-xs text-base">Jan 2024</p>
+                      </div>
+                      <div
+                        className={`py-3 px-6 cursor-pointer flex items-center justify-center max-lg:px-2 max-lg:border rounded-2xl border-2 border-[#001E43] ${
+                          intake === "May 2024"
+                            ? "bg-[#001E43] text-white"
+                            : "border-2 border-[#001E43]"
+                        }`}
+                        onClick={() => {
+                          setIntake("May 2024");
+                        }}
+                      >
+                        <p className="max-xl:text-xs text-base">May 2024</p>
+                      </div>
+                                
+                    </div>
                   </div>
 
                   {/* submit button */}

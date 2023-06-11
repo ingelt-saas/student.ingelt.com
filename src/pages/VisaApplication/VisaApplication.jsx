@@ -115,7 +115,7 @@ const Page2 = () => {
                       </div>
                       <div className="flex-grow pl-4">
                         <h2 className="font-extrabold title-font  text-[#00285A] mb-1 tracking-wider">
-                          Additional Document
+                          File Preparation
                         </h2>
                         <p className="leading-relaxed">
                           Counselors can help you organize and prepare the
@@ -140,34 +140,6 @@ const Page2 = () => {
                         >
                           <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"></path>
                           <circle cx="12" cy="7" r="4"></circle>
-                        </svg>
-                      </div>
-                      <div className="flex-grow pl-4">
-                        <h2 className="font-extrabold title-font  text-[#00285A] mb-1 tracking-wider">
-                          Document Prepared
-                        </h2>
-                        <p className="leading-relaxed">
-                          Counselors can help you organize and prepare the
-                          required documents for your visa application.
-                        </p>
-                      </div>
-                    </div>
-                    <div className="flex relative pb-3">
-                      <div className="h-full w-10 absolute inset-0 flex items-center justify-center">
-                        <div className="h-full w-1 bg-[#646669] pointer-events-none "></div>
-                      </div>
-                      <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#646669] inline-flex items-center justify-center text-white relative z-10">
-                        <svg
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          className="w-5 h-5"
-                          viewBox="0 0 24 24"
-                        >
-                          <path d="M22 11.08V12a10 10 0 11-5.93-9.14"></path>
-                          <path d="M22 4L12 14.01l-3-3"></path>
                         </svg>
                       </div>
                       <div className="flex-grow pl-4">
@@ -293,10 +265,12 @@ const VisaApplication = () => {
                       onChange={(e) => setInput1(e.target.value)}
                       className="block appearance-none w-full bg-white border-none hover:border-gray-500 px-4 py-4 pr-8 mt-1 rounded-xl shadow-lg leading-tight focus:outline-none focus:shadow-outline"
                     >
-                      <option disabled selected value="">
+                      <option disabled value="">
                         Type of Visa
                       </option>
-                      <option>Option 2</option>
+                      <option selected value="Study Visa">
+                        Study Visa
+                      </option>
                       <option>Option 3</option>
                     </select>
                     <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 mt-5 text-gray-700">
