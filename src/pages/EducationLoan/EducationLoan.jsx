@@ -7,9 +7,46 @@ import img2 from "../../assets/images/Personal finance-pana.svg";
 import {
   Box,
   CircularProgress,
+  FormControl,
   TablePagination,
+  Select,
+  OutlinedInput,
+  MenuItem,
   Typography,
 } from "@mui/material";
+
+
+const SelectMenu = ({ options, placeholder, value, handleChange, name }) => {
+  return (<FormControl fullWidth>
+    <Select
+      sx={{
+        '& .MuiOutlinedInput-notchedOutline': {
+          border: 'none !important',
+        },
+        fontWeight: 500,
+        color: '#001E43',
+        textAlign: 'left',
+        backgroundColor: 'white',
+        fontSize: '0.9rem',
+      }}
+      displayEmpty
+      value={value || ''}
+      onChange={handleChange}
+      input={<OutlinedInput />}
+      name={name}
+      MenuProps={{ sx: { height: '50vh' } }}
+      inputProps={{ 'aria-label': 'Without label' }}
+    >
+      <MenuItem disabled value="">
+        {placeholder}
+      </MenuItem>
+      {Array.isArray(options) && options.map(item =>
+        <MenuItem key={item} value={item}>{item}</MenuItem>
+      )}
+    </Select>
+  </FormControl >
+  );
+}
 
 const Page2 = () => {
   return (
@@ -76,7 +113,7 @@ const Page2 = () => {
             />
           </div>
           <div className="w-1/2">
-            <section className=" body-font">
+            <section className="body-font">
               <div className="container px-5 pb-24 pt-10 mx-auto flex flex-wrap">
                 <div className="flex flex-wrap w-full">
                   <div className=" md:pr-10 md:py-6">
@@ -231,19 +268,25 @@ const Page2 = () => {
 };
 
 const EducationLoan = () => {
-  const [input1, setInput1] = useState("");
-  const [input2, setInput2] = useState("");
-  const [input3, setInput3] = useState("");
-  const [selectedDate, setSelectedDate] = useState("");
-  const [intake, setIntake] = useState("");
 
-  const [page, setPage] = useState(true);
-  const handleDateChange = (date) => {
-    setSelectedDate(date);
-  };
-  // useEffect(() => {
-  //   console.log(input1);
-  // }, [input1]);
+  const [data, setData] = useState({
+    intake: '',
+    country: '',
+    zone: '',
+    familyIncome: '',
+  });
+  const [page, setPage] = useState(false);
+
+  const handleChange = (e) => {
+    setData({ ...data, [e.target.name]: e.target.value });
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (Object.values(data).includes('')) {
+      return;
+    }
+  }
 
   return (
     <div className="flex ">
@@ -324,199 +367,63 @@ const EducationLoan = () => {
                 />
               </div>
               <div className="w-1/2  max-lg:w-full">
-                <form className="flex flex-col gap-y-5 pt-5 pr-3 mb-10">
-                  {/* input1 */}
-                  <div className="inline-block relative">
-                    <label htmlFor="State">Where do you want to study?</label>
-                    <select
-                      id="State"
-                      value={input1}
-                      onChange={(e) => setInput1(e.target.value)}
-                      className="block appearance-none w-full bg-white border-none hover:border-gray-500 px-4 py-4 pr-8 rounded-xl shadow-2xl leading-tight focus:outline-none focus:shadow-outline"
-                    >
-                      <option disabled selected value="">
-                        Select Your State
-                      </option>
-                      <option>Option 2</option>
-                      <option>Option 3</option>
-                    </select>
-                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 mt-5 text-gray-700">
-                      <img src={darkDownSVG} alt="downarrow" className="" />
+                <form onSubmit={handleSubmit} className="flex flex-col gap-y-5 pt-5 pr-3 mb-10">
+
+                  <div className='flex flex-col gap-y-2'>
+                    <label htmlFor="state">Where do you want to study?</label>
+                    <div className='shadow-lg rounded-xl overflow-hidden'>
+                      <SelectMenu
+                        placeholder={'Select country'}
+                        name={'country'}
+                        handleChange={handleChange}
+                        value={data.country}
+                        options={['UK', 'USA', 'New Zealand', 'Ireland', 'Canada']}
+                      />
                     </div>
                   </div>
 
-                  {/* input2 */}
-                  <div className="inline-block relative">
-                    <label htmlFor="Zone">Where do you live?</label>
-                    <select
-                      id="Zone"
-                      value={input2}
-                      onChange={(e) => setInput2(e.target.value)}
-                      className="block appearance-none w-full bg-white border-none hover:border-gray-500 px-4 py-4 pr-8 rounded-xl shadow-2xl leading-tight focus:outline-none focus:shadow-outline"
-                    >
-                      <option disabled selected value="">
-                        Select Your District / Zone
-                      </option>
-                      <option>Option 2</option>
-                      <option>Option 3</option>
-                    </select>
-                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 mt-5 text-gray-700">
-                      <img src={darkDownSVG} alt="downarrow" className="" />
+                  <div className='flex flex-col gap-y-2'>
+                    <label htmlFor="zone">Where do you live?</label>
+                    <div className='shadow-lg rounded-xl overflow-hidden'>
+                      <SelectMenu
+                        placeholder={'Select your district/zone'}
+                        name={'zone'}
+                        value={data.zone}
+                        handleChange={handleChange}
+                      />
                     </div>
                   </div>
-                  {/* input3 */}
-                  <div className="inline-block relative">
-                    <label htmlFor="State">
-                      What is your family annual income?
-                    </label>
-                    <select
-                      id="State"
-                      value={input3}
-                      onChange={(e) => setInput3(e.target.value)}
-                      className="block appearance-none w-full bg-white border-none hover:border-gray-500 px-4 py-4 pr-8 rounded-xl shadow-2xl leading-tight focus:outline-none focus:shadow-outline"
-                    >
-                      <option disabled selected value="">
-                        Family Annual Income
-                      </option>
-                      <option>Option 2</option>
-                      <option>Option 3</option>
-                    </select>
-                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 mt-5 text-gray-700">
-                      <img src={darkDownSVG} alt="downarrow" className="" />
+
+                  <div className='flex flex-col gap-y-2'>
+                    <label htmlFor="zone">What is your family annual income?</label>
+                    <div className='shadow-lg rounded-xl overflow-hidden'>
+                      <SelectMenu
+                        placeholder={'Family Annual Income'}
+                        name={'familyIncome'}
+                        value={data.familyIncome}
+                        handleChange={handleChange}
+                      />
                     </div>
                   </div>
-                  {/* input4 */}
-                  <div className="inline-block relative">
-                    {/* <label className="block">
-                      What’s your preferred intake?
-                    </label> */}
 
-                    {/* <ul className="grid w-full gap-6 md:grid-cols-3 mt-2">
-                      <li>
-                        <input
-                          type="radio"
-                          id="date1"
-                          name="dates"
-                          value="Sep 2023"
-                          className="sr-only"
-                          required
-                          onChange={() => handleDateChange("Sep 2023")}
-                        />
-                        <label
-                          htmlFor="date1"
-                          className={`radio-label inline-flex items-center justify-between w-full p-4 text-[#001E43]  rounded-lg cursor-pointer ${
-                            selectedDate === "Sep 2023"
-                              ? "bg-[#001E43] text-white"
-                              : "hover:text-white hover:bg-[#001E43]"
-                          }`}
-                        >
-                          <div className="flex item-center justify-center boder-2 border-black">
-                            <p className="w-full text-lg font-semibold  text-center ">
-                              Sep 202333
-                            </p>
-                          </div>
+                  <div className='flex flex-col gap-y-2'>
+                    <label>What's your preferred intake?</label>
+                    <div className="flex flex-wrap gap-3">
+                      {['Sep 2023', 'Jan 2024', 'May 2024'].map(item =>
+                        <label htmlFor={item} key={item} className={`${item === data.intake ? 'bg-[#001E43] text-white' : 'bg-transparent text-[#001E43]'} border-2 border-[#001E43] duration-300 rounded-xl px-4 py-2 cursor-pointer`}>
+                          <input onChange={handleChange} id={item} value={item} className="sr-only peer" checked={Boolean(data.intake === item)} type="radio" name='intake' />
+                          {item}
                         </label>
-                      </li>
-
-                      <li>
-                        <input
-                          type="radio"
-                          id="date2"
-                          name="dates"
-                          value="Jan 2024"
-                          className="sr-only"
-                          required
-                          onChange={() => handleDateChange("Jan 2024")}
-                        />
-                        <label
-                          htmlFor="date2"
-                          className={`radio-label inline-flex items-center justify-between w-full p-4 text-[#001E43]  rounded-lg cursor-pointer dark:text-gray-300 dark:bg-gray-800 dark:hover:text-gray-300 ${
-                            selectedDate === "Jan 2024"
-                              ? "bg-[#001E43] text-white"
-                              : "hover:text-white hover:bg-[#001E43]"
-                          }`}
-                        >
-                          <div className="block">
-                            <p className="w-full text-lg font-semibold">
-                              Jan 2024
-                            </p>
-                          </div>
-                        </label>
-                      </li>
-
-                      <li>
-                        <input
-                          type="radio"
-                          id="date3"
-                          name="dates"
-                          value="Feb 2024"
-                          className="sr-only"
-                          required
-                          onChange={() => handleDateChange("Feb 2024")}
-                        />
-                        <label
-                          htmlFor="date3"
-                          className={`radio-label inline-flex items-center justify-between w-full p-4 text-[#001E43] rounded-lg cursor-pointer dark:text-gray-300 dark:bg-gray-800 dark:hover:text-gray-300 ${
-                            selectedDate === "Feb 2024"
-                              ? "bg-[#001E43] text-white"
-                              : "hover:text-white hover:bg-[#001E43]"
-                          }`}
-                        >
-                          <div className="block">
-                            <p className="w-full text-lg font-semibold">
-                              Feb 2024
-                            </p>
-                          </div>
-                        </label>
-                      </li>
-                    </ul> */}
-                    <p className="mt-5">What's your preferred intake?</p>
-                    <div className="flex gap-x-5 mt-2">
-                      <div
-                        className={`py-3 px-6 cursor-pointer flex items-center justify-center max-lg:px-2 max-lg:border rounded-2xl border-2 border-[#001E43] ${
-                          intake === "September 2023"
-                            ? "bg-[#001E43] text-white"
-                            : "border-2 border-[#001E43]"
-                        }`}
-                        onClick={() => {
-                          setIntake("September 2023");
-                        }}
-                      >
-                        <p className="max-xl:text-xs text-base">Sep 2023</p>
-                      </div>
-                      <div
-                        className={`py-3 px-6 cursor-pointer flex items-center justify-center max-lg:px-2 max-lg:border rounded-2xl border-2 border-[#001E43] ${
-                          intake === "January 2024"
-                            ? "bg-[#001E43] text-white"
-                            : "border-2 border-[#001E43]"
-                        }`}
-                        onClick={() => {
-                          setIntake("January 2024");
-                        }}
-                      >
-                        <p className="max-xl:text-xs text-base">Jan 2024</p>
-                      </div>
-                      <div
-                        className={`py-3 px-6 cursor-pointer flex items-center justify-center max-lg:px-2 max-lg:border rounded-2xl border-2 border-[#001E43] ${
-                          intake === "May 2024"
-                            ? "bg-[#001E43] text-white"
-                            : "border-2 border-[#001E43]"
-                        }`}
-                        onClick={() => {
-                          setIntake("May 2024");
-                        }}
-                      >
-                        <p className="max-xl:text-xs text-base">May 2024</p>
-                      </div>
-                                
+                      )}
                     </div>
                   </div>
 
                   {/* submit button */}
                   <div>
                     <button
+                      disabled={Boolean(Object.values(data).includes(''))}
                       type="submit"
-                      className="bg-[#001E43]  w-full text-white font-bold py-2 px-4 border border-blue-700 rounded-2xl"
+                      className="bg-[#001E43] disabled:opacity-80 border-2 border-[#001E43] hover:bg-transparent hover:text-[#001E43] w-full text-white font-bold py-3 px-4 rounded-xl duration-300"
                       onClick={(e) => {
                         setPage(false);
                       }}
@@ -524,6 +431,7 @@ const EducationLoan = () => {
                       Continue
                     </button>
                   </div>
+                  <p className="text-center text-black text-sm">By continuing, you agree to our <span className="font-medium text-[#001E43] cursor-pointer">Term of services</span> & <span className="font-medium text-[#001E43] cursor-pointer">Privacy policy</span></p>
                 </form>
               </div>
             </div>

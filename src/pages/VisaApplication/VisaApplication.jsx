@@ -5,6 +5,40 @@ import loanSVG from "../../assets/images/visa.svg";
 import darkDownSVG from "../../assets/images/darkDown.svg";
 import img2 from "../../assets/images/travel.svg";
 import img3 from "../../assets/images/aeroplane.svg";
+import { FormControl, MenuItem, OutlinedInput, Select } from "@mui/material";
+
+
+const SelectMenu = ({ options, placeholder, value, handleChange, name }) => {
+  return (<FormControl fullWidth>
+    <Select
+      sx={{
+        '& .MuiOutlinedInput-notchedOutline': {
+          border: 'none !important',
+        },
+        fontWeight: 500,
+        color: '#001E43',
+        textAlign: 'left',
+        backgroundColor: 'white',
+        fontSize: '0.9rem',
+      }}
+      displayEmpty
+      value={value || ''}
+      onChange={handleChange}
+      input={<OutlinedInput />}
+      name={name}
+      MenuProps={{ sx: { height: '50vh' } }}
+      inputProps={{ 'aria-label': 'Without label' }}
+    >
+      <MenuItem disabled value="">
+        {placeholder}
+      </MenuItem>
+      {Array.isArray(options) && options.map(item =>
+        <MenuItem key={item} value={item}>{item}</MenuItem>
+      )}
+    </Select>
+  </FormControl >
+  );
+}
 
 const Page2 = () => {
   return (
@@ -221,7 +255,19 @@ const VisaApplication = () => {
   const [input2, setInput2] = useState("");
   const [input3, setInput3] = useState("");
   const [input4, setInput4] = useState("");
+
+  const [data, setData] = useState({
+    refusal: '',
+    country: '',
+    visaType: '',
+  });
+
   const [page, setPage] = useState(true);
+
+  const handleChange = (e) => {
+    setData({ ...data, [e.target.name]: e.target.value });
+  }
+
   // useEffect(() => {
   //   console.log(input1);
   // }, [input1]);
@@ -253,62 +299,45 @@ const VisaApplication = () => {
                 />
               </div>
               <div className="w-1/2  max-lg:w-full">
-                <form className="flex flex-col gap-y-5 pt-5 pr-3 mb-10">
+                <form className="flex flex-col gap-y-5 pt-10 pr-3 mb-10">
                   {/* input1 */}
-                  <div className="inline-block relative">
-                    <label htmlFor="State">
-                      What type of Visa do you want to apply for?
-                    </label>
-                    <select
-                      id="State"
-                      value={input1}
-                      onChange={(e) => setInput1(e.target.value)}
-                      className="block appearance-none w-full bg-white border-none hover:border-gray-500 px-4 py-4 pr-8 mt-1 rounded-xl shadow-lg leading-tight focus:outline-none focus:shadow-outline"
-                    >
-                      <option disabled value="">
-                        Type of Visa
-                      </option>
-                      <option selected value="Study Visa">
-                        Study Visa
-                      </option>
-                      <option>Option 3</option>
-                    </select>
-                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 mt-5 text-gray-700">
-                      <img src={darkDownSVG} alt="downarrow" className="" />
+
+                  <div className='flex flex-col gap-y-2'>
+                    <label htmlFor="state">What type of Visa do you want to apply for?</label>
+                    <div className='shadow-lg rounded-xl overflow-hidden'>
+                      <SelectMenu
+                        placeholder={'Type of visa'}
+                        name={'visaType'}
+                        handleChange={handleChange}
+                        value={data.visaType}
+                        options={[]}
+                      />
                     </div>
                   </div>
 
-                  {/* input2 */}
-                  <div className="inline-block relative">
-                    <label htmlFor="Zone">
-                      What type of Visa do you want to apply for?
-                    </label>
-                    <select
-                      id="Zone"
-                      value={input2}
-                      onChange={(e) => setInput2(e.target.value)}
-                      className="block appearance-none w-full bg-white border-none hover:border-gray-500 px-4 py-4 pr-8 mt-1 rounded-xl shadow-lg leading-tight focus:outline-none focus:shadow-outline"
-                    >
-                      <option disabled selected value="">
-                        Select Your Country
-                      </option>
-                      <option>Option 2</option>
-                      <option>Option 3</option>
-                    </select>
-                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 mt-5 text-gray-700">
-                      <img src={darkDownSVG} alt="downarrow" className="" />
+                  <div className='flex flex-col gap-y-2'>
+                    <label htmlFor="state">What type of Visa do you want to apply for?</label>
+                    <div className='shadow-lg rounded-xl overflow-hidden'>
+                      <SelectMenu
+                        placeholder={'Select country'}
+                        name={'country'}
+                        handleChange={handleChange}
+                        value={data.country}
+                        options={['UK', 'USA', 'New Zealand', 'Ireland', 'Canada']}
+                      />
                     </div>
                   </div>
+
                   {/* input3 */}
                   <div className="inline-block relative ml-1">
                     <p className="mb-2">Previous Refusal </p>
-                    <input type="radio" name="radio" className="ml-4" />
-                    <label class="  hover:cursor-pointer ml-1" for="Yes">
+                    <input checked={Boolean(data.refusal === 'yes')} onChange={handleChange} type="radio" name="refusal" value='yes' id='yes' className="ml-4" />
+                    <label className="cursor-pointer ml-1" htmlFor="yes">
                       Yes
                     </label>
 
-                    <input type="radio" name="radio" className="ml-4" />
-                    <label class=" hover:cursor-pointer ml-1" for="No">
+                    <input checked={Boolean(data.refusal === 'no')} onChange={handleChange} type="radio" name="refusal" value='no' id='no' className="ml-4" />
+                    <label className="cursor-pointer ml-1" htmlFor="no">
                       No
                     </label>
                   </div>
@@ -316,18 +345,16 @@ const VisaApplication = () => {
                   {/* submit button */}
                   <div>
                     <button
+                      disabled={Boolean(Object.values(data).includes(''))}
                       type="submit"
-                      className="bg-[#001E43]  w-full text-white font-bold py-2 px-4 border border-blue-700 rounded-xl"
+                      className="bg-[#001E43] disabled:opacity-80 border-2 border-[#001E43] hover:bg-transparent hover:text-[#001E43] w-full text-white font-bold py-3 px-4 rounded-xl duration-300"
                       onClick={(e) => {
                         setPage(false);
                       }}
                     >
                       Continue
                     </button>
-                    <p className="mt-1 text-center text-xs">
-                      By continuing, you agree to our Term of services & Privacy
-                      policy
-                    </p>
+                    <p className="text-center text-black mt-3 text-sm">By continuing, you agree to our <span className="font-medium text-[#001E43] cursor-pointer">Term of services</span> & <span className="font-medium text-[#001E43] cursor-pointer">Privacy policy</span></p>
                   </div>
                 </form>
               </div>
