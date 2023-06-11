@@ -273,7 +273,7 @@ const VisaApplication = () => {
   // }, [input1]);
 
   return (
-    <div className="flex ">
+    <div className="flex">
       {page ? (
         <div className="flex flex-row flex-wrap gap-y-10 gap-x-5 w-full ">
           <div className="w-full h-20 foo:block ">
@@ -281,24 +281,24 @@ const VisaApplication = () => {
               <h1 className="text-3xl font-semibold text-[#00285A] text-left pb-5 pt-12 px-5 ">
                 Visa Application
               </h1>
-              <p className="text-left  px-5 w-1/3 ">
+              <p className="text-left  px-5 md:w-1/3 ">
                 Nulla Lorem mollit cupidatat irure. Laborum magna cillum dolor.{" "}
               </p>
               <img
                 src={welcomeSVG}
                 alt="welcome svg"
-                className="absolute bottom-0 right-3 h-52 w-auto"
+                className="absolute bottom-0 right-3 h-52 w-auto max-md:hidden"
               />
             </div>
             <div className="flex w-full">
-              <div className="w-1/2 flex max-lg:hidden">
+              <div className="w-1/2 flex max-md:hidden">
                 <img
                   src={loanSVG}
                   alt="welcome svg"
                   className="w-400 h-auto mx-auto my-10"
                 />
               </div>
-              <div className="w-1/2  max-lg:w-full">
+              <div className="w-1/2 max-md:w-full">
                 <form className="flex flex-col gap-y-5 pt-10 pr-3 mb-10">
                   {/* input1 */}
 

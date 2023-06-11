@@ -275,7 +275,7 @@ const EducationLoan = () => {
     zone: '',
     familyIncome: '',
   });
-  const [page, setPage] = useState(false);
+  const [page, setPage] = useState(true);
 
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
@@ -334,7 +334,6 @@ const EducationLoan = () => {
                   <Typography
                     sx={{
                       color: "black",
-                      display: { md: "flex", xs: "none" },
                       fontSize: "1.5rem",
                       fontWeight: "bold",
                     }}
@@ -353,21 +352,22 @@ const EducationLoan = () => {
                   <img
                     src={welcomeSVG}
                     alt="library"
-                    className="md:relative md:bottom-1  md:left-28 "
+                    className="md:relative max-md:hidden md:bottom-1  md:left-28 "
                   />
                 </Box>
               </Box>
             </div>
             <div className="flex w-full">
-              <div className="w-1/2 flex max-lg:hidden">
+              <div className="w-1/2 flex max-md:hidden">
                 <img
                   src={loanSVG}
                   alt="welcome svg"
                   className="w-400 h-auto mx-auto my-10"
                 />
               </div>
-              <div className="w-1/2  max-lg:w-full">
-                <form onSubmit={handleSubmit} className="flex flex-col gap-y-5 pt-5 pr-3 mb-10">
+
+              <div className="w-1/2  max-md:w-full">
+                <form onSubmit={handleSubmit} className="flex flex-col gap-y-5 pt-5 max-md:px-3 md:pr-3 mb-10">
 
                   <div className='flex flex-col gap-y-2'>
                     <label htmlFor="state">Where do you want to study?</label>
