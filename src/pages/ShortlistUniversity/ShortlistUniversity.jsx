@@ -10,9 +10,13 @@ import heartSVG from "../../assets/images/heart.svg";
 import planeSVG from "../../assets/images/airplane.svg";
 import downSVG from "../../assets/images/downArrow.svg";
 import ShortlistSVG from "../../assets/images/shortlist.svg";
-import { Button, Drawer, Select, FormControl, MenuItem, OutlinedInput, Box, Typography } from "@mui/material";
+import { Button, Drawer, Select, FormControl, MenuItem, OutlinedInput, Box, Typography, CircularProgress, Alert } from "@mui/material";
 import { FilterAlt } from "@mui/icons-material";
 import { Country } from 'country-state-city';
+import { useQuery } from "@tanstack/react-query";
+import universityApi from "../../api/university";
+import UniversityItem from "../../components/University/UniversityItem";
+import { toast } from "react-toastify";
 
 const RightArrowSVG = ({ className, backgroundColor }) => {
   return (
@@ -179,80 +183,36 @@ const FilterMenu = () => {
   );
 };
 
-const Card = () => {
-  return (
-    <div className="p-4 bg-white border-8 flex flex-col rounded-3xl shadow border-[#E2E7EE] mt-4 h-72 justify-between">
-      {/* 1st Div */}
-      <div className="">
-        <h6 className="mb-2 text-lg !text-[#00285A] font-bold tracking-tight text-gray-900 dark:text-white">
-          Bachelor in Computer Science
-        </h6>
-      </div>
-
-      {/* 2nd Div */}
-      <div className="flex justify-between">
-        <p className="bg-[#E7ECF3] text-[#0C3C82] py-1 px-4 rounded-full inline-flex items-center font-medium">
-          <img src={eye} alt="welcome svg" className="h-auto w-5 mr-1" />
-          85,900 USD / year
-        </p>
-        <p className="bg-[#E7ECF3] text-[#0C3C82] py-1 px-4 rounded-full inline-flex items-center font-medium">
-          <img
-            src={timeSVG}
-            alt="welcome svg"
-            className="h-4 w-4 mr-1 my-auto"
-          />
-          4 years
-        </p>
-      </div>
-
-      {/* 3rd div */}
-      <div className="flex">
-        <div className="w-3/5">
-          <p className="font-semibold">United States</p>
-          <p>
-            Global Ranking |
-            <img
-              src={starSVG}
-              alt="welcome svg"
-              className="h-auto w-4 inline mb-1"
-            />
-            10
-          </p>
-        </div>
-        <div className="w-2/5 flex m-auto ">
-          <img src={logo} alt="logo" className="h-8 w-auto p-1 m-auto" />
-          <p className="leading-4 m-auto">Apply with Ingelt Board</p>
-        </div>
-      </div>
-
-      {/* 4th div */}
-      <div>
-        <img
-          src={universitySVG}
-          alt="university logo"
-          className="h-auto w-11 inline mb-1"
-        />
-        <p className="pl-4 pr-3 text-[#0C3C82] inline">University Of Chicago</p>
-      </div>
-
-      {/* 5th div */}
-      <div className="flex justify-between mu-3">
-        <button className="bg-[#0C3C82] hover:bg-transparent duration-300 border-2 border-[#0C3C82] hover:text-[#0C3C82] text-white font-semibold py-2 px-4 rounded-full gap-x-2 flex items-center">
-          Talk to expert
-          <RightArrowSVG className={'h-5 w-5'} />
-        </button>
-        <button className="bg-[#E7ECF3] hover:bg-[#0C3C82] duration-300 text-[#0C3C82] hover:text-[#E7ECF3] font-semibold py-2 px-4 rounded-full flex items-center gap-x-2">
-          Shortlist
-          <HeartSVG />
-        </button>
-      </div>
-    </div>
-  );
-};
-
 const ShortlistUniversity = () => {
 
   const [isOpen, setIsOpen] = useState(false);
+  const [pagination, setPagination] = useState({ page: 1, rows: 10 });
+
+  const { data, isLoading, refetch } = useQuery({
+    queryKey: ['shortlistedUniversities', pagination],
+    queryFn: async () => {
+      const res = await universityApi.getAll(pagination.page, pagination.rows);
+      return res.data;
+    }
+  });
+
+
+  // shortlist add handler
+  const shortlistHandler = async (e, university) => {
+    e.target.disabled = true;
+    try {
+      if (university?.studentShortlists?.length > 0) {
+        await universityApi.removeUniversityFromShortlist(university.id);
+      } else {
+        await universityApi.addUniversityInShortlist(university.id);
+      }
+      refetch();
+    } catch (err) {
+      toast.error('Sorry! Something went wrong.');
+    } finally {
+      e.target.disabled = false;
+    }
+  }
 
   return (
     <>
@@ -326,8 +286,8 @@ const ShortlistUniversity = () => {
             </Box>
           </div>
 
-          <div className="flex gap-x-5 mt-10 max-xl:flex-col max-lg:pb-20">
-            <div className="w-full xl:w-1/3">
+          <div className="grid xl:grid-cols-12 gap-x-5 mt-10 max-lg:pb-20">
+            <div className="xl:col-span-4">
               <Button
                 className="xl:!hidden"
                 variant="container"
@@ -347,14 +307,24 @@ const ShortlistUniversity = () => {
               </Button>
               <FilterMenu />
             </div>
-            <div className="w-full xl:w-2/3 sm:w-2/2">
-              <div className="grid max-md:grid-cols-1 grid-cols-2 gap-x-5">
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-              </div>
+            <div className="xl:col-span-8">
+              {isLoading && <div className="py-5 flex justify-center">
+                <CircularProgress sx={{ '&: svg circle': { stroke: '#00285A' } }} />
+              </div>}
+              {!isLoading && (Array.isArray(data?.rows) && data?.rows?.length > 0 ?
+                <div className="grid max-md:grid-cols-1 grid-cols-2 gap-x-5">
+                  {data?.rows?.map(item =>
+                    <UniversityItem
+                      RightArrowSVG={RightArrowSVG}
+                      university={item}
+                      shortlistHandler={shortlistHandler}
+                      key={item.id}
+                    />
+                  )}
+                </div> :
+                <Alert severity="warning" icon={false} className="mx-auto mt-5 w-fit" >No University Found</Alert>
+              )}
+
             </div>
           </div>
         </div>

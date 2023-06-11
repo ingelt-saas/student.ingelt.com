@@ -109,11 +109,11 @@ const FindInstitute = () => {
   }, [student]);
 
   // apply handler
-  const applyHandler = async (e, orgId) => {
+  const applyHandler = async (e, org) => {
     e.target.disabled = true;
     try {
-      await instituteApi.applyInstitute({ organizationId: orgId });
-      toast.success("Applied");
+      await instituteApi.applyInstitute({ organizationId: org.id });
+      toast.success(`You have successfully applied to the ${org.name} institute, Our team will contact you within 12hrs.`);
       fetchAppliedInstitutes();
     } catch (err) {
       toast.error("Sorry! Something went wrong");
