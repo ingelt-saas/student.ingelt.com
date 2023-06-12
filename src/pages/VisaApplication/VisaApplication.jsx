@@ -15,38 +15,41 @@ import {
 
 import { FormControl, MenuItem, OutlinedInput, Select } from "@mui/material";
 
-
 const SelectMenu = ({ options, placeholder, value, handleChange, name }) => {
-  return (<FormControl fullWidth>
-    <Select
-      sx={{
-        '& .MuiOutlinedInput-notchedOutline': {
-          border: 'none !important',
-        },
-        fontWeight: 500,
-        color: '#001E43',
-        textAlign: 'left',
-        backgroundColor: 'white',
-        fontSize: '0.9rem',
-      }}
-      displayEmpty
-      value={value || ''}
-      onChange={handleChange}
-      input={<OutlinedInput />}
-      name={name}
-      MenuProps={{ sx: { height: '50vh' } }}
-      inputProps={{ 'aria-label': 'Without label' }}
-    >
-      <MenuItem disabled value="">
-        {placeholder}
-      </MenuItem>
-      {Array.isArray(options) && options.map(item =>
-        <MenuItem key={item} value={item}>{item}</MenuItem>
-      )}
-    </Select>
-  </FormControl >
+  return (
+    <FormControl fullWidth>
+      <Select
+        sx={{
+          "& .MuiOutlinedInput-notchedOutline": {
+            border: "none !important",
+          },
+          fontWeight: 500,
+          color: "#001E43",
+          textAlign: "left",
+          backgroundColor: "white",
+          fontSize: "0.9rem",
+        }}
+        displayEmpty
+        value={value || ""}
+        onChange={handleChange}
+        input={<OutlinedInput />}
+        name={name}
+        MenuProps={{ sx: { height: "50vh" } }}
+        inputProps={{ "aria-label": "Without label" }}
+      >
+        <MenuItem disabled value="">
+          {placeholder}
+        </MenuItem>
+        {Array.isArray(options) &&
+          options.map((item) => (
+            <MenuItem key={item} value={item}>
+              {item}
+            </MenuItem>
+          ))}
+      </Select>
+    </FormControl>
   );
-}
+};
 
 const Page2 = () => {
   return (
@@ -155,8 +158,10 @@ const Page2 = () => {
                           Counselling
                         </h2>
                         <p className="leading-relaxed">
-                          Counselors can help you organize and prepare the
-                          required documents for your visa application.
+                          Our experienced visa counselors provide comprehensive
+                          guidance tailored to your needs, ensuring a smooth
+                          visa application process. Trust our expertise to make
+                          your dream of studying abroad a reality.
                         </p>
                       </div>
                     </div>
@@ -183,8 +188,10 @@ const Page2 = () => {
                           Document Collection
                         </h2>
                         <p className="leading-relaxed">
-                          Counselors can help you organize and prepare the
-                          required documents for your visa application.
+                          Leave the hassle of visa document collection to us.
+                          Our dedicated team will assist you in gathering all
+                          the necessary documents, ensuring a seamless
+                          application process for your study visa.
                         </p>
                       </div>
                     </div>
@@ -212,8 +219,11 @@ const Page2 = () => {
                           File Preparation
                         </h2>
                         <p className="leading-relaxed">
-                          Counselors can help you organize and prepare the
-                          required documents for your visa application.
+                          Let us take care of your visa file preparation. Our
+                          experts will meticulously compile and organize all the
+                          required documents, ensuring a smooth and efficient
+                          visa application process for your study abroad
+                          journey.
                         </p>
                       </div>
                     </div>
@@ -241,8 +251,11 @@ const Page2 = () => {
                           File Reviewed
                         </h2>
                         <p className="leading-relaxed">
-                          Counselors can help you organize and prepare the
-                          required documents for your visa application.
+                          Our team of experienced professionals will review your
+                          visa file to ensure accuracy and compliance with all
+                          necessary requirements, giving you peace of mind
+                          during the application process. Trust us to handle the
+                          details and streamline your visa approval.
                         </p>
                       </div>
                     </div>
@@ -269,8 +282,11 @@ const Page2 = () => {
                           Visa Filled
                         </h2>
                         <p className="leading-relaxed">
-                          Counselors can help you organize and prepare the
-                          required documents for your visa application.
+                          Our team of visa experts will guide you through the
+                          process and assist in filling out the visa application
+                          with precision and attention to detail, ensuring a
+                          smooth and hassle-free experience for your visa
+                          submission.
                         </p>
                       </div>
                     </div>
@@ -294,8 +310,11 @@ const Page2 = () => {
                           Visa Approved
                         </h2>
                         <p className="leading-relaxed">
-                          Counselors can help you organize and prepare the
-                          required documents for your visa application.
+                          Congratulations! Our dedicated team has successfully
+                          assisted you in securing visa approval, allowing you
+                          to embark on your desired journey with confidence and
+                          excitement. Experience seamless travel and explore new
+                          opportunities with our visa services
                         </p>
                       </div>
                     </div>
@@ -317,16 +336,16 @@ const VisaApplication = () => {
   const [input4, setInput4] = useState("");
 
   const [data, setData] = useState({
-    refusal: '',
-    country: '',
-    visaType: '',
+    refusal: "",
+    country: "",
+    visaType: "",
   });
 
   const [page, setPage] = useState(true);
 
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
-  }
+  };
 
   // useEffect(() => {
   //   console.log(input1);
@@ -414,41 +433,80 @@ const VisaApplication = () => {
                 <form className="flex flex-col gap-y-5 pt-10 pr-3 mb-10">
                   {/* input1 */}
 
-                  <div className='flex flex-col gap-y-2'>
-                    <label htmlFor="state">What type of Visa do you want to apply for?</label>
-                    <div className='shadow-lg rounded-xl overflow-hidden'>
+                  <div className="flex flex-col gap-y-2">
+                    <label htmlFor="state">
+                      Unlock global opportunities with the right type of visa.
+                      Our team will assist you in choosing the most suitable
+                      visa category based on your specific study or travel
+                      plans, ensuring a seamless and successful visa application
+                      process.
+                    </label>
+                    <div className="shadow-lg rounded-xl overflow-hidden">
                       <SelectMenu
-                        placeholder={'Type of visa'}
-                        name={'visaType'}
+                        placeholder={"Type of visa"}
+                        name={"visaType"}
                         handleChange={handleChange}
                         value={data.visaType}
-                        options={[]}
+                        options={["Study Visa"]}
                       />
                     </div>
                   </div>
 
-                  <div className='flex flex-col gap-y-2'>
-                    <label htmlFor="state">What type of Visa do you want to apply for?</label>
-                    <div className='shadow-lg rounded-xl overflow-hidden'>
+                  <div className="flex flex-col gap-y-2">
+                    <label htmlFor="state">
+                      Explore your preferred country of study and turn your
+                      dreams into reality. Our experts will guide you in
+                      selecting the perfect destination that aligns with your
+                      academic goals and offers exciting opportunities for
+                      personal growth and success.
+                    </label>
+                    <div className="shadow-lg rounded-xl overflow-hidden">
                       <SelectMenu
-                        placeholder={'Select country'}
-                        name={'country'}
+                        placeholder={"Select country"}
+                        name={"country"}
                         handleChange={handleChange}
                         value={data.country}
-                        options={['UK', 'USA', 'New Zealand', 'Ireland', 'Canada']}
+                        options={[
+                          "UK",
+                          "USA",
+                          "New Zealand",
+                          "Ireland",
+                          "Canada",
+                        ]}
                       />
                     </div>
                   </div>
 
                   {/* input3 */}
                   <div className="inline-block relative ml-1">
-                    <p className="mb-2">Previous Refusal </p>
-                    <input checked={Boolean(data.refusal === 'yes')} onChange={handleChange} type="radio" name="refusal" value='yes' id='yes' className="ml-4" />
+                    <p className="mb-2">
+                      Overcome previous visa refusal hurdles with our expert
+                      guidance and personalized support. We understand your
+                      concerns and help you navigate the complexities,
+                      increasing your chances of a successful visa application.
+                    </p>
+                    <input
+                      checked={Boolean(data.refusal === "yes")}
+                      onChange={handleChange}
+                      type="radio"
+                      name="refusal"
+                      value="yes"
+                      id="yes"
+                      className="ml-4"
+                    />
                     <label className="cursor-pointer ml-1" htmlFor="yes">
                       Yes
                     </label>
 
-                    <input checked={Boolean(data.refusal === 'no')} onChange={handleChange} type="radio" name="refusal" value='no' id='no' className="ml-4" />
+                    <input
+                      checked={Boolean(data.refusal === "no")}
+                      onChange={handleChange}
+                      type="radio"
+                      name="refusal"
+                      value="no"
+                      id="no"
+                      className="ml-4"
+                    />
                     <label className="cursor-pointer ml-1" htmlFor="no">
                       No
                     </label>
@@ -457,7 +515,7 @@ const VisaApplication = () => {
                   {/* submit button */}
                   <div>
                     <button
-                      disabled={Boolean(Object.values(data).includes(''))}
+                      disabled={Boolean(Object.values(data).includes(""))}
                       type="submit"
                       className="bg-[#001E43] disabled:opacity-80 border-2 border-[#001E43] hover:bg-transparent hover:text-[#001E43] w-full text-white font-bold py-3 px-4 rounded-xl duration-300"
                       onClick={(e) => {
@@ -466,7 +524,16 @@ const VisaApplication = () => {
                     >
                       Continue
                     </button>
-                    <p className="text-center text-black mt-3 text-sm">By continuing, you agree to our <span className="font-medium text-[#001E43] cursor-pointer">Term of services</span> & <span className="font-medium text-[#001E43] cursor-pointer">Privacy policy</span></p>
+                    <p className="text-center text-black mt-3 text-sm">
+                      By continuing, you agree to our{" "}
+                      <span className="font-medium text-[#001E43] cursor-pointer">
+                        Term of services
+                      </span>{" "}
+                      &{" "}
+                      <span className="font-medium text-[#001E43] cursor-pointer">
+                        Privacy policy
+                      </span>
+                    </p>
                   </div>
                 </form>
               </div>

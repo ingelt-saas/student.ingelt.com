@@ -14,39 +14,43 @@ import {
   MenuItem,
   Typography,
 } from "@mui/material";
-
+import { set } from "react-hook-form";
 
 const SelectMenu = ({ options, placeholder, value, handleChange, name }) => {
-  return (<FormControl fullWidth>
-    <Select
-      sx={{
-        '& .MuiOutlinedInput-notchedOutline': {
-          border: 'none !important',
-        },
-        fontWeight: 500,
-        color: '#001E43',
-        textAlign: 'left',
-        backgroundColor: 'white',
-        fontSize: '0.9rem',
-      }}
-      displayEmpty
-      value={value || ''}
-      onChange={handleChange}
-      input={<OutlinedInput />}
-      name={name}
-      MenuProps={{ sx: { height: '50vh' } }}
-      inputProps={{ 'aria-label': 'Without label' }}
-    >
-      <MenuItem disabled value="">
-        {placeholder}
-      </MenuItem>
-      {Array.isArray(options) && options.map(item =>
-        <MenuItem key={item} value={item}>{item}</MenuItem>
-      )}
-    </Select>
-  </FormControl >
+  return (
+    <FormControl fullWidth>
+      <Select
+        sx={{
+          "& .MuiOutlinedInput-notchedOutline": {
+            border: "none !important",
+          },
+          fontWeight: 500,
+          color: "#001E43",
+          textAlign: "left",
+          backgroundColor: "white",
+          fontSize: "0.9rem",
+        }}
+        displayEmpty
+        value={value || ""}
+        onChange={handleChange}
+        input={<OutlinedInput />}
+        name={name}
+        MenuProps={{ sx: { height: "50vh" } }}
+        inputProps={{ "aria-label": "Without label" }}
+      >
+        <MenuItem disabled value="">
+          {placeholder}
+        </MenuItem>
+        {Array.isArray(options) &&
+          options.map((item) => (
+            <MenuItem key={item} value={item}>
+              {item}
+            </MenuItem>
+          ))}
+      </Select>
+    </FormControl>
   );
-}
+};
 
 const Page2 = () => {
   return (
@@ -140,8 +144,10 @@ const Page2 = () => {
                           Counselling
                         </h2>
                         <p className="leading-relaxed">
-                          Counselors can help you organize and prepare the
-                          required documents for your visa application.
+                          Experience personalized counselling sessions with our
+                          expert advisors who will guide you through every step
+                          of your educational journey, helping you make informed
+                          decisions for a successful future.
                         </p>
                       </div>
                     </div>
@@ -168,8 +174,10 @@ const Page2 = () => {
                           Document Collection
                         </h2>
                         <p className="leading-relaxed">
-                          Counselors can help you organize and prepare the
-                          required documents for your visa application.
+                          Simplify the document collection process with our
+                          streamlined services, ensuring all necessary paperwork
+                          is organized and submitted accurately, saving you time
+                          and effort.
                         </p>
                       </div>
                     </div>
@@ -197,8 +205,10 @@ const Page2 = () => {
                           File Preparation
                         </h2>
                         <p className="leading-relaxed">
-                          Counselors can help you organize and prepare the
-                          required documents for your visa application.
+                          Leave the meticulous file preparation to our experts,
+                          who will meticulously organize and compile your
+                          documents to meet the requirements, ensuring a smooth
+                          application process
                         </p>
                       </div>
                     </div>
@@ -226,8 +236,10 @@ const Page2 = () => {
                           Applied for Loan
                         </h2>
                         <p className="leading-relaxed">
-                          Counselors can help you organize and prepare the
-                          required documents for your visa application.
+                          With our help, simplify the loan application process
+                          as we walk you through the necessary paperwork and
+                          assist you in obtaining funding for your educational
+                          endeavours.
                         </p>
                       </div>
                     </div>
@@ -251,8 +263,10 @@ const Page2 = () => {
                           Loan Disbursed
                         </h2>
                         <p className="leading-relaxed">
-                          Counselors can help you organize and prepare the
-                          required documents for your visa application.
+                          Explore a hassle-free loan disbursement process as we
+                          ensure timely and seamless transfer of funds,
+                          empowering you to pursue your education without
+                          financial limitations
                         </p>
                       </div>
                     </div>
@@ -267,45 +281,78 @@ const Page2 = () => {
   );
 };
 
-const EducationLoan = () => {
+const cityOptions = {
+  Delhi: [
+    "North West Delhi",
+    "North Delhi",
+    "North East Delhi",
+    "Central Delhi",
+    "New Delhi",
+    "East Delhi",
+    "South Delhi",
+    "South East Delhi",
+    "South West Delhi",
+    "West Delhi",
+  ],
+  Punjab: [
+    "Amritsar",
+    "Barnala",
+    "Bathinda",
+    "Faridkot",
+    "Fatehgarh Sahib",
+    "Fazilka",
+    "Firozpur",
+    "Gurdaspur",
+    "Hoshiarpur",
+    "Jalandhar",
+    "Kapurthala",
+    "Ludhiana",
+    "Mansa",
+    "Moga",
+    "Muktsar",
+    "Nawanshahr",
+    "Pathankot",
+    "Patiala",
+    "Rupnagar",
+    "Sahibzada Ajit Singh Nagar",
+    "Sangrur",
+    "Tarn Taran",
+  ],
+};
 
+const EducationLoan = () => {
   const [data, setData] = useState({
-    intake: '',
-    country: '',
-    zone: '',
-    familyIncome: '',
+    state: "",
+    zone: "",
+    familyIncome: "",
+    intake: "",
   });
+  const [options, setOptions] = useState([]);
   const [page, setPage] = useState(true);
+  useEffect(() => {
+    // console.log(data);
+    data.state == "Delhi"
+      ? setOptions(cityOptions.Delhi)
+      : setOptions(cityOptions.Punjab);
+  }, [data]);
 
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
-  }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (Object.values(data).includes('')) {
+
+    if (Object.values(data).includes("")) {
       return;
     }
-  }
+  };
 
   return (
     <div className="flex ">
       {page ? (
         <div className="flex flex-row flex-wrap gap-y-10 gap-x-5 w-full ">
           <div className="w-full h-20 foo:block ">
-            {/* <div className="relative rounded-xl pb-14 shadow-lg bg-white mx-3 ">
-              <h1 className="text-3xl font-semibold text-left pb-5 pt-12 px-5 ">
-                Education Loan
-              </h1>
-              <p className="text-left  px-5 w-1/3 ">
-                Nulla Lorem mollit cupidatat irure. Laborum magna cillum dolor.{" "}
-              </p>
-              <img
-                src={welcomeSVG}
-                alt="welcome svg"
-                className="absolute bottom-0 right-3 h-52 w-auto"
-              />
-            </div> */}
             <div className="pt-3 pb-4 pl-3">
               <Box
                 sx={{
@@ -367,61 +414,98 @@ const EducationLoan = () => {
               </div>
 
               <div className="w-1/2  max-md:w-full">
-                <form onSubmit={handleSubmit} className="flex flex-col gap-y-5 pt-5 max-md:px-3 md:pr-3 mb-10">
-
-                  <div className='flex flex-col gap-y-2'>
-                    <label htmlFor="state">Where do you want to study?</label>
-                    <div className='shadow-lg rounded-xl overflow-hidden'>
+                <form
+                  onSubmit={handleSubmit}
+                  className="flex flex-col gap-y-5 pt-5 max-md:px-3 md:pr-3 mb-10"
+                >
+                  <div className="flex flex-col gap-y-2">
+                    <label htmlFor="state">
+                      Choose the state that suits your educational aspirations
+                      and embark on an extraordinary learning journey.
+                    </label>
+                    <div className="shadow-lg rounded-xl overflow-hidden">
                       <SelectMenu
-                        placeholder={'Select country'}
-                        name={'country'}
+                        placeholder={"Select your state"}
+                        name={"state"}
                         handleChange={handleChange}
-                        value={data.country}
-                        options={['UK', 'USA', 'New Zealand', 'Ireland', 'Canada']}
-                      />
+                        value={data.state}
+                        options={["Delhi", "Punjab"]}
+                      >
+                        <option value="Delhi">Delhi</option>
+                      </SelectMenu>
                     </div>
                   </div>
 
-                  <div className='flex flex-col gap-y-2'>
-                    <label htmlFor="zone">Where do you live?</label>
-                    <div className='shadow-lg rounded-xl overflow-hidden'>
+                  <div className="flex flex-col gap-y-2">
+                    <label htmlFor="zone">
+                      Explore the diverse districts and zones and choose the
+                      perfect location to pursue your educational dreams
+                    </label>
+                    <div className="shadow-lg rounded-xl overflow-hidden">
                       <SelectMenu
-                        placeholder={'Select your district/zone'}
-                        name={'zone'}
+                        placeholder="Select your district/zone"
+                        name="zone"
                         value={data.zone}
                         handleChange={handleChange}
+                        options={[...options]}
                       />
                     </div>
                   </div>
 
-                  <div className='flex flex-col gap-y-2'>
-                    <label htmlFor="zone">What is your family annual income?</label>
-                    <div className='shadow-lg rounded-xl overflow-hidden'>
-                      <SelectMenu
-                        placeholder={'Family Annual Income'}
-                        name={'familyIncome'}
+                  <div className="flex flex-col gap-y-2">
+                    <label htmlFor="zone">
+                      Provide information about your family's annual income to
+                      help us determine the best financial options for your
+                      education journey.
+                    </label>
+                    <div className="shadow-lg rounded-xl overflow-hidden">
+                      <input
+                        type="number"
+                        placeholder="Family Annual Income"
+                        name="familyIncome"
+                        className="w-full px-4 py-2 rounded-xl"
                         value={data.familyIncome}
-                        handleChange={handleChange}
+                        onChange={handleChange}
                       />
                     </div>
                   </div>
 
-                  <div className='flex flex-col gap-y-2'>
-                    <label>What's your preferred intake?</label>
+                  <div className="flex flex-col gap-y-2">
+                    <label>
+                      To begin your academic career at the perfect time that
+                      fits your schedule and ambitions, choose your chosen
+                      intake (semester or session).
+                    </label>
                     <div className="flex flex-wrap gap-3">
-                      {['Sep 2023', 'Jan 2024', 'May 2024'].map(item =>
-                        <label htmlFor={item} key={item} className={`${item === data.intake ? 'bg-[#001E43] text-white' : 'bg-transparent text-[#001E43]'} border-2 border-[#001E43] duration-300 rounded-xl px-4 py-2 cursor-pointer`}>
-                          <input onChange={handleChange} id={item} value={item} className="sr-only peer" checked={Boolean(data.intake === item)} type="radio" name='intake' />
+                      {["Sep 2023", "Jan 2024", "May 2024"].map((item) => (
+                        <label
+                          htmlFor={item}
+                          key={item}
+                          className={`${
+                            item === data.intake
+                              ? "bg-[#001E43] text-white"
+                              : "bg-transparent text-[#001E43]"
+                          } border-2 border-[#001E43] duration-300 rounded-xl px-4 py-2 cursor-pointer`}
+                        >
+                          <input
+                            onChange={handleChange}
+                            id={item}
+                            value={item}
+                            className="sr-only peer"
+                            checked={Boolean(data.intake === item)}
+                            type="radio"
+                            name="intake"
+                          />
                           {item}
                         </label>
-                      )}
+                      ))}
                     </div>
                   </div>
 
                   {/* submit button */}
                   <div>
                     <button
-                      disabled={Boolean(Object.values(data).includes(''))}
+                      disabled={Boolean(Object.values(data).includes(""))}
                       type="submit"
                       className="bg-[#001E43] disabled:opacity-80 border-2 border-[#001E43] hover:bg-transparent hover:text-[#001E43] w-full text-white font-bold py-3 px-4 rounded-xl duration-300"
                       onClick={(e) => {
@@ -431,7 +515,16 @@ const EducationLoan = () => {
                       Continue
                     </button>
                   </div>
-                  <p className="text-center text-black text-sm">By continuing, you agree to our <span className="font-medium text-[#001E43] cursor-pointer">Term of services</span> & <span className="font-medium text-[#001E43] cursor-pointer">Privacy policy</span></p>
+                  <p className="text-center text-black text-sm">
+                    By continuing, you agree to our{" "}
+                    <span className="font-medium text-[#001E43] cursor-pointer">
+                      Term of services
+                    </span>{" "}
+                    &{" "}
+                    <span className="font-medium text-[#001E43] cursor-pointer">
+                      Privacy policy
+                    </span>
+                  </p>
                 </form>
               </div>
             </div>
