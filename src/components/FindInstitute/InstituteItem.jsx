@@ -164,7 +164,7 @@ const InstituteItem = ({ applyHandler, institute, appliedInstitutes }) => {
                     <button
                         disabled={Boolean(appliedInstitute)}
                         className="py-2 px-7 text-white bg-[#0C3C82] rounded-lg font-medium"
-                        onClick={(e) => applyHandler(e, id)}
+                        onClick={(e) => applyHandler(e, { name, id })}
                     >{appliedInstitute ? 'Applied' : 'Apply'}</button>
                 </div>
             </div>
