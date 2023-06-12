@@ -6,9 +6,15 @@ import getFile from "../../../api/getFile";
 import femaleAvatar from "../../../assets/images/FemaleAvatra.webp";
 import maleAvatar from "../../../assets/images/MaleAvatra.webp";
 import { StudentContext } from "../../../contexts";
-const Image = ({ src, alt, className }) => {
-  const { student } = useContext(StudentContext);
-  let gender = student.gender;
+const Image = ({ src, alt, className, gender }) => {
+  // let gender = "Male";
+  // const { student } = useContext(StudentContext);
+  // if (!genderForDiscussion) {
+  //   gender = student.gender;
+  // } else {
+  //   gender = genderForDiscussion;
+  // }
+  // console.log(gender + "context", genderForDiscussion + "disscussion");
 
   const avatar = gender === "Female" ? femaleAvatar : maleAvatar;
 
