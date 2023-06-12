@@ -238,6 +238,7 @@ const SideBar = () => {
                       src={student?.image}
                       alt={student?.name}
                       className="w-full h-full object-cover"
+                      gender={student.gender}
                     />
                   </span>
                   <span
@@ -286,6 +287,7 @@ const SideBar = () => {
               <Image
                 src={student?.image}
                 alt={student?.name}
+                gender={student?.gender}
                 className="rounded-full w-full h-full object-cover"
               />
             </Link>
