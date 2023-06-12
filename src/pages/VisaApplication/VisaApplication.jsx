@@ -5,6 +5,12 @@ import loanSVG from "../../assets/images/visa.svg";
 import darkDownSVG from "../../assets/images/darkDown.svg";
 import img2 from "../../assets/images/travel.svg";
 import img3 from "../../assets/images/aeroplane.svg";
+import {
+  Box,
+  CircularProgress,
+  TablePagination,
+  Typography,
+} from "@mui/material";
 
 const Page2 = () => {
   return (
@@ -12,7 +18,7 @@ const Page2 = () => {
       <img src={img3} alt="welcome svg" className="absolute right-32 " />
 
       <div className="w-full h-20 foo:block ">
-        <div className="relative rounded-xl pb-14 shadow-lg bg-white mx-3 ">
+        {/* <div className="relative rounded-xl pb-14 shadow-lg bg-white mx-3 ">
           <h1 className="text-3xl font-semibold  text-[#00285A] text-left pb-5 pt-12 px-5 ">
             Visa Application
           </h1>
@@ -24,6 +30,58 @@ const Page2 = () => {
             alt="welcome svg"
             className="absolute bottom-0 right-3 h-52 w-auto"
           />
+        </div> */}
+        <div className="pt-3 pb-4 pl-2">
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "left",
+              alignItems: "center",
+              width: { md: "65%", xs: "100%" },
+              height: "20vh",
+              padding: "2rem",
+              backgroundColor: "white",
+              border: "1px solid white",
+              borderRadius: "2rem",
+              boxShadow:
+                "0px 10px 36px rgba(0, 0, 0, 0.16), 0px 0px 0px 1px rgba(0, 0, 0, 0.06);",
+            }}
+          >
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "flex-start",
+                flexDirection: "column",
+                width: { md: "50%", xs: "90%" },
+              }}
+            >
+              <Typography
+                sx={{
+                  color: "black",
+                  display: { md: "flex", xs: "none" },
+                  fontSize: "1.5rem",
+                  fontWeight: "bold",
+                }}
+              >
+                Visa Application
+              </Typography>
+              <Typography
+              // sx={{
+              //   fontSize: "1.5rem",
+              // }}
+              >
+                Nulla Lorem mollit cupidatat irure.
+              </Typography>
+            </Box>
+            <Box sx={{ width: { md: "30%", xs: "100%" } }}>
+              <img
+                src={welcomeSVG}
+                alt="library"
+                className="md:relative md:bottom-1  md:left-44 "
+              />
+            </Box>
+          </Box>
         </div>
         <div className="flex w-full">
           <div className="w-1/2 flex max-lg:hidden">
@@ -231,7 +289,7 @@ const VisaApplication = () => {
       {page ? (
         <div className="flex flex-row flex-wrap gap-y-10 gap-x-5 w-full ">
           <div className="w-full h-20 foo:block ">
-            <div className="relative rounded-xl pb-14 shadow-lg bg-white mx-3 ">
+            {/* <div className="relative rounded-xl pb-14 shadow-lg bg-white mx-3 ">
               <h1 className="text-3xl font-semibold text-[#00285A] text-left pb-5 pt-12 px-5 ">
                 Visa Application
               </h1>
@@ -243,6 +301,58 @@ const VisaApplication = () => {
                 alt="welcome svg"
                 className="absolute bottom-0 right-3 h-52 w-auto"
               />
+            </div> */}
+            <div className="pt-3 pb-4 pl-2">
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "left",
+                  alignItems: "center",
+                  width: { md: "65%", xs: "100%" },
+                  height: "20vh",
+                  padding: "2rem",
+                  backgroundColor: "white",
+                  border: "1px solid white",
+                  borderRadius: "2rem",
+                  boxShadow:
+                    "0px 10px 36px rgba(0, 0, 0, 0.16), 0px 0px 0px 1px rgba(0, 0, 0, 0.06);",
+                }}
+              >
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "flex-start",
+                    flexDirection: "column",
+                    width: { md: "50%", xs: "90%" },
+                  }}
+                >
+                  <Typography
+                    sx={{
+                      color: "black",
+                      display: { md: "flex", xs: "none" },
+                      fontSize: "1.5rem",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    Visa Application
+                  </Typography>
+                  <Typography
+                  // sx={{
+                  //   fontSize: "1.5rem",
+                  // }}
+                  >
+                    Nulla Lorem mollit cupidatat irure.
+                  </Typography>
+                </Box>
+                <Box sx={{ width: { md: "30%", xs: "100%" } }}>
+                  <img
+                    src={welcomeSVG}
+                    alt="library"
+                    className="relative bottom-1  left-44 "
+                  />
+                </Box>
+              </Box>
             </div>
             <div className="flex w-full">
               <div className="w-1/2 flex max-lg:hidden">

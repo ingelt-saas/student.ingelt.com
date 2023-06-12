@@ -15,11 +15,11 @@ const Page2 = () => {
   return (
     <div className="flex flex-row flex-wrap gap-y-10 gap-x-5 w-full  sm:m-auto">
       <div className="w-full h-20 foo:block ">
-        <div className="pt-6 pb-5 pl-3">
+        <div className="pt-3 pb-4 pl-3">
           <Box
             sx={{
               display: "flex",
-              justifyContent: "center",
+              justifyContent: "left",
               alignItems: "center",
               width: { md: "65%", xs: "100%" },
               height: "20vh",
@@ -48,7 +48,7 @@ const Page2 = () => {
                   fontWeight: "bold",
                 }}
               >
-                Shortlisting University
+                Education Loan
               </Typography>
               <Typography
               // sx={{
@@ -58,11 +58,11 @@ const Page2 = () => {
                 Nulla Lorem mollit cupidatat irure.
               </Typography>
             </Box>
-            <Box sx={{ width: { md: "45%", xs: "100%" } }}>
+            <Box sx={{ width: { md: "30%", xs: "100%" } }}>
               <img
                 src={welcomeSVG}
                 alt="library"
-                className="md:relative md:bottom-7 md:left-10 "
+                className="md:relative md:bottom-1  md:left-28 "
               />
             </Box>
           </Box>
