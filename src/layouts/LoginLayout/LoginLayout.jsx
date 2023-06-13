@@ -13,6 +13,7 @@ import { Menu, MenuItem, Button, TextField, InputAdornment, IconButton, Input, F
 import { KeyboardArrowDown, Visibility, VisibilityOff } from "@mui/icons-material";
 import authApi from "../../api/auth";
 import Cookies from "js-cookie";
+import SignUp from "../../components/Authentication/SignUp";
 
 const PasswordResetModal = ({ open, onClose }) => {
 
@@ -118,6 +119,14 @@ const LoginLayout = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [openSignUp, setOpenSignUp] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    phoneNo: '',
+    preferredMode: '',
+    state: '',
+    city: ''
+  });
 
   const open = Boolean(anchorEl);
 
@@ -157,126 +166,128 @@ const LoginLayout = () => {
     }
   };
 
+  const handleOpenSignUp = () => {
+    setOpenSignUp(!openSignUp);
+  }
+
   return (
-    <><div className="flex h-screen cursor-default overflow-y-hidden">
-      <div className="w-1/2 flex flex-col justify-center max-lg:w-full">
-        <div className="flex justify-end items-end pt-3">
-          <Button
-            id="basic-button"
-            aria-controls={open ? "basic-menu" : undefined}
-            aria-haspopup="true"
-            aria-expanded={open ? "true" : undefined}
-            onClick={handleClick}
-            sx={{
-              zIndex: '10'
-            }}
-          >
-            <span className="capitalize text-[#878787] font-semibold flex justify-center items-center">
-              <span className="mr-1">Student</span>
-              <KeyboardArrowDown fontSize="small" />
-            </span>
-          </Button>
+    <>
+      <div className="flex h-screen cursor-default">
+        <div className="w-1/2 flex flex-col gap-y-5 justify-center max-lg:w-full">
+          <div className="flex justify-end items-end">
+            <Button
+              id="basic-button"
+              aria-controls={open ? "basic-menu" : undefined}
+              aria-haspopup="true"
+              aria-expanded={open ? "true" : undefined}
+              onClick={handleClick}
+              sx={{
+                zIndex: '10'
+              }}
+            >
+              <span className="capitalize text-[#878787] font-semibold flex justify-center items-center">
+                <span className="mr-1">Student</span>
+                <KeyboardArrowDown fontSize="small" />
+              </span>
+            </Button>
 
-          <Menu
-            id="basic-menu"
-            anchorEl={anchorEl}
-            open={open}
-            onClose={handleClose}
-            MenuListProps={{
-              "aria-labelledby": "basic-button",
-            }}
-          >
-            <MenuItem onClick={() => window.location.assign("https://teacher.ingelt.com")}>
-              <span className="text-sm">Teacher</span>
-            </MenuItem>
+            <Menu
+              id="basic-menu"
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleClose}
+              MenuListProps={{
+                "aria-labelledby": "basic-button",
+              }}
+            >
+              <MenuItem onClick={() => window.location.assign("https://teacher.ingelt.com")}>
+                <span className="text-sm">Teacher</span>
+              </MenuItem>
 
-            <MenuItem onClick={() => window.location.assign("https://org.ingelt.com")}>
-              <span className="text-sm">Partner</span>
-            </MenuItem>
-          </Menu>
-        </div>
-        <div className="h-1/3 flex items-center justify-center px-4">
-          <img src={Logo} alt="" className="h-[50%]" />
-        </div>
-        <h1 className="text-4xl text-center text-neutral-600">Welcome!</h1>
-        <div
-          className={`flex flex-col justify-center h-full mt-10 ${loading && "opacity-70 pointer-events-none"
-            }`}
-        >
+              <MenuItem onClick={() => window.location.assign("https://partner.ingelt.com")}>
+                <span className="text-sm">Partner</span>
+              </MenuItem>
+            </Menu>
+          </div>
+          <div className="text-center">
+            <img src={Logo} alt="" className="w-48 mx-auto h-auto" />
+          </div>
+          <h1 className="text-4xl text-center text-neutral-600">Welcome!</h1>
+          <div className={`flex flex-col justify-center ${loading && "opacity-70 pointer-events-none"}`}>
+            <div className="max-sm:px-10 max-lg:px-20 w-full">
+              <form className="flex flex-col mb-5 items-center w-full" onSubmit={handleLogin}>
+                <TextField name="email" required type="email" sx={{ width: { xs: '100%', md: '60%' }, pt: 1 }} id="standard-basic" label="Email" variant="standard" />
+                <FormControl sx={{ m: 2, width: { xs: '100%', md: '60%' }, pt: 1 }} variant="standard">
+                  <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
+                  <Input
+                    id="standard-adornment-password"
+                    name="password"
+                    type={showPassword ? 'text' : 'password'}
+                    required
+                    endAdornment={
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={() => setShowPassword(!showPassword)}
+                          sx={{
+                            '&:hover': {
+                              backgroundColor: 'transparent',
+                            },
+                          }}
+                          className="hover:bg-none"
+                        >
+                          {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    }
+                  />
+                </FormControl>
 
-          <div className="max-sm:px-10 max-lg:px-20 w-full">
-            <form className="flex flex-col mb-10 items-center w-full" onSubmit={handleLogin}>
-              <TextField name="email" required type="email" sx={{ width: { xs: '100%', md: '60%' }, pt: 1 }} id="standard-basic" label="Email" variant="standard" />
-              <FormControl sx={{ m: 2, width: { xs: '100%', md: '60%' }, pt: 1 }} variant="standard">
-                <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
-                <Input
-                  id="standard-adornment-password"
-                  name="password"
-                  type={showPassword ? 'text' : 'password'}
-                  required
-                  endAdornment={
-                    <InputAdornment position="end">
-                      <IconButton
-                        aria-label="toggle password visibility"
-                        onClick={() => setShowPassword(!showPassword)}
-                        sx={{
-                          '&:hover': {
-                            backgroundColor: 'transparent',
-                          },
-                        }}
-                        className="hover:bg-none"
-                      >
-                        {showPassword ? <VisibilityOff /> : <Visibility />}
-                      </IconButton>
-                    </InputAdornment>
-                  }
-                />
-              </FormControl>
-
-              <div className=" flex w-full md:w-[60%] justify-end text-sm px-1">
-                <div onClick={() => setIsOpen(true)} className="text-neutral-500 duration-100 transition-all ease-in underline cursor-pointer">
-                  Forgot Password ?
+                <div className=" flex w-full md:w-[60%] justify-end text-sm px-1">
+                  <div onClick={() => setIsOpen(true)} className="text-neutral-500 duration-100 transition-all ease-in underline cursor-pointer">
+                    Forgot Password ?
+                  </div>
                 </div>
+                {error && (
+                  <p className="text-center text-red-500 font-medium text-sm mt-5">
+                    {error}
+                  </p>
+                )}
+                <button
+                  disabled={loading}
+                  className="md:w-1/4 w-full border-2 border-[#0064E1] hover:bg-[#0064E1] mt-8 rounded-full py-2 font-semibold hover:text-[#fff] bg-white text-[#0064E1] text-xl ease-in-out duration-200"
+                >
+                  Log in
+                </button>
+              </form>
+              <div className="flex items-center justify-center text-neutral-700">
+                <hr className='w-[25%]' />
+                <p className="text-center px-1">or</p>
+                <hr className='w-[25%]' />
               </div>
-              {error && (
-                <p className="text-center text-red-500 font-medium text-sm mt-5">
-                  {error}
-                </p>
-              )}
-              <button
-                disabled={loading}
-                className="md:w-1/4 w-full border-2 border-[#0064E1] hover:bg-[#0064E1] mt-8 rounded-full py-2 font-semibold hover:text-[#fff] bg-white text-[#0064E1] text-xl ease-in-out duration-200"
-              >
-                Log in
-              </button>
-            </form>
-            <div className="flex items-center justify-center text-neutral-700">
-              <hr className='w-[25%]' />
-              <p className="text-center px-1">or</p>
-              <hr className='w-[25%]' />
-            </div>
-            <div className="flex md:flex-row flex-col items-center justify-evenly mt-6 md:px-36">
-              <p className="md:pb-0 pb-4">Don't have an account?</p>
-              <a href='https://board.ingelt.com/register' rel="noreferrer" className="px-2 py-1 md:px-5 md:py-2 border-2 border-[#0064E1] bg-[#0064E1] hover:bg-white hover:text-[#0064E1] text-white rounded-3xl">
-                Sign Up
-              </a>
-            </div>
-            <div className="pb-4">
-              <p className="text-center text-sm mt-5"><span className="text-[#0064E1] cursor-pointer">Terms of Use</span> and <span className="text-[#0064E1] cursor-pointer">Privacy Policy</span></p>
+              <div className="flex md:flex-row flex-col items-center justify-evenly mt-6 md:px-36">
+                <p className="md:pb-0 pb-4">Don't have an account?</p>
+                <button onClick={() => setOpenSignUp(true)} className="px-2 py-1 md:px-5 md:py-2 border-2 border-[#0064E1] bg-[#0064E1] hover:bg-white hover:text-[#0064E1] text-white rounded-3xl">
+                  Sign Up
+                </button>
+              </div>
+              <div className="">
+                <p className="text-center text-sm mt-5"><span className="text-[#0064E1] cursor-pointer">Terms of Use</span> and <span className="text-[#0064E1] cursor-pointer">Privacy Policy</span></p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div className="w-1/2 relative bg-[#92C0F7] max-lg:hidden">
+        <div className="w-1/2 overflow-hidden relative bg-[#92C0F7] max-lg:hidden">
 
-        <img src={cloud1} alt="" className="absolute top-5 lg:right-[25rem] xl:right-[27rem] 2xl:right-[30rem] w-1/3 floating-left" />
-        <img src={cloud2} alt="" className="absolute w-1/2 top-64 right-16 floating-right" />
-        <img src={cloud3} alt="" className="absolute w-1/3 bottom-64 lg:right-[25rem] xl:right-[27rem] 2xl:right-[30rem] floating-right" />
-        <img src={cloud4} alt="" className="absolute w-1/3 bottom-20 right-20 floating-left" />
-        <img src={SideImage} alt="" className="floating relative" />
+          <img src={cloud1} alt="" className="absolute top-5 lg:right-[25rem] xl:right-[27rem] 2xl:right-[30rem] w-1/3 floating-left" />
+          <img src={cloud2} alt="" className="absolute w-1/2 top-64 right-16 floating-right" />
+          <img src={cloud3} alt="" className="absolute w-1/3 bottom-64 lg:right-[25rem] xl:right-[27rem] 2xl:right-[30rem] floating-right" />
+          <img src={cloud4} alt="" className="absolute w-1/3 bottom-20 right-20 floating-left" />
+          <img src={SideImage} alt="" className="floating relative" />
+        </div>
       </div>
-    </div>
       <PasswordResetModal open={isOpen} onClose={() => setIsOpen(false)} />
+      <SignUp open={openSignUp} handleClose={handleOpenSignUp} text={''} formData={formData} setFormData={setFormData} />
     </>
   );
 }
