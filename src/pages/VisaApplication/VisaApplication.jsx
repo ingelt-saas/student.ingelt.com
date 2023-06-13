@@ -110,7 +110,7 @@ const Page2 = () => {
               //   fontSize: "1.5rem",
               // }}
               >
-                Nulla Lorem mollit cupidatat irure.
+                Hassel free visa processing and approval
               </Typography>
             </Box>
             <Box sx={{ width: { md: "30%", xs: "100%" } }}>
@@ -138,7 +138,7 @@ const Page2 = () => {
                     <div className="flex relative pb-3">
                       {/* creating line */}
                       <div class="h-full w-10 absolute inset-0 flex items-center justify-center">
-                        <div class="h-full w-1 bg-[#00285A] pointer-events-none"></div>
+                        <div class="h-full w-2 bg-[#E5E9EF] pointer-events-none"></div>
                       </div>
                       <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#00285A] inline-flex items-center justify-center text-white relative z-10">
                         <svg
@@ -168,9 +168,9 @@ const Page2 = () => {
                     <div className="flex relative pb-3">
                       {/* creating line */}
                       <div className="h-full w-10 absolute inset-0 flex items-center justify-center">
-                        <div className="h-full w-1 bg-[#00285A] pointer-events-none"></div>
+                        <div className="h-full w-2 bg-[#E5E9EF] pointer-events-none"></div>
                       </div>
-                      <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#00285A] inline-flex items-center justify-center text-white relative z-10">
+                      <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#E5E9EF] inline-flex items-center justify-center text-white relative z-10">
                         <svg
                           fill="none"
                           stroke="currentColor"
@@ -198,9 +198,9 @@ const Page2 = () => {
                     <div className="flex relative pb-3">
                       {/* creating line */}
                       <div className="h-full w-10 absolute inset-0 flex items-center justify-center">
-                        <div className="h-full w-1 bg-[#00285A] pointer-events-none"></div>
+                        <div className="h-full w-2 bg-[#E5E9EF] pointer-events-none"></div>
                       </div>
-                      <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#00285A] inline-flex items-center justify-center text-white relative z-10">
+                      <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#E5E9EF] inline-flex items-center justify-center text-white relative z-10">
                         <svg
                           fill="none"
                           stroke="currentColor"
@@ -230,9 +230,9 @@ const Page2 = () => {
                     <div className="flex relative pb-3">
                       {/* creating line */}
                       <div className="h-full w-10 absolute inset-0 flex items-center justify-center">
-                        <div className="h-full w-1 bg-[#646669] pointer-events-none "></div>
+                        <div className="h-full w-2 bg-[#E5E9EF] pointer-events-none "></div>
                       </div>
-                      <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#00285A] inline-flex items-center justify-center text-white relative z-10">
+                      <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#E5E9EF] inline-flex items-center justify-center text-white relative z-10">
                         <svg
                           fill="none"
                           stroke="currentColor"
@@ -261,9 +261,9 @@ const Page2 = () => {
                     </div>
                     <div className="flex relative pb-3">
                       <div className="h-full w-10 absolute inset-0 flex items-center justify-center">
-                        <div className="h-full w-1 bg-[#646669] pointer-events-none "></div>
+                        <div className="h-full w-2 bg-[#E5E9EF] pointer-events-none "></div>
                       </div>
-                      <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#646669] inline-flex items-center justify-center text-white relative z-10">
+                      <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#E5E9EF] inline-flex items-center justify-center text-white relative z-10">
                         <svg
                           fill="none"
                           stroke="currentColor"
@@ -291,7 +291,7 @@ const Page2 = () => {
                       </div>
                     </div>
                     <div className="flex relative pb-3">
-                      <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#646669] inline-flex items-center justify-center text-white relative z-10">
+                      <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#E5E9EF] inline-flex items-center justify-center text-white relative z-10">
                         <svg
                           fill="none"
                           stroke="currentColor"
@@ -409,7 +409,7 @@ const VisaApplication = () => {
                   //   fontSize: "1.5rem",
                   // }}
                   >
-                    Nulla Lorem mollit cupidatat irure.
+                    Hassel free visa processing and approval
                   </Typography>
                 </Box>
                 <Box sx={{ width: { md: "30%", xs: "100%" } }}>
@@ -434,31 +434,22 @@ const VisaApplication = () => {
                   {/* input1 */}
 
                   <div className="flex flex-col gap-y-2">
-                    <label htmlFor="state">
-                      Unlock global opportunities with the right type of visa.
-                      Our team will assist you in choosing the most suitable
-                      visa category based on your specific study or travel
-                      plans, ensuring a seamless and successful visa application
-                      process.
+                    <label htmlFor="state" className="font-semibold">
+                      Select your Visa type?
                     </label>
                     <div className="shadow-lg rounded-xl overflow-hidden">
                       <SelectMenu
-                        placeholder={"Type of visa"}
-                        name={"visaType"}
+                        name="visaType"
                         handleChange={handleChange}
-                        value={data.visaType}
-                        options={["Study Visa"]}
+                        value="Study Visa"
+                        options={["select your visa", "Study Visa"]}
                       />
                     </div>
                   </div>
 
                   <div className="flex flex-col gap-y-2">
-                    <label htmlFor="state">
-                      Explore your preferred country of study and turn your
-                      dreams into reality. Our experts will guide you in
-                      selecting the perfect destination that aligns with your
-                      academic goals and offers exciting opportunities for
-                      personal growth and success.
+                    <label htmlFor="state" className="font-semibold">
+                      What is your preferred country to study abroad?
                     </label>
                     <div className="shadow-lg rounded-xl overflow-hidden">
                       <SelectMenu
@@ -479,11 +470,8 @@ const VisaApplication = () => {
 
                   {/* input3 */}
                   <div className="inline-block relative ml-1">
-                    <p className="mb-2">
-                      Overcome previous visa refusal hurdles with our expert
-                      guidance and personalized support. We understand your
-                      concerns and help you navigate the complexities,
-                      increasing your chances of a successful visa application.
+                    <p className="mb-2 font-semibold">
+                      Is there is any prior visa refusal?
                     </p>
                     <input
                       checked={Boolean(data.refusal === "yes")}
