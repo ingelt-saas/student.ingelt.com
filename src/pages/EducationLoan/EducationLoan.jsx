@@ -96,7 +96,7 @@ const Page2 = () => {
               //   fontSize: "1.5rem",
               // }}
               >
-                Nulla Lorem mollit cupidatat irure.
+                Optimal solution for overseas education loan
               </Typography>
             </Box>
             <Box sx={{ width: { md: "30%", xs: "100%" } }}>
@@ -124,7 +124,7 @@ const Page2 = () => {
                     <div className="flex relative pb-12">
                       {/* creating line */}
                       <div class="h-full w-10 absolute inset-0 flex items-center justify-center">
-                        <div class="h-full w-1 bg-[#00285A] pointer-events-none"></div>
+                        <div class="h-full w-2 bg-[#E5E9EF] pointer-events-none"></div>
                       </div>
                       <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#00285A] inline-flex items-center justify-center text-white relative z-10">
                         <svg
@@ -154,9 +154,9 @@ const Page2 = () => {
                     <div className="flex relative pb-12">
                       {/* creating line */}
                       <div className="h-full w-10 absolute inset-0 flex items-center justify-center">
-                        <div className="h-full w-1 bg-[#00285A] pointer-events-none"></div>
+                        <div className="h-full w-2 bg-[#E5E9EF] pointer-events-none"></div>
                       </div>
-                      <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#00285A] inline-flex items-center justify-center text-white relative z-10">
+                      <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#E5E9EF] inline-flex items-center justify-center text-white relative z-10">
                         <svg
                           fill="none"
                           stroke="currentColor"
@@ -184,9 +184,9 @@ const Page2 = () => {
                     <div className="flex relative pb-12">
                       {/* creating line */}
                       <div className="h-full w-10 absolute inset-0 flex items-center justify-center">
-                        <div className="h-full w-1 bg-[#00285A] pointer-events-none"></div>
+                        <div className="h-full w-2 bg-[#E5E9EF] pointer-events-none"></div>
                       </div>
-                      <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#00285A] inline-flex items-center justify-center text-white relative z-10">
+                      <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#E5E9EF] inline-flex items-center justify-center text-white relative z-10">
                         <svg
                           fill="none"
                           stroke="currentColor"
@@ -215,9 +215,9 @@ const Page2 = () => {
                     <div className="flex relative pb-12">
                       {/* creating line */}
                       <div className="h-full w-10 absolute inset-0 flex items-center justify-center">
-                        <div className="h-full w-1 bg-[#646669] pointer-events-none "></div>
+                        <div className="h-full w-2 bg-[#E5E9EF] pointer-events-none "></div>
                       </div>
-                      <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#00285A] inline-flex items-center justify-center text-white relative z-10">
+                      <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#E5E9EF] inline-flex items-center justify-center text-white relative z-10">
                         <svg
                           fill="none"
                           stroke="currentColor"
@@ -244,7 +244,7 @@ const Page2 = () => {
                       </div>
                     </div>
                     <div className="flex relative">
-                      <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#00285A] inline-flex items-center justify-center text-white relative z-10">
+                      <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#E5E9EF] inline-flex items-center justify-center text-white relative z-10">
                         <svg
                           fill="none"
                           stroke="currentColor"
@@ -392,7 +392,7 @@ const EducationLoan = () => {
                   //   fontSize: "1.5rem",
                   // }}
                   >
-                    Nulla Lorem mollit cupidatat irure.
+                    Optimal solution for overseas education loan
                   </Typography>
                 </Box>
                 <Box sx={{ width: { md: "30%", xs: "100%" } }}>
@@ -419,13 +419,12 @@ const EducationLoan = () => {
                   className="flex flex-col gap-y-5 pt-5 max-md:px-3 md:pr-3 mb-10"
                 >
                   <div className="flex flex-col gap-y-2">
-                    <label htmlFor="state">
-                      Choose the state that suits your educational aspirations
-                      and embark on an extraordinary learning journey.
+                    <label htmlFor="state" className="font-semibold">
+                      In which State do you live?
                     </label>
                     <div className="shadow-lg rounded-xl overflow-hidden">
                       <SelectMenu
-                        placeholder={"Select your state"}
+                        placeholder={"State"}
                         name={"state"}
                         handleChange={handleChange}
                         value={data.state}
@@ -437,13 +436,12 @@ const EducationLoan = () => {
                   </div>
 
                   <div className="flex flex-col gap-y-2">
-                    <label htmlFor="zone">
-                      Explore the diverse districts and zones and choose the
-                      perfect location to pursue your educational dreams
+                    <label htmlFor="zone" className="font-semibold">
+                      Select your District/Zone?
                     </label>
                     <div className="shadow-lg rounded-xl overflow-hidden">
                       <SelectMenu
-                        placeholder="Select your district/zone"
+                        placeholder="District/Zone"
                         name="zone"
                         value={data.zone}
                         handleChange={handleChange}
@@ -453,10 +451,8 @@ const EducationLoan = () => {
                   </div>
 
                   <div className="flex flex-col gap-y-2">
-                    <label htmlFor="zone">
-                      Provide information about your family's annual income to
-                      help us determine the best financial options for your
-                      education journey.
+                    <label htmlFor="zone" className="font-semibold">
+                      What is your family's annual income?
                     </label>
                     <div className="shadow-lg rounded-xl overflow-hidden">
                       <input
@@ -471,7 +467,7 @@ const EducationLoan = () => {
                   </div>
 
                   <div className="flex flex-col gap-y-2">
-                    <label>
+                    <label className="font-semibold">
                       To begin your academic career at the perfect time that
                       fits your schedule and ambitions, choose your chosen
                       intake (semester or session).

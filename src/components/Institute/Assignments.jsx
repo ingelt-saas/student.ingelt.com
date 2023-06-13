@@ -69,18 +69,22 @@ const Assignments = ({ searchQuery }) => {
                   key={item?.id}
                 >
                   <div className="flex-1 pb-3">
-                    <img src={assignmentSVG} alt="" className="mx-auto" />
-                    <h2 className="text-center text-lg 2xl:text-2xl text-[#00285A] font-medium">
+                    <img
+                      src={assignmentSVG}
+                      alt=""
+                      className="mx-auto h-20 w-auto"
+                    />
+                    <h2 className="text-center text-lg 2xl:text-lg text-[#00285A] font-medium">
                       {item.name}
                     </h2>
                   </div>
                   <div className="flex justify-between pt-2 border-[#0000000F] border-t">
                     <div className="flex flex-col gap-y-2">
                       <p className="flex flex-col">
-                        <span className="text-base 2xl:text-xl font-medium text-[#00285A]">
+                        <span className="text-base 2xl:text-md font-medium text-[#00285A]">
                           Status
                         </span>
-                        <span className="text-[#00000099] text-sm 2xl:text-lg">
+                        <span className="text-[#00000099] text-sm 2xl:text-xs">
                           {item?.submissions?.status === "submitted"
                             ? item?.submissions?.evaluated
                               ? "Evaluated"
@@ -89,10 +93,10 @@ const Assignments = ({ searchQuery }) => {
                         </span>
                       </p>
                       <p className="flex flex-col">
-                        <span className="text-base 2xl:text-xl font-medium text-[#00285A]">
+                        <span className="text-base 2xl:text-md font-medium text-[#00285A]">
                           Marks
                         </span>
-                        <span className="text-[#00000099] text-sm 2xl:text-lg">
+                        <span className="text-[#00000099] text-xs 2xl:text-xs">
                           {item?.submissions?.id
                             ? item?.submissions?.evaluated
                               ? item?.submissions?.scores
@@ -103,10 +107,10 @@ const Assignments = ({ searchQuery }) => {
                     </div>
                     <div className="flex flex-col gap-y-2">
                       <p className="flex flex-col">
-                        <span className="text-base 2xl:text-xl font-medium text-[#00285A]">
+                        <span className="text-base 2xl:text-md font-medium text-[#00285A]">
                           Upload Date
                         </span>
-                        <span className="text-[#00000099] text-sm 2xl:text-lg">
+                        <span className="text-[#00000099] text-sm 2xl:text-xs">
                           {moment(item.createdAt).format("ll")}
                         </span>
                       </p>
@@ -120,13 +124,15 @@ const Assignments = ({ searchQuery }) => {
                     {item?.submissions?.status === "submitted" ? (
                       <Button
                         variant="outlined"
-                        className="!text-xs 2xl:!text-xl"
+                        className="!text-xs 2xl:!text-md"
                         sx={{
                           border: "2px solid #00000099",
                           borderRadius: "7px",
                           textTransform: "capitalize",
                           color: "#00000099",
-                          fontWeight: 500,
+                          fontWeight: 400,
+                          padding: "4px 8px",
+
                           "&:hover": {
                             border: "2px solid #00000099",
                             backgroundColor: "transparent",
@@ -140,13 +146,14 @@ const Assignments = ({ searchQuery }) => {
                     ) : (
                       <Button
                         variant="outlined"
-                        className="!text-xs 2xl:!text-xl"
+                        className="!text-xs 2xl:!text-md"
                         sx={{
                           border: "2px solid #00000099",
-                          borderRadius: "7px",
+                          borderRadius: "8px",
                           textTransform: "capitalize",
                           color: "#00000099",
-                          fontWeight: 500,
+                          fontWeight: 400,
+                          padding: "4px 8px",
                           "&:hover": {
                             border: "2px solid #00000099",
                             backgroundColor: "transparent",
@@ -162,14 +169,15 @@ const Assignments = ({ searchQuery }) => {
                     <Button
                       onClick={() => downloadAssignment(item.file, item.name)}
                       variant="contained"
-                      className="!text-xs 2xl:!text-xl"
+                      className="!text-xs 2xl:!text-md"
                       sx={{
                         border: "2px solid #0C3C82",
                         borderRadius: "7px",
                         textTransform: "capitalize",
                         backgroundColor: "#0C3C82",
                         color: "white",
-                        fontWeight: 500,
+                        fontWeight: 400,
+                        padding: "4px 8px",
                         "&:hover": {
                           border: "2px solid #0C3C82",
                           backgroundColor: "#0C3C82",
