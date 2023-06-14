@@ -78,13 +78,13 @@ const Library = () => {
                 const res = await libraryApi.getAll(pagination.page + 1, pagination.rows, searchValue);
                 setTotalItems(res?.data?.count);
                 if (activeTab === 2) {
-                    setLibrary(res?.data?.rows.filter((item) => item.subject === "reading"));
+                    setLibrary(res?.data?.rows.filter((item) => item.subject === "Reading"));
                 } else if (activeTab === 3) {
-                    setLibrary(res?.data?.rows.filter((item) => item.subject === "writing"));
+                    setLibrary(res?.data?.rows.filter((item) => item.subject === "Writing"));
                 } else if (activeTab === 4) {
-                    setLibrary(res?.data?.rows.filter((item) => item.subject === "speaking"));
+                    setLibrary(res?.data?.rows.filter((item) => item.subject === "Speaking"));
                 } else if (activeTab === 5) {
-                    setLibrary(res?.data?.rows.filter((item) => item.subject === "listening"));
+                    setLibrary(res?.data?.rows.filter((item) => item.subject === "Listening"));
                 } else {
                     setLibrary(res?.data?.rows);
                 }
@@ -285,7 +285,7 @@ const Library = () => {
             ) : (
                 <VideoModal file={selectedFile?.link} showPopup={showPopup} closePopup={closePopup} />
             )}
-            
+
             <TablePagination component='div' color="primary"
                 count={totalItems}
                 rowsPerPageOptions={
