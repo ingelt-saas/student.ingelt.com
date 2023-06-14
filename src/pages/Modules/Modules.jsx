@@ -145,14 +145,14 @@ const Modules = () => {
                 fontWeight: "bold",
               }}
             >
-              Recorded Lecture
+              IELTS Modules
             </Typography>
             <Typography
             // sx={{
             //   fontSize: "1.5rem",
             // }}
             >
-              Hassel free visa processing and approval
+              British Council IELTS instructors
             </Typography>
           </Box>
           <Box sx={{ width: { md: "30%", xs: "100%" } }}>

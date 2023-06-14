@@ -366,7 +366,7 @@ const ShortlistUniversity = () => {
             <img src={ShortlistSVG} alt="Shortlist" className="" />
             <div className="absolute top-0 left-0 w-full h-full flex flex-col justify-between py-5 px-5">
               <p className="text-white">
-                need more help in finding your dream course?
+                Need more help in finding your dream course?
               </p>
               <button className="bg-[#E7ECF3] w-fit text-[#0C3C82] font-semibold py-3 px-6 rounded-full flex items-center gap-x-2">
                 Talk to expert

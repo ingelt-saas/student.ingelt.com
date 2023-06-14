@@ -57,19 +57,6 @@ const Page2 = () => {
       <img src={img3} alt="welcome svg" className="absolute right-32 " />
 
       <div className="w-full h-20 foo:block ">
-        {/* <div className="relative rounded-xl pb-14 shadow-lg bg-white mx-3 ">
-          <h1 className="text-3xl font-semibold  text-[#00285A] text-left pb-5 pt-12 px-5 ">
-            Visa Application
-          </h1>
-          <p className="text-left  px-5 w-1/3 ">
-            Nulla Lorem mollit cupidatat irure. Laborum magna cillum dolor.{" "}
-          </p>
-          <img
-            src={welcomeSVG}
-            alt="welcome svg"
-            className="absolute bottom-0 right-3 h-52 w-auto"
-          />
-        </div> */}
         <div className=" pb-4 ">
           <Box
             sx={{
@@ -137,8 +124,8 @@ const Page2 = () => {
                   <div className=" md:pr-10 md:py-6">
                     <div className="flex relative pb-3">
                       {/* creating line */}
-                      <div class="h-full w-10 absolute inset-0 flex items-center justify-center">
-                        <div class="h-full w-2 bg-[#E5E9EF] pointer-events-none"></div>
+                      <div className="h-full w-10 absolute inset-0 flex items-center justify-center">
+                        <div className="h-full w-2 bg-[#E5E9EF] pointer-events-none"></div>
                       </div>
                       <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#00285A] inline-flex items-center justify-center text-white relative z-10">
                         <svg
@@ -356,19 +343,6 @@ const VisaApplication = () => {
       {page ? (
         <div className="flex flex-row flex-wrap gap-y-10 gap-x-5 w-full ">
           <div className="w-full h-20 foo:block ">
-            {/* <div className="relative rounded-xl pb-14 shadow-lg bg-white mx-3 ">
-              <h1 className="text-3xl font-semibold text-[#00285A] text-left pb-5 pt-12 px-5 ">
-                Visa Application
-              </h1>
-              <p className="text-left  px-5 md:w-1/3 ">
-                Nulla Lorem mollit cupidatat irure. Laborum magna cillum dolor.{" "}
-              </p>
-              <img
-                src={welcomeSVG}
-                alt="welcome svg"
-                className="absolute bottom-0 right-3 h-52 w-auto max-md:hidden"
-              />
-            </div> */}
             <div className=" pb-4 ">
               <Box
                 sx={{
@@ -404,11 +378,7 @@ const VisaApplication = () => {
                   >
                     Visa Application
                   </Typography>
-                  <Typography
-                  // sx={{
-                  //   fontSize: "1.5rem",
-                  // }}
-                  >
+                  <Typography>
                     Hassel free visa processing and approval
                   </Typography>
                 </Box>
