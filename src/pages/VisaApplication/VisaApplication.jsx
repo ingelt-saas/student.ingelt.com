@@ -70,7 +70,7 @@ const Page2 = () => {
             className="absolute bottom-0 right-3 h-52 w-auto"
           />
         </div> */}
-        <div className="pt-3 pb-4 pl-2">
+        <div className=" pb-4 ">
           <Box
             sx={{
               display: "flex",
@@ -369,7 +369,7 @@ const VisaApplication = () => {
                 className="absolute bottom-0 right-3 h-52 w-auto max-md:hidden"
               />
             </div> */}
-            <div className="pt-3 pb-4 pl-2">
+            <div className=" pb-4 ">
               <Box
                 sx={{
                   display: "flex",
@@ -440,10 +440,16 @@ const VisaApplication = () => {
                     <div className="shadow-lg rounded-xl overflow-hidden">
                       <SelectMenu
                         name="visaType"
+                        placeholder={"Select visa type"}
                         handleChange={handleChange}
-                        value="Study Visa"
-                        options={["select your visa", "Study Visa"]}
-                      />
+                        value={data.visaType}
+                        options={["Study Visa"]}
+                      >
+                        <option value="" disabled>
+                          Select Location
+                        </option>
+                        <option selected>Delhi</option>
+                      </SelectMenu>
                     </div>
                   </div>
 
