@@ -10,9 +10,20 @@ import heartSVG from "../../assets/images/heart.svg";
 import planeSVG from "../../assets/images/airplane.svg";
 import downSVG from "../../assets/images/downArrow.svg";
 import ShortlistSVG from "../../assets/images/shortlist.svg";
-import { Button, Drawer, Select, FormControl, MenuItem, OutlinedInput, Box, Typography, CircularProgress, Alert } from "@mui/material";
+import {
+  Button,
+  Drawer,
+  Select,
+  FormControl,
+  MenuItem,
+  OutlinedInput,
+  Box,
+  Typography,
+  CircularProgress,
+  Alert,
+} from "@mui/material";
 import { FilterAlt } from "@mui/icons-material";
-import { Country } from 'country-state-city';
+import { Country } from "country-state-city";
 import { useQuery } from "@tanstack/react-query";
 import universityApi from "../../api/university";
 import UniversityItem from "../../components/University/UniversityItem";
@@ -33,7 +44,7 @@ const RightArrowSVG = ({ className, backgroundColor }) => {
         height="28.5714"
         rx="14.2857"
         className={backgroundColor}
-        fill='currentColor'
+        fill="currentColor"
         // fill={backgroundColor}
         fillOpacity="0.1"
       />
@@ -83,53 +94,56 @@ const HeartSVG = () => {
         </clipPath>
       </defs>
     </svg>
-
   );
-}
+};
 
 const SelectMenu = ({ options, placeholder, value, handleChange, name }) => {
-  return (<>
-    <FormControl fullWidth>
-      <Select
-        sx={{
-          '& .MuiOutlinedInput-notchedOutline': {
-            border: '2px solid #F7EFFF !important',
-          },
-          fontWeight: 500,
-          color: '#001E43',
-          textAlign: 'center',
-        }}
-        displayEmpty
-        value={value}
-        onChange={handleChange}
-        input={<OutlinedInput />}
-        name={name}
-        MenuProps={{ sx: { height: '50vh' } }}
-        inputProps={{ 'aria-label': 'Without label' }}
-      >
-        <MenuItem disabled value="">
-          {placeholder}
-        </MenuItem>
-        {Array.isArray(options) && options.map(item =>
-          <MenuItem key={item} value={item}>{item}</MenuItem>
-        )}
-      </Select>
-    </FormControl >
-  </>);
-}
+  return (
+    <>
+      <FormControl fullWidth>
+        <Select
+          sx={{
+            "& .MuiOutlinedInput-notchedOutline": {
+              border: "2px solid #F7EFFF !important",
+            },
+            fontWeight: 500,
+            color: "#001E43",
+            textAlign: "center",
+          }}
+          displayEmpty
+          value={value}
+          onChange={handleChange}
+          input={<OutlinedInput />}
+          name={name}
+          MenuProps={{ sx: { height: "50vh" } }}
+          inputProps={{ "aria-label": "Without label" }}
+        >
+          <MenuItem disabled value="">
+            {placeholder}
+          </MenuItem>
+          {Array.isArray(options) &&
+            options.map((item) => (
+              <MenuItem key={item} value={item}>
+                {item}
+              </MenuItem>
+            ))}
+        </Select>
+      </FormControl>
+    </>
+  );
+};
 
 const FilterMenu = () => {
-
   const [selectedData, setSelectedData] = useState({
-    country: '',
-    courseLevel: '',
-    areaOfStudy: '',
-    higherEducation: ''
+    country: "",
+    courseLevel: "",
+    areaOfStudy: "",
+    higherEducation: "",
   });
 
   const selectHandler = (e) => {
     setSelectedData({ ...selectedData, [e.target.name]: e.target.value });
-  }
+  };
 
   return (
     <div className="bg-white rounded-t-2xl max-xl:hidden">
@@ -142,60 +156,57 @@ const FilterMenu = () => {
           <button className="bg-[#E7ECF3] group border-2 border-[#E7ECF3] hover:bg-transparent hover:text-[#E7ECF3] duration-300 w-fit text-[#0C3C82] font-semibold py-3 px-6 rounded-full flex items-center gap-x-2">
             Talk to expert
             <RightArrowSVG
-              className={'w-6 h-6'}
-              backgroundColor={'text-[#0C3C82] group-hover:text-[#E7ECF3]'}
+              className={"w-6 h-6"}
+              backgroundColor={"text-[#0C3C82] group-hover:text-[#E7ECF3]"}
             />
           </button>
         </div>
       </div>
       <div className="h-4/7">
         <SelectMenu
-          placeholder={'Country'}
-          options={Country.getAllCountries().map(i => i.name)}
+          placeholder={"Country"}
+          options={Country.getAllCountries().map((i) => i.name)}
           value={selectedData.country}
           handleChange={selectHandler}
-          name='country'
+          name="country"
         />
         <SelectMenu
-          placeholder={'Course Level'}
+          placeholder={"Course Level"}
           options={[]}
           value={selectedData.courseLevel}
           handleChange={selectHandler}
-          name='courseLevel'
+          name="courseLevel"
         />
         <SelectMenu
-          placeholder={'Area of study'}
+          placeholder={"Area of study"}
           options={[]}
           value={selectedData.areaOfStudy}
           handleChange={selectHandler}
-          name='areaOfStudy'
+          name="areaOfStudy"
         />
         <SelectMenu
-          placeholder={'Higher education'}
+          placeholder={"Higher education"}
           options={[]}
           value={selectedData.higherEducation}
           handleChange={selectHandler}
-          name='higherEducation'
+          name="higherEducation"
         />
-
       </div>
     </div>
   );
 };
 
 const ShortlistUniversity = () => {
-
   const [isOpen, setIsOpen] = useState(false);
   const [pagination, setPagination] = useState({ page: 1, rows: 10 });
 
   const { data, isLoading, refetch } = useQuery({
-    queryKey: ['shortlistedUniversities', pagination],
+    queryKey: ["shortlistedUniversities", pagination],
     queryFn: async () => {
       const res = await universityApi.getAll(pagination.page, pagination.rows);
       return res.data;
-    }
+    },
   });
-
 
   // shortlist add handler
   const shortlistHandler = async (e, university) => {
@@ -208,11 +219,11 @@ const ShortlistUniversity = () => {
       }
       refetch();
     } catch (err) {
-      toast.error('Sorry! Something went wrong.');
+      toast.error("Sorry! Something went wrong.");
     } finally {
       e.target.disabled = false;
     }
-  }
+  };
 
   return (
     <>
@@ -233,7 +244,7 @@ const ShortlistUniversity = () => {
               className="-mt-12 max-md:hidden"
             />
           </div> */}
-          <div className="pt-6 pb-5 pl-3">
+          <div className=" pb-5 ">
             <Box
               sx={{
                 display: "flex",
@@ -308,23 +319,34 @@ const ShortlistUniversity = () => {
               <FilterMenu />
             </div>
             <div className="xl:col-span-8">
-              {isLoading && <div className="py-5 flex justify-center">
-                <CircularProgress sx={{ '&: svg circle': { stroke: '#00285A' } }} />
-              </div>}
-              {!isLoading && (Array.isArray(data?.rows) && data?.rows?.length > 0 ?
-                <div className="grid max-md:grid-cols-1 grid-cols-2 gap-x-5">
-                  {data?.rows?.map(item =>
-                    <UniversityItem
-                      RightArrowSVG={RightArrowSVG}
-                      university={item}
-                      shortlistHandler={shortlistHandler}
-                      key={item.id}
-                    />
-                  )}
-                </div> :
-                <Alert severity="warning" icon={false} className="mx-auto mt-5 w-fit" >No University Found</Alert>
+              {isLoading && (
+                <div className="py-5 flex justify-center">
+                  <CircularProgress
+                    sx={{ "&: svg circle": { stroke: "#00285A" } }}
+                  />
+                </div>
               )}
-
+              {!isLoading &&
+                (Array.isArray(data?.rows) && data?.rows?.length > 0 ? (
+                  <div className="grid max-md:grid-cols-1 grid-cols-2 gap-x-5">
+                    {data?.rows?.map((item) => (
+                      <UniversityItem
+                        RightArrowSVG={RightArrowSVG}
+                        university={item}
+                        shortlistHandler={shortlistHandler}
+                        key={item.id}
+                      />
+                    ))}
+                  </div>
+                ) : (
+                  <Alert
+                    severity="warning"
+                    icon={false}
+                    className="mx-auto mt-5 w-fit"
+                  >
+                    No University Found
+                  </Alert>
+                ))}
             </div>
           </div>
         </div>
@@ -344,7 +366,7 @@ const ShortlistUniversity = () => {
             <img src={ShortlistSVG} alt="Shortlist" className="" />
             <div className="absolute top-0 left-0 w-full h-full flex flex-col justify-between py-5 px-5">
               <p className="text-white">
-                need more help in finding your dream course?
+                Need more help in finding your dream course?
               </p>
               <button className="bg-[#E7ECF3] w-fit text-[#0C3C82] font-semibold py-3 px-6 rounded-full flex items-center gap-x-2">
                 Talk to expert
