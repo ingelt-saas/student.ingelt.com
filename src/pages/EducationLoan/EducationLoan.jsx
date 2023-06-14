@@ -56,7 +56,7 @@ const Page2 = () => {
   return (
     <div className="flex flex-row flex-wrap gap-y-10 gap-x-5 w-full  sm:m-auto">
       <div className="w-full h-20 foo:block ">
-        <div className=" pb-4">
+        <div className="pt-3 pb-4 pl-3">
           <Box
             sx={{
               display: "flex",
@@ -353,7 +353,7 @@ const EducationLoan = () => {
       {page ? (
         <div className="flex flex-row flex-wrap gap-y-10 gap-x-5 w-full ">
           <div className="w-full h-20 foo:block ">
-            <div className="pb-4 ">
+            <div className="pt-3 pb-4 pl-3">
               <Box
                 sx={{
                   display: "flex",

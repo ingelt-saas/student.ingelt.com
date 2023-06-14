@@ -113,9 +113,7 @@ const FindInstitute = () => {
     e.target.disabled = true;
     try {
       await instituteApi.applyInstitute({ organizationId: org.id });
-      toast.success(
-        `You have successfully applied to the ${org.name} institute, Our team will contact you within 12hrs.`
-      );
+      toast.success(`You have successfully applied to the ${org.name} institute, Our team will contact you within 12hrs.`);
       fetchAppliedInstitutes();
     } catch (err) {
       toast.error("Sorry! Something went wrong");
@@ -127,7 +125,7 @@ const FindInstitute = () => {
   return (
     <div>
       <div className="flex justify-between items-center px-3 rounded-xl shadow-xl">
-        <div className="w-full md:w-fit py-3 ml-5 bg-white">
+        <div className="w-full md:w-fit py-3 ml-5">
           <h2 className="text-2xl font-semibold text-[#001E43]">
             Find Institute
           </h2>
