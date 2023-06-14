@@ -166,11 +166,6 @@ const SideBar = () => {
                   </NavItem>
                 </li>
               ) : (
-                // {
-                //   name: "Find Institute",
-                //   path: "/find-institute",
-                //   icon: <UniversitySVG />,
-                // },
                 <li className="navItem mb-2">
                   <NavItem to="/find-institute" collapseMenu={collapseMenu}>
                     <UniversitySVG />
@@ -344,14 +339,45 @@ const SideBar = () => {
                       </NavItem>
                     </li>
                   ))}
-                  {student?.organizationId && (
+                  {student.organizationId ? (
+                    <li className="navItem mb-2">
+                      <NavItem to="/institute" collapseMenu={collapseMenu}>
+                        <LibrarySVG />
+                        <span
+                          className={`${
+                            collapseMenu
+                              ? "max-w-0 max-h-0"
+                              : "max-w-xs max-h-10"
+                          } overflow-hidden duration-300`}
+                        >
+                          Institute
+                        </span>
+                      </NavItem>
+                    </li>
+                  ) : (
+                    <li className="navItem mb-2">
+                      <NavItem to="/find-institute" collapseMenu={collapseMenu}>
+                        <UniversitySVG />
+                        <span
+                          className={`${
+                            collapseMenu
+                              ? "max-w-0 max-h-0"
+                              : "max-w-xs max-h-10"
+                          } overflow-hidden duration-300`}
+                        >
+                          Find Institute
+                        </span>
+                      </NavItem>
+                    </li>
+                  )}
+                  {/* {student?.organizationId && (
                     <li className="navItem">
                       <NavItem to="/institute" onClick={() => setOpen(false)}>
                         <LibrarySVG />
                         <span className={`duration-300`}>Institute</span>
                       </NavItem>
                     </li>
-                  )}
+                  )} */}
                 </ul>
               </div>
             </div>
