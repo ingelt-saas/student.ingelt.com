@@ -29,6 +29,7 @@ import {
 import Image from "../../components/shared/Image/Image";
 import AssignmentGraph from "../../components/Home/AssignmentGraph";
 import Blogs from "../../components/Home/Blogs";
+import LockOverly from "../../components/shared/LockOverly/LockOverly";
 
 // Student Info Block
 const StudentInfoBlock = ({ title, text, IconName }) => {
@@ -57,6 +58,7 @@ const StudentInfoBlock = ({ title, text, IconName }) => {
 };
 
 const Home = () => {
+
   const { student } = useContext(StudentContext);
   const [isCopied, setIsCopied] = useState(false);
   const [graphData, setGraphData] = useState([]);
@@ -87,7 +89,7 @@ const Home = () => {
         const graphData = await home.getGraphData();
         setBands(bands.data);
         setGraphData(graphData.data);
-      } catch (error) {}
+      } catch (error) { }
     }
     getMeetLink();
     const getGreeting = () => {
@@ -134,7 +136,8 @@ const Home = () => {
       </div>
 
       {/* meeting link */}
-      <div className="w-full order-2 foo:order-none foo:w-[calc(100%/12*4-10px)]">
+      <div className="relative w-full order-2 foo:order-none foo:w-[calc(100%/12*4-10px)]">
+        {!student.organizationId && <LockOverly />}
         <div className="rounded-xl border border-[#78787840] flex px-2  shadow-lg bg-white">
           <div className="w-4/12">
             <img src={meetSVG} alt="meeting svg" className="w-full h-auto" />
@@ -268,8 +271,9 @@ const Home = () => {
       </div>
 
       {/* mock test Performance */}
-      <div className="w-full order-5 foo:order-none foo:w-[calc(100%/12*4-10px)]">
-        <div className="border border-[#78787840] shadow-lg rounded-lg px-4 py-5 bg-white">
+      <div className="w-full relative order-5 foo:order-none foo:w-[calc(100%/12*4-10px)]">
+        {!student.organizationId && <LockOverly />}
+        <div className="-z-10 border border-[#78787840] shadow-lg rounded-lg px-4 py-5 bg-white">
           <h1 className="font-semibold text-xl mb-6">Mock Test Performance</h1>
 
           <div className="border border-[#78787840] w-full px-3 lg:px-5 xl:px-8 py-4 flex justify-between items-center my-2">
@@ -325,14 +329,16 @@ const Home = () => {
       </div>
 
       {/* student graph */}
-      <div className="w-full order-3 foo:order-none foo:w-[calc(100%/12*8-10px)]">
+      <div className="w-full relative order-3 foo:order-none foo:w-[calc(100%/12*8-10px)]">
+        {!student.organizationId && <LockOverly />}
         <div className="border border-[#78787840] shadow-lg rounded-lg px-4 py-5 bg-white">
           <StudentGraph data={graphData} />
         </div>
       </div>
 
       {/* assignment graph  */}
-      <div className="w-full order-4 foo:order-none foo:w-[calc(100%/12*4-10px)]">
+      <div className="relative w-full order-4 foo:order-none foo:w-[calc(100%/12*4-10px)]">
+        {!student.organizationId && <LockOverly />}
         <AssignmentGraph />
       </div>
 
@@ -344,7 +350,8 @@ const Home = () => {
       </div>
 
       {/* score  */}
-      <div className="w-full order-4 foo:order-none foo:w-[calc(100%/12*4-10px)]">
+      <div className="w-full relative order-4 foo:order-none foo:w-[calc(100%/12*4-10px)]">
+        {!student.organizationId && <LockOverly />}
         <div className="border border-[#78787840] shadow-lg rounded-md py-6 px-3 bg-white">
           <h1 className="font-bold text-2xl">Your Predicted Bands</h1>
           <div className="mt-5 overflow-hidden rounded-md">

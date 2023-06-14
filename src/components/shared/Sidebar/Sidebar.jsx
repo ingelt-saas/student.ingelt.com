@@ -14,20 +14,15 @@ import {
   DiscussionSVG,
   HomeSVG,
   LogoutSVG,
-  NotesSVG,
+  UniversitySVG,
+  ShortlistSVG,
   SettingSVG,
   LibrarySVG,
   ModulesSVG,
+  EducationLoan,
+  PassportSVG
 } from "./SidebarSVG.jsx";
 // navbar svg
-import img1 from "../../../assets/images/home.svg";
-import img2 from "../../../assets/images/modules.svg";
-import img3 from "../../../assets/images/university.svg";
-import img4 from "../../../assets/images/library.svg";
-import img5 from "../../../assets/images/short1.svg";
-import img6 from "../../../assets/images/loan1.svg";
-import img7 from "../../../assets/images/passport.svg";
-import img8 from "../../../assets/images/community.svg";
 
 //assets
 import logo from "../../../assets/images/navlogo.png";
@@ -42,12 +37,10 @@ const NavItem = ({ to, children, collapseMenu, ...props }) => {
       {...props}
       to={to}
       className={({ isActive }) =>
-        `${
-          isActive
-            ? "bg-[#1B3B7D33] text-[#1B3B7D]"
-            : "bg-transparent text-[#7A7C88]"
-        } ${
-          collapseMenu ? "justify-center gap-0" : "justify-start gap-3"
+        `${isActive
+          ? "bg-[#1B3B7D33] text-[#1B3B7D]"
+          : "bg-transparent text-[#7A7C88]"
+        } ${collapseMenu ? "justify-center gap-0" : "justify-start gap-3"
         } flex items-center text-base font-semibold  rounded-md duration-300 px-3 py-2 hover:bg-[#0064E133] hover:text-[#1B3B7D]`
       }
     >
@@ -62,34 +55,36 @@ const SideBar = () => {
   const { student, logOut } = useContext(StudentContext);
 
   const navItemsArr = [
-    { name: "Home", path: "/", icon: img1 },
-    // { name: "Modules", path: "/module", icon: img2 },
-    { name: "Modules", path: "/modules", icon: img2 },
-    { name: "Find Institute", path: "/find-institute", icon: img3 },
+    {
+      name: "Home", path: "/", icon: <HomeSVG />
+    },
+    // {name: "Modules", path: "/module", icon: img2 },
+    { name: "Modules", path: "/modules", icon: <ModulesSVG /> },
+    { name: "Find Institute", path: "/find-institute", icon: <UniversitySVG /> },
 
-    { name: "Library", path: "/centralized-library", icon: img4 },
+    { name: "Library", path: "/centralized-library", icon: <LibrarySVG /> },
 
-    //     { name: "Home", path: "/", icon: <HomeSVG /> },
-    //     // { name: "Assignments", path: "/assignments", icon: <AssignmentSVG /> },
-    //     { name: "Library", path: "/centralized-library", icon: <LibrarySVG /> },
+    //     {name: "Home", path: "/", icon: <HomeSVG /> },
+    //     // {name: "Assignments", path: "/assignments", icon: <AssignmentSVG /> },
+    //     {name: "Library", path: "/centralized-library", icon: <LibrarySVG /> },
 
     {
       name: "Shortlist University",
       path: "/shortlist-university",
-      icon: img5,
+      icon: <ShortlistSVG />,
     },
     {
       name: "Education Loan",
       path: "/education-loan",
-      icon: img6,
+      icon: <EducationLoan />,
     },
     {
       name: "Visa Application",
       path: "/visa-application",
-      icon: img7,
+      icon: <PassportSVG />,
     },
-    { name: "Community", path: "/discussion", icon: img8 },
-    // { name: "Notes", path: "/notes", icon: <NotesSVG /> },
+    { name: "Community", path: "/discussion", icon: <DiscussionSVG /> },
+    // {name: "Notes", path: "/notes", icon: <NotesSVG /> },
   ];
 
   // const darkModeHandler = () => {
@@ -116,9 +111,8 @@ const SideBar = () => {
     <>
       {/* Larger device menu */}
       <div
-        className={`${
-          collapseMenu && "max-w-sm"
-        }  lg:w-48 xl:w-56 hidden lg:flex flex-col h-full justify-between`}
+        className={`${collapseMenu && "max-w-sm"
+          }  lg:w-48 xl:w-56 hidden lg:flex flex-col h-full justify-between`}
       >
         <div className={`space-y-2 ${collapseMenu ? "mt-6" : "mt-0"}`}>
           <div className="flex items-start justify-start pt-5 ">
@@ -135,13 +129,13 @@ const SideBar = () => {
               {navItemsArr.map((item, index) => (
                 <li className="navItem mb-2" key={index}>
                   <NavItem to={item.path} collapseMenu={collapseMenu}>
-                    <div className="bg-blue-500">
+                    {item.icon}
+                    {/* <div className="bg-blue-500">
                       <img src={item.icon} alt="svg" className=" " />
-                    </div>
+                    </div> */}
                     <span
-                      className={`${
-                        collapseMenu ? "max-w-0 max-h-0" : "max-w-xs max-h-10"
-                      } overflow-hidden duration-300`}
+                      className={`${collapseMenu ? "max-w-0 max-h-0" : "max-w-xs max-h-10"
+                        } overflow-hidden duration-300`}
                     >
                       {item.name}
                     </span>
@@ -153,9 +147,8 @@ const SideBar = () => {
                   <NavItem to="/institute" collapseMenu={collapseMenu}>
                     <LibrarySVG />
                     <span
-                      className={`${
-                        collapseMenu ? "max-w-0 max-h-0" : "max-w-xs max-h-10"
-                      } overflow-hidden duration-300`}
+                      className={`${collapseMenu ? "max-w-0 max-h-0" : "max-w-xs max-h-10"
+                        } overflow-hidden duration-300`}
                     >
                       Institute
                     </span>
@@ -172,9 +165,8 @@ const SideBar = () => {
                 <NavItem to="/settings" collapseMenu={collapseMenu}>
                   <SettingSVG />
                   <span
-                    className={`${
-                      collapseMenu ? "max-w-0 max-h-0" : "max-w-xs max-h-10"
-                    } overflow-hidden duration-300`}
+                    className={`${collapseMenu ? "max-w-0 max-h-0" : "max-w-xs max-h-10"
+                      } overflow-hidden duration-300`}
                   >
                     Settings
                   </span>
@@ -188,9 +180,8 @@ const SideBar = () => {
                 >
                   <LogoutSVG />
                   <span
-                    className={`${
-                      collapseMenu ? "max-w-0 max-h-0" : "max-w-xs max-h-10"
-                    } overflow-hidden duration-300`}
+                    className={`${collapseMenu ? "max-w-0 max-h-0" : "max-w-xs max-h-10"
+                      } overflow-hidden duration-300`}
                   >
                     Log Out
                   </span>
@@ -229,9 +220,8 @@ const SideBar = () => {
               </li> */}
               <li className="mt-2 navItem">
                 <span
-                  className={`flex items-center ${
-                    collapseMenu ? "justify-center" : "gap-3 justify-start"
-                  }`}
+                  className={`flex items-center ${collapseMenu ? "justify-center" : "gap-3 justify-start"
+                    }`}
                 >
                   <span className="block w-12 h-12 overflow-hidden rounded-full">
                     <Image
@@ -242,9 +232,8 @@ const SideBar = () => {
                     />
                   </span>
                   <span
-                    className={`${
-                      collapseMenu ? "w-0 h-0" : "max-w-xs max-h-10"
-                    } overflow-hidden duration-300`}
+                    className={`${collapseMenu ? "w-0 h-0" : "max-w-xs max-h-10"
+                      } overflow-hidden duration-300`}
                   >
                     <p className="text-base font-semibold leading-none overflow-hidden">
                       {student.name}
@@ -313,7 +302,8 @@ const SideBar = () => {
                   {navItemsArr.map((item, index) => (
                     <li className="navItem mb-2" key={index}>
                       <NavItem to={item.path} onClick={() => setOpen(false)}>
-                        <img src={item.icon} alt="svg" />
+                        {item.icon}
+                        {/* <img src={item.icon} alt="svg" /> */}
                         <span>{item.name}</span>
                       </NavItem>
                     </li>

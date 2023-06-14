@@ -19,7 +19,6 @@ const MessageBox = ({ data }) => {
     discussionImages,
     gender,
   } = data;
-  console.log(gender);
 
   // Check if the message is from the student
   const isStudentMessage = senderId === id;
@@ -54,7 +53,7 @@ const MessageBox = ({ data }) => {
               discussionImages.length > 0 &&
               discussionImages.map((item) => (
                 <div
-                  className="rounded-md w-96 max-w-[90%] overflow-hidden cursor-pointer ml-auto bg-white"
+                  className="rounded-md mb-4 last:mb-0 w-96 max-w-[90%] overflow-hidden cursor-pointer ml-auto bg-white"
                   key={item.id}
                 >
                   <Image
@@ -103,22 +102,24 @@ const MessageBox = ({ data }) => {
             )}
 
             {Array.isArray(discussionImages) && discussionImages.length > 0 && (
-              <div className="flex flex-row-reverse items-end justify-start">
-                {discussionImages.map((item) => (
-                  <div
-                    className="rounded-md w-96 max-w-[90%] overflow-hidden cursor-pointer ml-2 mr-auto bg-white"
-                    key={item.id}
-                  >
-                    <Image
-                      src={item.image}
-                      alt=""
-                      className="w-full h-auto rounded-md"
-                    />
-                    <p className="text-left text-xs text-[#00285A] mt-1 pl-3 min-w-max">
-                      {moment(createdAt).format("LT")}
-                    </p>
-                  </div>
-                ))}
+              <div className="flex flex-row-reverse items-end justify-end">
+                <div className="flex flex-col">
+                  {discussionImages.map((item) => (
+                    <div
+                      className="rounded-md mb-4 last:mb-0 w-96 max-w-[90%] overflow-hidden cursor-pointer ml-2 mr-auto bg-white"
+                      key={item.id}
+                    >
+                      <Image
+                        src={item.image}
+                        alt=""
+                        className="w-full h-auto rounded-md"
+                      />
+                      <p className="text-left text-xs text-[#00285A] mt-1 pl-3 min-w-max">
+                        {moment(createdAt).format("LT")}
+                      </p>
+                    </div>
+                  ))}
+                </div>
                 <Image
                   src={senderImage}
                   alt="My profile"
