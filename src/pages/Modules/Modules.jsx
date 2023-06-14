@@ -74,9 +74,10 @@ const Modules = () => {
 
     }
 
-    const handleView = async (key) => {
+    const handleView = async (key, file) => {
         const res = await getFile(key);
         setSelectedFile({ file: key, link: res.data });
+        await moduleApi.countViews(file.id); // update views
     }
 
     const searchModules = (e) => {
@@ -187,17 +188,17 @@ const Modules = () => {
             {!loading && (Array.isArray(modules) && modules.length > 0 ? <Box className='mt-5'>
                 <div className="grid 2xl:grid-cols-4 xl:grid-cols-3 md:grid-cols-2 gap-y-5 pt-10">
                     {modules.map((item, index) => (
-                        <div onClick={() => handleView(item.file)} className="p-3 bg-white rounded-xl h-full shadow-[0px_10px_36px_rgba(0,0,0,0.16),0px_0px_0px_1px_rgba(0,0,0,0.06)] scale-95 hover:scale-100 duration-200 transition-transform cursor-pointer" key={index}>
+                        <div onClick={() => handleView(item.file, item)} className="p-3 bg-white rounded-xl h-full shadow-[0px_10px_36px_rgba(0,0,0,0.16),0px_0px_0px_1px_rgba(0,0,0,0.06)] scale-95 hover:scale-100 duration-200 transition-transform cursor-pointer" key={index}>
                             <div className='rounded-2xl h-44 overflow-hidden'>
                                 <Image src={item.thumbnail} alt={item.name} className='w-full h-full object-cover' />
                             </div>
                             <div className='mt-5'>
                                 <h4 className='flex justify-between gap-x-3 items-center'>
                                     <span className='text-lg font-semibold text-[#00285A]'>{item.name}</span>
-                                    {item.subject === 'writing' && <span className='capitalize text-sm font-medium bg-[#85E1ED33] rounded-full text-[#355A5F] py-1 px-4 shadow-md'>{item.subject}</span>}
-                                    {item.subject === 'listening' && <span className='capitalize text-sm font-medium bg-[#FF898933] rounded-full text-[#663737] py-1 px-4 shadow-md'>{item.subject}</span>}
-                                    {item.subject === 'reading' && <span className='capitalize text-sm font-medium bg-[#0064E133] rounded-full text-[#0064E1] py-1 px-4 shadow-md'>{item.subject}</span>}
-                                    {item.subject === 'speaking' && <span className='capitalize text-sm font-medium bg-[#E19AF233] rounded-full text-[#5A3E61] py-1 px-4 shadow-md'>{item.subject}</span>}
+                                    {item.subject === 'Writing' && <span className='capitalize text-sm font-medium bg-[#85E1ED33] rounded-full text-[#355A5F] py-1 px-4 shadow-md'>{item.subject}</span>}
+                                    {item.subject === 'Listening' && <span className='capitalize text-sm font-medium bg-[#FF898933] rounded-full text-[#663737] py-1 px-4 shadow-md'>{item.subject}</span>}
+                                    {item.subject === 'Reading' && <span className='capitalize text-sm font-medium bg-[#0064E133] rounded-full text-[#0064E1] py-1 px-4 shadow-md'>{item.subject}</span>}
+                                    {item.subject === 'Speaking' && <span className='capitalize text-sm font-medium bg-[#E19AF233] rounded-full text-[#5A3E61] py-1 px-4 shadow-md'>{item.subject}</span>}
                                 </h4>
                                 <p className='text-sm mt-3'>
                                     {item.description?.length > 90 ? item.description.split('').slice(0, 90).join('') + '...' : item.description}
