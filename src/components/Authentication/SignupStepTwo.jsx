@@ -80,7 +80,8 @@ const SignupStepTwo = ({
                     password: password
                 });
                 const res = await auth.signUp({ ...formData, email: email, password: password });
-                Cookies.set('student_auth_token', res?.data?.token, { expires: 7, domain: 'ingelt.com' });
+                Cookies.set('student_auth_token', res?.data?.token, { expires: 7, domain: 'student.ingelt.com' });
+                Cookies.set('student_auth_token', res?.data?.token, { expires: 7, domain: 'board.ingelt.com' });
                 toast.success('Account created successfully.');
                 window.location.href = 'https://student.ingelt.com';
             }
