@@ -64,11 +64,11 @@ const SideBar = () => {
     },
     // {name: "Modules", path: "/module", icon: img2 },
     { name: "Modules", path: "/modules", icon: <ModulesSVG /> },
-    // {
-    //   name: "Find Institute",
-    //   path: "/find-institute",
-    //   icon: <UniversitySVG />,
-    // },
+    {
+      name: "Find Institute",
+      path: "/find-institute",
+      icon: <UniversitySVG />,
+    },
 
     { name: "Library", path: "/centralized-library", icon: <LibrarySVG /> },
 
