@@ -12,8 +12,8 @@ const StudentProvider = ({ children }) => {
     // Shift to LocalStorage from Cookies
     // localStorage.removeItem("student_auth_token");
     // Cookies.remove("student_auth_token", { path: "/", domain: "" });
-    Cookies.remove("student_auth_token", { domain: 'student.ingelt.com' });
-    Cookies.remove("student_auth_token", { domain: 'board.ingelt.com' });
+    Cookies.remove("student_auth_token", { path: '/', domain: 'student.ingelt.com' });
+    Cookies.remove("student_auth_token", { path: '/', domain: 'board.ingelt.com' });
     window.location.pathname = "/";
 
   };
