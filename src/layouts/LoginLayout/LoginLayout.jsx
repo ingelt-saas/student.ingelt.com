@@ -155,10 +155,10 @@ const LoginLayout = () => {
     try {
       const res = await authApi.login({ email, password });
 
-      Cookies.set('student_auth_token', res?.data?.token)
+      Cookies.set('student_auth_token', res?.data?.token, { expires: 7, domain: 'ingelt.com' })
       // Shifted to LocalStorage from Cookies
       // localStorage.setItem("student_auth_token", res?.data?.token);
-      window.location.reload();
+      window.location.pathname('/');
     } catch (err) {
       setError(err?.response?.data?.message);
     } finally {

@@ -19,6 +19,7 @@ import Compressor from "compressorjs";
 import { SocketContext } from "../../contexts";
 
 const Discussions = () => {
+
   const socket = useContext(SocketContext);
 
   const [message, setMessage] = useState("");
@@ -85,6 +86,23 @@ const Discussions = () => {
     e.preventDefault();
 
     try {
+
+      const __fileToDataURL = (file) => new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          const dataUrl = reader.result;
+          resolve(dataUrl);
+        };
+        reader.readAsDataURL(file);
+      });
+
+      const imagesArr = [];
+
+      for (const image of selectedImages) {
+        const imageDataURL = await __fileToDataURL(image);
+        imagesArr.push(imageDataURL);
+      }
+
       // const formData = new FormData();
       // formData.append("message", message);
       // for (let image of selectedImages) {
@@ -95,6 +113,7 @@ const Discussions = () => {
       // Send Message to Socket
       socket.emit("message", {
         message,
+        images: selectedImages,
         student_auth_token: Cookies.get("student_auth_token"),
       });
 

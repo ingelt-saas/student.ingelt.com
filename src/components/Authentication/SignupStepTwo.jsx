@@ -14,6 +14,7 @@ import country from "../../assets/NewDesign/loan icon/country specific.svg";
 import preVisa from "../../assets/NewDesign/loan icon/pre visa.svg";
 import score from "../../assets/NewDesign/loan icon/score based.svg"
 import BankingPart from './BankingPart';
+import Cookies from 'js-cookie';
 
 const SignupStepTwo = ({
     img,
@@ -78,7 +79,8 @@ const SignupStepTwo = ({
                     email: email,
                     password: password
                 });
-                await auth.signUp({ ...formData, email: email, password: password });
+                const res = await auth.signUp({ ...formData, email: email, password: password });
+                Cookies.set('student_auth_token', res?.data?.token, { expires: 7, domain: 'ingelt.com' });
                 toast.success('Account created successfully.');
                 window.location.href = 'https://student.ingelt.com';
             }
