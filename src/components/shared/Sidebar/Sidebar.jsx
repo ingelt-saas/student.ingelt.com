@@ -175,7 +175,10 @@ const SideBar = () => {
               <li className="navItem mb-2">
                 <NavItem
                   to="/logout"
-                  onClick={logOut}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    logOut();
+                  }}
                   collapseMenu={collapseMenu}
                 >
                   <LogoutSVG />
@@ -332,7 +335,8 @@ const SideBar = () => {
                   <li className="navItem">
                     <NavItem
                       to="/logout"
-                      onClick={() => {
+                      onClick={(e) => {
+                        e.preventDefault();
                         setOpen(false);
                         logOut();
                       }}
