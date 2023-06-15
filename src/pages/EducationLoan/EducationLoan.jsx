@@ -1,9 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
+import { StudentContext } from "../../contexts";
 import { useState } from "react";
 import welcomeSVG from "../../assets/images/scholar.svg";
 import loanSVG from "../../assets/images/loan.svg";
 import darkDownSVG from "../../assets/images/darkDown.svg";
 import img2 from "../../assets/images/Personal finance-pana.svg";
+import { Country, State, City } from "country-state-city";
+import query from "../../api/query";
 import {
   Box,
   CircularProgress,
@@ -14,43 +17,6 @@ import {
   MenuItem,
   Typography,
 } from "@mui/material";
-import { set } from "react-hook-form";
-
-const SelectMenu = ({ options, placeholder, value, handleChange, name }) => {
-  return (
-    <FormControl fullWidth>
-      <Select
-        sx={{
-          "& .MuiOutlinedInput-notchedOutline": {
-            border: "none !important",
-          },
-          fontWeight: 500,
-          color: "#001E43",
-          textAlign: "left",
-          backgroundColor: "white",
-          fontSize: "0.9rem",
-        }}
-        displayEmpty
-        value={value || ""}
-        onChange={handleChange}
-        input={<OutlinedInput />}
-        name={name}
-        MenuProps={{ sx: { height: "50vh" } }}
-        inputProps={{ "aria-label": "Without label" }}
-      >
-        <MenuItem disabled value="">
-          {placeholder}
-        </MenuItem>
-        {Array.isArray(options) &&
-          options.map((item) => (
-            <MenuItem key={item} value={item}>
-              {item}
-            </MenuItem>
-          ))}
-      </Select>
-    </FormControl>
-  );
-};
 
 const Page2 = () => {
   return (
@@ -123,8 +89,8 @@ const Page2 = () => {
                   <div className=" md:pr-10 md:py-6">
                     <div className="flex relative pb-12">
                       {/* creating line */}
-                      <div class="h-full w-10 absolute inset-0 flex items-center justify-center">
-                        <div class="h-full w-2 bg-[#E5E9EF] pointer-events-none"></div>
+                      <div className="h-full w-10 absolute inset-0 flex items-center justify-center">
+                        <div className="h-full w-2 bg-[#E5E9EF] pointer-events-none"></div>
                       </div>
                       <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#00285A] inline-flex items-center justify-center text-white relative z-10">
                         <svg
@@ -281,76 +247,85 @@ const Page2 = () => {
   );
 };
 
-const cityOptions = {
-  Delhi: [
-    "North West Delhi",
-    "North Delhi",
-    "North East Delhi",
-    "Central Delhi",
-    "New Delhi",
-    "East Delhi",
-    "South Delhi",
-    "South East Delhi",
-    "South West Delhi",
-    "West Delhi",
-  ],
-  Punjab: [
-    "Amritsar",
-    "Barnala",
-    "Bathinda",
-    "Faridkot",
-    "Fatehgarh Sahib",
-    "Fazilka",
-    "Firozpur",
-    "Gurdaspur",
-    "Hoshiarpur",
-    "Jalandhar",
-    "Kapurthala",
-    "Ludhiana",
-    "Mansa",
-    "Moga",
-    "Muktsar",
-    "Nawanshahr",
-    "Pathankot",
-    "Patiala",
-    "Rupnagar",
-    "Sahibzada Ajit Singh Nagar",
-    "Sangrur",
-    "Tarn Taran",
-  ],
-};
-
 const EducationLoan = () => {
-  const [data, setData] = useState({
+  const [states, setStates] = useState("");
+  const [stateCode, setStateCode] = useState("");
+  const [cities, setCities] = useState("");
+  const [state, setState] = useState("");
+  const [city, setCity] = useState("");
+  const [income, setIncome] = useState("");
+  const [intake, setIntake] = useState("");
+  const [openSignUp, setOpenSignUp] = useState(false);
+  const [page2, setPage2] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    phoneNo: "",
+    email: "",
     state: "",
-    zone: "",
-    familyIncome: "",
-    intake: "",
+    city: "",
+    annualIncome: "",
+    preferredIntake: "",
+    studentId: "",
   });
-  const [options, setOptions] = useState([]);
-  const [page, setPage] = useState(true);
+  const { student } = useContext(StudentContext);
+  const { name, phoneNo, id, email } = student;
   useEffect(() => {
-    // console.log(data);
-    data.state == "Delhi"
-      ? setOptions(cityOptions.Delhi)
-      : setOptions(cityOptions.Punjab);
-  }, [data]);
+    setFormData({
+      ...formData,
+      name: name,
+      phoneNo: phoneNo,
+      studentId: id,
+      email: email,
+    });
+    const getStates = async () => {
+      const res = await query.getLoanQuery(id);
+      console.log(res, "res");
+      if (res.data !== null) {
+        setPage2(true);
+      }
+    };
+    getStates();
+  }, []);
+  // useEffect(() => {
+  //   console.log(formData);
+  // }, [formData]);
 
-  const handleChange = (e) => {
-    setData({ ...data, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
-
-    if (Object.values(data).includes("")) {
-      return;
+    try {
+      const newFoamData = {
+        ...formData,
+        state: state.name,
+        city: city,
+        annualIncome: income,
+        preferredIntake: intake,
+      };
+      // console.log(newFoamData, "formdata");
+      await query.loanQuery({ ...newFoamData });
+    } catch (err) {
+      console.log(err);
+    } finally {
+      window.location.reload();
+    }
+  };
+  const getAllStates = async () => {
+    await setStates(State.getStatesOfCountry("IN"));
+    if (stateCode) {
+      await setState(State.getStateByCodeAndCountry(stateCode, "IN"));
+      await setCities(City.getCitiesOfState("IN", stateCode));
     }
   };
 
+  const handleOpenSignUp = () => {
+    setOpenSignUp(!openSignUp);
+  };
+
+  useEffect(() => {
+    getAllStates();
+  }, [stateCode]);
   return (
     <div className="flex ">
-      {page ? (
+      {!page2 ? (
         <div className="flex flex-row flex-wrap gap-y-10 gap-x-5 w-full ">
           <div className="w-full h-20 foo:block ">
             <div className="pt-3 pb-4 pl-3">
@@ -387,11 +362,7 @@ const EducationLoan = () => {
                   >
                     Education Loan
                   </Typography>
-                  <Typography
-                  // sx={{
-                  //   fontSize: "1.5rem",
-                  // }}
-                  >
+                  <Typography>
                     Optimal solution for overseas education loan
                   </Typography>
                 </Box>
@@ -415,112 +386,124 @@ const EducationLoan = () => {
 
               <div className="w-1/2  max-md:w-full">
                 <form
-                  onSubmit={handleSubmit}
-                  className="flex flex-col gap-y-5 pt-5 max-md:px-3 md:pr-3 mb-10"
+                  onSubmit={onSubmit}
+                  className="flex flex-col items-center md:items-start h-full justify-center"
                 >
-                  <div className="flex flex-col gap-y-2">
-                    <label htmlFor="state" className="font-semibold">
-                      In which State do you live?
-                    </label>
-                    <div className="shadow-lg rounded-xl overflow-hidden">
-                      <SelectMenu
-                        placeholder={"State"}
-                        name={"state"}
-                        handleChange={handleChange}
-                        value={data.state}
-                        options={["Delhi", "Punjab"]}
+                  {/* <p className="xl:text-3xl text-xl font-bold">text</p> */}
+                  <div className="flex flex-col max-lg:items-start w-full justify-center">
+                    <div className="inline-block relative mt-5 w-full">
+                      <label htmlFor="State">
+                        In which state do you reside?
+                        <sup className="text-red-500">*</sup>
+                      </label>
+                      <select
+                        id="State"
+                        value={stateCode}
+                        required={true}
+                        onChange={(e) => {
+                          setStateCode(e.target.value);
+                        }}
+                        className="block appearance-none w-full mt-2 bg-white border-none hover:border-gray-500 px-4 py-4 pr-8 rounded-xl shadow-xl leading-tight focus:outline-none focus:shadow-outline"
                       >
-                        <option value="Delhi">Delhi</option>
-                      </SelectMenu>
+                        <option value="">Select your State</option>
+                        {states &&
+                          states.map((state, index) => (
+                            <option key={index} value={state.isoCode}>
+                              {state.name}
+                            </option>
+                          ))}
+                      </select>
+                      <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 mt-8 text-gray-700">
+                        {/* <ArrowDropDown /> */}
+                      </div>
                     </div>
-                  </div>
-
-                  <div className="flex flex-col gap-y-2">
-                    <label htmlFor="zone" className="font-semibold">
-                      Select your District/Zone?
+                    <div className="inline-block relative mt-5 w-full">
+                      <label htmlFor="State">
+                        What's your current city?
+                        <sup className="text-red-500">*</sup>
+                      </label>
+                      <select
+                        id="State"
+                        value={city}
+                        required={true}
+                        onChange={(e) => setCity(e.target.value)}
+                        className="block appearance-none w-full mt-2 bg-white border-none hover:border-gray-500 px-4 py-4 pr-8 rounded-xl shadow-xl leading-tight focus:outline-none focus:shadow-outline"
+                      >
+                        <option value="">Select your City</option>
+                        {cities &&
+                          cities.map((city, index) => (
+                            <option key={index} value={city.name}>
+                              {city.name}
+                            </option>
+                          ))}
+                      </select>
+                      <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 mt-8 text-gray-700">
+                        {/* <ArrowDropDown /> */}
+                      </div>
+                    </div>
+                    <label className="mt-5" htmlFor="income">
+                      Write here your Annual Family Income
+                      <sup className="text-red-500">*</sup>
                     </label>
-                    <div className="shadow-lg rounded-xl overflow-hidden">
-                      <SelectMenu
-                        placeholder="District/Zone"
-                        name="zone"
-                        value={data.zone}
-                        handleChange={handleChange}
-                        options={[...options]}
-                      />
+                    <input
+                      id="income"
+                      type="text"
+                      required
+                      value={income}
+                      placeholder="Family Annual Income"
+                      className="rounded-xl w-full px-4 py-3 shadow-xl focus:outline-none"
+                      onChange={(e) => setIncome(e.target.value)}
+                    />
+                    <p className="mt-5">
+                      What's your preferred intake?
+                      <sup className="text-red-500">*</sup>
+                    </p>
+                    <div className="flex gap-x-5 mt-2">
+                      <div
+                        className={`py-3 px-6 cursor-pointer flex items-center justify-center max-lg:px-3 max-lg:border rounded-2xl border-2 border-[#001E43] ${
+                          intake === "September 2023"
+                            ? "bg-[#001E43] text-white"
+                            : "border-2 border-[#001E43]"
+                        }`}
+                        onClick={() => {
+                          setIntake("September 2023");
+                        }}
+                      >
+                        <p className="max-xl:text-xs text-base">Sep 2023</p>
+                      </div>
+                      <div
+                        className={`py-3 px-6 cursor-pointer flex items-center justify-center max-lg:px-3 max-lg:border rounded-2xl border-2 border-[#001E43] ${
+                          intake === "January 2024"
+                            ? "bg-[#001E43] text-white"
+                            : "border-2 border-[#001E43]"
+                        }`}
+                        onClick={() => {
+                          setIntake("January 2024");
+                        }}
+                      >
+                        <p className="max-xl:text-xs text-base">Jan 2024</p>
+                      </div>
+                      <div
+                        className={`py-3 px-6 cursor-pointer flex items-center justify-center max-lg:px-3 max-lg:border rounded-2xl border-2 border-[#001E43] ${
+                          intake === "May 2024"
+                            ? "bg-[#001E43] text-white"
+                            : "border-2 border-[#001E43]"
+                        }`}
+                        onClick={() => {
+                          setIntake("May 2024");
+                        }}
+                      >
+                        <p className="max-xl:text-xs text-base">May 2024</p>
+                      </div>
                     </div>
-                  </div>
-
-                  <div className="flex flex-col gap-y-2">
-                    <label htmlFor="zone" className="font-semibold">
-                      What is your family's annual income?
-                    </label>
-                    <div className="shadow-lg rounded-xl overflow-hidden">
-                      <input
-                        type="number"
-                        placeholder="Family Annual Income"
-                        name="familyIncome"
-                        className="w-full px-4 py-2 rounded-xl"
-                        value={data.familyIncome}
-                        onChange={handleChange}
-                      />
-                    </div>
-                  </div>
-
-                  <div className="flex flex-col gap-y-2">
-                    <label className="font-semibold">
-                      To begin your academic career at the perfect time that
-                      fits your schedule and ambitions, choose your chosen
-                      intake (semester or session).
-                    </label>
-                    <div className="flex flex-wrap gap-3">
-                      {["Sep 2023", "Jan 2024", "May 2024"].map((item) => (
-                        <label
-                          htmlFor={item}
-                          key={item}
-                          className={`${
-                            item === data.intake
-                              ? "bg-[#001E43] text-white"
-                              : "bg-transparent text-[#001E43]"
-                          } border-2 border-[#001E43] duration-300 rounded-xl px-4 py-2 cursor-pointer`}
-                        >
-                          <input
-                            onChange={handleChange}
-                            id={item}
-                            value={item}
-                            className="sr-only peer"
-                            checked={Boolean(data.intake === item)}
-                            type="radio"
-                            name="intake"
-                          />
-                          {item}
-                        </label>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* submit button */}
-                  <div>
                     <button
-                      disabled={Boolean(Object.values(data).includes(""))}
                       type="submit"
-                      className="bg-[#001E43] disabled:opacity-80 border-2 border-[#001E43] hover:bg-transparent hover:text-[#001E43] w-full text-white font-bold py-3 px-4 rounded-xl duration-300"
-                      onClick={(e) => {
-                        setPage(false);
-                      }}
+                      disabled={!stateCode || !city || !income || !intake}
+                      className="bg-[#001E43] disabled:bg-gray-400 mt-5 w-full py-2 rounded-lg text-white font-semibold"
                     >
                       Continue
                     </button>
                   </div>
-                  <p className="text-center text-black text-sm">
-                    By continuing, you agree to our{" "}
-                    <span className="font-medium text-[#001E43] cursor-pointer">
-                      Term of services
-                    </span>{" "}
-                    &{" "}
-                    <span className="font-medium text-[#001E43] cursor-pointer">
-                      Privacy policy
-                    </span>
-                  </p>
                 </form>
               </div>
             </div>

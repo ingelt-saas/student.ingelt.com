@@ -1,10 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
+import { StudentContext } from "../../contexts";
 import { useState } from "react";
 import welcomeSVG from "../../assets/images/earth.svg";
 import loanSVG from "../../assets/images/visa.svg";
 import darkDownSVG from "../../assets/images/darkDown.svg";
 import img2 from "../../assets/images/travel.svg";
 import img3 from "../../assets/images/aeroplane.svg";
+import { Country, State, City } from "country-state-city";
+import query from "../../api/query";
 
 import {
   Box,
@@ -330,45 +333,62 @@ const Page2 = () => {
 };
 
 const VisaApplication = () => {
-  const [input1, setInput1] = useState("");
-  const [input2, setInput2] = useState("");
-  const [input3, setInput3] = useState("");
-  const [input4, setInput4] = useState("");
-
-  const [data, setData] = useState({
-    refusal: "",
-    country: "",
+  const [visa, setVisa] = useState();
+  const [country, setCountry] = useState();
+  const [refusal, setRefusal] = useState();
+  const [page2, setPage2] = useState(false);
+  const [formData, setFormData] = useState({
+    email: "",
+    name: "",
+    phoneNo: "",
     visaType: "",
+    interestedCountry: "",
+    previousRefusal: "",
+    studentId: "",
   });
+  const { student } = useContext(StudentContext);
+  const { name, phoneNo, id, email } = student;
+  useEffect(() => {
+    setFormData({
+      ...formData,
+      name: name,
+      phoneNo: phoneNo,
+      studentId: id,
+      email: email,
+    });
+    const getStates = async () => {
+      const res = await query.getvisaQuery(id);
+      console.log(res, "res");
+      if (res.data !== null) {
+        setPage2(true);
+      }
+    };
+    getStates();
+  }, []);
 
-  const [page, setPage] = useState(true);
-
-  const handleChange = (e) => {
-    setData({ ...data, [e.target.name]: e.target.value });
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    const newFormData = {
+      ...formData,
+      visaType: visa,
+      interestedCountry: country,
+      previousRefusal: refusal,
+    };
+    try {
+      // console.log(newFormData);
+      await query.visaQuery(newFormData);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      window.location.reload();
+    }
   };
-
-  // useEffect(() => {
-  //   console.log(input1);
-  // }, [input1]);
 
   return (
     <div className="flex">
-      {page ? (
+      {!page2 ? (
         <div className="flex flex-row flex-wrap gap-y-10 gap-x-5 w-full ">
           <div className="w-full h-20 foo:block ">
-            {/* <div className="relative rounded-xl pb-14 shadow-lg bg-white mx-3 ">
-              <h1 className="text-3xl font-semibold text-[#00285A] text-left pb-5 pt-12 px-5 ">
-                Visa Application
-              </h1>
-              <p className="text-left  px-5 md:w-1/3 ">
-                Nulla Lorem mollit cupidatat irure. Laborum magna cillum dolor.{" "}
-              </p>
-              <img
-                src={welcomeSVG}
-                alt="welcome svg"
-                className="absolute bottom-0 right-3 h-52 w-auto max-md:hidden"
-              />
-            </div> */}
             <div className="pt-3 pb-4 pl-2">
               <Box
                 sx={{
@@ -404,11 +424,7 @@ const VisaApplication = () => {
                   >
                     Visa Application
                   </Typography>
-                  <Typography
-                  // sx={{
-                  //   fontSize: "1.5rem",
-                  // }}
-                  >
+                  <Typography>
                     Hassel free visa processing and approval
                   </Typography>
                 </Box>
@@ -430,98 +446,93 @@ const VisaApplication = () => {
                 />
               </div>
               <div className="w-1/2 max-md:w-full">
-                <form className="flex flex-col gap-y-5 pt-10 pr-3 mb-10">
-                  {/* input1 */}
-
-                  <div className="flex flex-col gap-y-2">
-                    <label htmlFor="state" className="font-semibold">
-                      Select your Visa type?
-                    </label>
-                    <div className="shadow-lg rounded-xl overflow-hidden">
-                      <SelectMenu
-                        name="visaType"
-                        handleChange={handleChange}
-                        value="Study Visa"
-                        options={["select your visa", "Study Visa"]}
-                      />
+                <form
+                  onSubmit={onSubmit}
+                  className="flex flex-col items-center md:items-start h-full justify-center"
+                >
+                  <div className="flex flex-col max-lg:items-start w-full justify-center">
+                    <div className="inline-block relative mt-5 w-full">
+                      <label htmlFor="State">
+                        What type of visa do you want to apply for?
+                      </label>
+                      <select
+                        id="State"
+                        value={visa}
+                        required={true}
+                        onChange={(e) => {
+                          setVisa(e.target.value);
+                        }}
+                        className="block appearance-none w-full mt-2 bg-white border-none hover:border-gray-500 px-4 py-4 pr-8 rounded-xl shadow-xl leading-tight focus:outline-none focus:shadow-outline"
+                      >
+                        <option value="" selected disabled>
+                          Type of Visa
+                        </option>
+                        <option value="Student Visa">Student Visa</option>
+                        <option value="Work Visa">Work Visa</option>
+                        <option value="Tourist Visa">Tourist Visa</option>
+                        <option value="Business Visa">Business Visa</option>
+                        <option value="PR">PR Visa</option>
+                      </select>
+                      <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 mt-8 text-gray-700">
+                        {/* <ArrowDropDown /> */}
+                      </div>
                     </div>
-                  </div>
-
-                  <div className="flex flex-col gap-y-2">
-                    <label htmlFor="state" className="font-semibold">
-                      What is your preferred country to study abroad?
-                    </label>
-                    <div className="shadow-lg rounded-xl overflow-hidden">
-                      <SelectMenu
-                        placeholder={"Select country"}
-                        name={"country"}
-                        handleChange={handleChange}
-                        value={data.country}
-                        options={[
-                          "UK",
-                          "USA",
-                          "New Zealand",
-                          "Ireland",
-                          "Canada",
-                        ]}
-                      />
+                    <div className="inline-block relative mt-5 w-full">
+                      <label htmlFor="State">
+                        In which country you want to apply visa for?
+                      </label>
+                      <select
+                        id="State"
+                        value={country}
+                        required={true}
+                        onChange={(e) => setCountry(e.target.value)}
+                        className="block appearance-none w-full mt-2 bg-white border-none hover:border-gray-500 px-4 py-4 pr-8 rounded-xl shadow-xl leading-tight focus:outline-none focus:shadow-outline"
+                      >
+                        <option value="" selected disabled>
+                          Select your city
+                        </option>
+                        <option value="Australia">Australia</option>
+                        <option value="Canada">Canada</option>
+                        <option value="USA">United States of America</option>
+                        <option value="UK">United Kingdom</option>
+                        <option value="New Zealand">New Zealand</option>
+                        <option value="Ireland">Ireland</option>
+                      </select>
+                      <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 mt-8 text-gray-700">
+                        {/* <ArrowDropDown /> */}
+                      </div>
                     </div>
-                  </div>
+                    <div className="inline-block relative mt-5 ml-2">
+                      <p className="mb-2">Previous Refusal</p>
+                      <input
+                        type="radio"
+                        name="radio"
+                        className="hover:cursor-pointer"
+                        value={true}
+                        onChange={(e) => setRefusal(e.target.value)}
+                      />
+                      <label className="ml-1" htmlFor="Yes">
+                        Yes
+                      </label>
 
-                  {/* input3 */}
-                  <div className="inline-block relative ml-1">
-                    <p className="mb-2 font-semibold">
-                      Is there is any prior visa refusal?
-                    </p>
-                    <input
-                      checked={Boolean(data.refusal === "yes")}
-                      onChange={handleChange}
-                      type="radio"
-                      name="refusal"
-                      value="yes"
-                      id="yes"
-                      className="ml-4"
-                    />
-                    <label className="cursor-pointer ml-1" htmlFor="yes">
-                      Yes
-                    </label>
-
-                    <input
-                      checked={Boolean(data.refusal === "no")}
-                      onChange={handleChange}
-                      type="radio"
-                      name="refusal"
-                      value="no"
-                      id="no"
-                      className="ml-4"
-                    />
-                    <label className="cursor-pointer ml-1" htmlFor="no">
-                      No
-                    </label>
-                  </div>
-
-                  {/* submit button */}
-                  <div>
+                      <input
+                        type="radio"
+                        name="radio"
+                        className="ml-4 hover:cursor-pointer"
+                        value={false}
+                        onChange={(e) => setRefusal(e.target.value)}
+                      />
+                      <label className="ml-1" htmlFor="No">
+                        No
+                      </label>
+                    </div>
                     <button
-                      disabled={Boolean(Object.values(data).includes(""))}
                       type="submit"
-                      className="bg-[#001E43] disabled:opacity-80 border-2 border-[#001E43] hover:bg-transparent hover:text-[#001E43] w-full text-white font-bold py-3 px-4 rounded-xl duration-300"
-                      onClick={(e) => {
-                        setPage(false);
-                      }}
+                      disabled={!visa || !country || !refusal}
+                      className="bg-[#001E43] disabled:bg-gray-400 mt-5 w-full py-2 rounded-lg text-white font-semibold"
                     >
                       Continue
                     </button>
-                    <p className="text-center text-black mt-3 text-sm">
-                      By continuing, you agree to our{" "}
-                      <span className="font-medium text-[#001E43] cursor-pointer">
-                        Term of services
-                      </span>{" "}
-                      &{" "}
-                      <span className="font-medium text-[#001E43] cursor-pointer">
-                        Privacy policy
-                      </span>
-                    </p>
                   </div>
                 </form>
               </div>
