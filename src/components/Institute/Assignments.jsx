@@ -65,21 +65,18 @@ const Assignments = ({ searchQuery }) => {
             <div className="grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-5 max-sm:px-5">
               {assignments?.rows.map((item) => (
                 <div
-                  className="bg-white flex flex-col p-3 rounded-lg shadow-lg"
+                  className="flex flex-col items-center justify-center bg-white rounded-xl h-full 2xl:w-[19vw] xl:w-[18vw] lg:w-[28vw] shadow-[0px_10px_36px_rgba(0,0,0,0.16),0px_0px_0px_1px_rgba(0,0,0,0.06)] scale-95 hover:scale-100 duration-200 transition-transform hover:cursor-pointer"
                   key={item?.id}
                 >
-                  <div className="flex-1 pb-3">
-                    <img
-                      src={assignmentSVG}
-                      alt=""
-                      className="mx-auto h-20 w-auto"
-                    />
-                    <h2 className="text-center text-lg 2xl:text-lg text-[#00285A] font-medium">
-                      {item.name}
-                    </h2>
+                  <div className="h-[60%] flex flex-col items-center justify-center pb-2 pt-6">
+                    <div className="flex">
+                      <img src={assignmentSVG} alt="" />
+                    </div>
+                    <h2 className="font-bold px-4 py-2">{item.name}</h2>
                   </div>
-                  <div className="flex justify-between pt-2 border-[#0000000F] border-t">
-                    <div className="flex flex-col gap-y-2">
+                  <hr className="w-full text-zinc-300" />
+                  <div className="flex flex-col items-center justify-between w-full px-4 py-3">
+                    <div className="flex justify-between w-full px-2 ">
                       <p className="flex flex-col">
                         <span className="text-base 2xl:text-md font-medium text-[#00285A]">
                           Status
@@ -105,7 +102,7 @@ const Assignments = ({ searchQuery }) => {
                         </span>
                       </p>
                     </div>
-                    <div className="flex flex-col gap-y-2">
+                    <div className="flex justify-between w-full mt-3 px-2 ">
                       <p className="flex flex-col">
                         <span className="text-base 2xl:text-md font-medium text-[#00285A]">
                           Upload Date
@@ -114,17 +111,13 @@ const Assignments = ({ searchQuery }) => {
                           {moment(item.createdAt).format("ll")}
                         </span>
                       </p>
-                      <p className="flex flex-col">
-                        {/* <span className='text-base 2xl:text-xl font-medium text-[#00285A]'>Deadline</span> */}
-                        {/* <span className='text-[#00000099] text-sm 2xl:text-lg'>Not Complete</span> */}
-                      </p>
                     </div>
                   </div>
-                  <div className="flex justify-between items-center mt-3">
+                  <div className="flex justify-between my-3 w-full px-5 ">
                     {item?.submissions?.status === "submitted" ? (
                       <Button
                         variant="outlined"
-                        className="!text-xs 2xl:!text-md"
+                        className="!text-base 2xl:!text-md"
                         sx={{
                           border: "2px solid #00000099",
                           borderRadius: "7px",
@@ -146,7 +139,7 @@ const Assignments = ({ searchQuery }) => {
                     ) : (
                       <Button
                         variant="outlined"
-                        className="!text-xs 2xl:!text-md"
+                        className="!text-base 2xl:!text-md"
                         sx={{
                           border: "2px solid #00000099",
                           borderRadius: "8px",
@@ -169,7 +162,7 @@ const Assignments = ({ searchQuery }) => {
                     <Button
                       onClick={() => downloadAssignment(item.file, item.name)}
                       variant="contained"
-                      className="!text-xs 2xl:!text-md"
+                      className="!text-base 2xl:!text-md"
                       sx={{
                         border: "2px solid #0C3C82",
                         borderRadius: "7px",
