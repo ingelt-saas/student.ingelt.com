@@ -76,7 +76,7 @@ const Institute = () => {
             //   fontSize: "1.5rem",
             // }}
             >
-              Nulla Lorem mollit cupidatat irure.
+              Crack IELTS with our Partnered Institutes
             </Typography>
           </Box>
           <Box sx={{ width: { md: "30%", xs: "100%" } }}>
