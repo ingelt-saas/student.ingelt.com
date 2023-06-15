@@ -9,10 +9,12 @@ const StudentProvider = ({ children }) => {
   const [student, setStudent] = useState(null);
 
   const logOut = () => {
-    // Shift to LocalStorage from Cookies
-    // localStorage.removeItem("student_auth_token");
-    // Cookies.remove("student_auth_token", { path: "/", domain: "" });
-    Cookies.remove("student_auth_token", { path: '/', domain: 'ingelt.com' });
+    if (process.env.NODE_ENV === 'development') {
+      Cookies.remove("student_auth_token", { path: '/' });
+    } else {
+      Cookies.remove("student_auth_token", { path: '/', domain: 'ingelt.com' });
+    }
+
     // Cookies.remove("student_auth_token", { path: '/', domain: 'board.ingelt.com' });
     window.location.pathname = "/";
 
