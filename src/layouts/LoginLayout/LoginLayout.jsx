@@ -154,11 +154,12 @@ const LoginLayout = () => {
     setLoading(true);
     try {
       const res = await authApi.login({ email, password });
+      if (process.env.NODE_ENV === 'development') {
+        Cookies.set('student_auth_token', res?.data?.token, { expires: 7, path: '/' })
+      } else {
+        Cookies.set('student_auth_token', res?.data?.token, { expires: 7, path: '/', domain: 'ingelt.com' })
+      }
 
-      Cookies.set('student_auth_token', res?.data?.token, { expires: 7, path: '/', domain: 'ingelt.com' })
-      // Cookies.set('student_auth_token', res?.data?.token, { expires: 7, path: '/', domain: 'board.ingelt.com' })
-      // Shifted to LocalStorage from Cookies
-      // localStorage.setItem("student_auth_token", res?.data?.token);
       window.location.reload();
     } catch (err) {
       setError(err?.response?.data?.message);
