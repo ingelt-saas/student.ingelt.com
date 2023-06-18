@@ -2,13 +2,15 @@ import React, { useState } from "react";
 import welcomeSVG from "../../assets/images/headingSVG.svg";
 import downSVG from "../../assets/images/downArrow.svg";
 import ShortlistSVG from "../../assets/images/shortlist.svg";
-import { Button, Drawer, Select, FormControl, MenuItem, OutlinedInput, Box, Typography, CircularProgress, Alert } from "@mui/material";
+import { Button, Drawer, Box, Typography, CircularProgress, Alert } from "@mui/material";
 import { FilterAlt } from "@mui/icons-material";
 import { useQuery } from "@tanstack/react-query";
 import universityApi from "../../api/university";
 import UniversityItem from "../../components/University/UniversityItem";
 import { toast } from "react-toastify";
-import countries from '../../data/shortlistCountries.js';
+import FilterMenu from "../../components/University/FilterMenu";
+
+
 
 const RightArrowSVG = ({ className, backgroundColor }) => {
   return (
@@ -46,116 +48,6 @@ const RightArrowSVG = ({ className, backgroundColor }) => {
         </clipPath>
       </defs>
     </svg>
-  );
-};
-
-const SelectMenu = ({ options, placeholder, value, handleChange, name }) => {
-  return (<>
-    <FormControl fullWidth>
-      <Select
-        sx={{
-          '& .MuiOutlinedInput-notchedOutline': {
-            border: '2px solid #F7EFFF !important',
-          },
-          fontWeight: 500,
-          color: '#001E43',
-          textAlign: 'center',
-        }}
-        displayEmpty
-        value={value}
-        onChange={handleChange}
-        input={<OutlinedInput />}
-        name={name}
-        MenuProps={{ sx: { height: '50vh' } }}
-        inputProps={{ 'aria-label': 'Without label' }}
-      >
-        <MenuItem disabled value="">
-          {placeholder}
-        </MenuItem>
-        {Array.isArray(options) && options.map(item =>
-          <MenuItem key={item} value={item}>{item}</MenuItem>
-        )}
-      </Select>
-    </FormControl >
-  </>);
-}
-
-const FilterMenu = () => {
-
-  const [selectedData, setSelectedData] = useState({
-    country: '',
-    courseLevel: '',
-    areaOfStudy: '',
-    higherEducation: ''
-  });
-
-  const selectHandler = (e) => {
-    setSelectedData({ ...selectedData, [e.target.name]: e.target.value });
-  }
-
-  // send query handler
-  const sendQuery = async (e) => {
-    e.target.disabled = true;
-    try {
-      await universityApi.sendQuery();
-      toast.success('Your query has been sent successfully, our team will contact you shortly');
-    } catch (err) {
-      console.error(err);
-    } finally {
-      e.target.disabled = false;
-    }
-  }
-
-  return (
-    <div className="bg-white rounded-t-2xl max-xl:hidden">
-      <div className="relative">
-        <img src={ShortlistSVG} alt="Shortlist" className="" />
-        <div className="absolute top-0 left-0 w-full h-full flex flex-col justify-between py-5 px-5">
-          <p className="text-white">
-            need more help in finding your dream course?
-          </p>
-          <button onClick={sendQuery} className="bg-[#E7ECF3] disabled:opacity-75 disabled:pointer-events-auto group border-2 border-[#E7ECF3] hover:bg-transparent hover:text-[#E7ECF3] duration-300 w-fit text-[#0C3C82] font-semibold py-3 px-6 rounded-full flex items-center gap-x-2">
-            Talk to expert
-            <RightArrowSVG
-              className={'w-6 h-6'}
-              backgroundColor={'text-[#0C3C82] group-hover:text-[#E7ECF3]'}
-            />
-          </button>
-        </div>
-      </div>
-      <div className="h-4/7">
-        <SelectMenu
-          placeholder={'Country'}
-          options={countries}
-          value={selectedData.country}
-          handleChange={selectHandler}
-          name='country'
-        />
-        <SelectMenu
-          placeholder={'Course Level'}
-          options={['All', 'Bachelor’s', 'Master’s']}
-          value={selectedData.courseLevel}
-          handleChange={selectHandler}
-          name='courseLevel'
-        />
-        <SelectMenu
-          placeholder={'Area of study'}
-          options={[]}
-          value={selectedData.areaOfStudy}
-          handleChange={selectHandler}
-          name='areaOfStudy'
-        />
-
-        {/* <SelectMenu
-          placeholder={'Higher education'}
-          options={[]}
-          value={selectedData.higherEducation}
-          handleChange={selectHandler}
-          name='higherEducation'
-        /> */}
-
-      </div>
-    </div>
   );
 };
 
