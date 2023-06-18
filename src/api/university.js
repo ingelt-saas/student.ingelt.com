@@ -5,6 +5,7 @@ const universityApi = {
     shortlistedUniversities: () => instance.get(`/university/shortlist`),
     addUniversityInShortlist: (universityId) => instance.post(`/university/shortlist/${universityId}`),
     removeUniversityFromShortlist: (universityId) => instance.delete(`/university/shortlist/${universityId}`),
+    sendQuery: () => instance.post(`/university/sendQuery`),
 };
 
 export default universityApi;
