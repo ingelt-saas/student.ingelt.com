@@ -55,11 +55,18 @@ const ShortlistUniversity = () => {
 
   const [isOpen, setIsOpen] = useState(false);
   const [pagination, setPagination] = useState({ page: 1, rows: 10 });
+  const [filterData, setFilterData] = useState({ country: '', course: '', areaOfInterest: '', });
 
   const { data, isLoading, refetch } = useQuery({
-    queryKey: ['shortlistedUniversities', pagination],
+    queryKey: ['shortlistedUniversities', pagination, filterData],
     queryFn: async () => {
-      const res = await universityApi.getAll(pagination.page, pagination.rows);
+      const res = await universityApi.getAll(
+        pagination.page,
+        pagination.rows,
+        filterData.country,
+        filterData.course,
+        filterData.areaOfInterest
+      );
       return res.data;
     }
   });
@@ -79,6 +86,11 @@ const ShortlistUniversity = () => {
     } finally {
       e.target.disabled = false;
     }
+  }
+
+  // filter handler 
+  const filterHandler = (name, value) => {
+    setFilterData({ ...filterData, [name]: value });
   }
 
   return (
@@ -172,7 +184,9 @@ const ShortlistUniversity = () => {
               >
                 Filter
               </Button>
-              <FilterMenu />
+              <div className="max-xl:hidden">
+                <FilterMenu filterHandler={filterHandler} />
+              </div>
             </div>
             <div className="xl:col-span-8">
 
@@ -209,7 +223,8 @@ const ShortlistUniversity = () => {
         }}
       >
         <div className="bg-white h-full rounded-t-full max-w-[300px]">
-          <div className="relative">
+          <FilterMenu filterHandler={filterHandler} />
+          {/* <div className="relative">
             <img src={ShortlistSVG} alt="Shortlist" className="" />
             <div className="absolute top-0 left-0 w-full h-full flex flex-col justify-between py-5 px-5">
               <p className="text-white">
@@ -252,7 +267,6 @@ const ShortlistUniversity = () => {
             <div className="relative">
               <select className="block appearance-none w-full bg-white border border-[#F7EFFF] border-6 rounded focus:outline-none p-4 text-center font-semibold sm-w-full">
                 <option>Course level</option>
-                {/* <!-- Add state options here --> */}
               </select>
               <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                 <img
@@ -270,7 +284,6 @@ const ShortlistUniversity = () => {
                 <option>Area of study</option>
                 <option>Area of study</option>
                 <option>Area of study</option>
-                {/* <!-- Add country options here --> */}
               </select>
               <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                 <img
@@ -287,7 +300,6 @@ const ShortlistUniversity = () => {
                 <option>Higher education</option>
                 <option>Higher education</option>
                 <option>Higher education</option>
-                {/* <!-- Add state options here --> */}
               </select>
               <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                 <img
@@ -297,7 +309,7 @@ const ShortlistUniversity = () => {
                 />
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </Drawer>
     </>

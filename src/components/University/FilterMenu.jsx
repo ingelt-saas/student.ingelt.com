@@ -28,7 +28,7 @@ import { toast } from 'react-toastify';
 import universityApi from '../../api/university.js';
 import { useEffect } from 'react';
 
-const SelectMenu = ({ data, placeholder }) => {
+const SelectMenu = ({ data, placeholder, onChange }) => {
 
     const [anchorEl, setAnchorEl] = useState(null);
     const [selectedItem, setSelectedItem] = useState(null); // Added state to keep track of selected item
@@ -90,6 +90,7 @@ const SelectMenu = ({ data, placeholder }) => {
         // Added function to handle item selection
         setSelectedItem(item);
         setAnchorEl(null);
+        onChange(item);
     };
 
     useEffect(() => {
@@ -187,7 +188,7 @@ const RightArrowSVG = ({ className, backgroundColor }) => {
     );
 };
 
-const AreaSelectMenu = ({ data }) => {
+const AreaSelectMenu = ({ data, onChange }) => {
 
     const [anchorEl, setAnchorEl] = useState(null);
     const [selectedItem, setSelectedItem] = useState(null); // Added state to keep track of selected item
@@ -249,6 +250,7 @@ const AreaSelectMenu = ({ data }) => {
         // Added function to handle item selection
         setSelectedItem(item);
         setAnchorEl(null);
+        onChange(item.name);
     };
 
     useEffect(() => {
@@ -312,7 +314,7 @@ const AreaSelectMenu = ({ data }) => {
     );
 }
 
-const FilterMenu = () => {
+const FilterMenu = ({ filterHandler }) => {
 
     // const [selectedData, setSelectedData] = useState({
     //     country: '',
@@ -406,7 +408,7 @@ const FilterMenu = () => {
     }
 
     return (
-        <div className="bg-white rounded-t-2xl max-xl:hidden">
+        <div className="bg-white rounded-t-2xl">
             <div className="relative">
                 <img src={ShortlistSVG} alt="Shortlist" className="" />
                 <div className="absolute top-0 left-0 w-full h-full flex flex-col justify-between py-5 px-5">
@@ -426,13 +428,18 @@ const FilterMenu = () => {
                 <SelectMenu
                     placeholder={'Country'}
                     data={countries}
+                    onChange={(value) => filterHandler('country', value)}
                 />
                 <SelectMenu
                     placeholder={'Course Level'}
                     data={['All', 'Bachelor’s', 'Master’s']}
+                    onChange={(value) => filterHandler('course', value)}
                 />
 
-                <AreaSelectMenu data={data} />
+                <AreaSelectMenu
+                    data={data}
+                    onChange={(value) => filterHandler('areaOfInterest', value)}
+                />
 
                 {/* <SelectMenu
                     placeholder={'Area of study'}
