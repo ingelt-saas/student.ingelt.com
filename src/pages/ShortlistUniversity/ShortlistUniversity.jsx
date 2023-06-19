@@ -54,7 +54,7 @@ const RightArrowSVG = ({ className, backgroundColor }) => {
 const ShortlistUniversity = () => {
 
   const [isOpen, setIsOpen] = useState(false);
-  const [pagination, setPagination] = useState({ page: 1, rows: 10 });
+  const [pagination, setPagination] = useState({ page: 1, rows: 40 });
   const [filterData, setFilterData] = useState({ country: '', course: '', areaOfInterest: '', });
 
   const { data, isLoading, refetch } = useQuery({
