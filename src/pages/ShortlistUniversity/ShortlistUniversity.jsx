@@ -1,22 +1,16 @@
 import React, { useState } from "react";
 import welcomeSVG from "../../assets/images/headingSVG.svg";
-import universitySVG from "../../assets/images/unilogo.svg";
-import logo from "../../assets/images/logo.png";
-import eye from "../../assets/images/eye.svg";
-import timeSVG from "../../assets/images/time.svg";
-import starSVG from "../../assets/images/star.svg";
-import rightArrowSVG from "../../assets/images/rightArrow.svg";
-import heartSVG from "../../assets/images/heart.svg";
-import planeSVG from "../../assets/images/airplane.svg";
 import downSVG from "../../assets/images/downArrow.svg";
 import ShortlistSVG from "../../assets/images/shortlist.svg";
-import { Button, Drawer, Select, FormControl, MenuItem, OutlinedInput, Box, Typography, CircularProgress, Alert } from "@mui/material";
+import { Button, Drawer, Box, Typography, CircularProgress, Alert } from "@mui/material";
 import { FilterAlt } from "@mui/icons-material";
-import { Country } from 'country-state-city';
 import { useQuery } from "@tanstack/react-query";
 import universityApi from "../../api/university";
 import UniversityItem from "../../components/University/UniversityItem";
 import { toast } from "react-toastify";
+import FilterMenu from "../../components/University/FilterMenu";
+
+
 
 const RightArrowSVG = ({ className, backgroundColor }) => {
   return (
@@ -57,145 +51,25 @@ const RightArrowSVG = ({ className, backgroundColor }) => {
   );
 };
 
-const HeartSVG = () => {
-  return (
-    <svg
-      className="w-5"
-      viewBox="0 0 24 20"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <g clipPath="url(#clip0_1467_2485)">
-        <path
-          d="M9.23404 16.9946L11.7165 18.7486L11.7178 18.7496C11.8436 18.8389 11.9785 18.8791 12.104 18.8791C12.2155 18.8791 12.339 18.8447 12.4482 18.7748L12.4554 18.7702L13.595 18.0616C15.9704 16.5784 18.1359 14.7369 20.0257 12.5975C20.7516 11.7778 21.3257 10.8454 21.7467 9.82631C21.7861 9.72583 21.826 9.62704 21.867 9.53258C22.1653 8.76574 22.3203 7.94834 22.3203 7.10492V7.05823C22.3146 6.2269 22.1581 5.42275 21.8632 4.66669C21.57 3.92087 21.1461 3.25533 20.6127 2.67567C20.0757 2.10661 19.4522 1.65842 18.7645 1.34008C18.0396 1.01662 17.2852 0.850274 16.5025 0.850274C15.7185 0.850274 14.9632 1.01688 14.2455 1.34074C13.6146 1.62544 13.0378 2.03048 12.529 2.53941L12.1015 2.96697L11.6765 2.53687C11.1754 2.02964 10.6002 1.62556 9.96872 1.34081C9.25183 1.01757 8.48992 0.850274 7.70499 0.850274C6.92732 0.850274 6.16636 1.01679 5.44941 1.34013C4.75675 1.65702 4.13306 2.1063 3.59515 2.67586C3.06295 3.25371 2.64479 3.91899 2.35128 4.66741L2.35003 4.67059C2.04399 5.43813 1.8877 6.25769 1.8877 7.10488C1.8877 7.95174 2.04437 8.77113 2.34982 9.53982L2.35034 9.54112C2.82676 10.7482 3.51188 11.8095 4.39306 12.7157L5.13362 13.4792M9.23404 16.9946C9.23373 16.9945 9.23434 16.9949 9.23404 16.9946ZM9.23404 16.9946C7.77562 15.9559 6.3931 14.7746 5.13362 13.4792M5.13362 13.4792C5.13352 13.4792 5.1337 13.4794 5.13362 13.4792Z"
-          stroke="currentColor"
-          strokeWidth="1.20192"
-        />
-      </g>
-      <defs>
-        <clipPath id="clip0_1467_2485">
-          <rect
-            width="22.8365"
-            height="19.2308"
-            fill="white"
-            transform="translate(0.685547 0.248047)"
-          />
-        </clipPath>
-      </defs>
-    </svg>
-
-  );
-}
-
-const SelectMenu = ({ options, placeholder, value, handleChange, name }) => {
-  return (<>
-    <FormControl fullWidth>
-      <Select
-        sx={{
-          '& .MuiOutlinedInput-notchedOutline': {
-            border: '2px solid #F7EFFF !important',
-          },
-          fontWeight: 500,
-          color: '#001E43',
-          textAlign: 'center',
-        }}
-        displayEmpty
-        value={value}
-        onChange={handleChange}
-        input={<OutlinedInput />}
-        name={name}
-        MenuProps={{ sx: { height: '50vh' } }}
-        inputProps={{ 'aria-label': 'Without label' }}
-      >
-        <MenuItem disabled value="">
-          {placeholder}
-        </MenuItem>
-        {Array.isArray(options) && options.map(item =>
-          <MenuItem key={item} value={item}>{item}</MenuItem>
-        )}
-      </Select>
-    </FormControl >
-  </>);
-}
-
-const FilterMenu = () => {
-
-  const [selectedData, setSelectedData] = useState({
-    country: '',
-    courseLevel: '',
-    areaOfStudy: '',
-    higherEducation: ''
-  });
-
-  const selectHandler = (e) => {
-    setSelectedData({ ...selectedData, [e.target.name]: e.target.value });
-  }
-
-  return (
-    <div className="bg-white rounded-t-2xl max-xl:hidden">
-      <div className="relative">
-        <img src={ShortlistSVG} alt="Shortlist" className="" />
-        <div className="absolute top-0 left-0 w-full h-full flex flex-col justify-between py-5 px-5">
-          <p className="text-white">
-            need more help in finding your dream course?
-          </p>
-          <button className="bg-[#E7ECF3] group border-2 border-[#E7ECF3] hover:bg-transparent hover:text-[#E7ECF3] duration-300 w-fit text-[#0C3C82] font-semibold py-3 px-6 rounded-full flex items-center gap-x-2">
-            Talk to expert
-            <RightArrowSVG
-              className={'w-6 h-6'}
-              backgroundColor={'text-[#0C3C82] group-hover:text-[#E7ECF3]'}
-            />
-          </button>
-        </div>
-      </div>
-      <div className="h-4/7">
-        <SelectMenu
-          placeholder={'Country'}
-          options={Country.getAllCountries().map(i => i.name)}
-          value={selectedData.country}
-          handleChange={selectHandler}
-          name='country'
-        />
-        <SelectMenu
-          placeholder={'Course Level'}
-          options={[]}
-          value={selectedData.courseLevel}
-          handleChange={selectHandler}
-          name='courseLevel'
-        />
-        <SelectMenu
-          placeholder={'Area of study'}
-          options={[]}
-          value={selectedData.areaOfStudy}
-          handleChange={selectHandler}
-          name='areaOfStudy'
-        />
-        <SelectMenu
-          placeholder={'Higher education'}
-          options={[]}
-          value={selectedData.higherEducation}
-          handleChange={selectHandler}
-          name='higherEducation'
-        />
-
-      </div>
-    </div>
-  );
-};
-
 const ShortlistUniversity = () => {
 
   const [isOpen, setIsOpen] = useState(false);
-  const [pagination, setPagination] = useState({ page: 1, rows: 10 });
+  const [pagination, setPagination] = useState({ page: 1, rows: 40 });
+  const [filterData, setFilterData] = useState({ country: '', course: '', areaOfInterest: '', });
 
   const { data, isLoading, refetch } = useQuery({
-    queryKey: ['shortlistedUniversities', pagination],
+    queryKey: ['shortlistedUniversities', pagination, filterData],
     queryFn: async () => {
-      const res = await universityApi.getAll(pagination.page, pagination.rows);
+      const res = await universityApi.getAll(
+        pagination.page,
+        pagination.rows,
+        filterData.country,
+        filterData.course,
+        filterData.areaOfInterest
+      );
       return res.data;
     }
   });
-
 
   // shortlist add handler
   const shortlistHandler = async (e, university) => {
@@ -212,6 +86,11 @@ const ShortlistUniversity = () => {
     } finally {
       e.target.disabled = false;
     }
+  }
+
+  // filter handler 
+  const filterHandler = (name, value) => {
+    setFilterData({ ...filterData, [name]: value });
   }
 
   return (
@@ -286,7 +165,7 @@ const ShortlistUniversity = () => {
             </Box>
           </div>
 
-          <div className="grid xl:grid-cols-12 gap-x-5 mt-10 max-lg:pb-20">
+          <div className="pb-10 grid xl:grid-cols-12 gap-x-5 mt-10 max-lg:pb-20">
             <div className="xl:col-span-4">
               <Button
                 className="xl:!hidden"
@@ -305,12 +184,16 @@ const ShortlistUniversity = () => {
               >
                 Filter
               </Button>
-              <FilterMenu />
+              <div className="max-xl:hidden">
+                <FilterMenu filterHandler={filterHandler} />
+              </div>
             </div>
             <div className="xl:col-span-8">
+
               {isLoading && <div className="py-5 flex justify-center">
                 <CircularProgress sx={{ '&: svg circle': { stroke: '#00285A' } }} />
               </div>}
+
               {!isLoading && (Array.isArray(data?.rows) && data?.rows?.length > 0 ?
                 <div className="grid max-md:grid-cols-1 grid-cols-2 gap-x-5">
                   {data?.rows?.map(item =>
@@ -340,7 +223,8 @@ const ShortlistUniversity = () => {
         }}
       >
         <div className="bg-white h-full rounded-t-full max-w-[300px]">
-          <div className="relative">
+          <FilterMenu filterHandler={filterHandler} />
+          {/* <div className="relative">
             <img src={ShortlistSVG} alt="Shortlist" className="" />
             <div className="absolute top-0 left-0 w-full h-full flex flex-col justify-between py-5 px-5">
               <p className="text-white">
@@ -383,7 +267,6 @@ const ShortlistUniversity = () => {
             <div className="relative">
               <select className="block appearance-none w-full bg-white border border-[#F7EFFF] border-6 rounded focus:outline-none p-4 text-center font-semibold sm-w-full">
                 <option>Course level</option>
-                {/* <!-- Add state options here --> */}
               </select>
               <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                 <img
@@ -401,7 +284,6 @@ const ShortlistUniversity = () => {
                 <option>Area of study</option>
                 <option>Area of study</option>
                 <option>Area of study</option>
-                {/* <!-- Add country options here --> */}
               </select>
               <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                 <img
@@ -418,7 +300,6 @@ const ShortlistUniversity = () => {
                 <option>Higher education</option>
                 <option>Higher education</option>
                 <option>Higher education</option>
-                {/* <!-- Add state options here --> */}
               </select>
               <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                 <img
@@ -428,7 +309,7 @@ const ShortlistUniversity = () => {
                 />
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </Drawer>
     </>
