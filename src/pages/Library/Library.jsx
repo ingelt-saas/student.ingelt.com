@@ -32,7 +32,7 @@ const Library = () => {
     const [searchValue, setSearchValue] = useState('');
     const [totalItems, setTotalItems] = useState(0);
     const [loading, setLoading] = useState(true);
-    const [pagination, setPagination] = useState({ page: 0, rows: 10 });
+    const [pagination, setPagination] = useState({ page: 0, rows: 100 });
     const [activeTab, setActiveTab] = useState(1);
 
     const [selectedFile, setSelectedFile] = useState(null);
@@ -68,7 +68,7 @@ const Library = () => {
     const searchLibrary = (e) => {
         e.preventDefault();
         setSearchValue(e.target.search.value);
-        setPagination({ rows: 10, page: 0 });
+        // setPagination({ rows: 10, page: 0 });
     }
 
     useEffect(() => {
@@ -286,7 +286,7 @@ const Library = () => {
                 <VideoModal file={selectedFile?.link} showPopup={showPopup} closePopup={closePopup} />
             )}
 
-            <TablePagination component='div' color="primary"
+            {/* <TablePagination component='div' color="primary"
                 count={totalItems}
                 rowsPerPageOptions={
                     [10, 25, 50, 100]
@@ -309,7 +309,7 @@ const Library = () => {
                         rows: e.target.value
                     })
                 }
-                className="mt-6" />
+                className="mt-6" /> */}
 
         </Box>
     );
