@@ -25,7 +25,7 @@ const Image = ({ src, alt, className, gender }) => {
     } else {
       setUrl(avatar);
     }
-  }, [src]);
+  }, [src, avatar]);
   return !url ? (
     <span className={`${className} shadow `}></span>
   ) : (

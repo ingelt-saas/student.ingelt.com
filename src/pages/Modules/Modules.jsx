@@ -3,7 +3,7 @@ import SearchBar from '../../components/shared/SearchBar/SearchBar';
 import { Alert, Box, CircularProgress, TablePagination, Typography } from '@mui/material';
 
 // assets 
-import moduleImg from '../../assets/images/module.svg';
+import moduleImg from '../../assets/NewDesign/IELT Pre.svg';
 import { useEffect } from 'react';
 import moduleApi from '../../api/modules';
 import Image from '../../components/shared/Image/Image';
@@ -67,7 +67,7 @@ const Modules = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const [totalItems, setTotalItems] = useState(0);
     const [loading, setLoading] = useState(true);
-    const [pagination, setPagination] = useState({ page: 0, rows: 10 });
+    const [pagination, setPagination] = useState({ page: 0, rows: 100 });
     const [selectedFile, setSelectedFile] = useState(null);
 
     useEffect(() => {
@@ -135,7 +135,7 @@ const Modules = () => {
     const searchModules = (e) => {
         e.preventDefault();
         setSearchQuery(e.target.search.value);
-        setPagination({ page: 0, rows: 5 });
+        // setPagination({ page: 0, rows: 5 });
     }
 
     return (
@@ -151,12 +151,13 @@ const Modules = () => {
                 {
                     display: "flex",
                     justifyContent: "center",
-                    alignItems: "center",
+                    // alignItems: "center",
                     height: "20vh",
-                    padding: "2rem",
+                    width: { md: "65%", xs: "100%" },
+                    padding: "0rem 2rem",
                     backgroundColor: "white",
                     border: "1px solid white",
-                    borderRadius: "1rem",
+                    borderRadius: "2rem",
                     boxShadow: "0px 10px 36px rgba(0, 0, 0, 0.16), 0px 0px 0px 1px rgba(0, 0, 0, 0.06);"
                 }
             }>
@@ -166,24 +167,35 @@ const Modules = () => {
                         justifyContent: "center",
                         alignItems: "flex-start",
                         flexDirection: "column",
+                        padding: "2rem 0rem",
                         width: { md: "50%", xs: "90%" }
                     }
                 }>
-                    <Typography
-                        sx={{
-                            fontWeight: "bold",
-                            fontSize: "1.5rem"
-                        }}>Recorded Lecture </Typography>
-                    <Typography
-                        sx={{
-                            fontSize: '14px',
-                            color: "rgba(0, 0, 0, 0.6);",
-                            display: { md: "flex", xs: "none" }
-                        }}
-                    >Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor.  </Typography>
+                    <div>
+                        <Typography
+                            sx={{
+                                fontWeight: "bold",
+                                fontSize: "1.5rem",
+                                lineHeight: '1.7rem',
+                                marginBottom: '1rem'
+                            }}>Premium IELTS Modules</Typography>
+                        <Typography
+                            sx={{
+                                fontSize: '14px',
+                                color: "rgba(0, 0, 0, 0.6);",
+                                display: { md: "flex", xs: "none" }
+                            }}
+                        >British Council Verified Instructor
+                        </Typography>
+                    </div>
                 </Box>
                 <Box sx={
-                    { width: { md: "60%", xs: "100%" } }
+                    {
+                        width: { md: "60%", xs: "100%" },
+                        height: '100%',
+                        paddingBottom: '0.5rem',
+                        display: { xs: 'none', md: 'block' }
+                    }
                 }>
                     <img src={moduleImg}
                         alt="library"
@@ -299,7 +311,7 @@ const Modules = () => {
                     }
                 </div>
 
-                <TablePagination component='div' color="primary"
+                {/* <TablePagination component='div' color="primary"
                     count={totalItems}
                     rowsPerPageOptions={
                         [10, 25, 50, 100]
@@ -322,7 +334,8 @@ const Modules = () => {
                             rows: e.target.value
                         })
                     }
-                    className="mt-6" />
+                    className="mt-6" /> */}
+
             </Box> :
                 <Alert icon={false} severity='warning' className='w-fit mx-auto mt-5'>No Modules Found</Alert>
             )}

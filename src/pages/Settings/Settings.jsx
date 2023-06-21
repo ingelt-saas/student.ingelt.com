@@ -33,6 +33,9 @@ import moment from "moment/moment";
 import { useRef } from "react";
 import 'intl-tel-input/build/css/intlTelInput.css';
 import intlTelInput from 'intl-tel-input';
+import ProfileImage from "../../components/shared/ProfileImage/ProfileImage";
+import PhoneInput from 'react-phone-input-2'
+import 'react-phone-input-2/lib/bootstrap.css'
 
 const StyledButton = styled(Button)(() => ({ textTransform: "capitalize" }));
 
@@ -474,7 +477,7 @@ const Settings = () => {
       iti = intlTelInput(inputElement, {
         initialCountry: 'auto',
         separateDialCode: true,
-        formatOnDisplay: true,
+        formatOnDisplay: false,
         utilsScript: 'https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js'
       });
 
@@ -493,9 +496,10 @@ const Settings = () => {
   return (
     <div className="flex flex-col md:flex-row w-full gap-y-5 py-4 h-full">
       <div className=" md:w-2/5 mr-2 flex flex-col items-center mt-4">
-        <Image
+        <ProfileImage
           src={image}
           alt={name}
+          gender={gender}
           className="rounded-full object-cover object-center h-52 w-52 md:h-64 md:w-64 mb-4"
         />
         <div>
@@ -539,6 +543,7 @@ const Settings = () => {
                     // style: { color: "gray" },
                     placeholder: "Select date",
                   }}
+                  InputLabelProps={{ shrink: true }}
                   disabled={item?.readOnly}
                   sx={InputFieldSx}
                   defaultValue={moment(item.defaultValue).format('YYYY-MM-DD')}
@@ -571,6 +576,33 @@ const Settings = () => {
               </Grid>
             ) : item?.type === 'tel' ? (
               <Grid item xs={12} sm={6} key={index}>
+                {/* <Controller
+                  control={control}
+                  name={item.name}
+                  rules={item.validation}
+                  render={() => <PhoneInput inputProps={
+                    {
+                      name: 'phone',
+                      required: true,
+                      autoFocus: true
+                    }
+                  }
+                    country={'in'}
+                    value={phone}
+                    placeholder="Phone Number"
+                    containerClass="mt-5"
+                    inputClass="PhoneInput"
+                    inputStyle={
+                      {
+                        width: "100%",
+                        padding: "0.75rem 3.3rem",
+                        borderRadius: "0.75rem",
+                        outline: "none",
+                        border: "none",
+                        boxShadow: "0px 7px 29px rgba(100, 100, 111, 0.2)"
+                      }
+                    } />}
+                /> */}
                 <Controller
                   control={control}
                   name={item.name}
@@ -672,20 +704,5 @@ const Settings = () => {
   );
 };
 
-// onChange = {(e) => {
-//   console.log(e)
-//   if (e.target.name === 'phoneNo') {
-//     const inputPhoneNumber = window.iti.getNumber();
-//     if (!window.iti.isValidNumber()) {
-//       setError('phoneNo', {
-//         type: 'custom',
-//         message: 'Invalid phone number',
-//       });
-//     } else {
-//       clearErrors('phoneNo');
-//     }
-//     setValue('phoneNo', inputPhoneNumber);
-//   }
-// }}
 
 export default Settings;

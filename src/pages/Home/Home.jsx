@@ -30,6 +30,7 @@ import Image from "../../components/shared/Image/Image";
 import AssignmentGraph from "../../components/Home/AssignmentGraph";
 import Blogs from "../../components/Home/Blogs";
 import LockOverly from "../../components/shared/LockOverly/LockOverly";
+import moment from "moment/moment";
 
 // Student Info Block
 const StudentInfoBlock = ({ title, text, IconName }) => {
@@ -253,17 +254,13 @@ const Home = () => {
               <StudentInfoBlock
                 IconName={Cake}
                 title="Date of Birth"
-                text={
-                  true
-                    ? new Date()?.toLocaleDateString()?.replace(/\//g, "-")
-                    : ""
-                }
+                text={student?.dob ? moment(student?.dob).format('ll') : 'Not Set'}
               />
 
               <StudentInfoBlock
                 IconName={Tv}
-                title="Previous Score"
-                text={student?.previousScore}
+                title="Target Score"
+                text={student?.targetScore}
               />
             </div>
           </div>

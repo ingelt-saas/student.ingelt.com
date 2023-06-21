@@ -24,6 +24,7 @@ import sports from "../../assets/NewDesign/university_shortlisting/sports.svg";
 import hospitality from "../../assets/NewDesign/university_shortlisting/hospitality.svg";
 import greenCap from "../../assets/NewDesign/GroupgreenCap.svg";
 import ShortlistSVG from "../../assets/images/shortlist.svg";
+import Airplane from '../../assets/images/airplane.svg';
 import { toast } from 'react-toastify';
 import universityApi from '../../api/university.js';
 import { useEffect } from 'react';
@@ -408,17 +409,19 @@ const FilterMenu = ({ filterHandler }) => {
     }
 
     return (
-        <div className="bg-white rounded-t-2xl">
-            <div className="relative">
-                <img src={ShortlistSVG} alt="Shortlist" className="" />
+        <div className="bg-white max-xl:rounded-t-3xl rounded-t-2xl max-xl:min-w-[300px]">
+            <div className="relative w-full">
+                {/* <img src={ShortlistSVG} alt="Shortlist" className="" /> */}
+                <div className='h-52 2xl:h-72 w-full bg-[#0C3C82] rounded-3xl'></div>
+                <img src={Airplane} alt='' className='w-28 xl:w-32 2xl:w-40 absolute top-1/2 -translate-y-1/2 right-5' />
                 <div className="absolute top-0 left-0 w-full h-full flex flex-col justify-between py-5 px-5">
-                    <p className="text-white">
+                    <p className="text-white 2xl:text-2xl">
                         need more help in finding your dream course?
                     </p>
-                    <button onClick={sendQuery} className="bg-[#E7ECF3] disabled:opacity-75 disabled:pointer-events-auto group border-2 border-[#E7ECF3] hover:bg-transparent hover:text-[#E7ECF3] duration-300 w-fit text-[#0C3C82] font-semibold py-3 px-6 rounded-full flex items-center gap-x-2">
+                    <button onClick={sendQuery} className="bg-[#E7ECF3] 2xl:text-xl disabled:opacity-75 disabled:pointer-events-auto group border-2 border-[#E7ECF3] hover:bg-transparent hover:text-[#E7ECF3] duration-300 w-fit text-[#0C3C82] font-semibold py-3 px-6 rounded-full flex items-center gap-x-2">
                         Talk to expert
                         <RightArrowSVG
-                            className={'w-6 h-6'}
+                            className={'w-6 h-6 2xl:w-8 2xl:h-8'}
                             backgroundColor={'text-[#0C3C82] group-hover:text-[#E7ECF3]'}
                         />
                     </button>
