@@ -47,7 +47,7 @@ const Blogs = () => {
 
     return (
         <div>
-            <h1 className="text-2xl font-semibold">Latest Blog</h1>
+            <h1 className="text-2xl font-semibold">Latest Blogs</h1>
             <div className='mt-5 relative'>
                 <Swiper
                     slidesPerView={1}

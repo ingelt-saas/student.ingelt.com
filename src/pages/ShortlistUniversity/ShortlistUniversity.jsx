@@ -64,7 +64,7 @@ const ShortlistUniversity = () => {
         pagination.page,
         pagination.rows,
         filterData.country,
-        filterData.course,
+        (filterData.course === 'All' ? '' : filterData.course),
         filterData.areaOfInterest
       );
       return res.data;
