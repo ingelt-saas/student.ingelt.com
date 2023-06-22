@@ -177,14 +177,13 @@ const Modules = () => {
                                 fontWeight: "bold",
                                 fontSize: "1.5rem",
                                 lineHeight: '1.7rem',
-                                marginBottom: '1rem'
+                                marginBottom: '0.5rem'
                             }}>Premium IELTS Modules</Typography>
                         <Typography
-                            sx={{
-                                fontSize: '14px',
-                                color: "rgba(0, 0, 0, 0.6);",
-                                display: { md: "flex", xs: "none" }
-                            }}
+                            // sx={{
+                            //     color: "rgba(0, 0, 0, 0.6);",
+                            //     display: { md: "flex", xs: "none" }
+                            // }}
                         >British Council Verified Instructor
                         </Typography>
                     </div>
@@ -199,7 +198,7 @@ const Modules = () => {
                 }>
                     <img src={moduleImg}
                         alt="library"
-                        className="h-full w-auto ml-auto" />
+                        className="md:relative md:bottom-2 scale-110 w-auto h-full ml-auto" />
                 </Box>
 
             </Box>
@@ -253,7 +252,7 @@ const Modules = () => {
                 <div className="grid 2xl:grid-cols-4 xl:grid-cols-3 md:grid-cols-2 gap-y-5 pt-10">
                     {modules.map((item, index) => (
                         <div onClick={() => handleView(item.file, item)} className="p-3 relative bg-white rounded-xl h-full shadow-[0px_10px_36px_rgba(0,0,0,0.16),0px_0px_0px_1px_rgba(0,0,0,0.06)] scale-95 hover:scale-100 duration-200 transition-transform cursor-pointer" key={index}>
-                            {!item.file && <ModuleOverly releaseDate={item.releaseDate} />}
+                            {/* {!item.file && <ModuleOverly releaseDate={item.releaseDate} />} */}
                             <div className='rounded-2xl h-44 overflow-hidden'>
                                 <Image src={item.thumbnail} alt={item.name} className='w-full h-full object-cover' />
                             </div>
