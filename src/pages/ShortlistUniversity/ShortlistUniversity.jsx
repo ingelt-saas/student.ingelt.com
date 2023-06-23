@@ -143,13 +143,13 @@ const ShortlistUniversity = () => {
                                 fontSize: "1.5rem",
                                 lineHeight: '1.7rem',
                                 marginBottom: '0.5rem'
-                            }}>Premium IELTS Modules</Typography>
+                            }}>University Shortlisting</Typography>
                         <Typography
                             // sx={{
                             //     color: "rgba(0, 0, 0, 0.6);",
                             //     display: { md: "flex", xs: "none" }
                             // }}
-                        >British Council Verified Instructor
+                        >Choose in-demand course as per your interest
                         </Typography>
                     </div>
                 </Box>
