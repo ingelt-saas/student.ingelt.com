@@ -145,14 +145,14 @@ const ShortlistUniversity = () => {
                     fontWeight: "bold",
                   }}
                 >
-                  Shortlisting University
+                  Shortlist Universities
                 </Typography>
                 <Typography
                 // sx={{
                 //   fontSize: "1.5rem",
                 // }}
                 >
-                  Nulla Lorem mollit cupidatat irure.
+                  Select your favourite courses in your dream university.
                 </Typography>
               </Box>
               <Box sx={{ width: { md: "45%", xs: "100%" } }}>

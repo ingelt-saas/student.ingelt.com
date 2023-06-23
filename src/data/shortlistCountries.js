@@ -1,6 +1,6 @@
 const countries = [
-    'USA',
-    'UK',
+    'United States of America',
+    'United Kingdom',
     'Canada',
     'Australia',
     'New Zealand',
