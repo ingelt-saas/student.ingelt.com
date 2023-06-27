@@ -7,7 +7,7 @@ import InstituteItem from "../../components/FindInstitute/InstituteItem";
 import instituteApi from "../../api/institute";
 import { StudentContext } from "../../contexts";
 import { Country, State } from "country-state-city";
-import { Alert } from "@mui/material";
+import { Alert, Typography } from "@mui/material";
 import { toast } from "react-toastify";
 
 const FindInstitute = () => {
@@ -20,7 +20,7 @@ const FindInstitute = () => {
     location: "",
   });
   const [nearMe, setNearMe] = useState(false);
-  const [states, setStates] = useState([]);
+  const [states, setStates] = useState();
   const [appliedInstitutes, setAppliedInstitutes] = useState([]);
 
   // context
@@ -99,14 +99,11 @@ const FindInstitute = () => {
 
   // fetch cities
   useEffect(() => {
-    const findCountry = Country.getAllCountries().find(
-      (i) => i.name === student.country
-    );
-    if (findCountry) {
-      const findStates = State.getStatesOfCountry(findCountry.isoCode);
-      setStates(findStates.map((i) => i.name));
-    }
-  }, [student]);
+    const getAllStates = async () => {
+      await setStates(State.getStatesOfCountry("IN"));
+    };
+      getAllStates();
+  }, []);
 
   // apply handler
   const applyHandler = async (e, org) => {
@@ -124,18 +121,22 @@ const FindInstitute = () => {
 
   return (
     <div>
-      <div className="flex justify-between items-center px-3 rounded-xl shadow-xl">
-        <div className="w-full md:w-fit py-3 ml-5">
-          <h2 className="text-2xl font-semibold text-[#001E43]">
-            Find Institute
-          </h2>
+      <div className="flex justify-between items-center px-3 rounded-xl shadow-xl bg-white">
+        <div className="w-full md:w-fit py-3 md:ml-5">
+        <Typography
+                            sx={{
+                                fontWeight: "bold",
+                                fontSize: "1.5rem",
+                                lineHeight: '1.7rem',
+                                marginBottom: '0.5rem'
+                            }}>Find Institutes</Typography>
           <form
             onSubmit={inputHandler}
-            className="mt-3 flex items-center flex-row max-md:w-full md:w-[600px] bg-[#0C3C821A] rounded-md py-2 px-2 "
+            className="mt-3 flex items-center flex-row max-md:w-full md:w-[400px] bg-[#0C3C821A] rounded-md py-2 px-2 "
           >
-            <div className="flex-1 relative z-0">
+            <div className="flex-1 relative z-0 w-full">
               <input
-                className="h-full peer z-20 bg-transparent w-full border-0 focus:outline-none"
+                className="h-full z-20 bg-transparent w-full pl-3 border-0 focus:outline-none"
                 type="search"
                 name="search"
                 id="search"
@@ -143,9 +144,9 @@ const FindInstitute = () => {
               <label
                 htmlFor="search"
                 id="searchLabel"
-                className="absolute opacity-50 duration-200 -z-10 top-1/2 left-0 w-full h-auto -translate-y-1/2 flex gap-x-2 items-center"
+                className="absolute opacity-50 duration-200 -z-10 top-1/2 left-3 w-full h-auto -translate-y-1/2 flex gap-x-2 items-center"
               >
-                <div className=" flex-1 flex gap-x-2 items-center border-r-2 border-[#00000066] ">
+                <div className=" flex-1 flex gap-x-2 items-center">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     x="0px"
@@ -180,7 +181,7 @@ const FindInstitute = () => {
                     IELTS Institute
                   </span>
                 </div>
-                <div className="peer-valid:group:hidden flex-1 flex gap-x-2 items-center">
+                {/* <div className="peer-valid:group:hidden flex-1 flex gap-x-2 items-center">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     x="0px"
@@ -214,7 +215,7 @@ const FindInstitute = () => {
                   <span className="text-lg xs:text-sm text-[#00285A]">
                     Institute Location
                   </span>
-                </div>
+                </div> */}
               </label>
             </div>
             <button className="flex items-center px-2 sm:px-6 sm:gap-x-2 bg-[#0C3C82] text-white text-sm sm:text-base font-medium py-2 rounded-lg">
@@ -222,10 +223,10 @@ const FindInstitute = () => {
               Search
             </button>
           </form>
-          <div className="w-full justify-between flex items-start mt-3">
-            <div className="flex flex-col gap-y-2 items-start">
+          <div className="w-full justify-start flex items-start mt-3">
+            <div className="flex flex-col gap-y-2 items-start md:w-[40%]">
               <h5 className="text-xl text-[#00285A] font-medium">Location</h5>
-              <div className="md:w-220px w-fit rounded-lg border pr-2 cursor-pointer border-[#0C3C82]">
+              <div className="rounded-lg px-2 border border-[#0C3C82]">
                 <select
                   onChange={(e) => {
                     setNearMe(false);
@@ -234,17 +235,17 @@ const FindInstitute = () => {
                       location: e.target.value,
                     });
                   }}
-                  className="text-center  text-[#0C3C82] px-4 py-3 border-0 bg-transparent font-medium outline-none"
+                  className="text-left w-full cursor-pointer text-[#0C3C82] py-2 border-0 bg-transparent font-medium outline-none"
                 >
-                  <option value="" disabled>
+                  <option value="" disabled selected>
                     Select Location
-                  </option>
-                  <option selected>Delhi</option>
-                  {states.map((i) => (
-                    <option key={i} value={i}>
-                      {i}
                     </option>
-                  ))}
+                    {states &&
+                          states.map((state, index) => (
+                            <option key={index} value={state.name}>
+                              {state.name}
+                            </option>
+                          ))}
                 </select>
               </div>
               {/* <label
@@ -305,7 +306,7 @@ const FindInstitute = () => {
                   checked={Boolean(searchQuery.mode.includes("hybrid"))}
                   value="hybrid"
                   type="checkbox"
-                  id="hybrid"
+                  Resourceid="hybrid"
                   name="classMode"
                   className="accent-[#0C3C82]"
                 />
