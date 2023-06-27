@@ -177,14 +177,13 @@ const Modules = () => {
                                 fontWeight: "bold",
                                 fontSize: "1.5rem",
                                 lineHeight: '1.7rem',
-                                marginBottom: '1rem'
+                                marginBottom: '0.5rem'
                             }}>Premium IELTS Modules</Typography>
                         <Typography
-                            sx={{
-                                fontSize: '14px',
-                                color: "rgba(0, 0, 0, 0.6);",
-                                display: { md: "flex", xs: "none" }
-                            }}
+                            // sx={{
+                            //     color: "rgba(0, 0, 0, 0.6);",
+                            //     display: { md: "flex", xs: "none" }
+                            // }}
                         >British Council Verified Instructor
                         </Typography>
                     </div>
@@ -199,7 +198,7 @@ const Modules = () => {
                 }>
                     <img src={moduleImg}
                         alt="library"
-                        className="h-full w-auto ml-auto" />
+                        className="md:relative md:bottom-2 scale-110 w-auto h-full ml-auto" />
                 </Box>
 
             </Box>
