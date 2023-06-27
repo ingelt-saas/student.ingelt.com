@@ -15,6 +15,7 @@ import img2 from '../../assets/images/demo.svg';
 import img3 from '../../assets/images/phone-contact.svg';
 import img4 from '../../assets/images/discount.svg';
 import phoneSVG from '../../assets/images/phone.svg';
+import { Tooltip } from "@mui/material";
 
 const InstituteItem = ({ applyHandler, institute, appliedInstitutes }) => {
 
@@ -31,6 +32,7 @@ const InstituteItem = ({ applyHandler, institute, appliedInstitutes }) => {
         // verified,
         // tagline,
         fee,
+        orgImages,
         modeOfClasses,
         overallRating,
         sponsored,
@@ -48,7 +50,7 @@ const InstituteItem = ({ applyHandler, institute, appliedInstitutes }) => {
         <div className="px-4 sm:px-4 py-6 rounded-xl mb-6 flex flex-col lg:flex-row gap-x-4 gap-y-6 shadow-xl bg-white">
             <div className="lg:w-4/12 flex items-center">
                 <div className="w-full overflow-hidden rounded-lg">
-                    {Array.isArray(images) && images.length > 0 && <>
+                    {Array.isArray(orgImages) && orgImages.length > 0 && <>
                         <Swiper
                             speed={300}
                             spaceBetween={10}
@@ -56,7 +58,7 @@ const InstituteItem = ({ applyHandler, institute, appliedInstitutes }) => {
                             thumbs={{ swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null }}
                             className="h-48 sm:h-72 lg:h-52"
                         >
-                            {Array.isArray(images) && images.map(i =>
+                            {orgImages.map(i =>
                                 <SwiperSlide key={i.name}>
                                     <div className="h-full w-full">
                                         <Image src={i.name} alt={i.name} className='w-full h-full object-cover' />
@@ -74,7 +76,7 @@ const InstituteItem = ({ applyHandler, institute, appliedInstitutes }) => {
                             modules={[Thumbs, FreeMode]}
                             className="h-12 sm:h-16 lg:h-10"
                         >
-                            {Array.isArray(images) && images.map(i =>
+                            {orgImages.map(i =>
                                 <SwiperSlide key={i.name}>
                                     <div className="w-full h-full p-1 cursor-pointer">
                                         <Image src={i.name} alt={i.name} className='w-full h-full object-cover rounded-md' />
@@ -127,9 +129,11 @@ const InstituteItem = ({ applyHandler, institute, appliedInstitutes }) => {
                         <span className="">Modes Available: </span>
                         <span className="capitalize text-[#00285A]">{modeOfClasses}</span>
                     </p>
-                    <a href={`tel:${phoneNo}`} rel="noreferrer">
-                        <img src={phoneSVG} alt='' className='' />
-                    </a>
+                    <Tooltip title='Contact Institute'>
+                        <a href={`tel:${phoneNo}`} rel="noreferrer">
+                            <img src={phoneSVG} alt='' className='' />
+                        </a>
+                    </Tooltip>
                 </div>
 
                 {/* <div className="flex justify-between max-sm:flex-col max-sm:gap-y-3">

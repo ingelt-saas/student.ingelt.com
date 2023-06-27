@@ -177,7 +177,7 @@ const Discussions = () => {
             InGelt Centralized Community
           </p>
           <p className="pt-1 text-[#555454] text-sm md:text-base">
-            "Explore The World Through Us"
+            "Explore The World Through Us InGelt"
           </p>
         </div>
         <div className="w-full flex items-center justify-center flex-[0.3] md:flex-[0.2]">
