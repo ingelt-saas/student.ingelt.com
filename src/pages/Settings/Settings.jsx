@@ -36,6 +36,7 @@ import intlTelInput from 'intl-tel-input';
 import ProfileImage from "../../components/shared/ProfileImage/ProfileImage";
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/bootstrap.css'
+import { Country, State } from "country-state-city";
 
 const StyledButton = styled(Button)(() => ({ textTransform: "capitalize" }));
 
@@ -253,8 +254,10 @@ const PasswordChangeModal = ({ open, close }) => {
 const Settings = () => {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [updatedData, setUpdatedData] = useState({});
+  const [countries, setCountries] = useState([]);
+  const [states, setStates] = useState([]);
   const phoneInputRef = useRef();
+  const [selectedCountry, setSelectedCountry] = useState(null);
 
   // student context
   let { student } = useContext(StudentContext);
@@ -430,8 +433,15 @@ const Settings = () => {
         required: 'Please select gender',
       }
     },
-    { name: "country", label: "Country", defaultValue: country, type: "text", validation: { required: 'Please select country' } },
-    { name: "state", label: "State", defaultValue: state, type: "text", validation: { required: 'Please select state' } },
+    {
+      name: "country",
+      label: "Country",
+      defaultValue: country,
+      type: "select",
+      validation: { required: 'Please select country' },
+      options: countries
+    },
+    { name: "state", label: "State", defaultValue: state, type: "select", validation: { required: 'Please select state' }, options: states },
     { name: "city", label: "City", defaultValue: city, type: "text", validation: { required: 'Please select city' } },
     { name: "pinCode", label: "Pincode", defaultValue: pinCode, type: "text", validation: { required: 'Pincode is required' } },
     {
@@ -493,6 +503,38 @@ const Settings = () => {
     };
   }, [phoneNo]);
 
+  // set gender , country and state value
+  useEffect(() => {
+    setValue('country', country);
+    setValue('state', state);
+    setValue('gender', gender);
+  }, [country, gender, state]);
+
+  // initial country and state fetcher 
+  useEffect(() => {
+    const getCountries = Country.getAllCountries();
+    setCountries(getCountries.map(i => i.name));
+    if (country) {
+      const getCountry = getCountries.find(i => i.name === country);
+      const getStates = State.getStatesOfCountry(getCountry.isoCode);
+      if (Array.isArray(getStates)) {
+        setStates(getStates.map(i => i.name));
+      }
+    }
+  }, [country]);
+
+  // states fetch on change country
+  useEffect(() => {
+    if (selectedCountry) {
+      const getCountries = Country.getAllCountries();
+      const getCountry = getCountries.find(i => i.name === selectedCountry);
+      const getStates = State.getStatesOfCountry(getCountry.isoCode);
+      if (Array.isArray(getStates)) {
+        setStates(getStates.map(i => i.name));
+      }
+    }
+  }, [selectedCountry]);
+
   return (
     <div className="flex flex-col md:flex-row w-full gap-y-5 py-4 h-full">
       <div className=" md:w-2/5 mr-2 flex flex-col items-center mt-4">
@@ -553,25 +595,36 @@ const Settings = () => {
               </Grid>
             ) : item?.type === "select" ? (
               <Grid item xs={12} sm={6} key={index}>
-                <FormControl variant="outlined" size="small" sx={InputFieldSx}>
-                  <InputLabel id="demo-simple-select-label">
-                    {item?.label}*
-                  </InputLabel>
-                  <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    label="Gender"
-                    name="gender"
-                    defaultValue={item?.defaultValue}
-                    {...register(item.name, item.validation)}
-                  >
-                    {item?.options.map((i) => (
-                      <MenuItem key={i} value={i}>
-                        {i}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
+                <Controller
+                  name={item.name}
+                  control={control}
+                  rules={item.validation}
+                  render={({ field: { value, onChange, name } }) => <FormControl variant="outlined" size="small" sx={InputFieldSx}>
+                    <InputLabel id="demo-simple-select-label">
+                      {item?.label}*
+                    </InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      label={item.label}
+                      name={name}
+                      MenuProps={{ sx: { maxHeight: '70vh' } }}
+                      onChange={(e) => {
+                        if (e.target.name === 'country') {
+                          setSelectedCountry(e.target.value);
+                        }
+                        onChange(e);
+                      }}
+                      value={value || ''}
+                    >
+                      {item?.options.map((i) => (
+                        <MenuItem key={i} value={i}>
+                          {i}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>}
+                />
                 {errors[item.name] && <span className="text-xs text-red-500 font-medium">{errors[item.name]?.message}</span>}
               </Grid>
             ) : item?.type === 'tel' ? (
