@@ -87,7 +87,6 @@ const SignupStepOne = ({ img, open, text, formData, setFormData, handleClose }) 
         }
     }
 
-
     return (
         <div>
             <Modal open={open}
@@ -149,9 +148,7 @@ const SignupStepOne = ({ img, open, text, formData, setFormData, handleClose }) 
                                     country={'in'}
                                     value={phone}
                                     placeholder="Phone Number"
-                                    onChange={
-                                        (phone) => setPhone(phone)
-                                    }
+                                    onChange={phone => setPhone('+' + phone)}
                                     containerClass="mt-5"
                                     inputClass="PhoneInput"
                                     inputStyle={

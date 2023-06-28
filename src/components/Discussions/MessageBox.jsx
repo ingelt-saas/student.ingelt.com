@@ -2,6 +2,7 @@ import moment from "moment/moment";
 import { useContext } from "react";
 import { StudentContext } from "../../contexts";
 import Image from "../shared/Image/Image";
+import ProfileImage from "../shared/ProfileImage/ProfileImage";
 
 const MessageBox = ({ data }) => {
   // context
@@ -13,6 +14,7 @@ const MessageBox = ({ data }) => {
     message,
     senderName,
     senderImage,
+    senderGender,
     senderId,
     createdAt,
     senderCountry,
@@ -93,10 +95,11 @@ const MessageBox = ({ data }) => {
                     </div>
                   </div>
                 </div>
-                <Image
+                <ProfileImage
+                  alt={'Sender Image'}
                   src={senderImage}
-                  alt="My profile"
                   className="w-10 h-10 rounded-full order-1 object-cover"
+                  gender={senderGender}
                 />
               </div>
             )}
@@ -120,10 +123,11 @@ const MessageBox = ({ data }) => {
                     </div>
                   ))}
                 </div>
-                <Image
+                <ProfileImage
+                  alt={'Sender Image'}
                   src={senderImage}
-                  alt="My profile"
                   className="w-10 h-10 rounded-full order-1 object-cover"
+                  gender={senderGender}
                 />
               </div>
             )}
