@@ -440,7 +440,7 @@ const Settings = () => {
       defaultValue: previousScore,
       type: "text",
       validation: {
-        required: 'Previous score is required',
+        required: false,
         pattern: {
           value: /^(?:9(?:\.[0]*)?|[0-8](?:\.\d+)?)$/,
           message: 'Invalid score, score should be like 2.4 or 5',
