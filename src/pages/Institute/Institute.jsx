@@ -65,16 +65,16 @@ const Institute = () => {
             <Typography
               sx={{
                 color: "black",
-                fontSize: "1.5rem",
+                fontSize: { md: "1.5rem", xs: "1.2rem" },
                 fontWeight: "bold",
               }}
             >
               Institute
             </Typography>
             <Typography
-            // sx={{
-            //   fontSize: "1.5rem",
-            // }}
+            sx={{
+              fontSize: {xs:'0.9rem',md:"1rem"},
+            }}
             >
               Crack IELTS with our Partnered Institutes
             </Typography>
@@ -83,7 +83,7 @@ const Institute = () => {
             <img
               src={welcomeSVG}
               alt="library"
-              className="md:relative max-md:hidden md:bottom-4  md:left-28 "
+              className="relative md:bottom-4  md:left-28 "
             />
           </Box>
         </Box>

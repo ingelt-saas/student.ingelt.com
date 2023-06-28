@@ -8,6 +8,7 @@ import img2 from "../../assets/images/travel.svg";
 import img3 from "../../assets/images/aeroplane.svg";
 import { Country, State, City } from "country-state-city";
 import query from "../../api/query";
+import Countries from "../../components/VisaApplication/Countries";
 
 import {
   Box,
@@ -126,13 +127,20 @@ const Page2 = () => {
         </div>
         <div className="flex w-full">
           <div className="w-1/2 flex max-lg:hidden">
-            <img
+            {/* <img
               src={img2}
               alt="welcome svg"
               className="w-400 h-auto mx-auto my-auto"
-            />
+            /> */}
+             <Countries/>
+                <p className="text-4xl text-center font-semibold text-[#00285A] mt-10 max-md:text-xl">"InGelt Board is a group of 15+ Registered Immigration Consultant"</p>
+                <ul className="list-disc mt-5 text-2xl gap-y-2 flex flex-col text-gray max-md:text-lg text-center">
+                  <li>Amet minim mollit non deserunt ullamco est sit aliqua </li>
+                  <li>Amet minim mollit non deserunt ullamco est sit aliqua </li>
+                  <li>Amet minim mollit non deserunt ullamco est sit aliqua </li>
+                </ul>
           </div>
-          <div className="w-1/2">
+          <div className="w-2/5">
             <section className=" body-font">
               <div className="container px-5 pb-24 pt-10 mx-auto flex flex-wrap">
                 <div className="flex flex-wrap w-full">
@@ -439,18 +447,25 @@ const VisaApplication = () => {
                 </Box>
               </Box>
             </div>
-            <div className="flex w-full">
-              <div className="w-1/2 flex">
-                <img
+            <div className="flex w-full  max-md:flex-col items-center justify-between mt-10">
+              <div className="w-1/2 max-md:w-full flex flex-col items-center justify-between h-full">
+                {/* <img
                   src={loanSVG}
                   alt="welcome svg"
                   className="w-400 h-auto mx-auto my-10"
-                />
+                /> */}
+                <Countries/>
+                <p className="text-4xl text-center font-semibold text-[#00285A] mt-10 max-md:text-xl">"InGelt Board is a group of 15+ Registered Immigration Consultant"</p>
+                <ul className="list-disc mt-5 text-2xl gap-y-2 flex flex-col text-gray max-md:text-lg text-center">
+                  <li>Amet minim mollit non deserunt ullamco est sit aliqua </li>
+                  <li>Amet minim mollit non deserunt ullamco est sit aliqua </li>
+                  <li>Amet minim mollit non deserunt ullamco est sit aliqua </li>
+                </ul>
               </div>
-              <div className="w-1/2 max-md:w-full">
+              <div className="w-2/5 max-md:w-full">
                 <form
                   onSubmit={onSubmit}
-                  className="flex flex-col items-center md:items-start h-full justify-center"
+                  className="flex flex-col items-center md:items-start h-full justify-center pb-10"
                 >
                   <div className="flex flex-col max-lg:items-start w-full justify-center">
                     <div className="inline-block relative mt-5 w-full">
