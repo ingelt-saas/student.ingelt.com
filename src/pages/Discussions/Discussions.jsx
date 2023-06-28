@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from "react";
-import discussion from "../../api/discussion";
+import discussionApi from "../../api/discussion";
 import CryptoJS from "crypto-js";
 import Cookies from "js-cookie";
-import { useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 // Components
 import MessageBox from "../../components/Discussions/MessageBox";
 import { FiSend } from "react-icons/fi";
@@ -14,7 +14,7 @@ import {
   Remove,
   Send,
 } from "@mui/icons-material";
-import { AppBar, Avatar, Toolbar, Typography } from "@mui/material";
+import { AppBar, Avatar, Button, Toolbar, Typography } from "@mui/material";
 import Compressor from "compressorjs";
 import { SocketContext } from "../../contexts";
 
@@ -23,11 +23,12 @@ const Discussions = () => {
   const socket = useContext(SocketContext);
 
   const [message, setMessage] = useState("");
-  const [discussions, setDiscussions] = useState([]);
   const [onlineMembers, setOnlineMembers] = useState(0);
   const [totalMembers, setTotalMembers] = useState(0);
   const [selectedImages, setSelectedImages] = useState([]);
+  const [loading, setLoading] = useState(false);
   const messageBoxRef = useRef();
+  const limit = 20;
 
   const formatNumber = (number) => {
     const abbreviations = {
@@ -53,6 +54,21 @@ const Discussions = () => {
     // messageBoxRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
+  // infinite scroll 
+  const { data: discussions = [], isLoading, refetch, hasNextPage, fetchNextPage, isSuccess } = useInfiniteQuery({
+    queryKey: ['messages'],
+    queryFn: async ({ pageParam = 1 }) => {
+      const res = await discussionApi.getDiscussions(pageParam, limit);
+      return res.data;
+    },
+    getNextPageParam: (lastPage, allPages) => {
+      let maxPages = lastPage.count / limit;
+      maxPages = Math.ceil(maxPages);
+      let nextPage = allPages.length + 1;
+      return nextPage <= maxPages ? nextPage : undefined;
+    }
+  });
+
   useEffect(() => {
     const messageBox = document.getElementById("scroll-div");
     messageBox.scroll(0, messageBox.scrollHeight);
@@ -60,26 +76,11 @@ const Discussions = () => {
 
   useEffect(() => {
     const getAll = async () => {
-      const { data } = await discussion.count();
+      const { data } = await discussionApi.count();
       setOnlineMembers(data.online);
       setTotalMembers(data.totalMembers);
     };
     getAll();
-  }, []);
-
-  const getDiscussions = async () => {
-    try {
-      const _discussions = await discussion.getDiscussions(1, 1000);
-      setDiscussions(_discussions?.data?.rows);
-      scrollToBottom();
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  useEffect(() => {
-    getDiscussions();
-    scrollToBottom();
   }, []);
 
   const createDiscussion = async (e) => {
@@ -103,13 +104,7 @@ const Discussions = () => {
         imagesArr.push(imageDataURL);
       }
 
-      // const formData = new FormData();
-      // formData.append("message", message);
-      // for (let image of selectedImages) {
-      //   formData.append("images", image);
-      // }
-      // await discussion.postDiscussion(formData);
-
+      setLoading(true);
       // Send Message to Socket
       socket.emit("message", {
         message,
@@ -117,14 +112,6 @@ const Discussions = () => {
         student_auth_token: Cookies.get("student_auth_token"),
       });
 
-      socket.on("message-ack", (data) => {
-        console.log("message-ack", data);
-      });
-
-      setMessage("");
-      getDiscussions();
-      scrollToBottom();
-      setSelectedImages([]);
     } catch (err) {
       console.log(err);
     }
@@ -133,9 +120,14 @@ const Discussions = () => {
   // Check For new messages and update the state
   useEffect(() => {
     socket.on("message-ack", (data) => {
-      console.log("message-ack", data);
-      setDiscussions((prev) => [...prev, data]);
+      if (data?.senderId) {
+        setMessage("");
+        setSelectedImages([]);
+        setLoading(false);
+      }
+      refetch();
       scrollToBottom();
+      // getDiscussions();
     });
   }, [socket]);
 
@@ -169,6 +161,10 @@ const Discussions = () => {
     setSelectedImages(newSelectedImages);
   };
 
+  useEffect(() => {
+    scrollToBottom();
+  }, []);
+
   return (
     <div className="w-full h-full flex flex-col">
       <div className="py-8 bg-white w-full shadow-lg flex items-center justify-center px-5">
@@ -201,10 +197,61 @@ const Discussions = () => {
           id="journal-scroll"
           className="flex-1 flex flex-col items-center justify-center w-full px-5"
         >
-          {Array.isArray(discussions) &&
+          {/* loading animation */}
+          {isLoading && <div className="py-5 flex justify-center w-full">
+            <svg width="100" height="100" viewBox="0 0 200 200">
+              <circle
+                cx="100"
+                cy="100"
+                r="50"
+                fill="none"
+                stroke="#001E43"
+                strokeWidth="4"
+              >
+                <animate
+                  attributeName="r"
+                  values="50; 30; 50"
+                  dur="2s"
+                  repeatCount="indefinite"
+                />
+                <animate
+                  attributeName="stroke-width"
+                  values="4; 8; 4"
+                  dur="2s"
+                  repeatCount="indefinite"
+                />
+              </circle>
+            </svg>
+          </div>}
+
+          {hasNextPage && <div className="pb-5 pt-10 w-full flex justify-center">
+            <Button
+              onClick={() => fetchNextPage()}
+              disabled={isLoading}
+              variant="contained"
+              sx={{
+                textTransform: 'capitalize',
+                color: '#f2f2f2',
+                padding: '0.6rem 2rem',
+                backgroundColor: '#1B3B7D',
+                '&:hover': {
+                  backgroundColor: '#1B3B7D',
+                }
+              }}
+            >Load More</Button>
+          </div>}
+
+          {/* show discussions */}
+          {isSuccess &&
+            [...discussions.pages].reverse().map(item =>
+              Array.isArray(item?.rows) && [...item?.rows].reverse().map(discussion =>
+                <MessageBox key={discussion.id} data={discussion} />
+              )
+            )}
+          {/* {Array.isArray(discussions) &&
             discussions?.map((item) => (
-              <MessageBox key={item?.id} data={item} />
-            ))}{" "}
+              
+            ))}{" "} */}
         </div>
       </div>
       <div className="w-full bg-white">
@@ -268,8 +315,8 @@ const Discussions = () => {
           </div>
           <button
             disabled={
-              !(message.trim() !== "" && message.split(" ").length <= 200) &&
-              !selectedImages.length > 0
+              (!(message.trim() !== "" && message.split(" ").length <= 200) &&
+                !selectedImages.length > 0) || loading
             }
             className="flex items-center justify-center rounded-xl px-4 py-3 transition duration-500 ease-in-out text-white bg-[#1B3B7D] focus:outline-none disabled:bg-gray"
           >
