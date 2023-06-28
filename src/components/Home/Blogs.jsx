@@ -77,15 +77,16 @@ const Blogs = () => {
                             <BlogItem item={item} setReadPost={setReadPost} />
                         </SwiperSlide>
                     )}
+
+                    <div className='flex z-20 items-center justify-center gap-x-4 absolute left-0 bottom-0 w-full h-auto'>
+                        <button ref={prevRef} className='cursor-pointer disabled:opacity-30 disabled:cursor-auto text-[#0C3C82] border border-[#0C3C82] duration-300 rounded-md shadow-md px-4'>
+                            <ArrowRightAlt fontSize='large' className='rotate-180' />
+                        </button>
+                        <button ref={nextRef} className='cursor-pointer disabled:opacity-30 disabled:cursor-auto text-[#0C3C82] border border-[#0C3C82] duration-300 rounded-md shadow-md px-4'>
+                            <ArrowRightAlt fontSize='large' />
+                        </button>
+                    </div>
                 </Swiper>
-                <div className='flex z-20 items-center justify-center gap-x-4 absolute left-0 bottom-0 w-full h-auto'>
-                    <button ref={prevRef} className='cursor-pointer disabled:opacity-30 disabled:cursor-auto text-[#0C3C82] border border-[#0C3C82] duration-300 rounded-md shadow-md px-4'>
-                        <ArrowRightAlt fontSize='large' className='rotate-180' />
-                    </button>
-                    <button ref={nextRef} className='cursor-pointer disabled:opacity-30 disabled:cursor-auto text-[#0C3C82] border border-[#0C3C82] duration-300 rounded-md shadow-md px-4'>
-                        <ArrowRightAlt fontSize='large' />
-                    </button>
-                </div>
             </div>
 
             {/* read post modal */}
