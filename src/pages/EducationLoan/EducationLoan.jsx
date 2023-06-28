@@ -7,6 +7,15 @@ import darkDownSVG from "../../assets/images/darkDown.svg";
 import img2 from "../../assets/images/Personal finance-pana.svg";
 import { Country, State, City } from "country-state-city";
 import query from "../../api/query";
+import BankingPart from "../../components/EducationLoan/BankingPart"
+import funding from "../../assets/NewDesign/loan icon/funding.svg";
+import sanction from "../../assets/NewDesign/loan icon/quick loan.svg";
+import endtoend from "../../assets/NewDesign/loan icon/end to end.svg";
+import ROI from "../../assets/NewDesign/loan icon/lowest-price.svg";
+import preAdmission from "../../assets/NewDesign/loan icon/pre admission loan.svg";
+import country from "../../assets/NewDesign/loan icon/country specific.svg";
+import preVisa from "../../assets/NewDesign/loan icon/pre visa.svg";
+import score from "../../assets/NewDesign/loan icon/score based.svg"
 import {
   Box,
   CircularProgress,
@@ -22,13 +31,13 @@ const Page2 = () => {
   return (
     <div className="flex flex-row flex-wrap gap-y-10 gap-x-5 w-full  sm:m-auto">
       <div className="w-full h-20 foo:block ">
-        <div className="pt-3 pb-4 pl-3">
+        <div className="flex gap-x-5 max-md:flex-col max-md:gap-y-5">
           <Box
             sx={{
               display: "flex",
               justifyContent: "left",
               alignItems: "center",
-              width: { md: "65%", xs: "100%" },
+              width: { md: "63%", xs: "100%" },
               height: "20vh",
               padding: "2rem",
               backgroundColor: "white",
@@ -50,17 +59,16 @@ const Page2 = () => {
               <Typography
                 sx={{
                   color: "black",
-                  display: { md: "flex", xs: "none" },
-                  fontSize: "1.5rem",
+                  fontSize: { md: "1.5rem", xs: "1.2rem" },
                   fontWeight: "bold",
                 }}
               >
                 Education Loan
               </Typography>
               <Typography
-              // sx={{
-              //   fontSize: "1.5rem",
-              // }}
+              sx={{
+                fontSize: {xs:'0.9rem',md:"1.2rem"},
+              }}
               >
                 Optimal solution for overseas education loan
               </Typography>
@@ -323,18 +331,55 @@ const EducationLoan = () => {
   useEffect(() => {
     getAllStates();
   }, [stateCode]);
+
+  const icons=[
+    {
+        img:funding,
+        text:"100% Funding",
+    },
+    {
+        img:sanction,
+        text:"Quick Loan Sanction",
+    },
+    {
+        img:endtoend,
+        text:"Education Loan Assistance",
+    },
+    {
+        img:ROI,
+        text:"Lowest Rate of Interest",
+    },
+    {
+        img:preAdmission,
+        text:"Pre Admission Loan",
+    },
+    {
+        img:country,
+        text:"Country Specific Loan Counselling",
+    },
+    {
+        img:preVisa,
+        text:"Pre Visa Disbursal",
+    },
+    {
+        img:score,
+        text:"Score Based Loan Structuring",
+    }
+]
+
+
   return (
     <div className="flex ">
       {!page2 ? (
-        <div className="flex flex-row flex-wrap gap-y-10 gap-x-5 w-full ">
+        <div className="flex flex-row flex-wrap gap-y-10 gap-x-5 w-full">
           <div className="w-full h-20 foo:block ">
-            <div className="pt-3 pb-4 pl-3">
+            <div className="flex gap-x-5 max-md:flex-col max-md:gap-y-5 mb-10">
               <Box
                 sx={{
                   display: "flex",
                   justifyContent: "left",
                   alignItems: "center",
-                  width: { md: "65%", xs: "100%" },
+                  width: { md: "63%", xs: "100%" },
                   height: "20vh",
                   padding: "2rem",
                   backgroundColor: "white",
@@ -356,35 +401,50 @@ const EducationLoan = () => {
                   <Typography
                     sx={{
                       color: "black",
-                      fontSize: "1.5rem",
+                      fontSize: { md: "1.5rem", xs: "1.2rem" },
                       fontWeight: "bold",
                     }}
                   >
                     Education Loan
                   </Typography>
-                  <Typography>
+                  <Typography
+                  sx={{
+                    fontSize: {xs:'0.9rem',md:"1rem"},
+                  }}>
                     Optimal solution for overseas education loan
                   </Typography>
                 </Box>
-                <Box sx={{ width: { md: "30%", xs: "100%" } }}>
+                <Box sx={{ width: { md: "30%", xs: "60%" } }}>
                   <img
                     src={welcomeSVG}
                     alt="library"
-                    className="md:relative max-md:hidden md:bottom-1  md:left-28 "
+                    className="relative bottom-1 left-28 max-md:left-0"
                   />
                 </Box>
               </Box>
             </div>
-            <div className="flex w-full">
-              <div className="w-1/2 flex max-md:hidden">
-                <img
+            <div className="flex max-md:flex-col w-full justify-between items-center">
+              <div className="w-1/2 max-md:w-full flex flex-col justify-center items-center">
+                {/* <img
                   src={loanSVG}
                   alt="welcome svg"
                   className="w-400 h-auto mx-auto my-10"
-                />
+                /> */}
+                <div className="flex mb-10 flex-wrap gap-x-2 2xl:gap-x-2 xl:gap-x-3 gap-y-3 items-center justify-center w-full max-xl:hidden ">
+                {icons.map((item,index)=>{
+                    return(
+                        <div key={index} className="flex items-center justify-start rounded-xl w-56 px-5 py-3">
+                                <img src={item.img} className="w-10 h-10 mr-
+                                3" alt="icon"/>
+                                <p className="font-semibold text-sm ml-3">{item.text}</p>
+                        </div>
+                    )
+                })}
+                </div>
+              <BankingPart/>
               </div>
 
-              <div className="w-1/2  max-md:w-full">
+              <div className="w-2/5 max-md:w-full max-md:pb-10">
                 <form
                   onSubmit={onSubmit}
                   className="flex flex-col items-center md:items-start h-full justify-center"

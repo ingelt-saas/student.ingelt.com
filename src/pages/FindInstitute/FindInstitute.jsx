@@ -2,12 +2,12 @@ import React, { useContext, useEffect, useState } from "react";
 
 //assets
 import findImg from "../../assets/images/find-institute.png";
-import { Search } from "@mui/icons-material";
+import { Favorite, FilterAlt, Search } from "@mui/icons-material";
 import InstituteItem from "../../components/FindInstitute/InstituteItem";
 import instituteApi from "../../api/institute";
 import { StudentContext } from "../../contexts";
 import { Country, State } from "country-state-city";
-import { Alert, Typography } from "@mui/material";
+import { Alert, Box, Button, Typography } from "@mui/material";
 import { toast } from "react-toastify";
 
 const FindInstitute = () => {
@@ -120,8 +120,244 @@ const FindInstitute = () => {
   };
 
   return (
-    <div>
-      <div className="flex justify-between items-center px-3 rounded-xl shadow-xl bg-white">
+    <div className="flex flex-row flex-wrap gap-y-10 gap-x-5 w-full ">
+      <div className="w-full h-20 foo:block ">
+          <div className="flex gap-x-5 max-md:flex-col max-md:gap-y-5">
+          <Box sx={
+            {
+              display: "flex",
+              justifyContent: "center",
+              // alignItems: "center",
+              height: "20vh",
+              width: { md: "64%", xs: "100%" },
+              padding: "0rem 2rem",
+              backgroundColor: "white",
+              border: "1px solid white",
+              borderRadius: "2rem",
+              boxShadow: "0px 5px 36px rgba(0, 0, 0, 0.16), 0px 0px 0px 1px rgba(0, 0, 0, 0.06);"
+            }
+          }>
+            <Box sx={
+              {
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "flex-start",
+                flexDirection: "column",
+                padding: "2rem 0rem",
+                width: { md: "50%", xs: "90%" }
+              }
+            }>
+              <div>
+                <Typography
+                  sx={{
+                    fontWeight: "bold",
+                    fontSize: { md: "1.5rem", xs: "1.2rem" },
+                    lineHeight: '1.7rem',
+                    marginBottom: '0.5rem'
+                  }}>Find Institutes</Typography>
+                <Typography
+                 sx={{
+                  fontSize: {xs:'0.9rem',md:"1rem"},
+                }}
+                >Choose in-demand course as per your interest
+                </Typography>
+              </div>
+            </Box>
+            <Box sx={
+              {
+                width: { md: "55%", xs: "100%" },
+                height: '100%',
+                paddingBottom: '0.5rem',
+              }
+            }>
+              <img src={findImg}
+                alt="library"
+                className="relative ml-auto scale-125" />
+            </Box>
+
+          </Box>
+          <div className="">
+            <div style={{boxShadow:' 0px 0px 0px 1px rgba(0, 0, 0, 0.06), 0px 5px 36px 0px rgba(0, 0, 0, 0.16)'}} className="bg-white h-full w-full px-5 pt-3 pb-2 rounded-2xl flex justify-center flex-col items-center">
+            <form
+            onSubmit={inputHandler}
+            className="flex items-center flex-row max-md:w-full md:w-[400px] bg-[#0C3C821A] rounded-xl py-1 px-2 "
+          >
+            <div className="flex-1 relative z-0 w-full">
+              <input
+                className="h-full z-20 bg-transparent w-full pl-3 border-0 focus:outline-none"
+                type="search"
+                name="search"
+                id="search"
+              />
+              <label
+                htmlFor="search"
+                id="searchLabel"
+                className="absolute opacity-50 duration-200 -z-10 top-1/2 left-3 w-full h-auto -translate-y-1/2 flex gap-x-2 items-center"
+              >
+                <div className=" flex-1 flex gap-x-2 items-center">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    x="0px"
+                    y="0px"
+                    width="100"
+                    height="100"
+                    viewBox="0,0,256,256"
+                    className="w-5 xs:w-5 h-5 xs:h-5"
+                  >
+                    <g
+                      fill="#00285a"
+                      fill-rule="nonzero"
+                      stroke="none"
+                      stroke-width="1"
+                      stroke-linecap="butt"
+                      stroke-linejoin="miter"
+                      stroke-miterlimit="10"
+                      stroke-dasharray=""
+                      stroke-dashoffset="0"
+                      font-family="none"
+                      font-weight="none"
+                      font-size="none"
+                      text-anchor="none"
+                      style={{ mixBlendMode: "normal" }}
+                    >
+                      <g transform="scale(10.66667,10.66667)">
+                        <path d="M20,8l-3,0.002v-3.384c0,-0.764 -0.424,-1.449 -1.105,-1.789l-3.895,-1.947l-3.894,1.947c-0.682,0.34 -1.106,1.025 -1.106,1.789v3.382h-3c-1.103,0 -2,0.897 -2,2v10c0,1.103 0.897,2 2,2h16c1.103,0 2,-0.897 2,-2v-10c0,-1.103 -0.897,-2 -2,-2zM7,16c0.55,0 1,0.45 1,1c0,0.55 -0.45,1 -1,1c-0.55,0 -1,-0.45 -1,-1c0,-0.55 0.45,-1 1,-1zM6,13c0,-0.55 0.45,-1 1,-1c0.55,0 1,0.45 1,1c0,0.55 -0.45,1 -1,1c-0.55,0 -1,-0.45 -1,-1zM12,8c-0.55,0 -1,-0.45 -1,-1c0,-0.55 0.45,-1 1,-1c0.55,0 1,0.45 1,1c0,0.55 -0.45,1 -1,1zM13,13c0,0.55 -0.45,1 -1,1c-0.55,0 -1,-0.45 -1,-1c0,-0.55 0.45,-1 1,-1c0.55,0 1,0.45 1,1zM11,17c0,-0.55 0.45,-1 1,-1c0.55,0 1,0.45 1,1v3h-2zM17,14c-0.55,0 -1,-0.45 -1,-1c0,-0.55 0.45,-1 1,-1c0.55,0 1,0.45 1,1c0,0.55 -0.45,1 -1,1zM18,17c0,0.55 -0.45,1 -1,1c-0.55,0 -1,-0.45 -1,-1c0,-0.55 0.45,-1 1,-1c0.55,0 1,0.45 1,1z"></path>
+                      </g>
+                    </g>
+                  </svg>
+                  <span className="text-lg xs:text-sm text-[#00285A]">
+                    IELTS Institute
+                  </span>
+                </div>
+              </label>
+            </div>
+            <button className="flex items-center px-2 sm:px-6 sm:gap-x-2 bg-[#0C3C82] text-white text-sm sm:text-base font-medium py-2 rounded-lg">
+              <Search fontSize="small" />
+              Search
+            </button>
+          </form>
+          <div className="justify-between max-md:w-full md:w-[400px] flex items-start mt-3">
+            <div className="flex flex-col gap-y-1 items-start md:w-[40%]">
+              <h5 className="text-lg text-[#00285A] font-medium">Location</h5>
+              <div className="rounded-lg px-2 border border-[#0C3C82]">
+                <select
+                  onChange={(e) => {
+                    setNearMe(false);
+                    setSearchQuery({
+                      ...searchQuery,
+                      location: e.target.value,
+                    });
+                  }}
+                  className="text-left w-full cursor-pointer text-[#0C3C82] py-2 border-0 bg-transparent font-medium outline-none"
+                >
+                  <option value="" disabled selected>
+                    Select Location
+                    </option>
+                    {states &&
+                          states.map((state, index) => (
+                            <option key={index} value={state.name}>
+                              {state.name}
+                            </option>
+                          ))}
+                </select>
+              </div>
+              
+            </div>
+            <div className="flex flex-col gap-y-1 items-start ml-5">
+              <h5 className="text-lg text-[#00285A] font-medium">
+                Mode Available
+              </h5>
+              <div className="flex max-md:flex-col max-md:gap-y-1 gap-x-2">
+              <label
+                htmlFor="online"
+                className="flex items-center w-fit gap-x-1 cursor-pointer"
+              >
+                <input
+                  onChange={modeHandler}
+                  checked={Boolean(searchQuery.mode.includes("online"))}
+                  value="online"
+                  type="checkbox"
+                  id="online"
+                  name="classMode"
+                  className="accent-[#0C3C82]"
+                />
+                Online
+              </label>
+              <label
+                htmlFor="offline"
+                className="flex items-center w-fit gap-x-1 cursor-pointer"
+              >
+                <input
+                  onChange={modeHandler}
+                  checked={Boolean(searchQuery.mode.includes("offline"))}
+                  value="offline"
+                  type="checkbox"
+                  id="offline"
+                  name="classMode"
+                  className="accent-[#0C3C82]"
+                />
+                Offline
+              </label>
+              <label
+                htmlFor="hybrid"
+                className="flex items-center w-fit gap-x-1 cursor-pointer"
+              >
+                <input
+                  onChange={modeHandler}
+                  checked={Boolean(searchQuery.mode.includes("hybrid"))}
+                  value="hybrid"
+                  type="checkbox"
+                  Resourceid="hybrid"
+                  name="classMode"
+                  className="accent-[#0C3C82]"
+                />
+                Hybrid
+              </label>
+              </div>
+            </div>
+          </div>
+          </div>
+        </div>
+        </div>
+        </div>
+      <div className="mt-28 max-md:mt-72 w-full">
+      <div className="flex justify-around gap-x-5 w-full max-md:mt-3">
+        {!loading &&
+            institutes?.length > 0 ? (
+              Array.isArray(institutes) &&
+        <div className="w-full flex-col flex gap-y-3">
+              {institutes.map((institute, index) => (
+                <InstituteItem
+                  key={index}
+                  applyHandler={applyHandler}
+                  appliedInstitutes={appliedInstitutes}
+                  institute={institute}
+                />
+              ))
+              }
+            </div>
+            ) : (
+              <Alert icon={false} severity="warning" className="w-fit mx-auto">
+              No Institute Found
+            </Alert>
+              )
+        }
+        <div className="max-lg:hidden w-1/2">
+          <div className="h-[90vh] rounded-lg overflow-hidden">
+            <iframe
+              title="Google Maps"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d448193.9510394728!2d76.76356531486537!3d28.64428735134563!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cfd5b347eb62d%3A0x37205b715389640!2sDelhi%2C%20India!5e0!3m2!1sen!2sbd!4v1684835021997!5m2!1sen!2sbd"
+              width="100%"
+              height="100%"
+              style={{ border: "0" }}
+              allowFullScreen=""
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            ></iframe>
+          </div>
+        </div>
+        </div>
+        {/* <div className="flex justify-between items-center px-3 rounded-xl shadow-xl bg-white">
         <div className="w-full md:w-fit py-3 md:ml-5">
         <Typography
                             sx={{
@@ -181,41 +417,6 @@ const FindInstitute = () => {
                     IELTS Institute
                   </span>
                 </div>
-                {/* <div className="peer-valid:group:hidden flex-1 flex gap-x-2 items-center">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    x="0px"
-                    y="0px"
-                    width="100"
-                    height="100"
-                    viewBox="0,0,256,256"
-                    className="w-5 xs:w-5 h-5 xs:h-5"
-                  >
-                    <g
-                      fill="#00285a"
-                      fill-rule="nonzero"
-                      stroke="none"
-                      stroke-width="1"
-                      stroke-linecap="butt"
-                      stroke-linejoin="miter"
-                      stroke-miterlimit="10"
-                      stroke-dasharray=""
-                      stroke-dashoffset="0"
-                      font-family="none"
-                      font-weight="none"
-                      font-size="none"
-                      text-anchor="none"
-                      style={{ mixBlendMode: "normal" }}
-                    >
-                      <g transform="scale(5.12,5.12)">
-                        <path d="M25,1c-8.82031,0 -16,7.17969 -16,16c0,14.11328 14.62891,30.94531 15.25,31.65625c0.19141,0.21875 0.46094,0.34375 0.75,0.34375c0.30859,-0.01953 0.55859,-0.125 0.75,-0.34375c0.62109,-0.72266 15.25,-17.84375 15.25,-31.65625c0,-8.82031 -7.17969,-16 -16,-16zM25,12c3.3125,0 6,2.6875 6,6c0,3.3125 -2.6875,6 -6,6c-3.3125,0 -6,-2.6875 -6,-6c0,-3.3125 2.6875,-6 6,-6z"></path>
-                      </g>
-                    </g>
-                  </svg>
-                  <span className="text-lg xs:text-sm text-[#00285A]">
-                    Institute Location
-                  </span>
-                </div> */}
               </label>
             </div>
             <button className="flex items-center px-2 sm:px-6 sm:gap-x-2 bg-[#0C3C82] text-white text-sm sm:text-base font-medium py-2 rounded-lg">
@@ -248,20 +449,7 @@ const FindInstitute = () => {
                           ))}
                 </select>
               </div>
-              {/* <label
-                htmlFor="nearMe"
-                className="flex items-center w-fit gap-x-2 cursor-pointer"
-              >
-                <input
-                  onChange={(e) => setNearMe(e.target.checked)}
-                  checked={nearMe}
-                  type="checkbox"
-                  id="nearMe"
-                  name="classMode"
-                  className="accent-[#0C3C82]"
-                />
-                Near Me
-              </label> */}
+              
             </div>
             <div className="flex flex-col gap-y-2 items-start ml-5">
               <h5 className="text-xl text-[#00285A] font-medium">
@@ -318,40 +506,7 @@ const FindInstitute = () => {
         <div className="max-md:hidden min-w-[220px] max-h-full">
           <img src={findImg} alt="find Institute" className="w-full h-auto" />
         </div>
-      </div>
-      <div className="mt-10 flex gap-x-6">
-        <div className="w-full lg:w-1/2 flex flex-col gap-y-5">
-          {!loading &&
-            (institutes?.length > 0 ? (
-              Array.isArray(institutes) &&
-              institutes.map((institute, index) => (
-                <InstituteItem
-                  key={index}
-                  applyHandler={applyHandler}
-                  appliedInstitutes={appliedInstitutes}
-                  institute={institute}
-                />
-              ))
-            ) : (
-              <Alert icon={false} severity="warning" className="w-fit mx-auto">
-                No Institute Found
-              </Alert>
-            ))}
-        </div>
-        <div className="max-lg:hidden w-1/2">
-          <div className="h-[90vh] rounded-lg overflow-hidden">
-            <iframe
-              title="Google Maps"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d448193.9510394728!2d76.76356531486537!3d28.64428735134563!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cfd5b347eb62d%3A0x37205b715389640!2sDelhi%2C%20India!5e0!3m2!1sen!2sbd!4v1684835021997!5m2!1sen!2sbd"
-              width="100%"
-              height="100%"
-              style={{ border: "0" }}
-              allowFullScreen=""
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-            ></iframe>
-          </div>
-        </div>
+      </div> */}
       </div>
     </div>
   );

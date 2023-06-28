@@ -63,21 +63,21 @@ const SideBar = () => {
       icon: <HomeSVG />,
     },
     // {name: "Modules", path: "/module", icon: img2 },
-    { name: "Modules", path: "/modules", icon: <ModulesSVG /> },
+    { name: "IELTS Lectures", path: "/modules", icon: <ModulesSVG /> },
     // {
     //   name: "Find Institute",
     //   path: "/find-institute",
     //   icon: <UniversitySVG />,
     // },
 
-    { name: "Library", path: "/centralized-library", icon: <LibrarySVG /> },
+    { name: "IELTS Library", path: "/centralized-library", icon: <LibrarySVG /> },
 
     //     {name: "Home", path: "/", icon: <HomeSVG /> },
     //     // {name: "Assignments", path: "/assignments", icon: <AssignmentSVG /> },
     //     {name: "Library", path: "/centralized-library", icon: <LibrarySVG /> },
 
     {
-      name: "Shortlist University",
+      name: "Universities",
       path: "/shortlist-university",
       icon: <ShortlistSVG />,
     },
