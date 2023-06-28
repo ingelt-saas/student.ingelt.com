@@ -132,13 +132,13 @@ const UniversityItem = ({ RightArrowSVG, university, shortlistHandler }) => {
 
             {/* 5th div */}
             <div className="flex justify-between mu-3">
-                <button className="bg-[#0C3C82] hover:bg-transparent duration-300 border-2 border-[#0C3C82] hover:text-[#0C3C82] text-white font-semibold py-2 px-4 rounded-full gap-x-2 flex items-center">
+                <button className="hover:bg-[#0C3C82] bg-transparent duration-300 border-2 border-[#0C3C82] text-[#0C3C82] hover:text-white font-semibold py-2 px-4 max-md:text-sm rounded-full gap-x-2 flex items-center">
                     Talk to expert
                     <RightArrowSVG className={'h-5 w-5'} />
                 </button>
                 <button
                     onClick={(e) => shortlistHandler(e, university)}
-                    className="bg-[#E7ECF3] hover:bg-[#0C3C82] duration-300 text-[#0C3C82] hover:text-[#E7ECF3] font-semibold py-2 px-4 rounded-full flex items-center gap-x-2">
+                    className="bg-[#E7ECF3] hover:bg-[#0C3C82] duration-300 text-[#0C3C82] hover:text-[#E7ECF3] font-semibold py-2 px-4 max-md:text-sm rounded-full flex items-center gap-x-2">
                     Shortlist
                     <HeartSVG
                         fill={studentShortlists?.length > 0 ? true : false}

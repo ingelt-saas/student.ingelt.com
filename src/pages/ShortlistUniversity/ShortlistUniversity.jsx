@@ -3,7 +3,7 @@ import welcomeSVG from "../../assets/images/headingSVG.svg";
 import downSVG from "../../assets/images/downArrow.svg";
 import ShortlistSVG from "../../assets/images/shortlist.svg";
 import { Button, Drawer, Box, Typography, CircularProgress, Alert } from "@mui/material";
-import { FilterAlt } from "@mui/icons-material";
+import { Favorite, FilterAlt, HeartBroken } from "@mui/icons-material";
 import { useQuery } from "@tanstack/react-query";
 import universityApi from "../../api/university";
 import UniversityItem from "../../components/University/UniversityItem";
@@ -70,6 +70,17 @@ const ShortlistUniversity = () => {
       return res.data;
     }
   });
+  const sendQuery = async (e) => {
+    e.target.disabled = true;
+    try {
+        await universityApi.sendQuery();
+        toast.success('Your query has been sent successfully, our team will contact you shortly');
+    } catch (err) {
+        console.error(err);
+    } finally {
+        e.target.disabled = false;
+    }
+}
 
   // shortlist add handler
   const shortlistHandler = async (e, university) => {
@@ -97,33 +108,19 @@ const ShortlistUniversity = () => {
     <>
       <div className="flex flex-row flex-wrap gap-y-10 gap-x-5 w-full ">
         <div className="w-full h-20 foo:block ">
-          {/* <div className="rounded-xl shadow-lg bg-white flex justify-between items-center">
-            <div className="pl-3 max-md:py-8">
-              <h1 className="text-3xl text-[#001E43] font-semibold text-left">
-                Shortlisting University
-              </h1>
-              <p className="text-left mt-2 text-[#00000099] font-medium">
-                Nulla Lorem mollit cupidatat irure. Laborum magna cillum dolor.{" "}
-              </p>
-            </div>
-            <img
-              src={welcomeSVG}
-              alt="welcome svg"
-              className="-mt-12 max-md:hidden"
-            />
-          </div> */}
+          <div className="flex gap-x-5 max-md:flex-col max-md:gap-y-5">
           <Box sx={
             {
               display: "flex",
               justifyContent: "center",
               // alignItems: "center",
               height: "20vh",
-              width: { md: "65%", xs: "100%" },
+              width: { md: "64%", xs: "100%" },
               padding: "0rem 2rem",
               backgroundColor: "white",
               border: "1px solid white",
               borderRadius: "2rem",
-              boxShadow: "0px 10px 36px rgba(0, 0, 0, 0.16), 0px 0px 0px 1px rgba(0, 0, 0, 0.06);"
+              boxShadow: "0px 5px 36px rgba(0, 0, 0, 0.16), 0px 0px 0px 1px rgba(0, 0, 0, 0.06);"
             }
           }>
             <Box sx={
@@ -140,15 +137,14 @@ const ShortlistUniversity = () => {
                 <Typography
                   sx={{
                     fontWeight: "bold",
-                    fontSize: "1.5rem",
+                    fontSize: { md: "1.5rem", xs: "1.2rem" },
                     lineHeight: '1.7rem',
                     marginBottom: '0.5rem'
                   }}>University Shortlisting</Typography>
                 <Typography
-                // sx={{
-                //     color: "rgba(0, 0, 0, 0.6);",
-                //     display: { md: "flex", xs: "none" }
-                // }}
+                sx={{
+                  fontSize: {xs:'0.9rem',md:"1rem"},
+                }}
                 >Choose in-demand course as per your interest
                 </Typography>
               </div>
@@ -158,18 +154,78 @@ const ShortlistUniversity = () => {
                 width: { md: "60%", xs: "100%" },
                 height: '100%',
                 paddingBottom: '0.5rem',
-                display: { xs: 'none', md: 'block' }
               }
             }>
               <img src={welcomeSVG}
                 alt="library"
-                className="md:relative md:bottom-10 scale-110 ml-auto" />
+                className="relative top-5 md:bottom-10 scale-110 ml-auto" />
             </Box>
 
           </Box>
+          <div className="">
+            <div style={{boxShadow:' 0px 0px 0px 1px rgba(0, 0, 0, 0.06), 0px 5px 36px 0px rgba(0, 0, 0, 0.16)'}} className="bg-white h-full w-full p-5 rounded-2xl flex justify-between flex-col items-center">
+              <p className="text-[#00285A] text-lg text-center">Need more help in finding your course?</p>
+              <button className="hover:bg-[#00285A] text-lg bg-transparent duration-300 border-2 border-[#00285A] text-[#00285A] hover:text-white py-1 max-md:text-base px-3 w-full rounded-2xl justify-around flex items-center">
+                    Talk to expert
+                    {/* <RightArrowSVG className={'h-5 w-5'} /> */}
+                </button>
+            <div className="flex justify-around gap-x-5 w-full max-md:mt-3">
+          <div className="xl:col-span-4">
+              <Button
+                className=""
+                variant="container"
+                sx={{
+                  backgroundColor: "#00285A",
+                  color: "white",
+                  width:{xs:"8rem",md:"11rem"},
+                  border:"2px solid #00285A",
+                  borderRadius:"15px",
+                  py:'5px',
+                  textTransform: "capitalize",
+                  "&:hover": {
+                    backgroundColor: "transparent",
+                    color: "#00285A",
+                  },
+                }}
+                endIcon={<Favorite />}
+                onClick={() => setIsOpen(true)}
+              >
+                Shortlisted
+              </Button>
+            </div>
+          <div className="xl:col-span-4">
+              <Button
+                className=""
+                variant="container"
+                sx={{
+                  backgroundColor: "#00285A",
+                  color: "white",
+                  width:{xs:"8rem",md:"11rem"},
+                  border:"2px solid #00285A",
+                  borderRadius:"15px",
+                  py:'5px',
+                  textTransform: "capitalize",
+                  "&:hover": {
+                    backgroundColor: "transparent",
+                    color: "#00285A",
+                  },
+                }}
+                endIcon={<FilterAlt />}
+                onClick={() => setIsOpen(true)}
+              >
+                Filter
+              </Button>
+              {/* <div className="max-xl:hidden">
+                <FilterMenu filterHandler={filterHandler} />
+              </div> */}
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>
 
-          <div className="pb-10 grid xl:grid-cols-12 gap-x-5 mt-10 max-lg:pb-20">
-            <div className="xl:col-span-4">
+          <div className="pb-10 grid  gap-x-5 max-md:mt-1 mt-10 max-lg:pb-20">
+            {/* <div className="xl:col-span-4">
               <Button
                 className="xl:!hidden"
                 variant="container"
@@ -190,15 +246,15 @@ const ShortlistUniversity = () => {
               <div className="max-xl:hidden">
                 <FilterMenu filterHandler={filterHandler} />
               </div>
-            </div>
-            <div className="xl:col-span-8">
+            </div> */}
+            <div className="w-full">
 
               {isLoading && <div className="py-5 flex justify-center">
                 <CircularProgress sx={{ '&: svg circle': { stroke: '#00285A' } }} />
               </div>}
 
               {!isLoading && (Array.isArray(data?.rows) && data?.rows?.length > 0 ?
-                <div className="grid max-md:grid-cols-1 grid-cols-2 gap-x-5">
+                <div className="grid w-full max-md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-x-5">
                   {data?.rows?.map(item =>
                     <UniversityItem
                       RightArrowSVG={RightArrowSVG}
@@ -225,7 +281,7 @@ const ShortlistUniversity = () => {
           paper: "!bg-transparent",
         }}
       >
-        <div className="bg-white h-full rounded-t-full max-w-[300px]">
+        <div className="bg-white h-full max-xl:rounded-t-3xl rounded-t-2xl rounded-bl-2xl w-full">
           <FilterMenu filterHandler={filterHandler} />
           {/* <div className="relative">
             <img src={ShortlistSVG} alt="Shortlist" className="" />
@@ -233,7 +289,7 @@ const ShortlistUniversity = () => {
               <p className="text-white">
                 need more help in finding your dream course?
               </p>
-              <button className="bg-[#E7ECF3] w-fit text-[#0C3C82] font-semibold py-3 px-6 rounded-full flex items-center gap-x-2">
+              <button className="bg-[#E7ECF3] w-fit text-[#00285A] font-semibold py-3 px-6 rounded-full flex items-center gap-x-2">
                 Talk to expert
                 <RightArrowSVG />
               </button>

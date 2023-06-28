@@ -26,7 +26,7 @@ const PanelLayout = () => {
       >
         <SideBar />
       </div>
-      <div className={`flex-1 overflow-y-auto bg-slate-50 ${shouldApplyClasses ? 'px-2 md:px-5 2xl:px-10 py-10' : ''}`}>
+      <div className={`flex-1 overflow-y-auto bg-slate-50 ${shouldApplyClasses ? 'px-2 md:px-5 2xl:px-10 py-6' : ''}`}>
   <Outlet />
 </div>
     </div>

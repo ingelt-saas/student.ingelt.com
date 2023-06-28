@@ -73,13 +73,13 @@ const Page2 = () => {
             className="absolute bottom-0 right-3 h-52 w-auto"
           />
         </div> */}
-        <div className="pt-3 pb-4 pl-2">
+        <div className="flex gap-x-5 max-md:flex-col max-md:gap-y-5">
           <Box
             sx={{
               display: "flex",
               justifyContent: "left",
               alignItems: "center",
-              width: { md: "65%", xs: "100%" },
+              width: { md: "63%", xs: "100%" },
               height: "20vh",
               padding: "2rem",
               backgroundColor: "white",
@@ -101,17 +101,16 @@ const Page2 = () => {
               <Typography
                 sx={{
                   color: "black",
-                  display: { md: "flex", xs: "none" },
-                  fontSize: "1.5rem",
+                  fontSize: { md: "1.5rem", xs: "1.2rem" },
                   fontWeight: "bold",
                 }}
               >
                 Visa Application
               </Typography>
               <Typography
-              // sx={{
-              //   fontSize: "1.5rem",
-              // }}
+              sx={{
+                fontSize: {xs:'0.9rem',md:"1rem"},
+              }}
               >
                 Hassel free visa processing and approval
               </Typography>
@@ -120,7 +119,7 @@ const Page2 = () => {
               <img
                 src={welcomeSVG}
                 alt="library"
-                className="md:relative md:bottom-1  md:left-44 "
+                className="relative bottom-1  md:left-44"
               />
             </Box>
           </Box>
@@ -389,13 +388,13 @@ const VisaApplication = () => {
       {!page2 ? (
         <div className="flex flex-row flex-wrap gap-y-10 gap-x-5 w-full ">
           <div className="w-full h-20 foo:block ">
-            <div className="pt-3 pb-4 pl-2">
+            <div className="flex gap-x-5 max-md:flex-col max-md:gap-y-5">
               <Box
                 sx={{
                   display: "flex",
                   justifyContent: "left",
                   alignItems: "center",
-                  width: { md: "65%", xs: "100%" },
+                  width: { md: "63%", xs: "100%" },
                   height: "20vh",
                   padding: "2rem",
                   backgroundColor: "white",
@@ -417,14 +416,17 @@ const VisaApplication = () => {
                   <Typography
                     sx={{
                       color: "black",
-                      display: { md: "flex", xs: "none" },
-                      fontSize: "1.5rem",
+                      fontSize: { md: "1.5rem", xs: "1.2rem" },
                       fontWeight: "bold",
                     }}
                   >
                     Visa Application
                   </Typography>
-                  <Typography>
+                  <Typography
+                  sx={{
+                    fontSize: {xs:'0.9rem',md:"1rem"},
+                  }}
+                  >
                     Hassel free visa processing and approval
                   </Typography>
                 </Box>
@@ -432,13 +434,13 @@ const VisaApplication = () => {
                   <img
                     src={welcomeSVG}
                     alt="library"
-                    className="relative bottom-1  left-44 "
+                    className="relative bottom-1  md:left-44 "
                   />
                 </Box>
               </Box>
             </div>
             <div className="flex w-full">
-              <div className="w-1/2 flex max-md:hidden">
+              <div className="w-1/2 flex">
                 <img
                   src={loanSVG}
                   alt="welcome svg"
