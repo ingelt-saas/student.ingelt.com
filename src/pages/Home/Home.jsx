@@ -219,7 +219,7 @@ const Home = () => {
               <StudentInfoBlock
                 IconName={LocationOn}
                 title="Address"
-                text={`${student?.city}, ${student?.state}, ${student?.country}, pincode - ${student?.pinCode}`}
+                text={(student?.country && student?.state) ? `${student?.city ? student?.city : ''}, ${student?.state}, ${student?.country}, ${student?.pinCode ? `pincode - ${student?.pinCode}` : ''}}` : 'Not Set'}
               />
 
               <StudentInfoBlock
