@@ -34,8 +34,8 @@ const BlogItem = ({ item, setReadPost }) => {
 const Blogs = () => {
 
     const [readPost, setReadPost] = useState(null);
-    const nextRef = useRef();
-    const prevRef = useRef();
+    const nextRef = useRef(null);
+    const prevRef = useRef(null);
 
     const { data: blogs = [], isLoading } = useQuery({
         queryKey: ['blogs'],
