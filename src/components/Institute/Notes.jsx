@@ -61,39 +61,42 @@ const Notes = ({ searchQuery }) => {
             {!isLoading && (Array.isArray(notes?.rows) && notes?.rows?.length > 0 ?
                 <div>
                     <div className='grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-5 max-sm:px-5'>
-                        {notes?.rows.map(item => <div className='bg-white flex flex-col p-3 rounded-lg shadow-lg' key={item?.id}>
-                            <div className='flex-1 pb-3'>
+                        {notes?.rows.map(item => <div className='flex flex-col items-center justify-center bg-white rounded-xl h-full 2xl:w-[19vw] xl:w-[18vw] lg:w-[28vw] shadow-[0px_10px_36px_rgba(0,0,0,0.16),0px_0px_0px_1px_rgba(0,0,0,0.06)] scale-95 hover:scale-100 duration-200 transition-transform hover:cursor-pointer' key={item?.id}>
+                            <div className='h-[60%] flex flex-col items-center justify-center pb-2 pt-6 border-[#0000000F] border-b w-full'>
                                 <img src={assignmentSVG} alt='' className='mx-auto' />
-                                <h2 className='text-center text-lg 2xl:text-2xl text-[#00285A] font-medium'>{item.name}</h2>
+                                <h2 className='font-bold px-4 py-2'>{item.name}</h2>
                             </div>
-                            <div className='flex justify-between pt-2 border-[#0000000F] border-t'>
+                            <div className='flex justify-between w-full px-6 py-2'>
                                 <p className='flex flex-col'>
-                                    <span className='text-base 2xl:text-xl font-medium text-[#00285A]'>File Size</span>
-                                    <span className='text-[#00000099] text-sm 2xl:text-xl'>
+                                    <span className='ext-base 2xl:text-md font-medium text-[#00285A]'>File Size</span>
+                                    <span className='text-[#00000099] text-sm 2xl:text-xs'>
                                         {fileSize(item?.fileSize)}
                                     </span>
                                 </p>
                                 <p className='flex flex-col'>
-                                    <span className='text-base 2xl:text-xl font-medium text-[#00285A]'>Upload Date</span>
-                                    <span className='text-[#00000099] text-sm 2xl:text-xl'>{moment(item.createdAt).format('ll')}</span>
+                                    <span className='text-base 2xl:text-md font-medium text-[#00285A]'>Upload Date</span>
+                                    <span className='text-[#00000099] text-sm 2xl:text-xs'>{moment(item.createdAt).format('ll')}</span>
                                 </p>
                             </div>
-                            <div className='flex justify-between items-center mt-3'>
+                            <div className='flex justify-between items-center mt-3 w-full px-4 pb-2'>
                                 <Button
                                     onClick={() => downloadNote(item.file, item.name)}
-                                    variant='outlined'
-                                    className='!text-sm 2xl:!text-xl'
+                                    variant="contained"
+                                    className="!text-base 2xl:!text-md"
                                     sx={{
-                                        width: '100%',
-                                        border: '2px solid #0C3C82',
-                                        borderRadius: '7px',
-                                        textTransform: 'capitalize',
-                                        color: '#0C3C82',
-                                        fontWeight: 500,
-                                        '&:hover': {
-                                            border: '2px solid #0C3C82',
-                                            color: '#0C3C82',
-                                        }
+                                      border: "2px solid #0C3C82",
+                                      width:"100%",
+                                      borderRadius: "7px",
+                                      textTransform: "capitalize",
+                                      backgroundColor: "#0C3C82",
+                                      color: "white",
+                                      fontWeight: 400,
+                                      padding: "4px 8px",
+                                      "&:hover": {
+                                        border: "2px solid #0C3C82",
+                                        backgroundColor: "#0C3C82",
+                                        color: "white",
+                                      },
                                     }}
                                     endIcon={<Download />}
                                 >Download</Button>

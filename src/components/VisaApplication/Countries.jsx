@@ -8,7 +8,7 @@ const Countries = () => {
         return r.keys().map(r);
     }
 
-    const images = importAll(require.context('../../assets/NewDesign/Countries Flag/11zon_compressed', false, /\.(png|jpe?g|svg)$/));
+    const images = importAll(require.context('../../assets/NewDesign/Country Flag 2', false, /\.(png|jpe?g|svg)$/));
 
     return (
         <section className='bg-primary w-full px-5'>

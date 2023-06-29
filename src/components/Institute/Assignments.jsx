@@ -62,10 +62,10 @@ const Assignments = ({ searchQuery }) => {
       {!isLoading &&
         (Array.isArray(assignments?.rows) && assignments?.rows?.length > 0 ? (
           <div>
-            <div className="grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-5 max-sm:px-5">
+            <div className="grid sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-5 max-sm:px-5">
               {assignments?.rows.map((item) => (
                 <div
-                  className="flex flex-col items-center justify-center bg-white rounded-xl h-full 2xl:w-[19vw] xl:w-[18vw] lg:w-[28vw] shadow-[0px_10px_36px_rgba(0,0,0,0.16),0px_0px_0px_1px_rgba(0,0,0,0.06)] scale-95 hover:scale-100 duration-200 transition-transform hover:cursor-pointer"
+                  className="flex flex-col items-center justify-center bg-white rounded-xl h-full 2xl:w-[19vw] lg:w-[28vw] shadow-[0px_10px_36px_rgba(0,0,0,0.16),0px_0px_0px_1px_rgba(0,0,0,0.06)] scale-95 hover:scale-100 duration-200 transition-transform hover:cursor-pointer"
                   key={item?.id}
                 >
                   <div className="h-[60%] flex flex-col items-center justify-center pb-2 pt-6">

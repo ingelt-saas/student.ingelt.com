@@ -43,7 +43,7 @@ const Institute = () => {
             display: "flex",
             justifyContent: "left",
             alignItems: "center",
-            width: { md: "65%", xs: "100%" },
+            width: { md: "64%", xs: "100%" },
             height: "20vh",
             padding: "2rem",
             backgroundColor: "white",

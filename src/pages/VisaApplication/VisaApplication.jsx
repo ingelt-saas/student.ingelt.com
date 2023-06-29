@@ -133,7 +133,7 @@ const Page2 = () => {
               className="w-400 h-auto mx-auto my-auto"
             /> */}
              <Countries/>
-                <p className="text-4xl text-center font-semibold text-[#00285A] mt-10 max-md:text-xl">"InGelt Board is a group of 15+ Registered Immigration Consultant"</p>
+                <p className="text-4xl text-center font-semibold text-[#00285A] mt-10 max-md:text-xl max-lg:text-xl">"InGelt Board is a group of 15+ Registered Immigration Consultant"</p>
                 <ul className="list-disc mt-5 text-2xl gap-y-2 flex flex-col text-gray max-md:text-lg text-center">
                   <li>Amet minim mollit non deserunt ullamco est sit aliqua </li>
                   <li>Amet minim mollit non deserunt ullamco est sit aliqua </li>
@@ -455,8 +455,8 @@ const VisaApplication = () => {
                   className="w-400 h-auto mx-auto my-10"
                 /> */}
                 <Countries/>
-                <p className="text-4xl text-center font-semibold text-[#00285A] mt-10 max-md:text-xl">"InGelt Board is a group of 15+ Registered Immigration Consultant"</p>
-                <ul className="list-disc mt-5 text-2xl gap-y-2 flex flex-col text-gray max-md:text-lg text-center">
+                <p className="text-4xl text-center font-semibold text-[#00285A] mt-10 max-md:text-xl max-lg:text-2xl">"InGelt Board is a group of 15+ Registered Immigration Consultant"</p>
+                <ul className="list-disc mt-5 text-2xl gap-y-2 flex flex-col text-gray max-md:text-lg text-center max-lg:text-xl list-inside">
                   <li>Amet minim mollit non deserunt ullamco est sit aliqua </li>
                   <li>Amet minim mollit non deserunt ullamco est sit aliqua </li>
                   <li>Amet minim mollit non deserunt ullamco est sit aliqua </li>
