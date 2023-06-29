@@ -10,6 +10,7 @@ import UniversityItem from "../../components/University/UniversityItem";
 import { toast } from "react-toastify";
 import FilterMenu from "../../components/University/FilterMenu";
 import ShortlistedUniversities from "../../components/University/ShortlistedUniversities";
+import Header from "../../components/shared/Header/Header";
 
 
 
@@ -112,59 +113,7 @@ const ShortlistUniversity = () => {
       <div className="flex flex-row flex-wrap gap-y-10 gap-x-5 w-full ">
         <div className="w-full h-20 foo:block ">
           <div className="flex gap-x-5 max-md:flex-col max-md:gap-y-5">
-            <Box sx={
-              {
-                display: "flex",
-                justifyContent: "center",
-                // alignItems: "center",
-                height: "20vh",
-                width: { md: "64%", xs: "100%" },
-                padding: "0rem 2rem",
-                backgroundColor: "white",
-                border: "1px solid white",
-                borderRadius: "2rem",
-                boxShadow: "0px 5px 36px rgba(0, 0, 0, 0.16), 0px 0px 0px 1px rgba(0, 0, 0, 0.06);"
-              }
-            }>
-              <Box sx={
-                {
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "flex-start",
-                  flexDirection: "column",
-                  padding: "2rem 0rem",
-                  width: { md: "50%", xs: "90%" }
-                }
-              }>
-                <div>
-                  <Typography
-                    sx={{
-                      fontWeight: "bold",
-                      fontSize: { md: "1.5rem", xs: "1.2rem" },
-                      lineHeight: '1.7rem',
-                      marginBottom: '0.5rem'
-                    }}>University Shortlisting</Typography>
-                  <Typography
-                    sx={{
-                      fontSize: { xs: '0.9rem', md: "1rem" },
-                    }}
-                  >Choose in-demand course as per your interest
-                  </Typography>
-                </div>
-              </Box>
-              <Box sx={
-                {
-                  width: { md: "60%", xs: "100%" },
-                  height: '100%',
-                  paddingBottom: '0.5rem',
-                }
-              }>
-                <img src={welcomeSVG}
-                  alt="library"
-                  className="relative top-5 md:bottom-10 scale-110 ml-auto" />
-              </Box>
-
-            </Box>
+          <Header title="University Shortlisting" subTitle="Choose in demand universities of your choice" Img={welcomeSVG}/>
             <div className="">
               <div style={{ boxShadow: ' 0px 0px 0px 1px rgba(0, 0, 0, 0.06), 0px 5px 36px 0px rgba(0, 0, 0, 0.16)' }} className="bg-white h-full w-full p-5 rounded-2xl flex justify-between flex-col items-center">
                 <p className="text-[#00285A] text-lg text-center">Need more help in finding your course?</p>

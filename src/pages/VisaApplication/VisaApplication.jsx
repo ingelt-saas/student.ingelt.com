@@ -18,6 +18,7 @@ import {
 } from "@mui/material";
 
 import { FormControl, MenuItem, OutlinedInput, Select } from "@mui/material";
+import Header from "../../components/shared/Header/Header";
 
 const SelectMenu = ({ options, placeholder, value, handleChange, name }) => {
   return (
@@ -75,55 +76,7 @@ const Page2 = () => {
           />
         </div> */}
         <div className="flex gap-x-5 max-md:flex-col max-md:gap-y-5">
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "left",
-              alignItems: "center",
-              width: { md: "63%", xs: "100%" },
-              height: "20vh",
-              padding: "2rem",
-              backgroundColor: "white",
-              border: "1px solid white",
-              borderRadius: "2rem",
-              boxShadow:
-                "0px 10px 36px rgba(0, 0, 0, 0.16), 0px 0px 0px 1px rgba(0, 0, 0, 0.06);",
-            }}
-          >
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "flex-start",
-                flexDirection: "column",
-                width: { md: "50%", xs: "90%" },
-              }}
-            >
-              <Typography
-                sx={{
-                  color: "black",
-                  fontSize: { md: "1.5rem", xs: "1.2rem" },
-                  fontWeight: "bold",
-                }}
-              >
-                Visa Application
-              </Typography>
-              <Typography
-              sx={{
-                fontSize: {xs:'0.9rem',md:"1rem"},
-              }}
-              >
-                Hassel free visa processing and approval
-              </Typography>
-            </Box>
-            <Box sx={{ width: { md: "30%", xs: "100%" } }}>
-              <img
-                src={welcomeSVG}
-                alt="library"
-                className="relative bottom-1  md:left-44"
-              />
-            </Box>
-          </Box>
+          <Header title="Visa Application" subTitle="Hassle free visa processing and approval" Img={welcomeSVG} scale="scale-90"/>
         </div>
         <div className="flex w-full">
           <div className="w-1/2 flex max-lg:hidden">
@@ -133,8 +86,8 @@ const Page2 = () => {
               className="w-400 h-auto mx-auto my-auto"
             /> */}
              <Countries/>
-                <p className="text-4xl text-center font-semibold text-[#00285A] mt-10 max-md:text-xl max-lg:text-xl">"InGelt Board is a group of 15+ Registered Immigration Consultant"</p>
-                <ul className="list-disc mt-5 text-2xl gap-y-2 flex flex-col text-gray max-md:text-lg text-center">
+                <p className="text-3xl text-center font-semibold text-[#00285A] mt-10 max-md:text-xl max-lg:text-xl">"InGelt Board is a group of 15+ Registered Immigration Consultant"</p>
+                <ul className="list-disc mt-5 text-xl gap-y-2 flex flex-col text-gray max-md:text-lg text-center">
                   <li>Amet minim mollit non deserunt ullamco est sit aliqua </li>
                   <li>Amet minim mollit non deserunt ullamco est sit aliqua </li>
                   <li>Amet minim mollit non deserunt ullamco est sit aliqua </li>
@@ -397,55 +350,7 @@ const VisaApplication = () => {
         <div className="flex flex-row flex-wrap gap-y-10 gap-x-5 w-full ">
           <div className="w-full h-20 foo:block ">
             <div className="flex gap-x-5 max-md:flex-col max-md:gap-y-5">
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "left",
-                  alignItems: "center",
-                  width: { md: "63%", xs: "100%" },
-                  height: "20vh",
-                  padding: "2rem",
-                  backgroundColor: "white",
-                  border: "1px solid white",
-                  borderRadius: "2rem",
-                  boxShadow:
-                    "0px 10px 36px rgba(0, 0, 0, 0.16), 0px 0px 0px 1px rgba(0, 0, 0, 0.06);",
-                }}
-              >
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "flex-start",
-                    flexDirection: "column",
-                    width: { md: "50%", xs: "90%" },
-                  }}
-                >
-                  <Typography
-                    sx={{
-                      color: "black",
-                      fontSize: { md: "1.5rem", xs: "1.2rem" },
-                      fontWeight: "bold",
-                    }}
-                  >
-                    Visa Application
-                  </Typography>
-                  <Typography
-                  sx={{
-                    fontSize: {xs:'0.9rem',md:"1rem"},
-                  }}
-                  >
-                    Hassel free visa processing and approval
-                  </Typography>
-                </Box>
-                <Box sx={{ width: { md: "30%", xs: "100%" } }}>
-                  <img
-                    src={welcomeSVG}
-                    alt="library"
-                    className="relative bottom-1  md:left-44 "
-                  />
-                </Box>
-              </Box>
+            <Header title="Visa Application" subTitle="Hassel free visa processing and approval" Img={welcomeSVG} scale="scale-90"/>
             </div>
             <div className="flex w-full  max-md:flex-col items-center justify-between mt-10">
               <div className="w-1/2 max-md:w-full flex flex-col items-center justify-between h-full">
@@ -455,11 +360,11 @@ const VisaApplication = () => {
                   className="w-400 h-auto mx-auto my-10"
                 /> */}
                 <Countries/>
-                <p className="text-4xl text-center font-semibold text-[#00285A] mt-10 max-md:text-xl max-lg:text-2xl">"InGelt Board is a group of 15+ Registered Immigration Consultant"</p>
-                <ul className="list-disc mt-5 text-2xl gap-y-2 flex flex-col text-gray max-md:text-lg text-center max-lg:text-xl list-inside">
-                  <li>Amet minim mollit non deserunt ullamco est sit aliqua </li>
-                  <li>Amet minim mollit non deserunt ullamco est sit aliqua </li>
-                  <li>Amet minim mollit non deserunt ullamco est sit aliqua </li>
+                <p className="text-3xl text-center font-semibold text-[#00285A] mt-10 max-md:text-xl max-lg:text-2xl">"InGelt Board is a group of 15+ Registered Immigration Consultant"</p>
+                <ul className="list-disc mt-5 text-xl gap-y-2 flex items-start flex-col text-gray max-md:text-lg text-center max-lg:text-xl list-inside">
+                  <li>Largest group of Registered Immigration Consultants in India </li>
+                  <li>Over 90% visa approved rate</li>
+                  <li>1200+ applications processed </li>
                 </ul>
               </div>
               <div className="w-2/5 max-md:w-full">

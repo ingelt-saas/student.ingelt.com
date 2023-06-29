@@ -26,61 +26,14 @@ import {
   MenuItem,
   Typography,
 } from "@mui/material";
+import Header from "../../components/shared/Header/Header";
 
 const Page2 = () => {
   return (
     <div className="flex flex-row flex-wrap gap-y-10 gap-x-5 w-full  sm:m-auto">
       <div className="w-full h-20 foo:block ">
         <div className="flex gap-x-5 max-md:flex-col max-md:gap-y-5">
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "left",
-              alignItems: "center",
-              width: { md: "63%", xs: "100%" },
-              height: "20vh",
-              padding: "2rem",
-              backgroundColor: "white",
-              border: "1px solid white",
-              borderRadius: "2rem",
-              boxShadow:
-                "0px 10px 36px rgba(0, 0, 0, 0.16), 0px 0px 0px 1px rgba(0, 0, 0, 0.06);",
-            }}
-          >
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "flex-start",
-                flexDirection: "column",
-                width: { md: "50%", xs: "90%" },
-              }}
-            >
-              <Typography
-                sx={{
-                  color: "black",
-                  fontSize: { md: "1.5rem", xs: "1.2rem" },
-                  fontWeight: "bold",
-                }}
-              >
-                Education Loan
-              </Typography>
-              <Typography
-              sx={{
-                fontSize: {xs:'0.9rem',md:"1.2rem"},
-              }}
-              >
-                Optimal solution for overseas education loan
-              </Typography>
-            </Box>
-            <Box sx={{ width: { md: "30%", xs: "100%" } }}>
-              <img
-                src={welcomeSVG}
-                alt="library"
-                className="md:relative md:bottom-1  md:left-28 "
-              />
-            </Box>
-          </Box>
+        <Header title="Education Loan" subTitle="Optimal solution for overseas education loan" Img={welcomeSVG} scale={"scale-90"}/>
         </div>
         <div className="flex w-full">
           <div className="w-1/2 flex max-lg:hidden">
@@ -374,54 +327,7 @@ const EducationLoan = () => {
         <div className="flex flex-row flex-wrap gap-y-10 gap-x-5 w-full">
           <div className="w-full h-20 foo:block ">
             <div className="flex gap-x-5 max-md:flex-col max-md:gap-y-5 mb-10">
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "left",
-                  alignItems: "center",
-                  width: { md: "63%", xs: "100%" },
-                  height: "20vh",
-                  padding: "2rem",
-                  backgroundColor: "white",
-                  border: "1px solid white",
-                  borderRadius: "2rem",
-                  boxShadow:
-                    "0px 10px 36px rgba(0, 0, 0, 0.16), 0px 0px 0px 1px rgba(0, 0, 0, 0.06);",
-                }}
-              >
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "flex-start",
-                    flexDirection: "column",
-                    width: { md: "50%", xs: "90%" },
-                  }}
-                >
-                  <Typography
-                    sx={{
-                      color: "black",
-                      fontSize: { md: "1.5rem", xs: "1.2rem" },
-                      fontWeight: "bold",
-                    }}
-                  >
-                    Education Loan
-                  </Typography>
-                  <Typography
-                  sx={{
-                    fontSize: {xs:'0.9rem',md:"1rem"},
-                  }}>
-                    Optimal solution for overseas education loan
-                  </Typography>
-                </Box>
-                <Box sx={{ width: { md: "30%", xs: "60%" } }}>
-                  <img
-                    src={welcomeSVG}
-                    alt="library"
-                    className="relative bottom-1 left-28 max-md:left-0"
-                  />
-                </Box>
-              </Box>
+              <Header title="Education Loan" subTitle="Optimal solution for overseas education loan" Img={welcomeSVG} scale="scale-90"/>
             </div>
             <div className="flex max-md:flex-col w-full justify-between items-center">
               <div className="w-1/2 max-md:w-full flex flex-col justify-center items-center">

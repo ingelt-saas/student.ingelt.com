@@ -10,6 +10,7 @@ import Image from '../../components/shared/Image/Image';
 import AudioModal from '../../components/shared/AudioModal/AudioModal';
 import VideoModal from '../../components/shared/VideoModal/VideoModal';
 import getFile from '../../api/getFile';
+import Header from '../../components/shared/Header/Header';
 
 const DateTimeDisplay = ({ value, type }) => {
     return (
@@ -147,7 +148,7 @@ const Modules = () => {
             }
         }>
 
-            <Box sx={
+            {/* <Box sx={
                 {
                     display: "flex",
                     justifyContent: "center",
@@ -199,7 +200,8 @@ const Modules = () => {
                         className="md:relative md:bottom-2 scale-110 w-auto h-full ml-auto" />
                 </Box>
 
-            </Box>
+            </Box> */}
+            <Header title="Premium IELTS Modules" subTitle="British Council Verified Instructor" Img={moduleImg} scale="scale-50"/>
             <Box sx={
                 {
                     mt: 5,
