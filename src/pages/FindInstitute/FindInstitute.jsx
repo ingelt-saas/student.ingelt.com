@@ -119,7 +119,7 @@ const FindInstitute = () => {
     <div className="flex flex-row flex-wrap gap-y-10 gap-x-5 w-full ">
       <div className="w-full h-20 foo:block ">
         <div className="flex gap-x-5 max-md:flex-col max-md:gap-y-5">
-          <Header title="Find Institutes" subTitle="Choose in-demand course as per your interest" Img={findImg} scale="scale-90" />
+          <Header title="Find Institutes" subTitle="Choose in-demand course as per your interest" Img={findImg} scale="scale-75" />
           <div className="">
             <div style={{ boxShadow: ' 0px 0px 0px 1px rgba(0, 0, 0, 0.06), 0px 5px 36px 0px rgba(0, 0, 0, 0.16)' }} className="bg-white h-full w-full px-5 pt-3 pb-2 rounded-2xl flex justify-center flex-col items-center">
               <form

@@ -76,7 +76,7 @@ const Page2 = () => {
           />
         </div> */}
         <div className="flex gap-x-5 max-md:flex-col max-md:gap-y-5">
-          <Header title="Visa Application" subTitle="Hassle free visa processing and approval" Img={welcomeSVG} scale="scale-90"/>
+          <Header title="Visa Application" subTitle="Hassle free visa processing and approval" Img={welcomeSVG} scale="scale-75"/>
         </div>
         <div className="flex w-full">
           <div className="w-1/2 flex max-lg:hidden">
@@ -350,7 +350,7 @@ const VisaApplication = () => {
         <div className="flex flex-row flex-wrap gap-y-10 gap-x-5 w-full ">
           <div className="w-full h-20 foo:block ">
             <div className="flex gap-x-5 max-md:flex-col max-md:gap-y-5">
-            <Header title="Visa Application" subTitle="Hassel free visa processing and approval" Img={welcomeSVG} scale="scale-90"/>
+            <Header title="Visa Application" subTitle="Hassel free visa processing and approval" Img={welcomeSVG} scale="scale-75"/>
             </div>
             <div className="flex w-full  max-md:flex-col items-center justify-between mt-10">
               <div className="w-1/2 max-md:w-full flex flex-col items-center justify-between h-full">

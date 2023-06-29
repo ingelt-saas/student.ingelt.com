@@ -9,11 +9,11 @@ const Header = ({ title, subTitle, Img, scale }) => {
                 justifyContent: "center",
                 alignItems: "center",
                 width: { md: "65%", xs: "100%" },
-                // height: "20vh",
-                // padding: "2rem",
+                height: "20vh",
+                padding: "2rem",
                 backgroundColor: "white",
                 border: "1px solid white",
-                borderRadius: "1rem",
+                borderRadius: "2rem",
                 boxShadow: "0px 10px 36px rgba(0, 0, 0, 0.16), 0px 0px 0px 1px rgba(0, 0, 0, 0.06);"
             }
         }>
@@ -23,7 +23,7 @@ const Header = ({ title, subTitle, Img, scale }) => {
                     justifyContent: "center",
                     alignItems: "flex-start",
                     flexDirection: "column",
-                    padding: '2rem 1rem 2rem 1rem',
+                    // padding: '2rem 1rem 2rem 1rem',
                     width: { md: "50%", xs: "90%" }
                 }
             }>
@@ -43,13 +43,13 @@ const Header = ({ title, subTitle, Img, scale }) => {
             <Box
                 sx={{
                     width: { md: "60%", xs: "100%" },
-                    padding: '0.3rem'
+                    // padding: '0.3rem'
                 }}
             >
                 <img
                     src={Img}
                     alt="library"
-                    className={`w-auto max-h-[30vh] ml-auto`}
+                    className={`relative md:bottom-5 ml-auto ${scale ? scale : 'scale-100'}`}
                 />
             </Box>
 
