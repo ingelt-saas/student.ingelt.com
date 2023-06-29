@@ -224,21 +224,13 @@ const Discussions = () => {
             </svg>
           </div>}
 
-          {hasNextPage && <div className="pb-5 pt-10 w-full flex justify-center">
-            <Button
-              onClick={() => fetchNextPage()}
-              disabled={isLoading}
-              variant="contained"
-              sx={{
-                textTransform: 'capitalize',
-                color: '#f2f2f2',
-                padding: '0.6rem 2rem',
-                backgroundColor: '#1B3B7D',
-                '&:hover': {
-                  backgroundColor: '#1B3B7D',
-                }
-              }}
-            >Load More</Button>
+          {hasNextPage && <div className="pb-5 pt-10 w-full flex justify-center h-full">
+          <div className="b relative mx-auto h-16 w-44 flex justify-center items-center" onClick={fetchNextPage}>
+      <div className="i h-12 w-44 bg-[#1B3B7D] items-center rounded-xl shadow-2xl cursor-pointer absolute overflow-hidden transform hover:scale-x-110 hover:scale-y-105 transition duration-300 ease-out">
+      </div>
+      <p className="text-center text-white font-semibold z-10 pointer-events-none">Load More</p>
+
+    </div>
           </div>}
 
           {/* show discussions */}
