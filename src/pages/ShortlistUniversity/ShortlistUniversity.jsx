@@ -12,8 +12,6 @@ import FilterMenu from "../../components/University/FilterMenu";
 import ShortlistedUniversities from "../../components/University/ShortlistedUniversities";
 import Header from "../../components/shared/Header/Header";
 
-
-
 const RightArrowSVG = ({ className, backgroundColor }) => {
   return (
     <svg
@@ -113,11 +111,11 @@ const ShortlistUniversity = () => {
       <div className="flex flex-row flex-wrap gap-y-10 gap-x-5 w-full ">
         <div className="w-full h-20 foo:block ">
           <div className="flex gap-x-5 max-md:flex-col max-md:gap-y-5">
-          <Header title="University Shortlisting" subTitle="Choose in demand universities of your choice" Img={welcomeSVG}/>
+            <Header title="University Shortlisting" subTitle="Choose in demand universities of your choice" Img={welcomeSVG} />
             <div className="">
-              <div style={{ boxShadow: ' 0px 0px 0px 1px rgba(0, 0, 0, 0.06), 0px 5px 36px 0px rgba(0, 0, 0, 0.16)' }} className="bg-white h-full w-full p-5 rounded-2xl flex justify-between flex-col items-center">
+              <div style={{ boxShadow: ' 0px 0px 0px 1px rgba(0, 0, 0, 0.06), 0px 5px 36px 0px rgba(0, 0, 0, 0.16)' }} className="bg-white h-full w-full p-5 rounded-2xl flex justify-between flex-col gap-y-4 items-center">
                 <p className="text-[#00285A] text-lg text-center">Need more help in finding your course?</p>
-                <button className="hover:bg-[#00285A] text-lg bg-transparent duration-300 border-2 border-[#00285A] text-[#00285A] hover:text-white py-1 max-md:text-base px-3 w-full rounded-2xl justify-around flex items-center">
+                <button onClick={sendQuery} className="hover:bg-[#00285A] text-lg bg-transparent duration-300 border-2 border-[#00285A] text-[#00285A] hover:text-white py-1 max-md:text-base px-3 w-full rounded-2xl justify-around flex items-center">
                   Talk to expert
                   {/* <RightArrowSVG className={'h-5 w-5'} /> */}
                 </button>
