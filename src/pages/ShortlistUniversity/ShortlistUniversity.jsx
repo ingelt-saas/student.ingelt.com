@@ -9,6 +9,7 @@ import universityApi from "../../api/university";
 import UniversityItem from "../../components/University/UniversityItem";
 import { toast } from "react-toastify";
 import FilterMenu from "../../components/University/FilterMenu";
+import ShortlistedUniversities from "../../components/University/ShortlistedUniversities";
 
 
 
@@ -55,6 +56,7 @@ const ShortlistUniversity = () => {
 
   const [isOpen, setIsOpen] = useState(false);
   const [pagination, setPagination] = useState({ page: 1, rows: 100 });
+  const [leftDrawer, setLeftDrawer] = useState(false);
   const [filterData, setFilterData] = useState({ country: '', course: '', areaOfInterest: '', });
 
   const { data, isLoading, refetch } = useQuery({
@@ -70,17 +72,18 @@ const ShortlistUniversity = () => {
       return res.data;
     }
   });
+
   const sendQuery = async (e) => {
     e.target.disabled = true;
     try {
-        await universityApi.sendQuery();
-        toast.success('Your query has been sent successfully, our team will contact you shortly');
+      await universityApi.sendQuery();
+      toast.success('Your query has been sent successfully, our team will contact you shortly');
     } catch (err) {
-        console.error(err);
+      console.error(err);
     } finally {
-        e.target.disabled = false;
+      e.target.disabled = false;
     }
-}
+  }
 
   // shortlist add handler
   const shortlistHandler = async (e, university) => {
@@ -109,120 +112,120 @@ const ShortlistUniversity = () => {
       <div className="flex flex-row flex-wrap gap-y-10 gap-x-5 w-full ">
         <div className="w-full h-20 foo:block ">
           <div className="flex gap-x-5 max-md:flex-col max-md:gap-y-5">
-          <Box sx={
-            {
-              display: "flex",
-              justifyContent: "center",
-              // alignItems: "center",
-              height: "20vh",
-              width: { md: "64%", xs: "100%" },
-              padding: "0rem 2rem",
-              backgroundColor: "white",
-              border: "1px solid white",
-              borderRadius: "2rem",
-              boxShadow: "0px 5px 36px rgba(0, 0, 0, 0.16), 0px 0px 0px 1px rgba(0, 0, 0, 0.06);"
-            }
-          }>
             <Box sx={
               {
                 display: "flex",
                 justifyContent: "center",
-                alignItems: "flex-start",
-                flexDirection: "column",
-                padding: "2rem 0rem",
-                width: { md: "50%", xs: "90%" }
+                // alignItems: "center",
+                height: "20vh",
+                width: { md: "64%", xs: "100%" },
+                padding: "0rem 2rem",
+                backgroundColor: "white",
+                border: "1px solid white",
+                borderRadius: "2rem",
+                boxShadow: "0px 5px 36px rgba(0, 0, 0, 0.16), 0px 0px 0px 1px rgba(0, 0, 0, 0.06);"
               }
             }>
-              <div>
-                <Typography
-                  sx={{
-                    fontWeight: "bold",
-                    fontSize: { md: "1.5rem", xs: "1.2rem" },
-                    lineHeight: '1.7rem',
-                    marginBottom: '0.5rem'
-                  }}>University Shortlisting</Typography>
-                <Typography
-                sx={{
-                  fontSize: {xs:'0.9rem',md:"1rem"},
-                }}
-                >Choose in-demand course as per your interest
-                </Typography>
-              </div>
-            </Box>
-            <Box sx={
-              {
-                width: { md: "60%", xs: "100%" },
-                height: '100%',
-                paddingBottom: '0.5rem',
-              }
-            }>
-              <img src={welcomeSVG}
-                alt="library"
-                className="relative top-5 md:bottom-10 scale-110 ml-auto" />
-            </Box>
+              <Box sx={
+                {
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "flex-start",
+                  flexDirection: "column",
+                  padding: "2rem 0rem",
+                  width: { md: "50%", xs: "90%" }
+                }
+              }>
+                <div>
+                  <Typography
+                    sx={{
+                      fontWeight: "bold",
+                      fontSize: { md: "1.5rem", xs: "1.2rem" },
+                      lineHeight: '1.7rem',
+                      marginBottom: '0.5rem'
+                    }}>University Shortlisting</Typography>
+                  <Typography
+                    sx={{
+                      fontSize: { xs: '0.9rem', md: "1rem" },
+                    }}
+                  >Choose in-demand course as per your interest
+                  </Typography>
+                </div>
+              </Box>
+              <Box sx={
+                {
+                  width: { md: "60%", xs: "100%" },
+                  height: '100%',
+                  paddingBottom: '0.5rem',
+                }
+              }>
+                <img src={welcomeSVG}
+                  alt="library"
+                  className="relative top-5 md:bottom-10 scale-110 ml-auto" />
+              </Box>
 
-          </Box>
-          <div className="">
-            <div style={{boxShadow:' 0px 0px 0px 1px rgba(0, 0, 0, 0.06), 0px 5px 36px 0px rgba(0, 0, 0, 0.16)'}} className="bg-white h-full w-full p-5 rounded-2xl flex justify-between flex-col items-center">
-              <p className="text-[#00285A] text-lg text-center">Need more help in finding your course?</p>
-              <button className="hover:bg-[#00285A] text-lg bg-transparent duration-300 border-2 border-[#00285A] text-[#00285A] hover:text-white py-1 max-md:text-base px-3 w-full rounded-2xl justify-around flex items-center">
-                    Talk to expert
-                    {/* <RightArrowSVG className={'h-5 w-5'} /> */}
+            </Box>
+            <div className="">
+              <div style={{ boxShadow: ' 0px 0px 0px 1px rgba(0, 0, 0, 0.06), 0px 5px 36px 0px rgba(0, 0, 0, 0.16)' }} className="bg-white h-full w-full p-5 rounded-2xl flex justify-between flex-col items-center">
+                <p className="text-[#00285A] text-lg text-center">Need more help in finding your course?</p>
+                <button className="hover:bg-[#00285A] text-lg bg-transparent duration-300 border-2 border-[#00285A] text-[#00285A] hover:text-white py-1 max-md:text-base px-3 w-full rounded-2xl justify-around flex items-center">
+                  Talk to expert
+                  {/* <RightArrowSVG className={'h-5 w-5'} /> */}
                 </button>
-            <div className="flex justify-around gap-x-5 w-full max-md:mt-3">
-          <div className="xl:col-span-4">
-              <Button
-                className=""
-                variant="container"
-                sx={{
-                  backgroundColor: "#00285A",
-                  color: "white",
-                  width:{xs:"8rem",md:"11rem"},
-                  border:"2px solid #00285A",
-                  borderRadius:"15px",
-                  py:'5px',
-                  textTransform: "capitalize",
-                  "&:hover": {
-                    backgroundColor: "transparent",
-                    color: "#00285A",
-                  },
-                }}
-                endIcon={<Favorite />}
-                onClick={() => setIsOpen(true)}
-              >
-                Shortlisted
-              </Button>
-            </div>
-          <div className="xl:col-span-4">
-              <Button
-                className=""
-                variant="container"
-                sx={{
-                  backgroundColor: "#00285A",
-                  color: "white",
-                  width:{xs:"8rem",md:"11rem"},
-                  border:"2px solid #00285A",
-                  borderRadius:"15px",
-                  py:'5px',
-                  textTransform: "capitalize",
-                  "&:hover": {
-                    backgroundColor: "transparent",
-                    color: "#00285A",
-                  },
-                }}
-                endIcon={<FilterAlt />}
-                onClick={() => setIsOpen(true)}
-              >
-                Filter
-              </Button>
-              {/* <div className="max-xl:hidden">
+                <div className="flex justify-around gap-x-5 w-full max-md:mt-3">
+                  <div className="xl:col-span-4">
+                    <Button
+                      className=""
+                      variant="container"
+                      sx={{
+                        backgroundColor: "#00285A",
+                        color: "white",
+                        width: { xs: "8rem", md: "11rem" },
+                        border: "2px solid #00285A",
+                        borderRadius: "15px",
+                        py: '5px',
+                        textTransform: "capitalize",
+                        "&:hover": {
+                          backgroundColor: "transparent",
+                          color: "#00285A",
+                        },
+                      }}
+                      endIcon={<Favorite />}
+                      onClick={() => setLeftDrawer(true)}
+                    >
+                      Shortlisted
+                    </Button>
+                  </div>
+                  <div className="xl:col-span-4">
+                    <Button
+                      className=""
+                      variant="container"
+                      sx={{
+                        backgroundColor: "#00285A",
+                        color: "white",
+                        width: { xs: "8rem", md: "11rem" },
+                        border: "2px solid #00285A",
+                        borderRadius: "15px",
+                        py: '5px',
+                        textTransform: "capitalize",
+                        "&:hover": {
+                          backgroundColor: "transparent",
+                          color: "#00285A",
+                        },
+                      }}
+                      endIcon={<FilterAlt />}
+                      onClick={() => setIsOpen(true)}
+                    >
+                      Filter
+                    </Button>
+                    {/* <div className="max-xl:hidden">
                 <FilterMenu filterHandler={filterHandler} />
               </div> */}
+                  </div>
+                </div>
+              </div>
             </div>
-            </div>
-            </div>
-            </div>
-            </div>
+          </div>
 
           <div className="pb-10 grid  gap-x-5 max-md:mt-1 mt-10 max-lg:pb-20">
             {/* <div className="xl:col-span-4">
@@ -371,6 +374,15 @@ const ShortlistUniversity = () => {
           </div> */}
         </div>
       </Drawer>
+
+      {/* shortlisted universities drawer  */}
+      <ShortlistedUniversities
+        open={leftDrawer}
+        close={() => setLeftDrawer(false)}
+        shortlistHandler={shortlistHandler}
+        RightArrowSVG={RightArrowSVG}
+      />
+
     </>
   );
 };
