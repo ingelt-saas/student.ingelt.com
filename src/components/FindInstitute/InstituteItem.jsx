@@ -1,12 +1,12 @@
-import React, {useContext, useRef, useState} from "react";
+import React, { useContext, useRef, useState } from "react";
 // import { CheckCircle, Done, Close } from "@mui/icons-material";
-import {Rating} from "react-simple-star-rating";
+import { Rating } from "react-simple-star-rating";
 // import { UserContext } from "../../contexts/AuthContext";
-import {Swiper, SwiperSlide} from "swiper/react";
-import {Autoplay, FreeMode, Thumbs} from 'swiper';
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, FreeMode, Thumbs } from 'swiper';
 import Image from "../shared/Image/Image";
-import {LocationOn, Share, Verified} from "@mui/icons-material";
-import {toast, ToastContainer} from 'react-toastify';
+import { FmdGood, LocationOn, Share, Verified } from "@mui/icons-material";
+import { toast, ToastContainer } from 'react-toastify';
 import "swiper/css/thumbs";
 import "swiper/css/free-mode";
 
@@ -16,9 +16,9 @@ import "swiper/css/free-mode";
 // import img3 from '../../assets/images/phone-contact.svg';
 import img4 from '../../assets/NewDesign/gift-box-min.png';
 import phoneSVG from '../../assets/images/phone.svg';
-import {Tooltip} from "@mui/material";
+import { Tooltip } from "@mui/material";
 
-const InstituteItem = ({applyHandler, institute, appliedInstitutes}) => {
+const InstituteItem = ({ applyHandler, institute, appliedInstitutes, setEmbedLink }) => {
 
     // const prevRef = useRef();
     // const nextRef = useRef();
@@ -36,7 +36,7 @@ const InstituteItem = ({applyHandler, institute, appliedInstitutes}) => {
         orgImages,
         modeOfClasses,
         overallRating,
-        sponsored,
+        embedUrl,
         phoneNo
     } = institute;
 
@@ -52,78 +52,78 @@ const InstituteItem = ({applyHandler, institute, appliedInstitutes}) => {
             <div className="lg:w-4/12 flex items-center">
                 <div className="w-full overflow-hidden rounded-lg">
                     {
-                    Array.isArray(orgImages) && orgImages.length > 0 && <>
-                        <Swiper speed={300}
-                            spaceBetween={10}
-                            modules={
-                                [Autoplay, FreeMode,Thumbs]
-                            }
-                            // Autoplay={
-                            //     {
-                            //         delay: 2500,
-                            //         disableOnInteraction: false
-                            //     }
-                            // }
-                            thumbs={
-                                {
-                                    swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null
+                        Array.isArray(orgImages) && orgImages.length > 0 && <>
+                            <Swiper speed={300}
+                                spaceBetween={10}
+                                modules={
+                                    [Autoplay, FreeMode, Thumbs]
                                 }
-                            }
-                            className="h-48 sm:h-72 lg:h-40"
-                        >
-                            {
-                            orgImages.map(i => <SwiperSlide key={
-                                i.name
-                            }>
-                                <div className="h-full w-full">
-                                    <Image src={
-                                            i.name
-                                        }
-                                        alt={
-                                            i.name
-                                        }
-                                        className='w-full h-full object-cover'/>
-                                </div>
-                            </SwiperSlide>)
-                        } </Swiper>
+                                // Autoplay={
+                                //     {
+                                //         delay: 2500,
+                                //         disableOnInteraction: false
+                                //     }
+                                // }
+                                thumbs={
+                                    {
+                                        swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null
+                                    }
+                                }
+                                className="h-48 sm:h-72 lg:h-40"
+                            >
+                                {
+                                    orgImages.map(i => <SwiperSlide key={
+                                        i.name
+                                    }>
+                                        <div className="h-full w-full">
+                                            <Image src={
+                                                i.name
+                                            }
+                                                alt={
+                                                    i.name
+                                                }
+                                                className='w-full h-full object-cover' />
+                                        </div>
+                                    </SwiperSlide>)
+                                } </Swiper>
 
-                        <Swiper onSwiper={setThumbsSwiper}
-                            slidesPerView={5}
-                            speed={300}
-                            watchSlidesProgress={true}
-                            freeMode={true}
-                            modules={
-                                [Thumbs, FreeMode]
-                            }
-                            className="h-12 sm:h-16 lg:h-10">
-                            {
-                            orgImages.map(i => <SwiperSlide key={
-                                i.name
-                            }>
-                                <div className="w-full h-full p-1 cursor-pointer">
-                                    <Image src={
-                                            i.name
-                                        }
-                                        alt={
-                                            i.name
-                                        }
-                                        className='w-full h-full object-cover rounded-md'/>
-                                </div>
-                            </SwiperSlide>)
-                        } </Swiper> </>
-                } </div>
+                            <Swiper onSwiper={setThumbsSwiper}
+                                slidesPerView={5}
+                                speed={300}
+                                watchSlidesProgress={true}
+                                freeMode={true}
+                                modules={
+                                    [Thumbs, FreeMode]
+                                }
+                                className="h-12 sm:h-16 lg:h-10">
+                                {
+                                    orgImages.map(i => <SwiperSlide key={
+                                        i.name
+                                    }>
+                                        <div className="w-full h-full p-1 cursor-pointer">
+                                            <Image src={
+                                                i.name
+                                            }
+                                                alt={
+                                                    i.name
+                                                }
+                                                className='w-full h-full object-cover rounded-md' />
+                                        </div>
+                                    </SwiperSlide>)
+                                } </Swiper> </>
+                    } </div>
             </div>
             <div className="lg:w-8/12 flex flex-col justify-between gap-y-5">
                 <div className="flex justify-between items-start">
                     <p className="flex flex-col">
                         <span className="text-xl flex items-center justify-center gap-x-2 text-[#00285A] font-semibold">
                             {name}
-                            <Verified className="text-[#00285A]"/></span>
+                            <Verified className="text-[#00285A]" /></span>
                         <span className="text-sm flex items-center text-[#00285A]">
-                            <LocationOn className="!text-base"/> {address} </span>
+                            <LocationOn className="!text-base" /> {address} </span>
                     </p>
                     <div className="flex flex-col items-end gap-y-2">
-                        <span className="flex items-end gap-x-2">   
+                        <span className="flex items-end gap-x-2">
                             <Rating readonly
                                 initialValue={
                                     parseFloat(overallRating)
@@ -131,8 +131,8 @@ const InstituteItem = ({applyHandler, institute, appliedInstitutes}) => {
                                 allowFraction={true}
                                 size={20}
                                 SVGstyle={
-                                    {display: "inline"}
-                                }/>
+                                    { display: "inline" }
+                                } />
                         </span>
                         <button className="cursor-pointer text-[#00285A]"
                             onClick={
@@ -150,7 +150,7 @@ const InstituteItem = ({applyHandler, institute, appliedInstitutes}) => {
                                     });
 
                                 }
-                        }>Share<Share fontSize='small' className="ml-2"/></button>
+                            }>Share<Share fontSize='small' className="ml-2" /></button>
                         {/* <span className="flex items-center gap-x-1 text-[#00000080] text-sm">
                             <svg
                                 className="w-4 h-4"
@@ -171,23 +171,28 @@ const InstituteItem = ({applyHandler, institute, appliedInstitutes}) => {
                         <span className="">Modes Available:-&nbsp;
                         </span>
                         <span className="capitalize text-[#00285A]">
-                             {modeOfClasses}</span>
+                            {modeOfClasses}</span>
                     </p>
                     <div className='flex items-center justify-center gap-x-2'>
                         <a href={
-                                `tel:${phoneNo}`
-                            }
+                            `tel:${phoneNo}`
+                        }
                             rel="noreferrer"
                             className="text-[#00285A]">Call Now</a>
                         <Tooltip title='Contact Institute'>
                             <a href={
-                                    `tel:${phoneNo}`
-                                }
+                                `tel:${phoneNo}`
+                            }
                                 rel="noreferrer">
                                 <img src={phoneSVG}
                                     alt=''
-                                    className=''/>
+                                    className='' />
                             </a>
+                        </Tooltip>
+                        <Tooltip title='Institute Location'>
+                            <span onClick={() => setEmbedLink(embedUrl)} className="cursor-pointer text-[#00285A] max-lg:hidden">
+                                <FmdGood />
+                            </span>
                         </Tooltip>
                     </div>
                 </div>
@@ -218,21 +223,21 @@ const InstituteItem = ({applyHandler, institute, appliedInstitutes}) => {
                     <div className="flex items-center gap-x-2 justify-center">
                         <img src={img4}
                             alt=''
-                            className="w-10 h-auto"/>
+                            className="w-10 h-auto" />
                         <h2 className="text-[#087bff] text-base font-semibold -mt-1">
                             Free Video Modules & Resources
                         </h2>
                     </div>
                     <button disabled={
-                            Boolean(appliedInstitute)
-                        }
+                        Boolean(appliedInstitute)
+                    }
                         className="py-2 px-7 text-white bg-[#0C3C82] rounded-lg font-medium"
                         onClick={
-                            (e) => applyHandler(e, {name, id})
-                    }>
+                            (e) => applyHandler(e, { name, id })
+                        }>
                         {
-                        appliedInstitute ? 'Applied' : 'Apply'
-                    }</button>
+                            appliedInstitute ? 'Applied' : 'Apply'
+                        }</button>
                 </div>
             </div>
             {/* <ToastContainer/> */} </div>

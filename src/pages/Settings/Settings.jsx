@@ -541,7 +541,7 @@ const Settings = () => {
         <ProfileImage
           src={image}
           alt={name}
-          gender={gender}
+          gender={student?.gender}
           className="rounded-full object-cover object-center h-52 w-52 md:h-64 md:w-64 mb-4"
         />
         <div>
