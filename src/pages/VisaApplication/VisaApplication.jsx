@@ -58,9 +58,8 @@ const SelectMenu = ({ options, placeholder, value, handleChange, name }) => {
 
 const Page2 = () => {
   return (
-    <div className="flex flex-row flex-wrap gap-y-10 gap-x-5 w-full  sm:m-auto">
-      <img src={img3} alt="welcome svg" className="absolute right-32 " />
-
+    <div className="flex flex-row flex-wrap gap-y-10 gap-x-5 w-full sm:m-auto z-10">
+      <img src={img3} alt="welcome svg" className="absolute right-32 -z-10" />
       <div className="w-full h-20 foo:block ">
         {/* <div className="relative rounded-xl pb-14 shadow-lg bg-white mx-3 ">
           <h1 className="text-3xl font-semibold  text-[#00285A] text-left pb-5 pt-12 px-5 ">
@@ -76,22 +75,22 @@ const Page2 = () => {
           />
         </div> */}
         <div className="flex gap-x-5 max-md:flex-col max-md:gap-y-5">
-          <Header title="Visa Application" subTitle="Hassle free visa processing and approval" Img={welcomeSVG} scale="scale-75"/>
+          <Header title="Visa Application" subTitle="Hassle free visa processing and approval" Img={welcomeSVG} scale="scale-75" />
         </div>
-        <div className="flex w-full">
-          <div className="w-1/2 flex max-lg:hidden">
+        <div className="flex w-full mt-10">
+          <div className="w-1/2 flex flex-col max-lg:hidden">
             {/* <img
               src={img2}
               alt="welcome svg"
               className="w-400 h-auto mx-auto my-auto"
             /> */}
-             <Countries/>
-                <p className="text-3xl text-center font-semibold text-[#00285A] mt-10 max-md:text-xl max-lg:text-xl">"InGelt Board is a group of 15+ Registered Immigration Consultant"</p>
-                <ul className="list-disc mt-5 text-xl gap-y-2 flex flex-col text-gray max-md:text-lg text-center">
-                  <li>Amet minim mollit non deserunt ullamco est sit aliqua </li>
-                  <li>Amet minim mollit non deserunt ullamco est sit aliqua </li>
-                  <li>Amet minim mollit non deserunt ullamco est sit aliqua </li>
-                </ul>
+            <Countries />
+            <p className="text-3xl text-center font-semibold text-[#00285A] mt-10 max-md:text-xl max-lg:text-xl">"InGelt Board is a group of 15+ Registered Immigration Consultant"</p>
+            <ul className="list-disc list-inside mt-5 text-xl gap-y-2 flex flex-col text-gray max-md:text-lg text-center">
+              <li>Amet minim mollit non deserunt ullamco est sit aliqua </li>
+              <li>Amet minim mollit non deserunt ullamco est sit aliqua </li>
+              <li>Amet minim mollit non deserunt ullamco est sit aliqua </li>
+            </ul>
           </div>
           <div className="w-2/5">
             <section className=" body-font">
@@ -128,6 +127,7 @@ const Page2 = () => {
                         </p>
                       </div>
                     </div>
+
                     <div className="flex relative pb-3">
                       {/* creating line */}
                       <div className="h-full w-10 absolute inset-0 flex items-center justify-center">
@@ -158,6 +158,7 @@ const Page2 = () => {
                         </p>
                       </div>
                     </div>
+
                     <div className="flex relative pb-3">
                       {/* creating line */}
                       <div className="h-full w-10 absolute inset-0 flex items-center justify-center">
@@ -190,6 +191,7 @@ const Page2 = () => {
                         </p>
                       </div>
                     </div>
+
                     <div className="flex relative pb-3">
                       {/* creating line */}
                       <div className="h-full w-10 absolute inset-0 flex items-center justify-center">
@@ -222,6 +224,7 @@ const Page2 = () => {
                         </p>
                       </div>
                     </div>
+
                     <div className="flex relative pb-3">
                       <div className="h-full w-10 absolute inset-0 flex items-center justify-center">
                         <div className="h-full w-2 bg-[#E5E9EF] pointer-events-none "></div>
@@ -253,6 +256,7 @@ const Page2 = () => {
                         </p>
                       </div>
                     </div>
+
                     <div className="flex relative pb-3">
                       <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#E5E9EF] inline-flex items-center justify-center text-white relative z-10">
                         <svg
@@ -281,6 +285,7 @@ const Page2 = () => {
                         </p>
                       </div>
                     </div>
+
                   </div>
                 </div>
               </div>
@@ -350,7 +355,7 @@ const VisaApplication = () => {
         <div className="flex flex-row flex-wrap gap-y-10 gap-x-5 w-full ">
           <div className="w-full h-20 foo:block ">
             <div className="flex gap-x-5 max-md:flex-col max-md:gap-y-5">
-            <Header title="Visa Application" subTitle="Hassel free visa processing and approval" Img={welcomeSVG} scale="scale-75"/>
+              <Header title="Visa Application" subTitle="Hassel free visa processing and approval" Img={welcomeSVG} scale="scale-75" />
             </div>
             <div className="flex w-full  max-md:flex-col items-center justify-between mt-10">
               <div className="w-1/2 max-md:w-full flex flex-col items-center justify-between h-full">
@@ -359,7 +364,7 @@ const VisaApplication = () => {
                   alt="welcome svg"
                   className="w-400 h-auto mx-auto my-10"
                 /> */}
-                <Countries/>
+                <Countries />
                 <p className="text-3xl text-center font-semibold text-[#00285A] mt-10 max-md:text-xl max-lg:text-2xl">"InGelt Board is a group of 15+ Registered Immigration Consultant"</p>
                 <ul className="list-disc mt-5 text-xl gap-y-2 flex items-start flex-col text-gray max-md:text-lg text-center max-lg:text-xl list-inside">
                   <li>Largest group of Registered Immigration Consultants in India </li>
