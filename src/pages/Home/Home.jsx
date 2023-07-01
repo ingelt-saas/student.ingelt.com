@@ -31,6 +31,7 @@ import AssignmentGraph from "../../components/Home/AssignmentGraph";
 import Blogs from "../../components/Home/Blogs";
 import LockOverly from "../../components/shared/LockOverly/LockOverly";
 import moment from "moment/moment";
+import ProfileImage from "../../components/shared/ProfileImage/ProfileImage";
 
 // Student Info Block
 const StudentInfoBlock = ({ title, text, IconName }) => {
@@ -187,14 +188,13 @@ const Home = () => {
           <div className="w-4/12 border-r-2 border-[#78787840] px-4 box-border hidden md:block">
             <div className="relative w-fit mx-auto">
               <div className="absolute top-0 left-0 w-full h-full rounded-full overflow-hidden p-5">
-                <Image
+                <ProfileImage
                   src={student.image}
                   alt={student.name}
                   gender={student.gender}
                   className="rounded-full w-full  h-full object-cover"
                 />
               </div>
-
               <img src={frameSVG} alt="profile frame svg" className="" />
             </div>
             <div className="text-center mt-5 ">

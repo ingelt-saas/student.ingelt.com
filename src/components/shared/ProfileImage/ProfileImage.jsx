@@ -6,23 +6,25 @@ import getFile from '../../../api/getFile';
 const ProfileImage = ({ src, alt, gender, className }) => {
 
     const [url, setUrl] = useState(null);
+    const [loading, setLoading] = useState(true);
     const avatar = gender === 'Male' ? maleAvatar : femaleAvatar;
 
     useEffect(() => {
         if (src) {
             getFile(src)
-                .then(res => setUrl(res.data))
+                .then(res => {
+                    setUrl(res.data);
+                    setLoading(false);
+                })
+        } else {
+            setLoading(false);
         }
-    }, [src]);
+    }, [src])
 
-    return <img
+    return loading ? <span className={`block shadow-md ${className}`}></span> : <img
         src={url || avatar}
         alt={alt}
         className={className}
-        onError={({ currentTarget }) => {
-            currentTarget.onerror = null;
-            currentTarget.src = avatar;
-        }}
     />
 }
 

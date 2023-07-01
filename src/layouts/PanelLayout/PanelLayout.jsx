@@ -1,4 +1,4 @@
-import { Outlet,useLocation } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import SideBar from "../../components/shared/Sidebar/Sidebar";
 import { useEffect, useState } from "react";
 
@@ -11,7 +11,7 @@ const PanelLayout = () => {
   const [shouldApplyClasses, setShouldApplyClasses] = useState(true);
 
   useEffect(() => {
-    if (location.pathname ==='/discussion') {
+    if (location.pathname === '/discussion') {
       setShouldApplyClasses(false);
     } else {
       setShouldApplyClasses(true);
@@ -26,9 +26,9 @@ const PanelLayout = () => {
       >
         <SideBar />
       </div>
-      <div className={`flex-1 overflow-y-auto bg-slate-50 ${shouldApplyClasses ? 'px-2 md:px-5 2xl:px-10 py-6' : ''}`}>
-  <Outlet />
-</div>
+      <div className={`flex-1 overflow-x-hidden overflow-y-auto bg-slate-50 ${shouldApplyClasses ? 'px-2 md:px-5 2xl:px-10 py-6' : ''}`}>
+        <Outlet />
+      </div>
     </div>
   );
 };
