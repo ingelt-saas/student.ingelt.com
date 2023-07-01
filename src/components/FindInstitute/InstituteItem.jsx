@@ -14,7 +14,7 @@ import "swiper/css/free-mode";
 // import img1 from '../../assets/images/worldwide.svg';
 // import img2 from '../../assets/images/demo.svg';
 // import img3 from '../../assets/images/phone-contact.svg';
-import img4 from '../../assets/NewDesign/gift-box-min.png';
+import img4 from '../../assets/images/logo.png';
 import phoneSVG from '../../assets/images/phone.svg';
 import { Tooltip } from "@mui/material";
 
@@ -28,9 +28,8 @@ const InstituteItem = ({ applyHandler, institute, appliedInstitutes, setEmbedLin
     const {
         id,
         name,
-        images,
         address,
-        // verified,
+        verified,
         // tagline,
         fee,
         orgImages,
@@ -51,76 +50,78 @@ const InstituteItem = ({ applyHandler, institute, appliedInstitutes, setEmbedLin
         <div className="px-4 sm:px-4 py-4 rounded-xl mb-6 flex flex-col lg:flex-row gap-x-4 gap-y-6 shadow-xl bg-white">
             <div className="lg:w-4/12 flex items-center">
                 <div className="w-full overflow-hidden rounded-lg">
-                    {
-                        Array.isArray(orgImages) && orgImages.length > 0 && <>
-                            <Swiper speed={300}
-                                spaceBetween={10}
-                                modules={
-                                    [Autoplay, FreeMode, Thumbs]
-                                }
-                                // Autoplay={
-                                //     {
-                                //         delay: 2500,
-                                //         disableOnInteraction: false
-                                //     }
-                                // }
-                                thumbs={
-                                    {
-                                        swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null
-                                    }
-                                }
-                                className="h-48 sm:h-72 lg:h-40"
-                            >
+                    {Array.isArray(orgImages) && orgImages.length > 0 && <>
+                        <Swiper speed={300}
+                            spaceBetween={10}
+                            modules={
+                                [Autoplay, FreeMode, Thumbs]
+                            }
+                            // Autoplay={
+                            //     {
+                            //         delay: 2500,
+                            //         disableOnInteraction: false
+                            //     }
+                            // }
+                            thumbs={
                                 {
-                                    orgImages.map(i => <SwiperSlide key={
-                                        i.name
-                                    }>
-                                        <div className="h-full w-full">
-                                            <Image src={
+                                    swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null
+                                }
+                            }
+                            className="h-48 sm:h-72 lg:h-40"
+                        >
+                            {
+                                orgImages.map(i => <SwiperSlide key={
+                                    i.name
+                                }>
+                                    <div className="h-full w-full">
+                                        <Image src={
+                                            i.name
+                                        }
+                                            alt={
                                                 i.name
                                             }
-                                                alt={
-                                                    i.name
-                                                }
-                                                className='w-full h-full object-cover' />
-                                        </div>
-                                    </SwiperSlide>)
-                                } </Swiper>
+                                            className='w-full h-full object-cover' />
+                                    </div>
+                                </SwiperSlide>)
+                            } </Swiper>
 
-                            <Swiper onSwiper={setThumbsSwiper}
-                                slidesPerView={5}
-                                speed={300}
-                                watchSlidesProgress={true}
-                                freeMode={true}
-                                modules={
-                                    [Thumbs, FreeMode]
-                                }
-                                className="h-12 sm:h-16 lg:h-10">
-                                {
-                                    orgImages.map(i => <SwiperSlide key={
-                                        i.name
-                                    }>
-                                        <div className="w-full h-full p-1 cursor-pointer">
-                                            <Image src={
+                        <Swiper onSwiper={setThumbsSwiper}
+                            slidesPerView={5}
+                            speed={300}
+                            watchSlidesProgress={true}
+                            freeMode={true}
+                            modules={
+                                [Thumbs, FreeMode]
+                            }
+                            className="h-12 sm:h-16 lg:h-10">
+                            {
+                                orgImages.map(i => <SwiperSlide key={
+                                    i.name
+                                }>
+                                    <div className="w-full h-full p-1 cursor-pointer">
+                                        <Image src={
+                                            i.name
+                                        }
+                                            alt={
                                                 i.name
                                             }
-                                                alt={
-                                                    i.name
-                                                }
-                                                className='w-full h-full object-cover rounded-md' />
-                                        </div>
-                                    </SwiperSlide>)
-                                } </Swiper> </>
-                    } </div>
+                                            className='w-full h-full object-cover rounded-md' />
+                                    </div>
+                                </SwiperSlide>)
+                            } </Swiper> </>
+                    }
+                </div>
             </div>
             <div className="lg:w-8/12 flex flex-col justify-between gap-y-5">
                 <div className="flex justify-between items-start">
                     <p className="flex flex-col">
-                        <span className="text-xl flex items-center justify-center gap-x-2 text-[#00285A] font-semibold">
+                        <span className="text-xl max-sm:text-lg flex items-center justify-start gap-x-2 text-[#00285A] font-semibold">
                             {name}
-                            <Verified className="text-[#00285A]" /></span>
+                            {verified && <Verified className="text-[#00285A]" />}
+                        </span>
                         <span className="text-sm flex items-center text-[#00285A]">
-                            <LocationOn className="!text-base" /> {address} </span>
+                            <LocationOn className="!text-base" /> {address}
+                        </span>
                     </p>
                     <div className="flex flex-col items-end gap-y-2">
                         <span className="flex items-end gap-x-2">
@@ -166,33 +167,38 @@ const InstituteItem = ({ applyHandler, institute, appliedInstitutes, setEmbedLin
                             Sponsored
                         </span> */} </div>
                 </div>
-                <div className="flex justify-between items-start">
-                    <p className="text-[#00000099] font-semibold">
-                        <span className="">Modes Available:-&nbsp;
-                        </span>
-                        <span className="capitalize text-[#00285A]">
-                            {modeOfClasses}</span>
-                    </p>
-                    <div className='flex items-center justify-center gap-x-2'>
-                        <a href={
-                            `tel:${phoneNo}`
-                        }
-                            rel="noreferrer"
-                            className="text-[#00285A]">Call Now</a>
-                        <Tooltip title='Contact Institute'>
-                            <a href={
-                                `tel:${phoneNo}`
-                            }
-                                rel="noreferrer">
+                <div>
+                    <div className="flex justify-between items-start">
+                        <p className="text-[#00000099] font-semibold max-lg:text-sm">
+                            <span className="">Modes Available:-&nbsp;
+                            </span>
+                            <span className="capitalize text-[#00285A]">
+                                {modeOfClasses}
+                            </span>
+                        </p>
+                        <Tooltip title='Click to see location'>
+                            <p className="cursor-pointer max-lg:hidden flex gap-x-2 items-center" onClick={() => setEmbedLink(embedUrl)} >
+                                <span className="font-semibold text-[#00000099] max-lg:text-sm ">Location</span>
+                                <FmdGood className="!text-xl text-[#00285A]" />
+                            </p>
+                        </Tooltip>
+                    </div>
+                    <div className="flex justify-between items-start">
+                        <p className="text-[#00000099] font-semibold max-lg:text-sm">
+                            <span className="">Recent Enquiries:-&nbsp;
+                            </span>
+                            <span className="capitalize text-[#00285A]">
+                                {Math.round(Math.random() * 100)}
+                            </span>
+                        </p>
+                        <Tooltip title={`Contact with ${name}`}>
+                            <a href={`tel:${phoneNo}`} rel='noreferrer' className="text-[#00285A] flex gap-x-2 items-center cursor-pointer" >
+                                <span className="font-semibold text-[#00000099] max-lg:text-sm ">Call Now</span>
                                 <img src={phoneSVG}
                                     alt=''
-                                    className='' />
+                                    className='w-5 h-auto'
+                                />
                             </a>
-                        </Tooltip>
-                        <Tooltip title='Institute Location'>
-                            <span onClick={() => setEmbedLink(embedUrl)} className="cursor-pointer text-[#00285A] max-lg:hidden">
-                                <FmdGood />
-                            </span>
                         </Tooltip>
                     </div>
                 </div>
@@ -219,13 +225,14 @@ const InstituteItem = ({ applyHandler, institute, appliedInstitutes, setEmbedLin
 
                     </div>
                 </div> */}
-                <div className="flex justify-between items-start mt-2">
-                    <div className="flex items-center gap-x-2 justify-center">
-                        <img src={img4}
+                <div className="flex md:justify-between max-md:flex-col max-md:gap-y-3 max-md:items-end items-start mt-2">
+                    <div className="flex items-center gap-x-3 justify-center max-md:w-full">
+                        <img
+                            src={img4}
                             alt=''
                             className="w-10 h-auto" />
-                        <h2 className="text-[#087bff] text-base font-semibold -mt-1">
-                            Free Video Modules & Resources
+                        <h2 className="text-[#0C3C82] text-base font-semibold -mt-1">
+                            Offers you free video modules and Resources.
                         </h2>
                     </div>
                     <button disabled={
@@ -240,7 +247,7 @@ const InstituteItem = ({ applyHandler, institute, appliedInstitutes, setEmbedLin
                         }</button>
                 </div>
             </div>
-            {/* <ToastContainer/> */} </div>
+            {/* <ToastContainer/> */} </div >
     );
 };
 
