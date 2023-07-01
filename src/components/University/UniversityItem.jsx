@@ -33,7 +33,7 @@ const HeartSVG = ({ fill }) => {
     );
 }
 
-const UniversityItem = ({ RightArrowSVG, university, shortlistHandler }) => {
+const UniversityItem = ({ RightArrowSVG, university, shortlistHandler, sendQuery }) => {
 
     const { courseName, courseDuration, logo, name, yearlyFee, ranking, address, studentShortlists } = university;
 
@@ -125,14 +125,14 @@ const UniversityItem = ({ RightArrowSVG, university, shortlistHandler }) => {
             </div>
 
             {/* 4th div */}
-            <div className='mb-2'>
-                <Image src={logo} alt={name} className={'h-auto w-11 rounded-md inline mb-1'} />
-                <p className="pl-4 font-medium pr-3 text-[#0C3C82] inline">{name}</p>
+            <div className='mb-2 py-2'>
+                {/* <Image src={logo} alt={name} className={'h-auto w-11 rounded-md inline mb-1'} /> */}
+                <p className="pl-3 font-medium text-[#0C3C82] inline">{name}</p>
             </div>
 
             {/* 5th div */}
-            <div className="flex justify-between mu-3">
-                <button className="hover:bg-[#0C3C82] bg-transparent duration-300 border-2 border-[#0C3C82] text-[#0C3C82] hover:text-white font-semibold py-2 px-4 max-md:text-sm rounded-full gap-x-2 flex items-center">
+            <div className="flex justify-between">
+                <button onClick={sendQuery} className="hover:bg-[#0C3C82] bg-transparent duration-300 border-2 border-[#0C3C82] text-[#0C3C82] hover:text-white font-semibold py-2 px-4 max-md:text-sm rounded-full gap-x-2 flex items-center">
                     Talk to expert
                     <RightArrowSVG className={'h-5 w-5'} />
                 </button>

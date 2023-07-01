@@ -211,6 +211,7 @@ const ShortlistUniversity = () => {
                       university={item}
                       shortlistHandler={shortlistHandler}
                       key={item.id}
+                      sendQuery={sendQuery}
                     />
                   )}
                 </div> :
@@ -328,6 +329,7 @@ const ShortlistUniversity = () => {
         close={() => setLeftDrawer(false)}
         shortlistHandler={shortlistHandler}
         RightArrowSVG={RightArrowSVG}
+        sendQuery={sendQuery}
       />
 
     </>
