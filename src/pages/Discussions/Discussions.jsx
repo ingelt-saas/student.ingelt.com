@@ -16,11 +16,12 @@ import {
 } from "@mui/icons-material";
 import { AppBar, Avatar, Button, Toolbar, Typography } from "@mui/material";
 import Compressor from "compressorjs";
-import { SocketContext } from "../../contexts";
+import { SocketContext, StudentContext } from "../../contexts";
 
 const Discussions = () => {
 
   const socket = useContext(SocketContext);
+  const { student } = useContext(StudentContext);
 
   const [message, setMessage] = useState("");
   const [onlineMembers, setOnlineMembers] = useState(0);
@@ -112,6 +113,10 @@ const Discussions = () => {
         student_auth_token: Cookies.get("student_auth_token"),
       });
 
+      setMessage("");
+      setSelectedImages([]);
+      setLoading(false);
+
     } catch (err) {
       console.log(err);
     }
@@ -120,16 +125,18 @@ const Discussions = () => {
   // Check For new messages and update the state
   useEffect(() => {
     socket.on("message-ack", (data) => {
-      if (data?.senderId) {
-        setMessage("");
-        setSelectedImages([]);
-        setLoading(false);
-      }
+      // console.log(data.senderId, student.id)
+      // if (data.senderId === student.id) {
+      //   console.log('match')
+      //   setMessage("");
+      //   setSelectedImages([]);
+      //   setLoading(false);
+      // }
       refetch();
       scrollToBottom();
       // getDiscussions();
     });
-  }, [socket]);
+  }, [socket, refetch]);
 
   const handleImageInputChange = async (e) => {
     const files = e.target.files;

@@ -29,7 +29,7 @@ import { toast } from 'react-toastify';
 import universityApi from '../../api/university.js';
 import { useEffect } from 'react';
 
-const SelectMenu = ({ data, placeholder, onChange }) => {
+const SelectMenu = ({ data, placeholder, onChange, defaultValue }) => {
 
     const [anchorEl, setAnchorEl] = useState(null);
     const [selectedItem, setSelectedItem] = useState(null); // Added state to keep track of selected item
@@ -89,10 +89,14 @@ const SelectMenu = ({ data, placeholder, onChange }) => {
 
     const handleItemSelect = (item) => {
         // Added function to handle item selection
-        setSelectedItem(item);
+        // setSelectedItem(item);
         setAnchorEl(null);
         onChange(item);
     };
+
+    useEffect(() => {
+        setSelectedItem(defaultValue);
+    }, [defaultValue])
 
     useEffect(() => {
         const button = document.getElementById('demo-customized-button');
@@ -189,7 +193,7 @@ const RightArrowSVG = ({ className, backgroundColor }) => {
     );
 };
 
-const AreaSelectMenu = ({ data, onChange }) => {
+const AreaSelectMenu = ({ data, onChange, defaultValue }) => {
 
     const [anchorEl, setAnchorEl] = useState(null);
     const [selectedItem, setSelectedItem] = useState(null); // Added state to keep track of selected item
@@ -249,10 +253,17 @@ const AreaSelectMenu = ({ data, onChange }) => {
 
     const handleItemSelect = (item) => {
         // Added function to handle item selection
-        setSelectedItem(item);
+        // setSelectedItem(item);
         setAnchorEl(null);
         onChange(item.name);
     };
+
+    useEffect(() => {
+        if (defaultValue) {
+            const item = data.find(i => i.name === defaultValue);
+            setSelectedItem(item);
+        }
+    }, [defaultValue, data]);
 
     useEffect(() => {
         const button = document.getElementById('demo-area-button');
@@ -315,7 +326,7 @@ const AreaSelectMenu = ({ data, onChange }) => {
     );
 }
 
-const FilterMenu = ({ filterHandler }) => {
+const FilterMenu = ({ filterHandler, selectedData }) => {
 
     // const [selectedData, setSelectedData] = useState({
     //     country: '',
@@ -431,16 +442,19 @@ const FilterMenu = ({ filterHandler }) => {
                 <SelectMenu
                     placeholder={'Country'}
                     data={countries}
+                    defaultValue={selectedData.country}
                     onChange={(value) => filterHandler('country', value)}
                 />
                 <SelectMenu
                     placeholder={'Course Level'}
-                    data={['All', 'Bachelor’s', 'Master’s']}
+                    defaultValue={selectedData.course}
+                    data={['High School (11th -12th)', 'UG Diploma/ Certificate', 'UG', 'PG Diploma/ Certificate', 'PG', 'PhD']}
                     onChange={(value) => filterHandler('course', value)}
                 />
 
                 <AreaSelectMenu
                     data={data}
+                    defaultValue={selectedData.areaOfInterest}
                     onChange={(value) => filterHandler('areaOfInterest', value)}
                 />
 
