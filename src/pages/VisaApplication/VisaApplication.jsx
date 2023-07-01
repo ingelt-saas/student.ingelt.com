@@ -366,7 +366,7 @@ const VisaApplication = () => {
                 /> */}
                 <Countries />
                 <p className="text-3xl text-center font-semibold text-[#00285A] mt-10 max-md:text-xl max-lg:text-2xl">"InGelt Board is a group of 15+ Registered Immigration Consultant"</p>
-                <ul className="list-disc mt-5 text-xl gap-y-2 flex items-start flex-col text-gray max-md:text-lg text-center max-lg:text-xl list-inside">
+                <ul className="list-disc mt-5 text-xl gap-y-2 flex justify-center items-center flex-col text-gray max-md:text-lg text-center max-lg:text-xl list-inside">
                   <li>Largest group of Registered Immigration Consultants in India </li>
                   <li>Over 90% visa approved rate</li>
                   <li>1200+ applications processed </li>
