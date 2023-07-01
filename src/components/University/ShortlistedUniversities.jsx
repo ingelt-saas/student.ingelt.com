@@ -5,7 +5,7 @@ import universityApi from '../../api/university';
 import UniversityItem from './UniversityItem';
 import { Close } from '@mui/icons-material';
 
-const ShortlistedUniversities = ({ open, close, shortlistHandler, RightArrowSVG }) => {
+const ShortlistedUniversities = ({ open, close, shortlistHandler, RightArrowSVG, sendQuery }) => {
 
     const { data, isLoading, refetch } = useQuery({
         queryKey: ['shortlistedUniversities', open],
@@ -71,6 +71,7 @@ const ShortlistedUniversities = ({ open, close, shortlistHandler, RightArrowSVG 
                                 key={item.id}
                                 RightArrowSVG={RightArrowSVG}
                                 shortlistHandler={removeShortlist}
+                                sendQuery={sendQuery}
                             />
                         )}
                     </div>

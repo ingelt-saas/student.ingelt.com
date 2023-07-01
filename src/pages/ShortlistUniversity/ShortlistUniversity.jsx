@@ -166,7 +166,7 @@ const ShortlistUniversity = () => {
                       Filter
                     </Button>
                     {/* <div className="max-xl:hidden">
-                <FilterMenu filterHandler={filterHandler} />
+                <FilterMenu filterHandler={filterHandler} selectedData={filterData} />
               </div> */}
                   </div>
                 </div>
@@ -211,6 +211,7 @@ const ShortlistUniversity = () => {
                       university={item}
                       shortlistHandler={shortlistHandler}
                       key={item.id}
+                      sendQuery={sendQuery}
                     />
                   )}
                 </div> :
@@ -232,93 +233,7 @@ const ShortlistUniversity = () => {
         }}
       >
         <div className="bg-white h-full max-xl:rounded-t-3xl rounded-t-2xl rounded-bl-2xl w-full">
-          <FilterMenu filterHandler={filterHandler} />
-          {/* <div className="relative">
-            <img src={ShortlistSVG} alt="Shortlist" className="" />
-            <div className="absolute top-0 left-0 w-full h-full flex flex-col justify-between py-5 px-5">
-              <p className="text-white">
-                need more help in finding your dream course?
-              </p>
-              <button className="bg-[#E7ECF3] w-fit text-[#00285A] font-semibold py-3 px-6 rounded-full flex items-center gap-x-2">
-                Talk to expert
-                <RightArrowSVG />
-              </button>
-            </div>
-          </div>
-          <div className="h-4/7">
-            <div className="relative">
-              <select className="block appearance-none w-full bg-white border border-[#F7EFFF] border-6 rounded focus:outline-none p-4 text-center font-semibold sm-w-full">
-                <option className="block appearance-none w-full bg-white border border-[#F7EFFF] border-6 rounded focus:outline-none p-4 text-center font-semibold sm-w-full">
-                  Country
-                </option>
-                <option className="block appearance-none w-full bg-white border border-[#F7EFFF] border-6 rounded focus:outline-none p-4 text-center font-semibold sm-w-full">
-                  Country 1
-                </option>
-                <option className="block appearance-none w-full bg-white border border-[#F7EFFF] border-6 rounded focus:outline-none p-4 text-center font-semibold sm-w-full">
-                  Country 2
-                </option>
-                <option className="block appearance-none w-full bg-white border border-[#F7EFFF] border-6 rounded focus:outline-none p-4 text-center font-semibold sm-w-full">
-                  Country 3
-                </option>
-                <option className="block appearance-none w-full bg-white border border-[#F7EFFF] border-6 rounded focus:outline-none p-4 text-center font-semibold sm-w-full">
-                  Country 4
-                </option>
-              </select>
-              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                <img
-                  src={downSVG}
-                  alt="down arrow"
-                  className="h-auto w-6 inline mr-4"
-                />
-              </div>
-            </div>
-
-            <div className="relative">
-              <select className="block appearance-none w-full bg-white border border-[#F7EFFF] border-6 rounded focus:outline-none p-4 text-center font-semibold sm-w-full">
-                <option>Course level</option>
-              </select>
-              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                <img
-                  src={downSVG}
-                  alt="down arrow"
-                  className="h-auto w-6 inline mr-4 "
-                />
-              </div>
-            </div>
-
-            <div className="relative">
-              <select className="block appearance-none w-full bg-white border border-[#F7EFFF] border-6 rounded focus:outline-none p-4 text-center font-semibold sm-w-full">
-                <option>Area of study</option>
-                <option>Area of study</option>
-                <option>Area of study</option>
-                <option>Area of study</option>
-                <option>Area of study</option>
-              </select>
-              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                <img
-                  src={downSVG}
-                  alt="down arrow"
-                  className="h-auto w-6 inline mr-4 "
-                />
-              </div>
-            </div>
-            <div className="relative">
-              <select className="block appearance-none w-full bg-white border border-[#F7EFFF] border-6 rounded focus:outline-none p-4 text-center font-semibold sm-w-full">
-                <option>Higher education</option>
-                <option>Higher education</option>
-                <option>Higher education</option>
-                <option>Higher education</option>
-                <option>Higher education</option>
-              </select>
-              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                <img
-                  src={downSVG}
-                  alt="down arrow"
-                  className="h-auto w-6 inline mr-4  "
-                />
-              </div>
-            </div>
-          </div> */}
+          <FilterMenu filterHandler={filterHandler} selectedData={filterData} />
         </div>
       </Drawer>
 
@@ -328,6 +243,7 @@ const ShortlistUniversity = () => {
         close={() => setLeftDrawer(false)}
         shortlistHandler={shortlistHandler}
         RightArrowSVG={RightArrowSVG}
+        sendQuery={sendQuery}
       />
 
     </>

@@ -16,11 +16,12 @@ import {
 } from "@mui/icons-material";
 import { AppBar, Avatar, Button, Toolbar, Typography } from "@mui/material";
 import Compressor from "compressorjs";
-import { SocketContext } from "../../contexts";
+import { SocketContext, StudentContext } from "../../contexts";
 
 const Discussions = () => {
 
   const socket = useContext(SocketContext);
+  const { student } = useContext(StudentContext);
 
   const [message, setMessage] = useState("");
   const [onlineMembers, setOnlineMembers] = useState(0);
@@ -112,6 +113,10 @@ const Discussions = () => {
         student_auth_token: Cookies.get("student_auth_token"),
       });
 
+      setMessage("");
+      setSelectedImages([]);
+      setLoading(false);
+
     } catch (err) {
       console.log(err);
     }
@@ -120,16 +125,18 @@ const Discussions = () => {
   // Check For new messages and update the state
   useEffect(() => {
     socket.on("message-ack", (data) => {
-      if (data?.senderId) {
-        setMessage("");
-        setSelectedImages([]);
-        setLoading(false);
-      }
+      // console.log(data.senderId, student.id)
+      // if (data.senderId === student.id) {
+      //   console.log('match')
+      //   setMessage("");
+      //   setSelectedImages([]);
+      //   setLoading(false);
+      // }
       refetch();
       scrollToBottom();
       // getDiscussions();
     });
-  }, [socket]);
+  }, [socket, refetch]);
 
   const handleImageInputChange = async (e) => {
     const files = e.target.files;
@@ -225,12 +232,12 @@ const Discussions = () => {
           </div>}
 
           {hasNextPage && <div className="pb-5 pt-10 w-full flex justify-center h-full">
-          <div className="b relative mx-auto h-16 w-44 flex justify-center items-center" onClick={fetchNextPage}>
-      <div className="i h-12 w-44 bg-[#1B3B7D] items-center rounded-xl shadow-2xl cursor-pointer absolute overflow-hidden transform hover:scale-x-110 hover:scale-y-105 transition duration-300 ease-out">
-      </div>
-      <p className="text-center text-white font-semibold z-10 pointer-events-none">Load More</p>
+            <div className="b relative mx-auto h-16 w-44 flex justify-center items-center" onClick={fetchNextPage}>
+              <div className="i h-12 w-44 bg-[#1B3B7D] items-center rounded-xl shadow-2xl cursor-pointer absolute overflow-hidden transform hover:scale-x-110 hover:scale-y-105 transition duration-300 ease-out">
+              </div>
+              <p className="text-center text-white font-semibold z-10 pointer-events-none">Load More</p>
 
-    </div>
+            </div>
           </div>}
 
           {/* show discussions */}
