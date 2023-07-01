@@ -337,11 +337,15 @@ const FilterMenu = ({ filterHandler, selectedData }) => {
     // areas data
     const data = [
         {
-            name: "Business & Management",
+            name: "All",
+            img: '',
+        },
+        {
+            name: "Commerce, Business & Administration",
             img: Business,
         },
         {
-            name: "Social Sciences",
+            name: "Social and Behavioural Science",
             img: social,
         },
         {
@@ -349,11 +353,11 @@ const FilterMenu = ({ filterHandler, selectedData }) => {
             img: computer,
         },
         {
-            name: "Mathematics",
+            name: "Mathematics and Statistics",
             img: maths,
         },
         {
-            name: "Engineering",
+            name: "Engineering and Engineering Trades",
             img: engineer,
         },
         {
@@ -365,16 +369,12 @@ const FilterMenu = ({ filterHandler, selectedData }) => {
             img: medicine,
         },
         {
-            name: "Architecture",
+            name: "Architecture and Building",
             img: architecture,
         },
         {
             name: "Agriculture",
             img: agriculture,
-        },
-        {
-            name: "Professional Studies",
-            img: professional,
         },
         {
             name: "Media & Journalism",
@@ -389,15 +389,7 @@ const FilterMenu = ({ filterHandler, selectedData }) => {
             img: law,
         },
         {
-            name: "Science",
-            img: science,
-        },
-        {
-            name: "Sports",
-            img: sports,
-        },
-        {
-            name: "Hospitality",
+            name: "Physical and Life Sciences",
             img: hospitality,
         },
         {
