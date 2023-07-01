@@ -37,6 +37,7 @@ import ProfileImage from "../../components/shared/ProfileImage/ProfileImage";
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/bootstrap.css'
 import { Country, State } from "country-state-city";
+import ImageCropper from "../../components/shared/ImageCropper/ImageCropper";
 
 const StyledButton = styled(Button)(() => ({ textTransform: "capitalize" }));
 
@@ -329,8 +330,8 @@ const Settings = () => {
   };
 
   // profile picture update
-  const profilePictureHandler = async (e) => {
-    const file = e.target.files[0];
+  const profilePictureHandler = async (file) => {
+
     const Form = new FormData();
     Form.append("image", file);
 
@@ -537,28 +538,18 @@ const Settings = () => {
 
   return (
     <div className="flex flex-col md:flex-row w-full gap-y-5 py-4 h-full">
-      <div className=" md:w-2/5 mr-2 flex flex-col items-center mt-4">
+      <div className=" md:w-2/5 md:mr-2 flex flex-col gap-y-3 items-center mt-4">
         <ProfileImage
           src={image}
           alt={name}
           gender={student?.gender}
           className="rounded-full object-cover object-center h-52 w-52 md:h-64 md:w-64 mb-4"
         />
-        <div>
-          <input
-            type="file"
-            id="file"
-            className="sr-only"
-            onChange={profilePictureHandler}
-          />
-          <label
-            className="flex items-center gap-x-2 px-5 py-2 shadow-md cursor-pointer text-white bg-[#1B3B7D] font-medium rounded-md"
-            htmlFor="file"
-          >
-            Edit Photo
-            <CameraAltIcon />
-          </label>
-        </div>
+        <ImageCropper
+          resizableImage={profilePictureHandler}
+        >
+          {student?.image ? 'Edit Photo' : 'Add Photo'}
+        </ImageCropper>
       </div>
 
       <form className="md:w-3/5" onSubmit={handleSubmit(updateProfile)}>
