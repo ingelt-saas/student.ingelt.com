@@ -33,17 +33,17 @@ const Page2 = () => {
     <div className="flex flex-row flex-wrap gap-y-10 gap-x-5 w-full  sm:m-auto">
       <div className="w-full h-20 foo:block ">
         <div className="flex gap-x-5 max-md:flex-col max-md:gap-y-5">
-        <Header title="Education Loan" subTitle="Optimal solution for overseas education loan" Img={welcomeSVG} scale={"scale-75"}/>
+          <Header title="Education Loan" subTitle="Optimal solution for overseas education loan" Img={welcomeSVG} scale={"scale-75"} />
         </div>
         <div className="flex w-full">
-          <div className="w-1/2 flex max-lg:hidden">
+          <div className="w-1/2 flex max-md:hidden">
             <img
               src={img2}
               alt="welcome svg"
               className="w-400 h-auto mx-auto my-10"
             />
           </div>
-          <div className="w-1/2">
+          <div className="md:w-1/2 w-full">
             <section className="body-font">
               <div className="container px-5 pb-24 pt-10 mx-auto flex flex-wrap">
                 <div className="flex flex-wrap w-full">
@@ -285,40 +285,40 @@ const EducationLoan = () => {
     getAllStates();
   }, [stateCode]);
 
-  const icons=[
+  const icons = [
     {
-        img:funding,
-        text:"100% Funding",
+      img: funding,
+      text: "100% Funding",
     },
     {
-        img:sanction,
-        text:"Quick Loan Sanction",
+      img: sanction,
+      text: "Quick Loan Sanction",
     },
     {
-        img:endtoend,
-        text:"Education Loan Assistance",
+      img: endtoend,
+      text: "Education Loan Assistance",
     },
     {
-        img:ROI,
-        text:"Lowest Rate of Interest",
+      img: ROI,
+      text: "Lowest Rate of Interest",
     },
     {
-        img:preAdmission,
-        text:"Pre Admission Loan",
+      img: preAdmission,
+      text: "Pre Admission Loan",
     },
     {
-        img:country,
-        text:"Country Specific Loan Counselling",
+      img: country,
+      text: "Country Specific Loan Counselling",
     },
     {
-        img:preVisa,
-        text:"Pre Visa Disbursal",
+      img: preVisa,
+      text: "Pre Visa Disbursal",
     },
     {
-        img:score,
-        text:"Score Based Loan Structuring",
+      img: score,
+      text: "Score Based Loan Structuring",
     }
-]
+  ]
 
 
   return (
@@ -327,7 +327,7 @@ const EducationLoan = () => {
         <div className="flex flex-row flex-wrap gap-y-10 gap-x-5 w-full">
           <div className="w-full h-20 foo:block ">
             <div className="flex gap-x-5 max-md:flex-col max-md:gap-y-5 mb-10">
-              <Header title="Education Loan" subTitle="Optimal solution for overseas education loan" Img={welcomeSVG} scale="scale-75"/>
+              <Header title="Education Loan" subTitle="Optimal solution for overseas education loan" Img={welcomeSVG} scale="scale-75" />
             </div>
             <div className="flex max-md:flex-col w-full justify-between items-center">
               <div className="w-1/2 max-md:w-full flex flex-col justify-center items-center">
@@ -337,17 +337,17 @@ const EducationLoan = () => {
                   className="w-400 h-auto mx-auto my-10"
                 /> */}
                 <div className="flex mb-10 flex-wrap gap-x-2 2xl:gap-x-2 xl:gap-x-3 gap-y-3 items-center justify-center w-full max-xl:hidden ">
-                {icons.map((item,index)=>{
-                    return(
-                        <div key={index} className="flex items-center justify-start rounded-xl w-56 px-5 py-3">
-                                <img src={item.img} className="w-10 h-10 mr-
-                                3" alt="icon"/>
-                                <p className="font-semibold text-sm ml-3">{item.text}</p>
-                        </div>
+                  {icons.map((item, index) => {
+                    return (
+                      <div key={index} className="flex items-center justify-start rounded-xl w-56 px-5 py-3">
+                        <img src={item.img} className="w-10 h-10 mr-
+                                3" alt="icon" />
+                        <p className="font-semibold text-sm ml-3">{item.text}</p>
+                      </div>
                     )
-                })}
+                  })}
                 </div>
-              <BankingPart/>
+                <BankingPart />
               </div>
 
               <div className="w-2/5 max-md:w-full max-md:pb-10">
@@ -426,11 +426,10 @@ const EducationLoan = () => {
                     </p>
                     <div className="flex gap-x-5 mt-2">
                       <div
-                        className={`py-3 px-6 cursor-pointer flex items-center justify-center max-lg:px-3 max-lg:border rounded-2xl border-2 border-[#001E43] ${
-                          intake === "September 2023"
-                            ? "bg-[#001E43] text-white"
-                            : "border-2 border-[#001E43]"
-                        }`}
+                        className={`py-3 px-6 cursor-pointer flex items-center justify-center max-lg:px-3 max-lg:border rounded-2xl border-2 border-[#001E43] ${intake === "September 2023"
+                          ? "bg-[#001E43] text-white"
+                          : "border-2 border-[#001E43]"
+                          }`}
                         onClick={() => {
                           setIntake("September 2023");
                         }}
@@ -438,11 +437,10 @@ const EducationLoan = () => {
                         <p className="max-xl:text-xs text-base">Sep 2023</p>
                       </div>
                       <div
-                        className={`py-3 px-6 cursor-pointer flex items-center justify-center max-lg:px-3 max-lg:border rounded-2xl border-2 border-[#001E43] ${
-                          intake === "January 2024"
-                            ? "bg-[#001E43] text-white"
-                            : "border-2 border-[#001E43]"
-                        }`}
+                        className={`py-3 px-6 cursor-pointer flex items-center justify-center max-lg:px-3 max-lg:border rounded-2xl border-2 border-[#001E43] ${intake === "January 2024"
+                          ? "bg-[#001E43] text-white"
+                          : "border-2 border-[#001E43]"
+                          }`}
                         onClick={() => {
                           setIntake("January 2024");
                         }}
@@ -450,11 +448,10 @@ const EducationLoan = () => {
                         <p className="max-xl:text-xs text-base">Jan 2024</p>
                       </div>
                       <div
-                        className={`py-3 px-6 cursor-pointer flex items-center justify-center max-lg:px-3 max-lg:border rounded-2xl border-2 border-[#001E43] ${
-                          intake === "May 2024"
-                            ? "bg-[#001E43] text-white"
-                            : "border-2 border-[#001E43]"
-                        }`}
+                        className={`py-3 px-6 cursor-pointer flex items-center justify-center max-lg:px-3 max-lg:border rounded-2xl border-2 border-[#001E43] ${intake === "May 2024"
+                          ? "bg-[#001E43] text-white"
+                          : "border-2 border-[#001E43]"
+                          }`}
                         onClick={() => {
                           setIntake("May 2024");
                         }}
