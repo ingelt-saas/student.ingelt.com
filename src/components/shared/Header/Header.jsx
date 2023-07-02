@@ -43,6 +43,7 @@ const Header = ({ title, subTitle, Img, scale }) => {
             <Box
                 sx={{
                     width: { md: "60%", xs: "100%" },
+                    display: { xs: 'none', md: 'block' }
                     // padding: '0.3rem'
                 }}
             >

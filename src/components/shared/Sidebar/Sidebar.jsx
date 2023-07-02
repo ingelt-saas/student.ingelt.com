@@ -28,7 +28,6 @@ import {
 import logo from "../../../assets/images/navlogo.png";
 import { useContext } from "react";
 import { StudentContext } from "../../../contexts.js";
-import Image from "../Image/Image.jsx";
 import ProfileImage from "../ProfileImage/ProfileImage.jsx";
 
 // Navbar Item Components

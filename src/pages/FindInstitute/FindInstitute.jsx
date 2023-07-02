@@ -288,7 +288,7 @@ const FindInstitute = () => {
             )}
           </div>
           <div className="max-lg:hidden w-5/12">
-            <div className="h-[90vh] rounded-lg overflow-hidden">
+            <div className="h-[90vh] rounded-lg overflow-hidden sticky top-0 left-0 p-2 bg-white">
               <iframe
                 title="Google Maps"
                 src={embedLink || `https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3501.589204268871!2d77.3342776!3d28.642071599999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cfb3c72b68a2b%3A0x8c7e7d2ded0363b4!2sInGelt!5e0!3m2!1sen!2sbd!4v1688039609037!5m2!1sen!2sbd`}

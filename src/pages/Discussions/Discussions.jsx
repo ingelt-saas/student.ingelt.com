@@ -116,6 +116,7 @@ const Discussions = () => {
       setMessage("");
       setSelectedImages([]);
       setLoading(false);
+      refetch();
 
     } catch (err) {
       console.log(err);
