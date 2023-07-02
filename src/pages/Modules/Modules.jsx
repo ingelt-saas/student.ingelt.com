@@ -395,7 +395,7 @@ const Modules = () => {
                             fill="#00285A"
                           />
                         </svg>
-                        {/* {viewsShorten(item?.views)}{" "} */} 1.2k Views
+                        {viewsShorten(item?.views)} Views
                       </span>
                     </p>
                   </div>
