@@ -3,8 +3,9 @@ import { useContext } from "react";
 import { StudentContext } from "../../contexts";
 import Image from "../shared/Image/Image";
 import ProfileImage from "../shared/ProfileImage/ProfileImage";
+import { Tooltip } from "@mui/material";
 
-const MessageBox = ({ data }) => {
+const MessageBox = ({ data, discussionReport }) => {
   // context
   const {
     student: { id },
@@ -20,10 +21,13 @@ const MessageBox = ({ data }) => {
     senderCountry,
     discussionImages,
     gender,
+    discussionReports
   } = data;
 
   // Check if the message is from the student
   const isStudentMessage = senderId === id;
+
+  const reporterFind = discussionReports.find(i => i.reporterId === id);
 
   return (
     <div
@@ -48,6 +52,7 @@ const MessageBox = ({ data }) => {
                       </div>
                     </div>
                   </div>
+                  {discussionReports.length > 0 && <span className="text-xs font-medium">{discussionReports.length} people report this message</span>}
                 </div>
               </div>
             )}
@@ -67,6 +72,7 @@ const MessageBox = ({ data }) => {
                   <p className="text-right text-xs text-[#00285A] mt-1 pl-3 min-w-max">
                     {moment(createdAt).format("LT")}
                   </p>
+                  {discussionReports.length > 0 && <span className="text-xs font-medium">{discussionReports.length} people report this message</span>}
                 </div>
               ))}
           </>
@@ -75,25 +81,43 @@ const MessageBox = ({ data }) => {
             {message && (
               <div className="flex items-end">
                 <div className="flex flex-col space-y-2 text-lg max-w-xl mx-2 order-2 items-center justify-center">
-                  <div className="flex">
-                    <div
-                      className="rounded-lg rounded-bl-none py-2 px-3"
-                      style={{ backgroundColor: "#F2F2F2" }}
-                    >
-                      <div className="flex items-center justify-between">
-                        <p className="text-sm text-[#1B3B7D]">{senderName}</p>
-                        <p className="text-sm text-[#1B3B7D] ml-3">
-                          {senderCountry}
-                        </p>
-                      </div>
-                      <div className="flex items-end justify-between">
-                        <p className="text-lg text-left">{message}</p>
-                        <div className="min-w-max text-right text-xs pl-3">
-                          {moment(createdAt).format("LT")}
+                  <Tooltip
+                    arrow
+                    title={reporterFind ? 'You report this message' : <button onClick={(e) => discussionReport(e, data.id)}>Report</button>}
+                    PopperProps={{
+                      popperOptions: {
+                        modifiers: [
+                          {
+                            name: 'offset',
+                            options: {
+                              offset: [0, -4], // Adjust the offset as per your requirement
+                            },
+                          },
+                        ],
+                      },
+                    }}
+                  >
+                    <div className="flex flex-col gap-y-1">
+                      <div
+                        className="rounded-lg rounded-bl-none py-2 px-3"
+                        style={{ backgroundColor: "#F2F2F2" }}
+                      >
+                        <div className="flex items-center justify-between">
+                          <p className="text-sm text-[#1B3B7D]">{senderName}</p>
+                          <p className="text-sm text-[#1B3B7D] ml-3">
+                            {senderCountry}
+                          </p>
+                        </div>
+                        <div className="flex items-end justify-between">
+                          <p className="text-lg text-left">{message}</p>
+                          <div className="min-w-max text-right text-xs pl-3">
+                            {moment(createdAt).format("LT")}
+                          </div>
                         </div>
                       </div>
+                      {discussionReports.length > 0 && <span className="text-xs font-medium text-[#1B3B7D]">{discussionReports.length} people report this message</span>}
                     </div>
-                  </div>
+                  </Tooltip>
                 </div>
                 <ProfileImage
                   alt={'Sender Image'}
@@ -120,6 +144,7 @@ const MessageBox = ({ data }) => {
                       <p className="text-left text-xs text-[#00285A] mt-1 pl-3 min-w-max">
                         {moment(createdAt).format("LT")}
                       </p>
+                      {discussionReports.length > 0 && <span className="text-xs font-medium text-[#1B3B7D]">{discussionReports.length} people report this message</span>}
                     </div>
                   ))}
                 </div>
@@ -134,7 +159,8 @@ const MessageBox = ({ data }) => {
           </>
         )}
       </div>
-    </div>
+
+    </div >
   );
 };
 

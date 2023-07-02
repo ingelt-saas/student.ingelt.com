@@ -169,6 +169,19 @@ const Discussions = () => {
     setSelectedImages(newSelectedImages);
   };
 
+  // discussion report handler
+  const discussionReport = async (e, id) => {
+    e.target.disabled = true;
+    try {
+      await discussionApi.reportDiscussion({ discussionId: id });
+      refetch();
+    } catch (err) {
+      console.error(err);
+    } finally {
+      e.target.disabled = false;
+    }
+  }
+
   useEffect(() => {
     scrollToBottom();
   }, []);
@@ -245,7 +258,7 @@ const Discussions = () => {
           {isSuccess &&
             [...discussions.pages].reverse().map(item =>
               Array.isArray(item?.rows) && [...item?.rows].reverse().map(discussion =>
-                <MessageBox key={discussion.id} data={discussion} />
+                <MessageBox key={discussion.id} data={discussion} discussionReport={discussionReport} />
               )
             )}
           {/* {Array.isArray(discussions) &&
