@@ -75,7 +75,12 @@ const Page2 = () => {
           />
         </div> */}
         <div className="flex gap-x-5 max-md:flex-col max-md:gap-y-5">
-          <Header title="Visa Application" subTitle="Hassle free visa processing and approval" Img={welcomeSVG} scale="scale-75" />
+          <Header
+            title="Visa Application"
+            subTitle="Hassle free visa processing and approval"
+            Img={welcomeSVG}
+            scale="scale-75"
+          />
         </div>
         <div className="flex w-full mt-10">
           <div className="w-1/2 flex flex-col max-lg:hidden">
@@ -85,7 +90,9 @@ const Page2 = () => {
               className="w-400 h-auto mx-auto my-auto"
             /> */}
             <Countries />
-            <p className="text-3xl text-center font-semibold text-[#00285A] mt-10 max-md:text-xl max-lg:text-xl">"InGelt Board is a group of 15+ Registered Immigration Consultant"</p>
+            <p className="text-3xl text-center font-semibold text-[#00285A] mt-10 max-md:text-xl max-lg:text-xl">
+              "InGelt Board is a group of 10+ Registered Immigration Consultant"
+            </p>
             <ul className="list-disc list-inside mt-5 text-xl gap-y-2 flex flex-col text-gray max-md:text-lg text-center">
               <li>Amet minim mollit non deserunt ullamco est sit aliqua </li>
               <li>Amet minim mollit non deserunt ullamco est sit aliqua </li>
@@ -285,7 +292,6 @@ const Page2 = () => {
                         </p>
                       </div>
                     </div>
-
                   </div>
                 </div>
               </div>
@@ -355,7 +361,12 @@ const VisaApplication = () => {
         <div className="flex flex-row flex-wrap gap-y-10 gap-x-5 w-full ">
           <div className="w-full h-20 foo:block ">
             <div className="flex gap-x-5 max-md:flex-col max-md:gap-y-5">
-              <Header title="Visa Application" subTitle="Hassel free visa processing and approval" Img={welcomeSVG} scale="scale-75" />
+              <Header
+                title="Visa Application"
+                subTitle="Hassel free visa processing and approval"
+                Img={welcomeSVG}
+                scale="scale-75"
+              />
             </div>
             <div className="flex w-full  max-md:flex-col items-center justify-between mt-10">
               <div className="w-1/2 max-md:w-full flex flex-col items-center justify-between h-full">
@@ -365,9 +376,14 @@ const VisaApplication = () => {
                   className="w-400 h-auto mx-auto my-10"
                 /> */}
                 <Countries />
-                <p className="text-3xl text-center font-semibold text-[#00285A] mt-10 max-md:text-xl max-lg:text-2xl">"InGelt Board is a group of 15+ Registered Immigration Consultant"</p>
+                <p className="text-3xl text-center font-semibold text-[#00285A] mt-10 max-md:text-xl max-lg:text-2xl">
+                  "InGelt Board is a group of 15+ Registered Immigration
+                  Consultant"
+                </p>
                 <ul className="list-disc mt-5 text-xl gap-y-2 flex justify-center items-center flex-col text-gray max-md:text-lg text-center max-lg:text-xl list-inside">
-                  <li>Largest group of Registered Immigration Consultants in India </li>
+                  <li>
+                    Largest group of Registered Immigration Consultants in India{" "}
+                  </li>
                   <li>Over 90% visa approved rate</li>
                   <li>1200+ applications processed </li>
                 </ul>
