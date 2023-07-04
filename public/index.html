@@ -1,37 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="description" content="InGelt Board - Student" />
 
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#ffffff" />
-  <meta name="description" content="InGelt Board - Student" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
 
-  <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-  <link rel="manifest" href="/site.webmanifest" />
+    <meta property="og:title" content="InGelt Board - Student" />
+    <meta
+      property="og:description"
+      content="The InGelt Board is an Ed-Tech platform that aims to remove barriers and ease the way to study abroad. We help students in the entire process from IELTS Prep, College Admission, Education Loan to Visa Filling.
+      We aim to build a smooth ecosystem for study abroad."
+    />
+    <meta
+      property="og:image"
+      href="/logo-600x600.png"
+      content="/logo-600x600.png"
+    />
+    <meta property="og:url" content="https://student.ingelt.com" />
+    <title>InGelt Board - Student</title>
+  </head>
 
-  <meta property="og:title" content="InGelt Board - Student" />
-  <meta property="og:description" content="Ingelt Board is a systematic,
-    easy-to-use interactive software made specifically for IELTS institutes. It
-    helps them to administrate & manage their entire institute from a single
-    desk and streamline various activities. It has been developed to better
-    organise the institute while reducing the workload and increasing
-    productivity." />
-  <meta property="og:image" href="/logo-600x600.png" content="/logo-600x600.png" />
-  <meta property="og:url" content="https://student.ingelt.com" />
-  <title>InGelt Board - Student</title>
-</head>
+  <!-- Google tag (gtag.js) -->
+  <script
+    async
+    src="https://www.googletagmanager.com/gtag/js?id=G-H2TZT0FHRP"
+  ></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
 
-<body>
-  <noscript>For Students Preparing for IELTS with InGelt</noscript>
-  <div id="root"></div>
+    gtag("config", "G-H2TZT0FHRP");
+  </script>
 
-  <!-- OTPless SDK -->
-  <!-- <script type="text/javascript" src="https://otpless.com/auth.js"></script> -->
-  <script src="https://technolitics.authlink.me/js/sdk/otpless.js"></script>
-</body>
+  <body>
+    <noscript>For Students Preparing for IELTS with InGelt</noscript>
+    <div id="root"></div>
 
+    <!-- OTPless SDK -->
+    <!-- <script type="text/javascript" src="https://otpless.com/auth.js"></script> -->
+    <script src="https://technolitics.authlink.me/js/sdk/otpless.js"></script>
+  </body>
 </html>
