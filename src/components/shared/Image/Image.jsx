@@ -6,7 +6,7 @@ import getFile from "../../../api/getFile";
 import femaleAvatar from "../../../assets/images/FemaleAvatra.webp";
 import maleAvatar from "../../../assets/images/MaleAvatra.webp";
 import { StudentContext } from "../../../contexts";
-const Image = ({ src, alt, className, gender, imageRef, ...props }) => {
+const Image = ({ src, alt, className, gender }) => {
   // let gender = "Male";
   // const { student } = useContext(StudentContext);
   // if (!genderForDiscussion) {
@@ -30,8 +30,6 @@ const Image = ({ src, alt, className, gender, imageRef, ...props }) => {
     <span className={`${className} shadow `}></span>
   ) : (
     <img
-      ref={imageRef}
-      {...props}
       src={url}
       alt={alt}
       className={className}
