@@ -73,7 +73,7 @@ const Discussions = () => {
   });
 
   useEffect(() => {
-    const messageBox = document.getElementById("scroll-div");
+    const messageBox = document.getElementById("journal-scroll");
     messageBox.scroll(0, messageBox.scrollHeight);
   }, [discussions]);
 
@@ -270,6 +270,7 @@ const Discussions = () => {
           </div>
         </div>
       </div>
+
       <div className="w-full bg-white">
 
         {selectedImages.length > 0 && (
