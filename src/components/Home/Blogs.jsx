@@ -13,22 +13,22 @@ import moment from 'moment';
 import parse from 'html-react-parser';
 
 const BlogItem = ({ item, setReadPost }) => {
-    const { title, textContent, picture } = item;
+    const { id, title, textContent, picture } = item;
     return <div className='rounded-lg shadow-md border border-[#78787840] flex flex-col h-full'>
         <div className='rounded-lg overflow-hidden md:h-36 xl:h-40'>
             <Image src={picture} alt={title} className={'w-full h-full object-cover'} />
         </div>
         <div className='px-3 py-4 flex flex-col flex-1 gap-y-3'>
             <h1 className='text-xl font-medium leading-none'>{title}</h1>
-            <p className='text-sm text-[#00000099] font-medium flex-1'>
+            {/* <p className='text-sm text-[#00000099] font-medium flex-1'>
                 {textContent?.length > 70 ? textContent.split('').slice(0, 70).join('') + '...' : textContent}
-            </p>
-            <button onClick={() => setReadPost(item)} className='text-sm font-medium inline-flex items-center gap-1 w-fit'>
+            </p> */}
+            <a rel='noreferrer' href={`https://board.ingelt.com/blogs/${id}`} target='_blank' className='text-sm font-medium inline-flex items-center gap-1 w-fit'>
                 Read Post
                 <ArrowRightAlt fontSize='small' />
-            </button>
+            </a>
         </div>
-    </div>
+    </div >
 }
 
 const Blogs = () => {
