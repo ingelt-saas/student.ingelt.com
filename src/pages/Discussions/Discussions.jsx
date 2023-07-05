@@ -49,7 +49,7 @@ const Discussions = () => {
   };
 
   const scrollToBottom = () => {
-    const messageBox = document.getElementById("scroll-div");
+    const messageBox = document.getElementById("journal-scroll");
     if (messageBox) {
       messageBox.scroll(0, messageBox.scrollHeight);
     }
@@ -72,10 +72,10 @@ const Discussions = () => {
     }
   });
 
-  useEffect(() => {
-    const messageBox = document.getElementById("journal-scroll");
-    messageBox.scroll(0, messageBox.scrollHeight);
-  }, [discussions]);
+  // useEffect(() => {
+  //   const messageBox = document.getElementById("scroll-div");
+  //   messageBox.scroll(0, messageBox.scrollHeight);
+  // }, [discussions]);
 
   useEffect(() => {
     const getAll = async () => {
@@ -270,7 +270,6 @@ const Discussions = () => {
           </div>
         </div>
       </div>
-
       <div className="w-full bg-white">
 
         {selectedImages.length > 0 && (
