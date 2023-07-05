@@ -39,6 +39,13 @@ const VideoModal = ({ file, showPopup, closePopup }) => {
       //   displayCurrentQuality: true,
       // });
 
+      if (player) {
+        player.on('ended', () => {
+          player.dispose();
+          closePopup();
+        });
+      }
+
       return () => {
         if (player) {
           player.dispose();
