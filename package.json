@@ -46,6 +46,8 @@
     "socket.io-client": "^4.6.2",
     "styled-components": "^5.3.6",
     "swiper": "^9.3.2",
+    "videojs-contrib-quality-levels": "^4.0.0",
+    "videojs-hls-quality-selector": "^1.1.4",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
