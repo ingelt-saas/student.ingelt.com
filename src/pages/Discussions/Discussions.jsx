@@ -9,6 +9,7 @@ import { FiSend } from "react-icons/fi";
 import { useRef } from "react";
 import {
   AttachFile,
+  Close,
   Photo,
   PhotoCamera,
   Remove,
@@ -294,7 +295,12 @@ const Discussions = () => {
           </div>
         )}
 
-        {replyDiscussion && <p className="px-2 pt-2 text-sm font-semibold text-[#1B3B7d]">Reply Message</p>}
+        {replyDiscussion && <p className="px-3 pt-2 text-sm font-semibold text-[#1B3B7d] flex justify-between items-center">
+          Reply Message
+          <button onClick={() => setReplyDiscussion(null)}>
+            <Close fontSize="small" />
+          </button>
+        </p>}
 
         <form
           onSubmit={createDiscussion}

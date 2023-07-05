@@ -2,12 +2,13 @@ import moment from "moment/moment";
 import { useContext, useEffect, useState } from "react";
 import { StudentContext } from "../../contexts";
 import ProfileImage from "../shared/ProfileImage/ProfileImage";
-import { Tooltip, MenuItem, Menu } from "@mui/material";
+import { Tooltip, MenuItem, Menu, Modal, Button } from "@mui/material";
 import PopupState, { bindTrigger, bindMenu } from "material-ui-popup-state";
 import { Gallery, Item } from "react-photoswipe-gallery";
 import 'photoswipe/dist/photoswipe.css'
 import getFile from "../../api/getFile";
-import { KeyboardArrowDown } from "@mui/icons-material";
+import ReplyIcon from '@mui/icons-material/Reply';
+import ReportIcon from '@mui/icons-material/Report';
 
 const GalleryItem = ({ image }) => {
 
@@ -39,6 +40,9 @@ const MessageBox = ({ data, discussionReport, setReplyDiscussion }) => {
   const {
     student: { id, name, gender, image },
   } = useContext(StudentContext);
+
+  // states 
+  const [reportConfirm, setReportConfirm] = useState(false);
 
   const {
     message,
@@ -80,29 +84,18 @@ const MessageBox = ({ data, discussionReport, setReplyDiscussion }) => {
       {isStudentMessage && <div className="w-fit md:max-w-[70%] max-w-[90%] flex flex-row items-end">
 
         <div className="flex flex-col items-end gap-y-1 flex-1">
+
           {/* if message field is not empty or null */}
-          {message && <div className="rounded-md rounded-br-none bg-[#1b3b7d] flex-1 py-2 px-2">
+          {message && <div className="rounded-md rounded-br-none bg-[#1b3b7d] flex-1 py-2 px-2 relative">
+            <Tooltip title='Reply'>
+              <button onClick={() => setReplyDiscussion(data)} className="absolute top-0 right-full text-[#1b3b7d]">
+                <ReplyIcon />
+              </button>
+            </Tooltip>
             <div className="flex flex-col gap-y-1 justify-end">
               {ParentDiscussion && <p className="text-xs rounded-lg p-1 bg-[#f2f2f2] bg-opacity-50 text-white">{ParentDiscussion?.message}</p>}
               <p className="text-sm lg:text-base text-white flex gap-x-1 items-start">
                 <span className="flex-1">{message}</span>
-                <PopupState variant="popover" popupId="demo-popup-menu">
-                  {(popupState) => (
-                    <>
-                      <button className="" {...bindTrigger(popupState)}>
-                        <KeyboardArrowDown />
-                      </button>
-                      <Menu {...bindMenu(popupState)}>
-                        <MenuItem
-                          onClick={() => {
-                            setReplyDiscussion(data);
-                            popupState.close();
-                          }}
-                        >Reply</MenuItem>
-                      </Menu>
-                    </>
-                  )}
-                </PopupState>
               </p>
               <p className="text-right text-xs text-white pl-3 min-w-max opacity-75">
                 {moment(createdAt).format("lll")}
@@ -125,7 +118,7 @@ const MessageBox = ({ data, discussionReport, setReplyDiscussion }) => {
               </p>
             </div>
           }
-          {discussionReports.length > 0 && <span className="!text-xs text-[#1b3b7d] font-medium">{discussionReports.length} people report this message</span>}
+          {discussionReports.length > 0 && <span className="!text-xs text-[#1b3b7d] font-medium">{discussionReports.length} people reported this message</span>}
         </div>
 
         {/* my self image show */}
@@ -139,7 +132,7 @@ const MessageBox = ({ data, discussionReport, setReplyDiscussion }) => {
         </div>
       </div>}
 
-      {!isStudentMessage && <div className="w-fit md:max-w-[70%] max-w-[90%] flex flex-row items-end">
+      {!isStudentMessage && <div className="w-fit md:max-w-[70%] max-w-[82%] flex flex-row items-end">
 
         {/* my self image show */}
         <div className="px-2">
@@ -153,7 +146,19 @@ const MessageBox = ({ data, discussionReport, setReplyDiscussion }) => {
 
         <div className="flex flex-col gap-y-1 flex-1">
           {/* if message field is not empty or null */}
-          {message && <div className="rounded-md rounded-bl-none bg-[#FFF] flex-1 py-2 px-2 shadow-md">
+          {message && <div className="rounded-md rounded-bl-none bg-[#FFF] flex-1 py-2 px-2 shadow-md relative">
+            <span className="absolute flex items-center gap-x-1 top-0 left-full pl-1">
+              <Tooltip title='Reply'>
+                <button onClick={() => setReplyDiscussion(data)} className="text-[#1b3b7d]">
+                  <ReplyIcon />
+                </button>
+              </Tooltip>
+              <Tooltip title='Report'>
+                <button onClick={() => setReportConfirm(true)} className="text-[#1b3b7d]">
+                  <ReportIcon />
+                </button>
+              </Tooltip>
+            </span>
             <div className="flex flex-col gap-y-1 justify-start">
               <p className="flex text-xs font-semibold justify-between gap-x-2 text-[#1b3b7d] w-full">
                 <span>{senderName}</span>
@@ -162,29 +167,6 @@ const MessageBox = ({ data, discussionReport, setReplyDiscussion }) => {
               {ParentDiscussion && <p className="text-xs rounded-lg p-1 bg-[#f2f2f2] text-[#1b3b7d]">{ParentDiscussion?.message}</p>}
               <p className="text-sm lg:text-base text-[#1b3b7d] flex gap-x-1 items-start">
                 <span className="flex-1">{message}</span>
-                <PopupState variant="popover" popupId="demo-popup-menu">
-                  {(popupState) => (
-                    <>
-                      <button className="" {...bindTrigger(popupState)}>
-                        <KeyboardArrowDown />
-                      </button>
-                      <Menu {...bindMenu(popupState)}>
-                        <MenuItem
-                          onClick={() => {
-                            setReplyDiscussion(data);
-                            popupState.close();
-                          }}
-                        >Reply</MenuItem>
-                        {!reporterFind && <MenuItem
-                          onClick={() => {
-                            discussionReport(data.id);
-                            popupState.close();
-                          }}
-                        >Report</MenuItem>}
-                      </Menu>
-                    </>
-                  )}
-                </PopupState>
               </p>
               <p className="text-left text-xs text-[#1b3b7d] min-w-max opacity-75">
                 {moment(createdAt).format("lll")}
@@ -212,10 +194,47 @@ const MessageBox = ({ data, discussionReport, setReplyDiscussion }) => {
               </div>
             </>
           }
-          {discussionReports.length > 0 && <span className="!text-xs text-[#1b3b7d] font-medium">{reporterFind ? (discussionReports.length <= 1 ? 'You report this message' : `You & ${discussionReports.length - 1} people report this message`) : `${discussionReports.length} people report this message`}</span>}
+          {discussionReports.length > 0 && <span className="!text-xs text-[#1b3b7d] font-medium">{reporterFind ? (discussionReports.length <= 1 ? 'You report this message' : `You & ${discussionReports.length - 1} people report this message`) : `${discussionReports.length} people reported this message`}</span>}
         </div>
 
       </div>}
+
+      {/* report confirm modal */}
+      <Modal open={reportConfirm} onClose={() => setReportConfirm(false)} className='grid place-items-center'>
+        <div className='bg-white pb-7 pt-4 px-7 rounded-md max-sm:w-11/12 max-w-[400px]'>
+          <h4 className='text-xl font-medium text-center'>Are you sure you want to report this message?</h4>
+          <div className='flex items-center flex-row gap-x-4 mt-4'>
+            <Button
+              onClick={() => setReportConfirm(false)}
+              sx={{
+                color: '#00000066',
+                border: '1px solid #00000066',
+                fontWeight: 600,
+                padding: '0.7rem',
+                borderRadius: '7px',
+                textTransform: 'capitalize',
+                flex: '1',
+                boxShadow: 'none'
+              }}
+            >Cancel</Button>
+            <Button
+              onClick={() => {
+                discussionReport(data.id);
+                setReportConfirm(null);
+              }}
+              color='error' variant='contained'
+              sx={{
+                fontWeight: 600,
+                padding: '0.7rem',
+                borderRadius: '7px',
+                textTransform: 'capitalize',
+                flex: '1',
+                boxShadow: 'none'
+              }}
+            >Delete</Button>
+          </div>
+        </div>
+      </Modal>
 
       {/*       
           discussionImages.map((item) => (
