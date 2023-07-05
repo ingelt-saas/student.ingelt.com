@@ -233,7 +233,7 @@ const MessageBox = ({ data, discussionReport, setReplyDiscussion }) => {
                 flex: '1',
                 boxShadow: 'none'
               }}
-            >Delete</Button>
+            >Report</Button>
           </div>
         </div>
       </Modal>
