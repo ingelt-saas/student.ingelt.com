@@ -3,7 +3,6 @@ import { useContext, useEffect, useState } from "react";
 import { StudentContext } from "../../contexts";
 import ProfileImage from "../shared/ProfileImage/ProfileImage";
 import { Tooltip, MenuItem, Menu, Modal, Button } from "@mui/material";
-import PopupState, { bindTrigger, bindMenu } from "material-ui-popup-state";
 import { Gallery, Item } from "react-photoswipe-gallery";
 import 'photoswipe/dist/photoswipe.css'
 import getFile from "../../api/getFile";
@@ -236,135 +235,7 @@ const MessageBox = ({ data, discussionReport, setReplyDiscussion }) => {
         </div>
       </Modal>
 
-      {/*       
-          discussionImages.map((item) => (
-      <div
-        className="rounded-md mb-4 last:mb-0 w-96 max-w-[90%] overflow-hidden cursor-pointer ml-auto bg-white"
-        key={item.id}
-      >
-        <Image
-          src={item.image}
-          alt=""
-          className="w-full rounded-md h-auto"
-          gender={gender}
-        />
-        <p className="text-right text-xs text-[#00285A] mt-1 pl-3 min-w-max">
-          {moment(createdAt).format("LT")}
-        </p>
-
-      </div> */}
-
-
-
-      {/* <div className={`chat-message`}>
-        {isStudentMessage ? (
-          <>
-
-            {Array.isArray(discussionImages) &&
-              discussionImages.length > 0 &&
-              discussionImages.map((item) => (
-                <div
-                  className="rounded-md mb-4 last:mb-0 w-96 max-w-[90%] overflow-hidden cursor-pointer ml-auto bg-white"
-                  key={item.id}
-                >
-                  <Image
-                    src={item.image}
-                    alt=""
-                    className="w-full rounded-md h-auto"
-                    gender={gender}
-                  />
-                  <p className="text-right text-xs text-[#00285A] mt-1 pl-3 min-w-max">
-                    {moment(createdAt).format("LT")}
-                  </p>
-                  {discussionReports.length > 0 && <span className="text-xs font-medium">{discussionReports.length} people report this message</span>}
-                </div>
-              ))}
-          </>
-        ) : (
-          <>
-            {message && (
-              <div className="flex items-end">
-                <div className="flex flex-col space-y-2 text-lg max-w-xl mx-2 order-2 items-center justify-center">
-                  <Tooltip
-                    arrow
-                    title={reporterFind ? 'You report this message' : <button onClick={(e) => discussionReport(e, data.id)}>Report</button>}
-                    PopperProps={{
-                      popperOptions: {
-                        modifiers: [
-                          {
-                            name: 'offset',
-                            options: {
-                              offset: [0, -4], // Adjust the offset as per your requirement
-                            },
-                          },
-                        ],
-                      },
-                    }}
-                  >
-                    <div className="flex flex-col gap-y-1">
-                      <div
-                        className="rounded-lg rounded-bl-none py-2 px-3"
-                        style={{ backgroundColor: "#F2F2F2" }}
-                      >
-                        <div className="flex items-center justify-between">
-                          <p className="text-sm text-[#1B3B7D]">{senderName}</p>
-                          <p className="text-sm text-[#1B3B7D] ml-3">
-                            {senderCountry}
-                          </p>
-                        </div>
-                        <div className="flex items-end justify-between">
-                          <p className="text-lg text-left">{message}</p>
-                          <div className="min-w-max text-right text-xs pl-3">
-                            {moment(createdAt).format("LT")}
-                          </div>
-                        </div>
-                      </div>
-                      {discussionReports.length > 0 && <span className="text-xs font-medium text-[#1B3B7D]">{discussionReports.length} people report this message</span>}
-                    </div>
-                  </Tooltip>
-                </div>
-                <ProfileImage
-                  alt={'Sender Image'}
-                  src={senderImage}
-                  className="w-10 h-10 rounded-full order-1 object-cover"
-                  gender={senderGender}
-                />
-              </div>
-            )}
-
-            {Array.isArray(discussionImages) && discussionImages.length > 0 && (
-              <div className="flex flex-row-reverse items-end justify-end">
-                <div className="flex flex-col">
-                  {discussionImages.map((item) => (
-                    <div
-                      className="rounded-md mb-4 last:mb-0 w-96 max-w-[90%] overflow-hidden cursor-pointer ml-2 mr-auto bg-white"
-                      key={item.id}
-                    >
-                      <Image
-                        src={item.image}
-                        alt=""
-                        className="w-full h-auto rounded-md"
-                      />
-                      <p className="text-left text-xs text-[#00285A] mt-1 pl-3 min-w-max">
-                        {moment(createdAt).format("LT")}
-                      </p>
-                      {discussionReports.length > 0 && <span className="text-xs font-medium text-[#1B3B7D]">{discussionReports.length} people report this message</span>}
-                    </div>
-                  ))}
-                </div>
-                <ProfileImage
-                  alt={'Sender Image'}
-                  src={senderImage}
-                  className="w-10 h-10 rounded-full order-1 object-cover"
-                  gender={senderGender}
-                />
-              </div>
-            )}
-          </>
-        )}
-      </div> */}
-
-    </div >
+    </div>
   );
 };
 
