@@ -9,6 +9,7 @@ const discussion = {
   getDiscussions: (pageNo, limit) =>
     instance.get(`/discussion/all?pageno=${pageNo}&limit=${limit}`),
   deleteDiscussion: (id) => instance.delete(`/discussion/${id}`),
+  reportDiscussion: (data) => instance.post('/discussion/discussionReport', data),
 };
 
 export default discussion;
