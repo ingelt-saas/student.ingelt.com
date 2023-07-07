@@ -125,7 +125,7 @@ const MessageBox = ({ data, discussionReport, setReplyDiscussion }) => {
               {
                 <Gallery>
                   <div className="flex flex-col md:w-[400px] gap-2">
-                    {discussionImages.map(item => item.image && <GalleryItem image={item.image} />)}
+                    {discussionImages.map(item => item.image && <GalleryItem key={item.image} image={item.image} />)}
                   </div>
                 </Gallery>
               }
@@ -202,12 +202,12 @@ const MessageBox = ({ data, discussionReport, setReplyDiscussion }) => {
               <div className="rounded-md rounded-br-none bg-[#F2F2F2] flex-1 shadow-md py-2 px-2 flex-col flex gap-1 items-start">
                 <p className="flex text-xs font-semibold justify-between gap-x-2 text-[#1b3b7d] w-full">
                   <span>{senderName}</span>
-                  <span>{senderCountry}</span>
+                  <span className="flex gap-x-2 items-center">{<CountryFlag country={senderCountry} />}</span>
                 </p>
                 {
                   <Gallery>
                     <div className="flex flex-col md:w-[400px] gap-2">
-                      {discussionImages.map(item => item.image && <GalleryItem image={item.image} />)}
+                      {discussionImages.map(item => item.image && <GalleryItem key={item.image} image={item.image} />)}
                     </div>
                   </Gallery>
                 }

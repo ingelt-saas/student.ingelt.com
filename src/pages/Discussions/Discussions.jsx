@@ -18,6 +18,7 @@ import {
 import { AppBar, Avatar, Button, Toolbar, Typography } from "@mui/material";
 import Compressor from "compressorjs";
 import { SocketContext, StudentContext } from "../../contexts";
+import moment from "moment";
 
 const Discussions = () => {
 
@@ -111,7 +112,7 @@ const Discussions = () => {
       // Send Message to Socket
       socket.emit("message", {
         message,
-        parentDiscussionId: replyDiscussion.id,
+        parentDiscussionId: replyDiscussion?.id || null,
         images: selectedImages,
         student_auth_token: Cookies.get("student_auth_token"),
       });
@@ -185,9 +186,29 @@ const Discussions = () => {
     }
   }
 
+  // discussion date beautifyer
+  const formatDate = (date) => {
+    // date = moment(date);
+    const inputDate = moment(date, 'YYYY-MM-DD')
+    const currentDate = moment();
+
+    if (inputDate.isSame(currentDate, 'day')) {
+      return 'Today';
+    }
+
+    if (currentDate.diff(inputDate, 'days') < 7) {
+      return inputDate.format('dddd'); // Return day name
+    } else {
+      return inputDate.format('ll'); // Return full date
+    }
+
+  }
+
   useEffect(() => {
     scrollToBottom();
-  }, []);
+  }, [discussions]);
+
+  // console.log(discussions);
 
   return (
     <div className="w-full h-full flex flex-col">
@@ -259,12 +280,17 @@ const Discussions = () => {
               </div>
             </div>}
 
+            {/* <MessageBox key={discussion.id} data={discussion} discussionReport={discussionReport} setReplyDiscussion={setReplyDiscussion} /> */}
+
             {/* show discussions */}
             {isSuccess &&
               [...discussions.pages].reverse().map(item =>
-                Array.isArray(item?.rows) && [...item?.rows].reverse().map(discussion =>
-                  <MessageBox key={discussion.id} data={discussion} discussionReport={discussionReport} setReplyDiscussion={setReplyDiscussion} />
-                )
+                [...Object.keys(item.rows)].reverse().map(key => <>
+                  <div className="w-full py-4 flex justify-center">
+                    <span className="px-5 py-1 shadow-sm rounded-2xl bg-[#1b3b7d] text-base font-light text-white">{formatDate(key)}</span>
+                  </div>
+                  {[...item.rows[key]].reverse().map(discussion => <MessageBox key={discussion.id} data={discussion} discussionReport={discussionReport} setReplyDiscussion={setReplyDiscussion} />)}
+                </>)
               )
             }
           </div>
