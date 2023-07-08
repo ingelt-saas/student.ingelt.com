@@ -56,7 +56,7 @@ const ShortlistUniversity = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [pagination, setPagination] = useState({ page: 1, rows: 100 });
   const [leftDrawer, setLeftDrawer] = useState(false);
-  const [filterData, setFilterData] = useState({ country: '', course: '', areaOfInterest: '', });
+  const [filterData, setFilterData] = useState({ country: [], course: [], areaOfInterest: [], });
 
   const { data, isLoading, refetch } = useQuery({
     queryKey: ['shortlistedUniversities', pagination, filterData],
@@ -64,9 +64,9 @@ const ShortlistUniversity = () => {
       const res = await universityApi.getAll(
         pagination.page,
         pagination.rows,
-        filterData.country,
-        (filterData.course === 'All' ? '' : filterData.course),
-        filterData.areaOfInterest
+        filterData.country.join(';'),
+        filterData.course.join(';'),
+        filterData.areaOfInterest.join(';')
       );
       return res.data;
     }
