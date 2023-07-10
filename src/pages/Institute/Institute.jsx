@@ -15,6 +15,7 @@ import {
   MenuItem,
   Typography,
 } from "@mui/material";
+import TrackPerformance from "../../components/Institute/TrackPerformance";
 
 const Institute = () => {
   const [search, setSearch] = useSearchParams();
@@ -72,9 +73,9 @@ const Institute = () => {
               Institute
             </Typography>
             <Typography
-            sx={{
-              fontSize: {xs:'0.9rem',md:"1rem"},
-            }}
+              sx={{
+                fontSize: { xs: '0.9rem', md: "1rem" },
+              }}
             >
               Crack IELTS with our Partnered Institutes
             </Typography>
@@ -92,35 +93,41 @@ const Institute = () => {
         <div className="flex items-end justify-start">
           <button
             onClick={() => setSearch({ page: "assignments" })}
-            className={`duration-200 transition-none ease-in ${
-              page === "assignments" || !page
-                ? "border-1 py-3 px-5 md:px-8 font-semibold text-[#1B3B7D] border-[#ECECEC] bg-white border-b-0 rounded-t-xl"
-                : "bg-[#F3F3F3] py-2 px-2 md:px-5 text-sm"
-            }`}
+            className={`duration-200 transition-none ease-in ${page === "assignments" || !page
+              ? "border-1 py-3 px-5 md:px-8 font-semibold text-[#1B3B7D] border-[#ECECEC] bg-white border-b-0 rounded-t-xl"
+              : "bg-[#F3F3F3] py-2 px-2 md:px-5 text-sm"
+              }`}
           >
             Assignments
           </button>
           <button
             onClick={() => setSearch({ page: "notes" })}
-            className={`duration-200 transition-none ease-in ${
-              page === "notes"
-                ? "border-1 py-3 px-5 md:px-8 font-semibold text-[#1B3B7D] border-[#ECECEC] bg-white border-b-0 rounded-t-xl"
-                : "bg-[#F3F3F3] py-2 px-2 md:px-5 text-sm"
-            }`}
+            className={`duration-200 transition-none ease-in ${page === "notes"
+              ? "border-1 py-3 px-5 md:px-8 font-semibold text-[#1B3B7D] border-[#ECECEC] bg-white border-b-0 rounded-t-xl"
+              : "bg-[#F3F3F3] py-2 px-2 md:px-5 text-sm"
+              }`}
           >
             Notes
           </button>
+          <button
+            onClick={() => setSearch({ page: "track-performance" })}
+            className={`duration-200 transition-none ease-in ${page === "track-performance"
+              ? "border-1 py-3 px-5 md:px-8 font-semibold text-[#1B3B7D] border-[#ECECEC] bg-white border-b-0 rounded-t-xl"
+              : "bg-[#F3F3F3] py-2 px-2 md:px-5 text-sm"
+              }`}
+          >
+            Track Performance
+          </button>
         </div>
         <div className="flex items-end justify-end pt-5 sm:pt-0 md:pl-16 xl:pl-0">
-          <SearchBar handleSubmit={searchForm} />
+          {page !== 'track-performance' && <SearchBar handleSubmit={searchForm} />}
         </div>
       </div>
 
-      {page === "notes" ? (
-        <Notes searchQuery={searchQuery} />
-      ) : (
-        <Assignments searchQuery={searchQuery} />
-      )}
+      {page === 'notes' && <Notes searchQuery={searchQuery} />}
+      {page === 'track-performance' && <TrackPerformance />}
+      {(page !== 'notes' && page !== 'track-performance') && <Assignments searchQuery={searchQuery} />}
+
     </div>
   );
 };

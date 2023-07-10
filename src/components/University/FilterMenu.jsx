@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { MenuItem, Button, Menu, } from '@mui/material';
+import { MenuItem, Button, Menu, FormControl, InputLabel, Select, OutlinedInput, Box, Chip, } from '@mui/material';
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 //Styled
 import { styled } from "@mui/material/styles";
@@ -29,130 +29,102 @@ import { toast } from 'react-toastify';
 import universityApi from '../../api/university.js';
 import { useEffect } from 'react';
 
-const SelectMenu = ({ data, placeholder, onChange, defaultValue }) => {
-
-    const [anchorEl, setAnchorEl] = useState(null);
-    const [selectedItem, setSelectedItem] = useState(null); // Added state to keep track of selected item
-    const open = Boolean(anchorEl);
-    const [menuWidth, setMenuWidth] = useState(0);
-
-    const StyledMenu = styled((props) => (
-        <Menu
-            elevation={0}
-            anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "right",
-            }}
-            transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-            }}
-            {...props}
-        />
-    ))(({ theme }) => ({
-        maxHeight: '50vh',
-        "&. MuiButton-root": {
-            color:
-                theme.palette.mode === "light"
-                    ? "rgb(55, 65, 81)"
-                    : theme.palette.grey[300],
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+    PaperProps: {
+        style: {
+            maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+            width: 250,
         },
-        "& .MuiPaper-root": {
-            borderRadius: 6,
-            marginTop: theme.spacing(1),
-            minWidth: menuWidth,
-            color:
-                theme.palette.mode === "light"
-                    ? "rgb(55, 65, 81)"
-                    : theme.palette.grey[300],
-            boxShadow:
-                "rgb(255, 255, 255) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px",
-            "& .MuiMenu-list": {
-                padding: "4px 0",
-            },
-            "& .MuiMenuItem-root": {
-                "& .MuiSvgIcon-root": {
-                    fontSize: 18,
-                    color: theme.palette.text.secondary,
-                    marginRight: theme.spacing(1.5),
-                },
-                "&:active": {
-                    backgroundColor: "#ffffff",
-                },
-            },
-        },
-    }));
+    },
+};
 
-    const handleBatchSelect = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
-
-    const handleItemSelect = (item) => {
-        // Added function to handle item selection
-        // setSelectedItem(item);
-        setAnchorEl(null);
-        onChange(item);
-    };
-
-    useEffect(() => {
-        setSelectedItem(defaultValue);
-    }, [defaultValue])
-
-    useEffect(() => {
-        const button = document.getElementById('demo-customized-button');
-        const btnWidth = button.clientWidth;
-        setMenuWidth(btnWidth);
-    }, []);
-
-    return (
-        <>
-            <Button
-                id="demo-customized-button"
-                aria-controls={open ? "demo-customized-menu" : undefined}
-                aria-haspopup="true"
-                aria-expanded={open ? "true" : undefined}
-                variant="outlined"
-                disableElevation
-                onClick={handleBatchSelect}
+const MultiSelectMenu = ({ label, onChange, name, values, options }) => {
+    return <>
+        <FormControl fullWidth>
+            <InputLabel id="demo-multiple-chip-label">{label}</InputLabel>
+            <Select
+                labelId="demo-multiple-chip-label"
+                id="demo-multiple-chip"
+                multiple
+                name={name}
+                value={values}
+                onChange={onChange}
+                input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
+                renderValue={(selected) => (
+                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                        {selected.map((value) => (
+                            <Chip key={value} label={value} />
+                        ))}
+                    </Box>
+                )}
+                MenuProps={MenuProps}
                 sx={{
-                    bgcolor: "transparent",
-                    color: "#1B3B7B",
-                    border: '2px solid #F7EFFF !important',
-                    textTransform: "capitalize",
-                    fontWeight: 500,
-                    padding: "0.8rem 0.8rem",
-                    borderRadius: "7px",
-                    width: '100%',
-                    display: 'flex',
-                    justifyContent: 'space-between'
+                    '& .MuiOutlinedInput-notchedOutline': {
+                        border: 'none !important',
+                        borderRadius: 'none !important',
+                        borderBottom: '2px solid #F7EFFF !important',
+                    }
                 }}
-                endIcon={<KeyboardArrowDownIcon />}
             >
-                {selectedItem ? selectedItem : placeholder}{" "}
-                {/* Display selected item name or default button name */}
-            </Button>
-            <StyledMenu
-                id="demo-customized-menu"
-                MenuListProps={{
-                    "aria-labelledby": "demo-customized-button",
-                }}
-                anchorEl={anchorEl}
-                open={open}
-                onClose={() => setAnchorEl(null)}
-            >
-                {data.map((item) => (
+                {options.map((item) => (
                     <MenuItem
                         key={item}
-                        onClick={() => handleItemSelect(item)} // Call handleItemSelect when an item is clicked
-                        className='flex gap-x-4'
+                        value={item}
+                    // style={getStyles(name, personName, theme)}
                     >
                         {item}
                     </MenuItem>
                 ))}
-            </StyledMenu>
-        </>
-    );
+            </Select>
+        </FormControl>
+    </>
 }
+
+const MultiAreaMenu = ({ label, onChange, values, options }) => {
+    return <>
+        <FormControl fullWidth>
+            <InputLabel id="demo-multiple-chip-label">{label}</InputLabel>
+            <Select
+                labelId="demo-multiple-chip-label"
+                id="demo-multiple-chip"
+                multiple
+                value={values}
+                onChange={onChange}
+                input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
+                renderValue={(selected) => (
+                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                        {selected.map((value) => (
+                            <Chip key={value} label={value} />
+                        ))}
+                    </Box>
+                )}
+                MenuProps={MenuProps}
+                sx={{
+                    '& .MuiOutlinedInput-notchedOutline': {
+                        border: 'none !important',
+                        borderRadius: 'none !important',
+                        borderBottom: '2px solid #F7EFFF !important',
+                    }
+                }}
+            >
+                {options.map((item) => (
+                    <MenuItem
+                        key={item.name}
+                        value={item.name}
+                        // style={getStyles(name, personName, theme)}
+                        className='flex gap-x-2'
+                    >
+                        <img src={item.img} alt={item.name} className='' />
+                        {item.name}
+                    </MenuItem>
+                ))}
+            </Select>
+        </FormControl>
+    </>
+}
+
 
 const RightArrowSVG = ({ className, backgroundColor }) => {
     return (
@@ -192,139 +164,6 @@ const RightArrowSVG = ({ className, backgroundColor }) => {
         </svg>
     );
 };
-
-const AreaSelectMenu = ({ data, onChange, defaultValue }) => {
-
-    const [anchorEl, setAnchorEl] = useState(null);
-    const [selectedItem, setSelectedItem] = useState(null); // Added state to keep track of selected item
-    const open = Boolean(anchorEl);
-    const [menuWidth, setMenuWidth] = useState(0);
-
-    const StyledMenu = styled((props) => (
-        <Menu
-            elevation={0}
-            anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "right",
-            }}
-            transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-            }}
-            {...props}
-        />
-    ))(({ theme }) => ({
-        maxHeight: '50vh',
-        "&. MuiButton-root": {
-            color:
-                theme.palette.mode === "light"
-                    ? "rgb(55, 65, 81)"
-                    : theme.palette.grey[300],
-        },
-        "& .MuiPaper-root": {
-            borderRadius: 6,
-            marginTop: theme.spacing(1),
-            minWidth: menuWidth,
-            color:
-                theme.palette.mode === "light"
-                    ? "rgb(55, 65, 81)"
-                    : theme.palette.grey[300],
-            boxShadow:
-                "rgb(255, 255, 255) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px",
-            "& .MuiMenu-list": {
-                padding: "4px 0",
-            },
-            "& .MuiMenuItem-root": {
-                "& .MuiSvgIcon-root": {
-                    fontSize: 18,
-                    color: theme.palette.text.secondary,
-                    marginRight: theme.spacing(1.5),
-                },
-                "&:active": {
-                    backgroundColor: "#ffffff",
-                },
-            },
-        },
-    }));
-
-    const handleBatchSelect = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
-
-    const handleItemSelect = (item) => {
-        // Added function to handle item selection
-        // setSelectedItem(item);
-        setAnchorEl(null);
-        onChange(item.name);
-    };
-
-    useEffect(() => {
-        if (defaultValue) {
-            const item = data.find(i => i.name === defaultValue);
-            setSelectedItem(item);
-        }
-    }, [defaultValue, data]);
-
-    useEffect(() => {
-        const button = document.getElementById('demo-area-button');
-        const btnWidth = button.clientWidth;
-        setMenuWidth(btnWidth);
-    }, []);
-
-    return (
-        <>
-            <Button
-                id="demo-area-button"
-                aria-controls={open ? "demo-customized-menu" : undefined}
-                aria-haspopup="true"
-                aria-expanded={open ? "true" : undefined}
-                variant="outlined"
-                disableElevation
-                onClick={handleBatchSelect}
-                sx={{
-                    bgcolor: "transparent",
-                    color: "#1B3B7B",
-                    border: '2px solid #F7EFFF !important',
-                    textTransform: "capitalize",
-                    fontWeight: 500,
-                    padding: "0.8rem 0.8rem",
-                    borderRadius: "7px",
-                    width: '100%',
-                    display: 'flex',
-                    justifyContent: 'space-between'
-                }}
-                endIcon={<KeyboardArrowDownIcon />}
-            >
-                {selectedItem ? <span className='flex gap-x-4'>
-                    <img src={selectedItem.img} alt={selectedItem.name} className='' />
-                    {selectedItem.name}
-                </span> : 'Area of interest'}
-                {/* {selectedItem ? selectedItem : }{" "} */}
-                {/* Display selected item name or default button name */}
-            </Button>
-            <StyledMenu
-                id="demo-customized-menu"
-                MenuListProps={{
-                    "aria-labelledby": "demo-customized-button",
-                }}
-                anchorEl={anchorEl}
-                open={open}
-                onClose={() => setAnchorEl(null)}
-            >
-                {data.map((item) => (
-                    <MenuItem
-                        key={item.name}
-                        onClick={() => handleItemSelect(item)} // Call handleItemSelect when an item is clicked
-                        className='flex gap-x-4'
-                    >
-                        <img src={item.img} alt={item.name} className='' />
-                        {item.name}
-                    </MenuItem>
-                ))}
-            </StyledMenu>
-        </>
-    );
-}
 
 const FilterMenu = ({ filterHandler, selectedData }) => {
 
@@ -430,24 +269,27 @@ const FilterMenu = ({ filterHandler, selectedData }) => {
                     </button>
                 </div>
             </div>
-            <div className="h-4/7">
-                <SelectMenu
-                    placeholder={'Country'}
-                    data={countries}
-                    defaultValue={selectedData.country}
-                    onChange={(value) => filterHandler('country', value)}
+            <div className="h-4/7 flex flex-col gap-y-3 mt-3">
+                <MultiSelectMenu
+                    label={'Country'}
+                    name={'country'}
+                    onChange={(e) => filterHandler('country', e.target.value)}
+                    values={selectedData.country}
+                    options={countries}
                 />
-                <SelectMenu
-                    placeholder={'Course Level'}
-                    defaultValue={selectedData.course}
-                    data={['High School (11th -12th)', 'UG Diploma/ Certificate', 'UG', 'PG Diploma/ Certificate', 'PG', 'PhD']}
-                    onChange={(value) => filterHandler('course', value)}
+                <MultiSelectMenu
+                    label={'Course Level'}
+                    name={'course'}
+                    onChange={(e) => filterHandler('course', e.target.value)}
+                    values={selectedData.course}
+                    options={['High School (11th -12th)', 'UG Diploma/ Certificate', 'UG', 'PG Diploma/ Certificate', 'PG', 'PhD']}
                 />
 
-                <AreaSelectMenu
-                    data={data}
-                    defaultValue={selectedData.areaOfInterest}
-                    onChange={(value) => filterHandler('areaOfInterest', value)}
+                <MultiAreaMenu
+                    label={'Area of Interest'}
+                    onChange={(e) => filterHandler('areaOfInterest', e.target.value)}
+                    values={selectedData.areaOfInterest}
+                    options={data}
                 />
 
                 {/* <SelectMenu

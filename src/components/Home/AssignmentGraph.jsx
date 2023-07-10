@@ -37,7 +37,7 @@ const AssignmentGraph = () => {
 
             <div className="mt-5 overflow-hidden rounded-md flex-1">
                 {!loading && <div className='w-[calc(100%+30px)] -ml-[30px] h-full'>
-                    <ResponsiveContainer width="100%" height="100%" minHeight={230}>
+                    <ResponsiveContainer width="100%" height="230" minHeight={230}>
                         <BarChart
                             width={500}
 
