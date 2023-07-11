@@ -29,6 +29,7 @@ import {
   Button,
 } from "@mui/material";
 import Header from "../../components/shared/Header/Header";
+import settings from "../../api/settings";
 
 const LandingPage = () => {
 
@@ -41,7 +42,7 @@ const LandingPage = () => {
   const unlockEducation = async (e) => {
     e.target.disabled = true;
     try {
-      // await settings.update({ universityUnlock: true });
+      await settings.update({ educationLoanUnlock: true });
       window.location.reload();
     } catch (err) {
       console.error(err);

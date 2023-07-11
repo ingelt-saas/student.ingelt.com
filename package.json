@@ -26,6 +26,7 @@
     "js-cookie": "^3.0.4",
     "material-ui-popup-state": "^5.0.9",
     "moment": "^2.29.4",
+    "moment-timezone": "^0.5.43",
     "otpless-js-sdk": "^2.1.1",
     "pdfjs-dist": "^3.3.122",
     "photoswipe": "^5.3.8",
