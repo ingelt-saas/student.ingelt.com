@@ -10,6 +10,7 @@ import img1 from '../../assets/images/home-bg.png';
 import img2 from '../../assets/images/release.svg';
 import img3 from '../../assets/images/webinar.svg';
 import img4 from '../../assets/images/online-learning.svg';
+import { useNavigate } from 'react-router-dom';
 
 // Student Info Block
 const StudentInfoBlock = ({ title, text, IconName }) => {
@@ -36,6 +37,8 @@ const Home = () => {
 
     // context 
     const { student } = useContext(StudentContext);
+
+    const navigate = useNavigate();
 
     return (
         <div className='pt-5'>
@@ -155,21 +158,21 @@ const Home = () => {
 
                 {/* shortcut buttons */}
                 <div className='md:col-span-5 lg:col-span-3 flex flex-col gap-y-3'>
-                    <button className='flex items-center justify-between bg-white px-3 py-2 duration-200 rounded-xl shadow-lg hover:shadow-none'>
+                    <button onClick={() => navigate('/modules')} className='flex items-center justify-between bg-white px-3 py-2 duration-200 rounded-xl shadow-lg hover:shadow-none'>
                         <img src={img2} alt='' className='w-11 h-auto' />
                         <span className='font-medium'>Free IELTS Classes</span>
                         <span className='w-6 h-6 rounded-full grid place-items-center bg-[#001E4333]'>
                             <ChevronRight fontSize='small' />
                         </span>
                     </button>
-                    <button className='flex items-center justify-between bg-white px-3 py-2 duration-200 rounded-xl shadow-lg hover:shadow-none'>
+                    <button onClick={() => navigate('/ielts-classes/online-classes')} className='flex items-center justify-between bg-white px-3 py-2 duration-200 rounded-xl shadow-lg hover:shadow-none'>
                         <img src={img3} alt='' className='w-11 h-auto' />
                         <span className='font-medium'>Live / Online Classes</span>
                         <span className='w-6 h-6 rounded-full grid place-items-center bg-[#001E4333]'>
                             <ChevronRight fontSize='small' />
                         </span>
                     </button>
-                    <button className='flex items-center justify-between bg-white px-3 py-2 duration-200 rounded-xl shadow-lg hover:shadow-none'>
+                    <button onClick={() => navigate('/find-institute')} className='flex items-center justify-between bg-white px-3 py-2 duration-200 rounded-xl shadow-lg hover:shadow-none'>
                         <img src={img4} alt='' className='w-11 h-auto' />
                         <span className='font-medium'>Offline Classes</span>
                         <span className='w-6 h-6 rounded-full grid place-items-center bg-[#001E4333]'>

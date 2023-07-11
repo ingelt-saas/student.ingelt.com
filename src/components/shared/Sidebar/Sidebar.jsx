@@ -62,6 +62,7 @@ const SideBar = () => {
     },
     // {name: "Modules", path: "/module", icon: img2 },
     { name: "IELTS Lectures", path: "/modules", icon: <ModulesSVG /> },
+    { name: "IELTS Classes", path: "/ielts-classes", icon: <ModulesSVG /> },
     // {
     //   name: "Find Institute",
     //   path: "/find-institute",
