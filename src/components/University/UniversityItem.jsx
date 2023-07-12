@@ -78,7 +78,7 @@ const UniversityItem = ({
               strokeWidth="0.240385"
             />
           </svg>
-          {yearlyFee} USD / month
+          {yearlyFee} USD / year
         </p>
         <p className="bg-[#E7ECF3] text-[#0C3C82] py-2 px-3 rounded-full inline-flex text-sm gap-x-2 items-center font-medium">
           <svg
