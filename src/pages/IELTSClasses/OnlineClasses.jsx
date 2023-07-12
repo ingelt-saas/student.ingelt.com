@@ -7,6 +7,7 @@ import img3 from '../../assets/images/graduated.svg';
 import img4 from '../../assets/images/online-learning (1) 1.svg';
 import img5 from '../../assets/images/online-classes.png';
 import { Button } from '@mui/material';
+import StripeElements from '../../components/Stripe/StripeElements';
 
 const OnlineClasses = () => {
     return (
@@ -95,6 +96,7 @@ const OnlineClasses = () => {
                             }
                         }}
                     >Book Now</Button>
+                    <StripeElements />
                 </div>
             </div>
         </div>

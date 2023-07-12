@@ -4,13 +4,16 @@ import { Badge, CalendarMonth, ChevronRight, Email, LocalPhone, WatchLater } fro
 import { Tooltip } from '@mui/material';
 import ProfileImage from '../../components/shared/ProfileImage/ProfileImage';
 import WorldClocks from '../../components/Home/WorldClocks';
+import homeApi from '../../api/home';
+import { useNavigate } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
+import UpcomingEvent from '../../components/Home/UpcomingEvent';
 
 // assets
 import img1 from '../../assets/images/home-bg.png';
 import img2 from '../../assets/images/release.svg';
 import img3 from '../../assets/images/webinar.svg';
 import img4 from '../../assets/images/online-learning.svg';
-import { useNavigate } from 'react-router-dom';
 
 // Student Info Block
 const StudentInfoBlock = ({ title, text, IconName }) => {
@@ -24,7 +27,7 @@ const StudentInfoBlock = ({ title, text, IconName }) => {
             <div className="flex-1 overflow-hidden">
                 <p className="text-[#6A6A6A] text-sm font-normal">{title}</p>
                 <Tooltip title={text}>
-                    <p className="text-black text-sm font-semibold whitespace-nowrap" title={text}>
+                    <p className="text-black text-sm font-semibold whitespace-nowrap">
                         {text ? text : 'Not Set'}
                     </p>
                 </Tooltip>
@@ -111,24 +114,7 @@ const Home = () => {
 
                 {/* upcoming event */}
                 <div className='rounded-lg bg-white shadow-lg px-4 py-5 gap-x-4 md:col-span-6 lg:col-span-3 flex flex-col justify-between gap-y-2'>
-                    <div className='flex-1 flex flex-col gap-y-2'>
-                        <h1 className='text-2xl font-bold text-[#1B3B7D]'>Upcoming Event</h1>
-                        <h1 className='text-xl font-medium text-[#1B3B7D]'>Study opportunity in Canada</h1>
-                        <p className='text-[#00000099] font-medium'>500 Already Booked</p>
-                        <div className='flex w-full items-center'>
-                            <span className='w-1/2 text-[#1B3B7D] text-base flex items-center gap-x-1'>
-                                <CalendarMonth fontSize='small' />
-                                22.08.2023
-                            </span>
-                            <span className='w-1/2 text-[#1B3B7D] text-base flex items-center gap-x-1'>
-                                <WatchLater fontSize='small' />
-                                1h, 20min
-                            </span>
-                        </div>
-                    </div>
-                    <button className='w-full rounded-xl shadow-lg bg-[#1B3B7D] text-white py-2 fotn-semibold'>
-                        Book For Free
-                    </button>
+                    <UpcomingEvent studentId={student?.id} />
                 </div>
 
                 {/* world clock */}
@@ -152,7 +138,7 @@ const Home = () => {
                 {/* intro module */}
                 <div className='md:col-span-7 lg:col-span-5'>
                     <div className='w-full overflow-hidden relative rounded-lg shadow-lg pb-[56.25%]'>
-                        <iframe className='w-full h-full absolute top-0 left-0' src="https://www.youtube.com/embed/B_WSDz6M-kQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
+                        <iframe className='w-full h-full absolute top-0 left-0' src="https://www.youtube.com/embed/8xkHNGb59Ns" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
                     </div>
                 </div>
 
