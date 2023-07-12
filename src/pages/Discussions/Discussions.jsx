@@ -9,6 +9,7 @@ import { FiSend } from "react-icons/fi";
 import { useRef } from "react";
 import {
   AttachFile,
+  Close,
   Photo,
   PhotoCamera,
   Remove,
@@ -17,6 +18,7 @@ import {
 import { AppBar, Avatar, Button, Toolbar, Typography } from "@mui/material";
 import Compressor from "compressorjs";
 import { SocketContext, StudentContext } from "../../contexts";
+import moment from "moment";
 
 const Discussions = () => {
 
@@ -28,6 +30,7 @@ const Discussions = () => {
   const [totalMembers, setTotalMembers] = useState(0);
   const [selectedImages, setSelectedImages] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [replyDiscussion, setReplyDiscussion] = useState(null);
   const messageBoxRef = useRef();
   const limit = 20;
 
@@ -47,7 +50,7 @@ const Discussions = () => {
   };
 
   const scrollToBottom = () => {
-    const messageBox = document.getElementById("scroll-div");
+    const messageBox = document.getElementById("journal-scroll");
     if (messageBox) {
       messageBox.scroll(0, messageBox.scrollHeight);
     }
@@ -70,10 +73,10 @@ const Discussions = () => {
     }
   });
 
-  useEffect(() => {
-    const messageBox = document.getElementById("scroll-div");
-    messageBox.scroll(0, messageBox.scrollHeight);
-  }, [discussions]);
+  // useEffect(() => {
+  //   const messageBox = document.getElementById("scroll-div");
+  //   messageBox.scroll(0, messageBox.scrollHeight);
+  // }, [discussions]);
 
   useEffect(() => {
     const getAll = async () => {
@@ -109,6 +112,7 @@ const Discussions = () => {
       // Send Message to Socket
       socket.emit("message", {
         message,
+        parentDiscussionId: replyDiscussion?.id || null,
         images: selectedImages,
         student_auth_token: Cookies.get("student_auth_token"),
       });
@@ -116,6 +120,7 @@ const Discussions = () => {
       setMessage("");
       setSelectedImages([]);
       setLoading(false);
+      setReplyDiscussion(null);
       refetch();
 
     } catch (err) {
@@ -148,6 +153,8 @@ const Discussions = () => {
         new Compressor(file, {
           quality: 0.6,
           convertSize: 1,
+          maxHeight: '1080',
+          maxWidth: '1080',
           convertTypes: ["image/webp"],
           success: (result) => {
             resolve(result);
@@ -169,9 +176,39 @@ const Discussions = () => {
     setSelectedImages(newSelectedImages);
   };
 
+  // discussion report handler
+  const discussionReport = async (id) => {
+    try {
+      await discussionApi.reportDiscussion({ discussionId: id });
+      refetch();
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  // discussion date beautifyer
+  const formatDate = (date) => {
+    // date = moment(date);
+    const inputDate = moment(date, 'YYYY-MM-DD')
+    const currentDate = moment();
+
+    if (inputDate.isSame(currentDate, 'day')) {
+      return 'Today';
+    }
+
+    if (currentDate.diff(inputDate, 'days') < 7) {
+      return inputDate.format('dddd'); // Return day name
+    } else {
+      return inputDate.format('ll'); // Return full date
+    }
+
+  }
+
   useEffect(() => {
     scrollToBottom();
-  }, []);
+  }, [discussions]);
+
+  // console.log(discussions);
 
   return (
     <div className="w-full h-full flex flex-col">
@@ -200,61 +237,67 @@ const Discussions = () => {
           </div>
         </div>
       </div>
-      <div id="scroll-div" className="w-full overflow-y-auto flex-1">
+      <div id="scroll-div" className="w-full flex-1 relative">
         <div
           id="journal-scroll"
-          className="flex-1 flex flex-col items-center justify-center w-full px-5"
+          className="absolute top-0 left-0 w-full h-full overflow-y-auto"
         >
-          {/* loading animation */}
-          {isLoading && <div className="py-5 flex justify-center w-full">
-            <svg width="100" height="100" viewBox="0 0 200 200">
-              <circle
-                cx="100"
-                cy="100"
-                r="50"
-                fill="none"
-                stroke="#001E43"
-                strokeWidth="4"
-              >
-                <animate
-                  attributeName="r"
-                  values="50; 30; 50"
-                  dur="2s"
-                  repeatCount="indefinite"
-                />
-                <animate
-                  attributeName="stroke-width"
-                  values="4; 8; 4"
-                  dur="2s"
-                  repeatCount="indefinite"
-                />
-              </circle>
-            </svg>
-          </div>}
+          <div className="w-full min-h-full flex flex-col gap-y-5 justify-end pt-10 pb-5">
 
-          {hasNextPage && <div className="pb-5 pt-10 w-full flex justify-center h-full">
-            <div className="b relative mx-auto h-16 w-44 flex justify-center items-center" onClick={fetchNextPage}>
-              <div className="i h-12 w-44 bg-[#1B3B7D] items-center rounded-xl shadow-2xl cursor-pointer absolute overflow-hidden transform hover:scale-x-110 hover:scale-y-105 transition duration-300 ease-out">
+            {/* loading animation */}
+            {isLoading && <div className="py-5 flex justify-center w-full">
+              <svg width="100" height="100" viewBox="0 0 200 200">
+                <circle
+                  cx="100"
+                  cy="100"
+                  r="50"
+                  fill="none"
+                  stroke="#001E43"
+                  strokeWidth="4"
+                >
+                  <animate
+                    attributeName="r"
+                    values="50; 30; 50"
+                    dur="2s"
+                    repeatCount="indefinite"
+                  />
+                  <animate
+                    attributeName="stroke-width"
+                    values="4; 8; 4"
+                    dur="2s"
+                    repeatCount="indefinite"
+                  />
+                </circle>
+              </svg>
+            </div>}
+
+            {/* fetch next page button */}
+            {hasNextPage && <div className="pb-5 pt-10 w-full flex justify-center h-full">
+              <div className="b relative mx-auto h-16 w-44 flex justify-center items-center" onClick={fetchNextPage}>
+                <div className="i h-12 w-44 bg-[#1B3B7D] items-center rounded-xl shadow-2xl cursor-pointer absolute overflow-hidden transform hover:scale-x-110 hover:scale-y-105 transition duration-300 ease-out">
+                </div>
+                <p className="text-center text-white font-semibold z-10 pointer-events-none">Load More</p>
               </div>
-              <p className="text-center text-white font-semibold z-10 pointer-events-none">Load More</p>
+            </div>}
 
-            </div>
-          </div>}
+            {/* <MessageBox key={discussion.id} data={discussion} discussionReport={discussionReport} setReplyDiscussion={setReplyDiscussion} /> */}
 
-          {/* show discussions */}
-          {isSuccess &&
-            [...discussions.pages].reverse().map(item =>
-              Array.isArray(item?.rows) && [...item?.rows].reverse().map(discussion =>
-                <MessageBox key={discussion.id} data={discussion} />
+            {/* show discussions */}
+            {isSuccess &&
+              [...discussions.pages].reverse().map(item =>
+                [...Object.keys(item.rows)].reverse().map(key => <>
+                  <div className="w-full py-4 flex justify-center">
+                    <span className="px-5 py-1 shadow-sm rounded-2xl bg-[#1b3b7d] text-base font-light text-white">{formatDate(key)}</span>
+                  </div>
+                  {[...item.rows[key]].reverse().map(discussion => <MessageBox key={discussion.id} data={discussion} discussionReport={discussionReport} setReplyDiscussion={setReplyDiscussion} />)}
+                </>)
               )
-            )}
-          {/* {Array.isArray(discussions) &&
-            discussions?.map((item) => (
-              
-            ))}{" "} */}
+            }
+          </div>
         </div>
       </div>
       <div className="w-full bg-white">
+
         {selectedImages.length > 0 && (
           <div className="flex items-center gap-x-3 pt-3 px-2 overflow-x-hidden">
             {selectedImages.map((selectedImage, index) => (
@@ -277,6 +320,14 @@ const Discussions = () => {
             ))}{" "}
           </div>
         )}
+
+        {replyDiscussion && <p className="px-3 pt-2 text-sm font-semibold text-[#1B3B7d] flex justify-between items-center">
+          Reply Message
+          <button onClick={() => setReplyDiscussion(null)}>
+            <Close fontSize="small" />
+          </button>
+        </p>}
+
         <form
           onSubmit={createDiscussion}
           className="py-5 px-4 flex items-center justify-between w-full"
