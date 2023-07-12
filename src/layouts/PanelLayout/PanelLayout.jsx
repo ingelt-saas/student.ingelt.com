@@ -11,7 +11,9 @@ const PanelLayout = () => {
   const [shouldApplyClasses, setShouldApplyClasses] = useState(true);
 
   useEffect(() => {
-    if (location.pathname === '/discussion') {
+    const pathname = location.pathname;
+    const arr = ['/discussion', '/education-loan', '/shortlist-university', '/centralized-library', '/modules'];
+    if (arr.includes(pathname)) {
       setShouldApplyClasses(false);
     } else {
       setShouldApplyClasses(true);

@@ -257,6 +257,7 @@ const Modules = () => {
     <>
       {!student?.modulesUnlock && <LandingPage />}
       {student?.modulesUnlock && <Box
+        className='py-10'
         sx={{
           width: "100%",
           pr: { xl: 2, lg: 2 },

@@ -198,13 +198,15 @@ const Library = () => {
     return (
         <>
             {!student?.libraryUnlock && <LandingPage />}
-            {student?.libraryUnlock && <Box sx={
-                {
-                    width: "100%",
-                    pr: { xl: 4, lg: 5 },
-                    pl: { xl: 0, lg: 5 }
-                }
-            }>
+            {student?.libraryUnlock && <Box
+                className='py-10'
+                sx={
+                    {
+                        width: "100%",
+                        pr: { xl: 2, lg: 2 },
+                        pl: { xl: 0, lg: 2 },
+                    }
+                }>
 
                 <Box sx={
                     {

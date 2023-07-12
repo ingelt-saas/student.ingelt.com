@@ -388,7 +388,7 @@ const EducationLoan = () => {
   return (
     <>
       {!student?.educationLoanUnlock && <LandingPage />}
-      {student?.educationLoanUnlock && <div className="flex ">
+      {student?.educationLoanUnlock && <div className="flex py-10 px-5 max-sm:px-2">
         {!page2 ? (
           <div className="flex flex-row flex-wrap gap-y-10 gap-x-5 w-full">
             <div className="w-full h-20 foo:block ">

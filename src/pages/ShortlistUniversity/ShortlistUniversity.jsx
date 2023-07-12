@@ -219,7 +219,7 @@ const ShortlistUniversity = () => {
     <>
       {!student?.universityUnlock && <LandingPage />}
 
-      {student?.universityUnlock && <div className="flex flex-row flex-wrap gap-y-10 gap-x-5 w-full ">
+      {student?.universityUnlock && <div className="flex flex-row flex-wrap gap-y-10 gap-x-5 w-full py-10 px-5 max-sm:px-2">
         <div className="w-full h-20 foo:block ">
           <div className="flex gap-x-5 max-md:flex-col max-md:gap-y-5">
             <Header title="University Shortlisting" subTitle="Choose in demand universities of your choice" Img={welcomeSVG} />

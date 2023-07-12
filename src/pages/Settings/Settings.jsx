@@ -270,7 +270,6 @@ const Settings = () => {
     email,
     dob,
     phoneNo,
-    fathersName,
     gender,
     city,
     state,
@@ -413,15 +412,6 @@ const Settings = () => {
           }
           return true;
         },
-      }
-    },
-    {
-      name: "fathersName",
-      label: "Father Name",
-      defaultValue: fathersName,
-      type: "text",
-      validation: {
-        required: 'Father name is required',
       }
     },
     {

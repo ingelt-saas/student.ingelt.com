@@ -161,18 +161,18 @@ const SideBar = () => {
                     </span>
                   </NavItem>
                 </li>
-              ) : (
-                <li className="navItem mb-2">
-                  <NavItem to="/find-institute" collapseMenu={collapseMenu}>
-                    <UniversitySVG />
-                    <span
-                      className={`${collapseMenu ? "max-w-0 max-h-0" : "max-w-xs max-h-10"
-                        } overflow-hidden duration-300`}
-                    >
-                      Find Institute
-                    </span>
-                  </NavItem>
-                </li>
+              ) : (<></>
+                // <li className="navItem mb-2">
+                //   <NavItem to="/find-institute" collapseMenu={collapseMenu}>
+                //     <UniversitySVG />
+                //     <span
+                //       className={`${collapseMenu ? "max-w-0 max-h-0" : "max-w-xs max-h-10"
+                //         } overflow-hidden duration-300`}
+                //     >
+                //       Find Institute
+                //     </span>
+                //   </NavItem>
+                // </li>
               )}
             </ul>
           </div>
@@ -344,20 +344,20 @@ const SideBar = () => {
                         </span>
                       </NavItem>
                     </li>
-                  ) : (
-                    <li className="navItem mb-2">
-                      <NavItem to="/find-institute" collapseMenu={collapseMenu}>
-                        <UniversitySVG />
-                        <span
-                          className={`${collapseMenu
-                            ? "max-w-0 max-h-0"
-                            : "max-w-xs max-h-10"
-                            } overflow-hidden duration-300`}
-                        >
-                          Find Institute
-                        </span>
-                      </NavItem>
-                    </li>
+                  ) : (<></>
+                    // <li className="navItem mb-2">
+                    //   <NavItem to="/find-institute" collapseMenu={collapseMenu}>
+                    //     <UniversitySVG />
+                    //     <span
+                    //       className={`${collapseMenu
+                    //         ? "max-w-0 max-h-0"
+                    //         : "max-w-xs max-h-10"
+                    //         } overflow-hidden duration-300`}
+                    //     >
+                    //       Find Institute
+                    //     </span>
+                    //   </NavItem>
+                    // </li>
                   )}
                   {/* {student?.organizationId && (
                     <li className="navItem">
