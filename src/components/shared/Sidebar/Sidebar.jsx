@@ -71,7 +71,7 @@ const SideBar = () => {
       name: "IELTS Classes",
       path: "/ielts-classes",
       icon: <ModulesSVG />,
-      show: (!Boolean(student?.organizationId))
+      show: (!Boolean(student?.organizationId) && !student?.payment)
     },
     // {
     //   name: "Find Institute",
@@ -113,7 +113,7 @@ const SideBar = () => {
       name: "Institute",
       path: "/institute",
       icon: <LibrarySVG />,
-      show: Boolean(student?.organizationId),
+      show: Boolean(student?.organizationId || student?.payment),
     },
     // {name: "Notes", path: "/notes", icon: <NotesSVG /> },
   ];

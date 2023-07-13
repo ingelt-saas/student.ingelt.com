@@ -49,10 +49,10 @@ const Home = () => {
 
                 {/* profile info */}
                 <div className='md:col-span-12 lg:col-span-5'>
-                    <div className='rounded-lg bg-white shadow-lg px-4 py-5 flex gap-x-4  items-center'>
+                    <div className='rounded-lg bg-white shadow-lg px-4 py-8 flex gap-x-4  items-center'>
                         <div className='w-1/2'>
                             <div className=''>
-                                <div className='w-28 h-28 overflow-hidden rounded-full shadow-md mb-7 -mt-10'>
+                                <div className='w-28 h-28 overflow-hidden rounded-full shadow-md mb-4'>
                                     <ProfileImage
                                         alt={student?.name}
                                         src={student?.image}
@@ -91,7 +91,7 @@ const Home = () => {
                             </div>
                         </div>
                         <div className='w-1/2'>
-                            <div className='flex flex-col gap-y-4'>
+                            <div className='flex flex-col gap-y-4 md:gap-y-7'>
                                 <StudentInfoBlock
                                     title={'Student ID'}
                                     text={student.id}
@@ -116,7 +116,7 @@ const Home = () => {
 
                 {/* upcoming event */}
                 <div className='md:col-span-6 lg:col-span-3'>
-                    <div className='rounded-lg bg-white shadow-lg px-4 py-5 gap-x-4 flex flex-col justify-between gap-y-2'>
+                    <div className='min-h-[90%] rounded-lg bg-white shadow-lg px-4 py-5 gap-x-4 flex flex-col justify-between gap-y-2'>
                         <UpcomingEvent studentId={student?.id} />
                     </div>
                 </div>

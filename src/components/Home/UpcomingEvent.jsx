@@ -17,8 +17,6 @@ const UpcomingEvent = ({ studentId }) => {
 
     const isBooked = upcomingEvent ? upcomingEvent?.eventBookings?.find(i => i.studentId === studentId) : null;
 
-    console.log(isBooked)
-
     // handle booking
     const handleBook = async (e) => {
 
@@ -56,7 +54,7 @@ const UpcomingEvent = ({ studentId }) => {
                             {upcomingEvent?.duration}
                         </span>
                     </div>
-                </> : <p className='w-full text-center font-semibold text-lg py-2 text-[#00000099]'>No Upcoming Event</p>}
+                </> : <p className='w-full text-center flex-1 grid place-items-center font-semibold text-lg py-2 text-[#00000099]'>No Upcoming Event</p>}
             </div>
             <button onClick={handleBook} disabled={Boolean(isBooked) ? true : !Boolean(upcomingEvent)} className='w-full rounded-xl shadow-lg disabled:shadow-none disabled:opacity-60 bg-[#1B3B7D] text-white py-2 font-semibold'>
                 {isBooked ? 'Booked' : 'Book For Free'}

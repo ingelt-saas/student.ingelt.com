@@ -31,6 +31,18 @@ import VisaApplication from "../pages/VisaApplication/VisaApplication";
 import IELTSClasses from "../pages/IELTSClasses/IELTSClasses";
 import OnlineClasses from "../pages/IELTSClasses/OnlineClasses";
 
+const PaymentRoute = ({ children }) => {
+
+  const { student } = useContext(StudentContext);
+
+  if (!student?.organizationId && !student?.payment) {
+    return <>{children}</>
+  }
+
+  return <></>
+
+}
+
 const Routes = () => {
   // student provider context
   const { loading, student } = useContext(StudentContext);
@@ -81,11 +93,15 @@ const Routes = () => {
           },
           {
             path: "/ielts-classes",
-            element: <IELTSClasses />,
+            element: <PaymentRoute>
+              <IELTSClasses />
+            </PaymentRoute>,
           },
           {
             path: "/ielts-classes/online-classes",
-            element: <OnlineClasses />,
+            element: <PaymentRoute>
+              <OnlineClasses />
+            </PaymentRoute>,
           },
           {
             path: "/visa-application",

@@ -92,13 +92,13 @@ const WorldClocks = () => {
     return (
         <div className='w-full grid grid-cols-2 gap-2'>
             {worldClocksData.map(({ image, country, time }) => <div key={country} className='relative cursor-pointer rounded-xl overflow-hidden shadow-md'>
-                <img className='w-full h-auto aspect-[16/8]' alt='' src={image} />
+                <img className='w-full h-auto aspect-[16/6]' alt='' src={image} />
                 <div className='absolute top-0 left-0 w-full h-full px-2 bg-[#000] bg-opacity-40 duration-200 opacity-0 hover:opacity-100 flex flex-col justify-center'>
-                    <p className='text-[#fff] flex items-center font-semibold gap-x-1'>
+                    <p className='text-[#fff] flex items-center text-sm font-semibold gap-x-1'>
                         <FmdGood fontSize='small' />
                         {country}
                     </p>
-                    <p className='text-[#fff] flex items-center gap-x-1 font-semibold'>
+                    <p className='text-[#fff] flex items-center text-sm gap-x-1 font-semibold'>
                         <WatchLater fontSize='small' />
                         {time}
                     </p>

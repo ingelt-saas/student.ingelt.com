@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { StudentContext } from '../../contexts';
 import paymentApi from '../../api/payment';
 import { Accordion, AccordionDetails, AccordionSummary, Button, CircularProgress } from '@mui/material';
+import { toast } from 'react-toastify';
 
 const MasterCardSVG = ({ className, active }) => (
     <svg
@@ -66,11 +67,12 @@ const CheckoutForm = () => {
     const [selectedMethod, setSelectedMethod] = useState('card');
 
     // context 
-    const { student } = useContext(StudentContext);
+    const { student, studentFetch } = useContext(StudentContext);
 
     const stripe = useStripe();
     const elements = useElements();
 
+    // payment handler
     const paymentHandler = async (e) => {
 
         setCardError('');
@@ -114,20 +116,20 @@ const CheckoutForm = () => {
         if (confirmError) {
             setLoading(false);
             setCardError(confirmError.message);
+            return;
         }
 
-        console.log(paymentIntent, 'error', confirmError);
-
-        // if (paymentIntent.status === "succeeded") {
-        //     const paymentData = {
-        //         paymentMethod: paymentIntent?.payment_method_types,
-        //         transitionID: paymentIntent?.id,
-        //         payment: true,
-        //         paymentDate: ``,
-        //     }
-
-
-        // }
+        if (paymentIntent.status === "succeeded") {
+            const paymentData = {
+                transactionId: paymentIntent?.id,
+                amount: paymentIntent.amount,
+            }
+            await paymentApi.paymentSuccess(paymentData);
+            studentFetch();
+            toast.success('Payment successfully.');
+            setLoading(false);
+            window.location.pathname = '/institute'
+        }
 
     }
 
