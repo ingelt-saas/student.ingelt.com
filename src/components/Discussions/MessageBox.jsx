@@ -134,7 +134,8 @@ const MessageBox = ({ data, discussionReport, setReplyDiscussion }) => {
               </p>
             </div>
           }
-          {discussionReports.length > 0 && <span className="!text-xs text-[#1b3b7d] font-medium">{discussionReports.length} people reported this message</span>}
+
+          {discussionReports.length > 0 && <span className="!text-xs text-[#1b3b7d] font-medium">{discussionReports.length} more people reported this message</span>}
         </div>
 
         {/* my self image show */}
@@ -217,7 +218,7 @@ const MessageBox = ({ data, discussionReport, setReplyDiscussion }) => {
               </div>
             </>
           }
-          {discussionReports.length > 0 && <span className="!text-xs text-[#1b3b7d] font-medium">{reporterFind ? (discussionReports.length <= 1 ? 'You reported this message' : `You & ${discussionReports.length - 1} people reported this message`) : `${discussionReports.length} people reported this message`}</span>}
+          {discussionReports.length > 0 && <span className="!text-xs text-[#1b3b7d] font-medium">{reporterFind ? (discussionReports.length <= 1 ? 'You reported this message' : `You & ${discussionReports.length - 1} more people reported this message`) : `${discussionReports.length} more people reported this message`}</span>}
         </div>
 
       </div>}

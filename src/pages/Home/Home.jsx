@@ -1,404 +1,180 @@
-import React, { useContext, useEffect, useState } from "react";
-import home from "../../api/home";
-import { StudentContext } from "../../contexts";
+import React, { useContext } from 'react';
+import { StudentContext } from '../../contexts';
+import { Badge, CalendarMonth, ChevronRight, Email, LocalPhone, WatchLater } from '@mui/icons-material';
+import { Tooltip } from '@mui/material';
+import ProfileImage from '../../components/shared/ProfileImage/ProfileImage';
+import WorldClocks from '../../components/Home/WorldClocks';
+import homeApi from '../../api/home';
+import { useNavigate } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
+import UpcomingEvent from '../../components/Home/UpcomingEvent';
 
-//assets
-import welcomeSVG from "../../assets/images/welcome.svg";
-import frameSVG from "../../assets/images/profile_frame.svg";
-import meetSVG from "../../assets/images/meeting.svg";
-import StudentGraph from "../../components/Home/StudentGraph";
-
-// MUI
-import { Tooltip, Button } from "@mui/material";
-import {
-  Person2,
-  LocationOn,
-  LocalPhone,
-  Email,
-  Female,
-  Male,
-  Transgender,
-  Badge,
-  Cake,
-  Tv,
-  ContentCopy,
-  Assessment,
-  Quiz,
-  GpsFixed,
-} from "@mui/icons-material";
-import Image from "../../components/shared/Image/Image";
-import AssignmentGraph from "../../components/Home/AssignmentGraph";
-import Blogs from "../../components/Home/Blogs";
-import LockOverly from "../../components/shared/LockOverly/LockOverly";
-import moment from "moment/moment";
-import ProfileImage from "../../components/shared/ProfileImage/ProfileImage";
+// assets
+import img1 from '../../assets/images/home-bg.png';
+import img2 from '../../assets/images/release.svg';
+import img3 from '../../assets/images/webinar.svg';
+import img4 from '../../assets/images/online-learning.svg';
 
 // Student Info Block
 const StudentInfoBlock = ({ title, text, IconName }) => {
-  const truncatedText = text
-    ? text.length > 20
-      ? `${text.substring(0, 20)}...`
-      : text
-    : "Not Set";
-  return (
-    <div className="flex items-center gap-x-3">
-      <div className="bg-[#1B3B7D] text-white p-2 rounded-full flex justify-center align-center">
-        <IconName fontSize="medium" />
-      </div>
 
-      <div className="flex-1 overflow-hidden">
-        <p className="text-[#6A6A6A] text-base font-normal">{title}</p>
-        <p
-          className="text-black text-base font-semibold break-words"
-          title={text}
-        >
-          {truncatedText}
-        </p>
-      </div>
-    </div>
-  );
+    return (
+        <div className="flex items-center gap-x-3">
+            <div className="bg-[#1B3B7D] text-white p-2 rounded-full flex justify-center align-center">
+                <IconName fontSize="small" />
+            </div>
+
+            <div className="flex-1 overflow-hidden">
+                <p className="text-[#6A6A6A] text-sm font-normal">{title}</p>
+                <Tooltip title={text}>
+                    <p className="text-black text-sm font-semibold whitespace-nowrap">
+                        {text ? text : 'Not Set'}
+                    </p>
+                </Tooltip>
+            </div>
+        </div>
+    );
 };
 
 const Home = () => {
 
-  const { student } = useContext(StudentContext);
-  const [isCopied, setIsCopied] = useState(false);
-  const [graphData, setGraphData] = useState([]);
-  const [bands, setBands] = useState();
-  const [greeting, setGreeting] = useState("");
+    // context 
+    const { student } = useContext(StudentContext);
 
-  const handleCopy = async (text) => {
-    text = student?.batch?.classroomLink || "";
+    const navigate = useNavigate();
 
-    try {
-      await navigator.clipboard.writeText(text);
-      setIsCopied(true);
-    } catch (error) {
-      console.error("Failed to copy text: ", error);
-    }
-  };
+    return (
+        <div className='pt-5'>
+            <div className='grid grid-cols-1 md:grid-cols-12 gap-3 xl:gap-5'>
 
-  const takeToClass = () => {
-    if (student?.batch?.classroomLink) {
-      window.open(student?.batch?.classroomLink, "_blank");
-    }
-  };
+                {/* profile info */}
+                <div className='md:col-span-12 lg:col-span-5'>
+                    <div className='rounded-lg bg-white shadow-lg px-4 py-8 flex gap-x-4  items-center'>
+                        <div className='w-1/2'>
+                            <div className=''>
+                                <div className='w-28 h-28 overflow-hidden rounded-full shadow-md mb-4'>
+                                    <ProfileImage
+                                        alt={student?.name}
+                                        src={student?.image}
+                                        gender={student?.gender}
+                                        className='object-cover w-full h-full'
+                                    />
+                                </div>
+                                <h1 className='text-[#1B3B7D] text-2xl font-bold'>Hello</h1>
+                                <h3 className='text-[#00000099] text-xl font-semibold flex items-center gap-x-2'>{student?.name}
+                                    <svg
+                                        className='w-6 h-6'
+                                        viewBox="0 0 24 25"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        xmlnsXlink="http://www.w3.org/1999/xlink"
+                                    >
+                                        <path d="M0 24.68H24V0.68H0V24.68Z" fill="url(#pattern0)" />
+                                        <defs>
+                                            <pattern
+                                                id="pattern0"
+                                                patternContentUnits="objectBoundingBox"
+                                                width={1}
+                                                height={1}
+                                            >
+                                                <use xlinkHref="#image0_2227_1568" transform="scale(0.015625)" />
+                                            </pattern>
+                                            <image
+                                                id="image0_2227_1568"
+                                                width={64}
+                                                height={64}
+                                                xlinkHref="data:image/png;base64,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"
+                                            />
+                                        </defs>
+                                    </svg>
+                                </h3>
+                            </div>
+                        </div>
+                        <div className='w-1/2'>
+                            <div className='flex flex-col gap-y-4 md:gap-y-7'>
+                                <StudentInfoBlock
+                                    title={'Student ID'}
+                                    text={student.id}
+                                    IconName={Badge}
+                                />
 
-  useEffect(() => {
-    async function getMeetLink() {
-      try {
-        const bands = await home.getBands();
-        const graphData = await home.getGraphData();
-        setBands(bands.data);
-        setGraphData(graphData.data);
-      } catch (error) { }
-    }
-    getMeetLink();
-    const getGreeting = () => {
-      const currentHour = new Date().getHours();
+                                <StudentInfoBlock
+                                    title={'Phone'}
+                                    text={student?.phoneNo}
+                                    IconName={LocalPhone}
+                                />
 
-      if (currentHour >= 3 && currentHour < 12) {
-        return `Good Morning, ${student?.name} `;
-      } else if (currentHour >= 12 && currentHour < 17) {
-        return `Good Afternoon, ${student?.name} `;
-      } else if (currentHour >= 17 && currentHour < 23) {
-        return `Good Evening, ${student?.name}`;
-      } else {
-        return "Hey, Night Owl";
-      }
-    };
+                                <StudentInfoBlock
+                                    title={'Email'}
+                                    text={student?.email}
+                                    IconName={Email}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-    const updateGreeting = () => {
-      const newGreeting = getGreeting();
-      setGreeting(newGreeting);
-    };
+                {/* upcoming event */}
+                <div className='md:col-span-6 lg:col-span-3'>
+                    <div className='min-h-[90%] rounded-lg bg-white shadow-lg px-4 py-5 gap-x-4 flex flex-col justify-between gap-y-2'>
+                        <UpcomingEvent studentId={student?.id} />
+                    </div>
+                </div>
 
-    updateGreeting(); // Initial update
+                {/* world clock */}
+                <div className='rounded-lg bg-white shadow-lg px-4 py-5 gap-x-4 md:col-span-6 lg:col-span-4 flex flex-col gap-y-2'>
+                    <h1 className='text-2xl font-bold text-[#1B3B7D]'>World Clock</h1>
+                    <WorldClocks />
+                </div>
 
-    const interval = setInterval(updateGreeting, 60000); // Update every minute
-
-    return () => clearInterval(interval); // Clean up interval on component unmount
-  }, [student]);
-
-  return (
-    <div className="flex flex-row flex-wrap gap-y-10 gap-x-5 w-full">
-      {/* welcome message */}
-      <div className="w-full foo:w-[calc(100%/12*8-10px)] hidden foo:block ">
-        <div className="relative rounded-xl mt-20 shadow-lg w-12/12 bg-white  pb-0.5">
-          <img
-            src={welcomeSVG}
-            alt="welcome svg"
-            className="absolute bottom-0 left-0 w-50"
-          />
-
-          <h1 className="text-3xl font-semibold text-right py-5 px-5 ">
-            {greeting}
-          </h1>
-        </div>
-      </div>
-
-      {/* meeting link */}
-      <div className="relative w-full order-2 foo:order-none foo:w-[calc(100%/12*4-10px)]">
-        {!student.organizationId && <LockOverly />}
-        <div className="rounded-xl border border-[#78787840] flex px-2  shadow-lg bg-white">
-          <div className="w-4/12">
-            <img src={meetSVG} alt="meeting svg" className="w-full h-auto" />
-          </div>
-          <div className="w-8/12 flex flex-col justify-around py-2">
-            <div>
-              <h1 className="text-2xl font-semibold">Your Classroom Link</h1>
-
-              <p className="truncate relative pr-6 py-1">
-                {student?.batch?.classroomLink ||
-                  "Your teacher hasn't set the link"}
-                {student?.batch?.classroomLink && (
-                  <Tooltip title={isCopied ? "Copied!" : "Copy to Clipboard"}>
-                    <button
-                      className="text-black absolute top-1/2 right-2 -translate-y-1/2"
-                      onClick={handleCopy}
-                    >
-                      <ContentCopy />
+                {/* speaking practice */}
+                <div className='md:col-span-12 flex max-md:flex-col max-md:gap-y-6 items-center rounded-lg overflow-hidden justify-between bg-cover bg-no-repeat bg-center py-8 px-5 shadow-lg' style={{ backgroundImage: `url(${img1})` }}>
+                    <h1 className='text-white text-3xl font-semibold'>Speaking Practice</h1>
+                    <ul className='pl-3 list-disc text-white space-y-2'>
+                        <li>1 hour One to One Practice Session</li>
+                        <li>British Council Certified Teacher</li>
+                    </ul>
+                    <button className='px-12 py-2 rounded-md bg-white text-[#0C3C82] font-semibold'>
+                        Book
                     </button>
-                  </Tooltip>
-                )}
-              </p>
-            </div>
+                </div>
 
-            <Button
-              onClick={takeToClass}
-              variant="contained"
-              sx={{
-                fontWeight: 600,
-                textTransform: "capitalize",
-                borderRadius: 2,
-                width: "100%",
-                backgroundColor: "#1B3B7D",
-              }}
-              disabled={student?.batch?.classroomLink ? false : true}
-            >
-              Join Class
-            </Button>
-          </div>
+                {/* intro module */}
+                <div className='md:col-span-7 lg:col-span-5'>
+                    <div className='w-full overflow-hidden relative rounded-lg shadow-lg pb-[56.25%]'>
+                        <iframe className='w-full h-full absolute top-0 left-0' src="https://www.youtube.com/embed/8xkHNGb59Ns" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
+                    </div>
+                </div>
+
+                {/* shortcut buttons */}
+                <div className='md:col-span-5 lg:col-span-3 flex flex-col gap-y-3'>
+                    <button onClick={() => navigate('/modules')} className='flex items-center justify-between bg-white px-3 py-4 duration-200 rounded-xl shadow-lg hover:shadow-none'>
+                        <img src={img2} alt='' className='w-11 h-auto' />
+                        <span className='font-medium'>Free IELTS Classes</span>
+                        <span className='w-6 h-6 rounded-full grid place-items-center bg-[#001E4333]'>
+                            <ChevronRight fontSize='small' />
+                        </span>
+                    </button>
+                    <button onClick={() => navigate('/ielts-classes/online-classes')} className='flex items-center justify-between bg-white px-3 py-4 duration-200 rounded-xl shadow-lg hover:shadow-none'>
+                        <img src={img3} alt='' className='w-11 h-auto' />
+                        <span className='font-medium'>Live / Online Classes</span>
+                        <span className='w-6 h-6 rounded-full grid place-items-center bg-[#001E4333]'>
+                            <ChevronRight fontSize='small' />
+                        </span>
+                    </button>
+                    <button onClick={() => navigate('/find-institute')} className='flex items-center justify-between bg-white px-3 py-4 duration-200 rounded-xl shadow-lg hover:shadow-none'>
+                        <img src={img4} alt='' className='w-11 h-auto' />
+                        <span className='font-medium'>Offline Classes</span>
+                        <span className='w-6 h-6 rounded-full grid place-items-center bg-[#001E4333]'>
+                            <ChevronRight fontSize='small' />
+                        </span>
+                    </button>
+                </div>
+
+
+            </div>
         </div>
-      </div>
-
-      {/* profile details */}
-      <div className="w-full order-1 foo:order-none foo:w-[calc(100%/12*8-10px)]">
-        <div className="border border-[#78787840] shadow-lg rounded-lg py-5 flex bg-white h-full items-center">
-          <div className="w-4/12 border-r-2 border-[#78787840] px-4 box-border hidden md:block">
-            <div className="relative w-fit mx-auto">
-              <div className="absolute top-0 left-0 w-full h-full rounded-full overflow-hidden p-5">
-                <ProfileImage
-                  src={student.image}
-                  alt={student.name}
-                  gender={student.gender}
-                  className="rounded-full w-full  h-full object-cover"
-                />
-              </div>
-              <img src={frameSVG} alt="profile frame svg" className="" />
-            </div>
-            <div className="text-center mt-5 ">
-              <h1 className="text-2xl font-semibold">{student?.name}</h1>
-              <h4 className="text-[#6A6A6A] text-lg font-semibold">
-                Batch:{" "}
-                {student?.batch?.name ? student?.batch?.name : "Not Assigned"}
-              </h4>
-            </div>
-          </div>
-
-          <div className="w-full md:w-8/12 px-4 flex items-center">
-            <div className="w-full grid grid-cols-2 gap-y-5 gap-x-3 ">
-              <StudentInfoBlock
-                IconName={Person2}
-                title="Father's Name"
-                text={
-                  student?.fathersName ? student?.fathersName.toString() : ""
-                }
-              />
-
-              <StudentInfoBlock
-                IconName={LocationOn}
-                title="Address"
-                text={(student?.country && student?.state) ? `${student?.city ? student?.city : ''}, ${student?.state}, ${student?.country}, ${student?.pinCode ? `pincode - ${student?.pinCode}` : ''}}` : 'Not Set'}
-              />
-
-              <StudentInfoBlock
-                IconName={LocalPhone}
-                title="Phone Number"
-                text={student?.phoneNo}
-              />
-
-              <StudentInfoBlock
-                IconName={Email}
-                title="Email"
-                text={student?.email}
-              />
-
-              <StudentInfoBlock
-                IconName={
-                  (!student.gender && Transgender) ||
-                  (student?.gender === "Male" && Male) ||
-                  (student?.gender === "Female" && Female) ||
-                  (student?.gender === "Other" && Transgender)
-                }
-                title="Gender"
-                text={student?.gender}
-              />
-
-              <StudentInfoBlock
-                IconName={Badge}
-                title="Student ID"
-                text={student?.id}
-              />
-
-              <StudentInfoBlock
-                IconName={Cake}
-                title="Date of Birth"
-                text={student?.dob ? moment(student?.dob).format('ll') : 'Not Set'}
-              />
-
-              <StudentInfoBlock
-                IconName={Tv}
-                title="Target Score"
-                text={student?.targetScore}
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* mock test Performance */}
-      <div className="w-full relative order-5 foo:order-none foo:w-[calc(100%/12*4-10px)]">
-        {!student.organizationId && <LockOverly />}
-        <div className="-z-10 border border-[#78787840] shadow-lg rounded-lg px-4 py-5 bg-white">
-          <h1 className="font-semibold text-xl mb-6">Mock Test Performance</h1>
-
-          <div className="border border-[#78787840] w-full px-3 lg:px-5 xl:px-8 py-4 flex justify-between items-center my-2">
-            <div className="bg-[#1B3B7D] p-2 text-white rounded-md mr-8 xl:mr-5 w-fit flex items-center justify-center">
-              <Assessment />
-            </div>
-            <div className="flex justify-around items-center">
-              <span className="font-semibold text-xl mr-4 xl:w-36">
-                Average Score
-              </span>
-              <span className="text-lg font-semibold text-white bg-[#1B3B7D] rounded-md px-2 py-1 w-20">
-                {(
-                  (bands?.listeningBands +
-                    bands?.writingBands +
-                    bands?.speakingBands +
-                    bands?.readingBands) /
-                  4
-                ).toFixed(2) || "Not Enough Data"}
-              </span>
-            </div>
-          </div>
-
-          <div className="border border-[#78787840] w-full px-3 lg:px-5 xl:px-8 py-4 flex justify-between items-center my-2">
-            <div className="bg-[#1B3B7D] p-2 text-white rounded-md mr-8 xl:mr-5 w-fit flex items-center justify-center">
-              <GpsFixed />
-            </div>
-
-            <div className="flex justify-around items-center">
-              <span className="font-semibold text-xl mr-4 xl:w-36">
-                Target Score
-              </span>
-              <span className="text-lg font-semibold text-white bg-[#1B3B7D] rounded-md px-2 py-1 w-20">
-                {student?.targetScore ? student?.targetScore : "Not Set"}
-              </span>
-            </div>
-          </div>
-
-          <div className="border border-[#78787840] w-full px-3 lg:px-5 xl:px-8 py-4 flex justify-between items-center my-2">
-            <div className="bg-[#1B3B7D] p-2 text-white rounded-md mr-8 xl:mr-5 w-fit flex items-center justify-center">
-              <Quiz />
-            </div>
-
-            <div className="flex justify-around items-center">
-              <span className="font-semibold text-xl mr-4 xl:w-36">
-                Tests Attempted
-              </span>
-              <span className="text-lg font-semibold text-white bg-[#1B3B7D] rounded-md px-2 py-1 w-20">
-                {graphData?.length}
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* student graph */}
-      <div className="w-full relative order-3 foo:order-none foo:w-[calc(100%/12*8-10px)]">
-        {!student.organizationId && <LockOverly />}
-        <div className="border border-[#78787840] shadow-lg rounded-lg px-4 py-5 bg-white">
-          <StudentGraph data={graphData} />
-        </div>
-      </div>
-
-      {/* assignment graph  */}
-      <div className="relative w-full order-4 foo:order-none foo:w-[calc(100%/12*4-10px)]">
-        {!student.organizationId && <LockOverly />}
-        <AssignmentGraph />
-      </div>
-
-      {/* blogs area */}
-      <div className="w-full order-6 foo:order-none foo:w-[calc(100%/12*8-10px)]">
-        <div className="border border-[#78787840] shadow-lg rounded-lg px-4 py-5 bg-white">
-          <Blogs />
-        </div>
-      </div>
-
-      {/* score  */}
-      <div className="w-full relative order-4 foo:order-none foo:w-[calc(100%/12*4-10px)]">
-        {!student.organizationId && <LockOverly />}
-        <div className="border border-[#78787840] shadow-lg rounded-md py-6 px-3 bg-white">
-          <h1 className="font-bold text-2xl">Your Predicted Bands</h1>
-          <div className="mt-5 overflow-hidden rounded-md">
-            <div className="bg-[#1B3B7D] py-2 px-4 text-lg text-[#f2f2f2] font-bold flex items-center justify-between">
-              <h3>Total Bands</h3>
-              <span>
-                {(
-                  (bands?.listeningBands +
-                    bands?.writingBands +
-                    bands?.speakingBands +
-                    bands?.readingBands) /
-                  4
-                ).toFixed(2) || "Not Enough Data"}
-              </span>
-            </div>
-
-            <div className="border-2 border-t-0 border-[#78787840]">
-              <div className="py-4 px-4 text-base font-semibold flex items-center justify-between">
-                <h3>Listening</h3>
-                <span>
-                  {bands?.listeningBands?.toFixed(2) || "Not Enough Data"}
-                </span>
-              </div>
-
-              <div className="py-4 px-4 text-base font-semibold flex items-center justify-between">
-                <h3>Reading</h3>
-                <span>
-                  {bands?.readingBands?.toFixed(2) || "Not Enough Data"}
-                </span>
-              </div>
-
-              <div className="py-4 px-4 text-base font-semibold flex items-center justify-between">
-                <h3>Speaking</h3>
-                <span>
-                  {bands?.speakingBands?.toFixed(2) || "Not Enough Data"}
-                </span>
-              </div>
-
-              <div className="py-4 px-4 text-base font-semibold flex items-center justify-between">
-                <h3>Writing</h3>
-                <span>
-                  {bands?.writingBands?.toFixed(2) || "Not Enough Data"}
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
+    );
+}
 
 export default Home;

@@ -16,6 +16,7 @@ import preAdmission from "../../assets/NewDesign/loan icon/pre admission loan.sv
 import country from "../../assets/NewDesign/loan icon/country specific.svg";
 import preVisa from "../../assets/NewDesign/loan icon/pre visa.svg";
 import score from "../../assets/NewDesign/loan icon/score based.svg"
+import landingImg from '../../assets/images/landing-pages/education-load.svg';
 import {
   Box,
   CircularProgress,
@@ -25,8 +26,70 @@ import {
   OutlinedInput,
   MenuItem,
   Typography,
+  Button,
 } from "@mui/material";
 import Header from "../../components/shared/Header/Header";
+import settings from "../../api/settings";
+
+const LandingPage = () => {
+
+  const images = () => {
+    let importImages = require.context('../../assets/images/landing-pages/bank', false, /\.(png|jpe?g|svg)$/);
+    return importImages.keys().map(importImages);
+  }
+
+  // enter click handler
+  const unlockEducation = async (e) => {
+    e.target.disabled = true;
+    try {
+      await settings.update({ educationLoanUnlock: true });
+      window.location.reload();
+    } catch (err) {
+      console.error(err);
+    } finally {
+      e.target.disabled = false;
+    }
+  }
+
+  return <div className="w-full min-h-full max-md:px-3 py-10 bg-[#001E43] grid place-items-center">
+    <div className="flex flex-col items-center gap-y-8">
+      <div className="flex flex-col items-center gap-y-2">
+        <h1 className="text-3xl max-sm:text-xl text-center text-white font-semibold">Apply for Education Loan</h1>
+        <p className="text-base text-center text-white">15+ Banking Partner</p>
+      </div>
+
+      <div className="bg-white rounded-2xl py-5 px-2 flex flex-wrap gap-4 md:max-w-[700px] justify-center">
+        {images().map((item, index) => <div key={index} className="w-20 sm:w-24 flex justify-center">
+          <img src={item} alt={item} className="" />
+        </div>)}
+      </div>
+
+      <div className="px-2">
+        <img src={landingImg} alt='' className="" />
+      </div>
+
+      <div className=' flex flex-col items-center gap-y-4'>
+        <p className='text-center text-white'>Enter to apply for study abroad Education Loan</p>
+        <Button
+          onClick={unlockEducation}
+          variant="contained"
+          sx={{
+            color: '#001E43',
+            textTransform: 'capitalize',
+            fontWeight: '600',
+            backgroundColor: '#fff',
+            padding: '0.5rem 2rem',
+            '&:hover': {
+              backgroundColor: '#f2f2f2',
+            }
+          }}
+        >
+          Enter
+        </Button>
+      </div>
+    </div>
+  </div>;
+}
 
 const Page2 = () => {
   return (
@@ -209,6 +272,7 @@ const Page2 = () => {
 };
 
 const EducationLoan = () => {
+
   const [states, setStates] = useState("");
   const [stateCode, setStateCode] = useState("");
   const [cities, setCities] = useState("");
@@ -322,160 +386,163 @@ const EducationLoan = () => {
 
 
   return (
-    <div className="flex ">
-      {!page2 ? (
-        <div className="flex flex-row flex-wrap gap-y-10 gap-x-5 w-full">
-          <div className="w-full h-20 foo:block ">
-            <div className="flex gap-x-5 max-md:flex-col max-md:gap-y-5 mb-10">
-              <Header title="Education Loan" subTitle="Optimal solution for overseas education loan" Img={welcomeSVG} scale="scale-75" />
-            </div>
-            <div className="flex max-md:flex-col w-full justify-between items-center">
-              <div className="w-1/2 max-md:w-full flex flex-col justify-center items-center">
-                {/* <img
+    <>
+      {!student?.educationLoanUnlock && <LandingPage />}
+      {student?.educationLoanUnlock && <div className="flex py-10 px-5 max-sm:px-2">
+        {!page2 ? (
+          <div className="flex flex-row flex-wrap gap-y-10 gap-x-5 w-full">
+            <div className="w-full h-20 foo:block ">
+              <div className="flex gap-x-5 max-md:flex-col max-md:gap-y-5 mb-10">
+                <Header title="Education Loan" subTitle="Optimal solution for overseas education loan" Img={welcomeSVG} scale="scale-75" />
+              </div>
+              <div className="flex max-md:flex-col w-full justify-between items-center">
+                <div className="w-1/2 max-md:w-full flex flex-col justify-center items-center">
+                  {/* <img
                   src={loanSVG}
                   alt="welcome svg"
                   className="w-400 h-auto mx-auto my-10"
                 /> */}
-                <div className="flex mb-10 flex-wrap gap-x-2 2xl:gap-x-2 xl:gap-x-3 gap-y-3 items-center justify-center w-full max-xl:hidden ">
-                  {icons.map((item, index) => {
-                    return (
-                      <div key={index} className="flex items-center justify-start rounded-xl w-56 px-5 py-3">
-                        <img src={item.img} className="w-10 h-10 mr-
+                  <div className="flex mb-10 flex-wrap gap-x-2 2xl:gap-x-2 xl:gap-x-3 gap-y-3 items-center justify-center w-full max-xl:hidden ">
+                    {icons.map((item, index) => {
+                      return (
+                        <div key={index} className="flex items-center justify-start rounded-xl w-56 px-5 py-3">
+                          <img src={item.img} className="w-10 h-10 mr-
                                 3" alt="icon" />
-                        <p className="font-semibold text-sm ml-3">{item.text}</p>
-                      </div>
-                    )
-                  })}
-                </div>
-                <BankingPart />
-              </div>
-
-              <div className="w-2/5 max-md:w-full max-md:pb-10">
-                <form
-                  onSubmit={onSubmit}
-                  className="flex flex-col items-center md:items-start h-full justify-center"
-                >
-                  {/* <p className="xl:text-3xl text-xl font-bold">text</p> */}
-                  <div className="flex flex-col max-lg:items-start w-full justify-center">
-                    <div className="inline-block relative mt-5 w-full">
-                      <label htmlFor="State">
-                        In which state do you reside?
-                        <sup className="text-red-500">*</sup>
-                      </label>
-                      <select
-                        id="State"
-                        value={stateCode}
-                        required={true}
-                        onChange={(e) => {
-                          setStateCode(e.target.value);
-                        }}
-                        className="block appearance-none w-full mt-2 bg-white border-none hover:border-gray-500 px-4 py-4 pr-8 rounded-xl shadow-xl leading-tight focus:outline-none focus:shadow-outline"
-                      >
-                        <option value="">Select your State</option>
-                        {states &&
-                          states.map((state, index) => (
-                            <option key={index} value={state.isoCode}>
-                              {state.name}
-                            </option>
-                          ))}
-                      </select>
-                      <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 mt-8 text-gray-700">
-                        {/* <ArrowDropDown /> */}
-                      </div>
-                    </div>
-                    <div className="inline-block relative mt-5 w-full">
-                      <label htmlFor="State">
-                        What's your current city?
-                        <sup className="text-red-500">*</sup>
-                      </label>
-                      <select
-                        id="State"
-                        value={city}
-                        required={true}
-                        onChange={(e) => setCity(e.target.value)}
-                        className="block appearance-none w-full mt-2 bg-white border-none hover:border-gray-500 px-4 py-4 pr-8 rounded-xl shadow-xl leading-tight focus:outline-none focus:shadow-outline"
-                      >
-                        <option value="">Select your City</option>
-                        {cities &&
-                          cities.map((city, index) => (
-                            <option key={index} value={city.name}>
-                              {city.name}
-                            </option>
-                          ))}
-                      </select>
-                      <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 mt-8 text-gray-700">
-                        {/* <ArrowDropDown /> */}
-                      </div>
-                    </div>
-                    <label className="mt-5" htmlFor="income">
-                      Write here your Annual Family Income
-                      <sup className="text-red-500">*</sup>
-                    </label>
-                    <input
-                      id="income"
-                      type="text"
-                      required
-                      value={income}
-                      placeholder="Family Annual Income"
-                      className="rounded-xl w-full px-4 py-3 shadow-xl focus:outline-none"
-                      onChange={(e) => setIncome(e.target.value)}
-                    />
-                    <p className="mt-5">
-                      What's your preferred intake?
-                      <sup className="text-red-500">*</sup>
-                    </p>
-                    <div className="flex gap-x-5 mt-2">
-                      <div
-                        className={`py-3 px-6 cursor-pointer flex items-center justify-center max-lg:px-3 max-lg:border rounded-2xl border-2 border-[#001E43] ${intake === "September 2023"
-                          ? "bg-[#001E43] text-white"
-                          : "border-2 border-[#001E43]"
-                          }`}
-                        onClick={() => {
-                          setIntake("September 2023");
-                        }}
-                      >
-                        <p className="max-xl:text-xs text-base">Sep 2023</p>
-                      </div>
-                      <div
-                        className={`py-3 px-6 cursor-pointer flex items-center justify-center max-lg:px-3 max-lg:border rounded-2xl border-2 border-[#001E43] ${intake === "January 2024"
-                          ? "bg-[#001E43] text-white"
-                          : "border-2 border-[#001E43]"
-                          }`}
-                        onClick={() => {
-                          setIntake("January 2024");
-                        }}
-                      >
-                        <p className="max-xl:text-xs text-base">Jan 2024</p>
-                      </div>
-                      <div
-                        className={`py-3 px-6 cursor-pointer flex items-center justify-center max-lg:px-3 max-lg:border rounded-2xl border-2 border-[#001E43] ${intake === "May 2024"
-                          ? "bg-[#001E43] text-white"
-                          : "border-2 border-[#001E43]"
-                          }`}
-                        onClick={() => {
-                          setIntake("May 2024");
-                        }}
-                      >
-                        <p className="max-xl:text-xs text-base">May 2024</p>
-                      </div>
-                    </div>
-                    <button
-                      type="submit"
-                      disabled={!stateCode || !city || !income || !intake}
-                      className="bg-[#001E43] disabled:bg-gray-400 mt-5 w-full py-2 rounded-lg text-white font-semibold"
-                    >
-                      Continue
-                    </button>
+                          <p className="font-semibold text-sm ml-3">{item.text}</p>
+                        </div>
+                      )
+                    })}
                   </div>
-                </form>
+                  <BankingPart />
+                </div>
+
+                <div className="w-2/5 max-md:w-full max-md:pb-10">
+                  <form
+                    onSubmit={onSubmit}
+                    className="flex flex-col items-center md:items-start h-full justify-center"
+                  >
+                    {/* <p className="xl:text-3xl text-xl font-bold">text</p> */}
+                    <div className="flex flex-col max-lg:items-start w-full justify-center">
+                      <div className="inline-block relative mt-5 w-full">
+                        <label htmlFor="State">
+                          In which state do you reside?
+                          <sup className="text-red-500">*</sup>
+                        </label>
+                        <select
+                          id="State"
+                          value={stateCode}
+                          required={true}
+                          onChange={(e) => {
+                            setStateCode(e.target.value);
+                          }}
+                          className="block appearance-none w-full mt-2 bg-white border-none hover:border-gray-500 px-4 py-4 pr-8 rounded-xl shadow-xl leading-tight focus:outline-none focus:shadow-outline"
+                        >
+                          <option value="">Select your State</option>
+                          {states &&
+                            states.map((state, index) => (
+                              <option key={index} value={state.isoCode}>
+                                {state.name}
+                              </option>
+                            ))}
+                        </select>
+                        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 mt-8 text-gray-700">
+                          {/* <ArrowDropDown /> */}
+                        </div>
+                      </div>
+                      <div className="inline-block relative mt-5 w-full">
+                        <label htmlFor="State">
+                          What's your current city?
+                          <sup className="text-red-500">*</sup>
+                        </label>
+                        <select
+                          id="State"
+                          value={city}
+                          required={true}
+                          onChange={(e) => setCity(e.target.value)}
+                          className="block appearance-none w-full mt-2 bg-white border-none hover:border-gray-500 px-4 py-4 pr-8 rounded-xl shadow-xl leading-tight focus:outline-none focus:shadow-outline"
+                        >
+                          <option value="">Select your City</option>
+                          {cities &&
+                            cities.map((city, index) => (
+                              <option key={index} value={city.name}>
+                                {city.name}
+                              </option>
+                            ))}
+                        </select>
+                        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 mt-8 text-gray-700">
+                          {/* <ArrowDropDown /> */}
+                        </div>
+                      </div>
+                      <label className="mt-5" htmlFor="income">
+                        Write here your Annual Family Income
+                        <sup className="text-red-500">*</sup>
+                      </label>
+                      <input
+                        id="income"
+                        type="text"
+                        required
+                        value={income}
+                        placeholder="Family Annual Income"
+                        className="rounded-xl w-full px-4 py-3 shadow-xl focus:outline-none"
+                        onChange={(e) => setIncome(e.target.value)}
+                      />
+                      <p className="mt-5">
+                        What's your preferred intake?
+                        <sup className="text-red-500">*</sup>
+                      </p>
+                      <div className="flex gap-x-5 mt-2">
+                        <div
+                          className={`py-3 px-6 cursor-pointer flex items-center justify-center max-lg:px-3 max-lg:border rounded-2xl border-2 border-[#001E43] ${intake === "September 2023"
+                            ? "bg-[#001E43] text-white"
+                            : "border-2 border-[#001E43]"
+                            }`}
+                          onClick={() => {
+                            setIntake("September 2023");
+                          }}
+                        >
+                          <p className="max-xl:text-xs text-base">Sep 2023</p>
+                        </div>
+                        <div
+                          className={`py-3 px-6 cursor-pointer flex items-center justify-center max-lg:px-3 max-lg:border rounded-2xl border-2 border-[#001E43] ${intake === "January 2024"
+                            ? "bg-[#001E43] text-white"
+                            : "border-2 border-[#001E43]"
+                            }`}
+                          onClick={() => {
+                            setIntake("January 2024");
+                          }}
+                        >
+                          <p className="max-xl:text-xs text-base">Jan 2024</p>
+                        </div>
+                        <div
+                          className={`py-3 px-6 cursor-pointer flex items-center justify-center max-lg:px-3 max-lg:border rounded-2xl border-2 border-[#001E43] ${intake === "May 2024"
+                            ? "bg-[#001E43] text-white"
+                            : "border-2 border-[#001E43]"
+                            }`}
+                          onClick={() => {
+                            setIntake("May 2024");
+                          }}
+                        >
+                          <p className="max-xl:text-xs text-base">May 2024</p>
+                        </div>
+                      </div>
+                      <button
+                        type="submit"
+                        disabled={!stateCode || !city || !income || !intake}
+                        className="bg-[#001E43] disabled:bg-gray-400 mt-5 w-full py-2 rounded-lg text-white font-semibold"
+                      >
+                        Continue
+                      </button>
+                    </div>
+                  </form>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      ) : (
-        <Page2 />
-      )}
-    </div>
+        ) : (
+          <Page2 />
+        )}
+      </div>}
+    </>
   );
 };
 

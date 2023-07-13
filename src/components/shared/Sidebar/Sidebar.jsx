@@ -59,37 +59,62 @@ const SideBar = () => {
       name: "Home",
       path: "/",
       icon: <HomeSVG />,
+      show: true,
     },
-    // {name: "Modules", path: "/module", icon: img2 },
-    { name: "IELTS Lectures", path: "/modules", icon: <ModulesSVG /> },
+    {
+      name: "IELTS Lectures",
+      path: "/modules",
+      icon: <ModulesSVG />,
+      show: true,
+    },
+    {
+      name: "IELTS Classes",
+      path: "/ielts-classes",
+      icon: <ModulesSVG />,
+      show: (!Boolean(student?.organizationId) && !student?.payment)
+    },
     // {
     //   name: "Find Institute",
     //   path: "/find-institute",
     //   icon: <UniversitySVG />,
     // },
 
-    { name: "IELTS Library", path: "/centralized-library", icon: <LibrarySVG /> },
-
-    //     {name: "Home", path: "/", icon: <HomeSVG /> },
-    //     // {name: "Assignments", path: "/assignments", icon: <AssignmentSVG /> },
-    //     {name: "Library", path: "/centralized-library", icon: <LibrarySVG /> },
-
+    {
+      name: "IELTS Library",
+      path: "/centralized-library",
+      icon: <LibrarySVG />,
+      show: true,
+    },
     {
       name: "Universities",
       path: "/shortlist-university",
       icon: <ShortlistSVG />,
+      show: true
     },
     {
       name: "Education Loan",
       path: "/education-loan",
       icon: <EducationLoan />,
+      show: true
     },
     {
       name: "Visa Application",
       path: "/visa-application",
       icon: <PassportSVG />,
+      show: true
     },
-    { name: "Community", path: "/discussion", icon: <DiscussionSVG /> },
+    {
+      name: "Community",
+      path: "/discussion",
+      icon: <DiscussionSVG />,
+      show: true,
+    },
+    {
+      name: "Institute",
+      path: "/institute",
+      icon: <LibrarySVG />,
+      show: Boolean(student?.organizationId || student?.payment),
+    },
     // {name: "Notes", path: "/notes", icon: <NotesSVG /> },
   ];
 
@@ -131,48 +156,23 @@ const SideBar = () => {
             </Link>
           </div>
           <div className="flex-1 px-2">
-            <ul className="pt-2 pb-4 navbar  ">
-              {navItemsArr.map((item, index) => (
-                <li className="navItem mb-2" key={index}>
-                  <NavItem to={item.path} collapseMenu={collapseMenu}>
-                    {item.icon}
-                    {/* <div className="bg-blue-500">
+            <ul className="pt-2 pb-4 navbar ">
+
+              {navItemsArr.map((item, index) => item.show && <li className="navItem mb-2" key={index}>
+                <NavItem to={item.path} collapseMenu={collapseMenu}>
+                  {item.icon}
+                  {/* <div className="bg-blue-500">
                       <img src={item.icon} alt="svg" className=" " />
                     </div> */}
-                    <span
-                      className={`${collapseMenu ? "max-w-0 max-h-0" : "max-w-xs max-h-10"
-                        } overflow-hidden duration-300`}
-                    >
-                      {item.name}
-                    </span>
-                  </NavItem>
-                </li>
-              ))}
-              {student.organizationId ? (
-                <li className="navItem mb-2">
-                  <NavItem to="/institute" collapseMenu={collapseMenu}>
-                    <LibrarySVG />
-                    <span
-                      className={`${collapseMenu ? "max-w-0 max-h-0" : "max-w-xs max-h-10"
-                        } overflow-hidden duration-300`}
-                    >
-                      Institute
-                    </span>
-                  </NavItem>
-                </li>
-              ) : (
-                <li className="navItem mb-2">
-                  <NavItem to="/find-institute" collapseMenu={collapseMenu}>
-                    <UniversitySVG />
-                    <span
-                      className={`${collapseMenu ? "max-w-0 max-h-0" : "max-w-xs max-h-10"
-                        } overflow-hidden duration-300`}
-                    >
-                      Find Institute
-                    </span>
-                  </NavItem>
-                </li>
-              )}
+                  <span
+                    className={`${collapseMenu ? "max-w-0 max-h-0" : "max-w-xs max-h-10"
+                      } overflow-hidden duration-300`}
+                  >
+                    {item.name}
+                  </span>
+                </NavItem>
+              </li>)}
+
             </ul>
           </div>
         </div>
@@ -320,44 +320,15 @@ const SideBar = () => {
               </div>
               <div className="flex-1 px-2">
                 <ul className="pt-2 pb-4">
-                  {navItemsArr.map((item, index) => (
-                    <li className="navItem mb-2" key={index}>
-                      <NavItem to={item.path} onClick={() => setOpen(false)}>
-                        {item.icon}
-                        {/* <img src={item.icon} alt="svg" /> */}
-                        <span>{item.name}</span>
-                      </NavItem>
-                    </li>
-                  ))}
-                  {student.organizationId ? (
-                    <li className="navItem mb-2">
-                      <NavItem to="/institute" collapseMenu={collapseMenu}>
-                        <LibrarySVG />
-                        <span
-                          className={`${collapseMenu
-                            ? "max-w-0 max-h-0"
-                            : "max-w-xs max-h-10"
-                            } overflow-hidden duration-300`}
-                        >
-                          Institute
-                        </span>
-                      </NavItem>
-                    </li>
-                  ) : (
-                    <li className="navItem mb-2">
-                      <NavItem to="/find-institute" collapseMenu={collapseMenu}>
-                        <UniversitySVG />
-                        <span
-                          className={`${collapseMenu
-                            ? "max-w-0 max-h-0"
-                            : "max-w-xs max-h-10"
-                            } overflow-hidden duration-300`}
-                        >
-                          Find Institute
-                        </span>
-                      </NavItem>
-                    </li>
-                  )}
+                  {navItemsArr.map((item, index) => item.show && <li className="navItem mb-2" key={index}>
+                    <NavItem to={item.path} onClick={() => setOpen(false)}>
+                      {item.icon}
+                      {/* <img src={item.icon} alt="svg" /> */}
+                      <span>{item.name}</span>
+                    </NavItem>
+                  </li>)}
+
+
                   {/* {student?.organizationId && (
                     <li className="navItem">
                       <NavItem to="/institute" onClick={() => setOpen(false)}>
