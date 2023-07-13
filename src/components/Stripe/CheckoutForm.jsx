@@ -5,6 +5,7 @@ import { StudentContext } from '../../contexts';
 import paymentApi from '../../api/payment';
 import { Accordion, AccordionDetails, AccordionSummary, Button, CircularProgress } from '@mui/material';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 const MasterCardSVG = ({ className, active }) => (
     <svg
@@ -69,6 +70,8 @@ const CheckoutForm = () => {
     // context 
     const { student, studentFetch } = useContext(StudentContext);
 
+    const navigate = useNavigate();
+
     const stripe = useStripe();
     const elements = useElements();
 
@@ -126,9 +129,10 @@ const CheckoutForm = () => {
             }
             await paymentApi.paymentSuccess(paymentData);
             studentFetch();
-            toast.success('Payment successfully.');
+            toast.success('You are registered with InGelt Board Live Classes!');
             setLoading(false);
-            window.location.pathname = '/institute'
+            navigate('/institute', { replace: true });;
+            // window.location.pathname = '/institute'
         }
 
     }

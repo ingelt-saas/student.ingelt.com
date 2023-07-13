@@ -171,6 +171,20 @@ const Home = () => {
                     </button>
                 </div>
 
+                <div className='md:col-span-6 lg:col-span-4'>
+                    <div className='bg-white shadow-xl rounded-xl overflow-hidden relative'>
+                        <span className='absolute top-2 left-2 bg-white rounded-full px-3 py-1 font-medium shadow-xl text-sm'>What’s new</span>
+                        <div className='w-full h-48'>
+                            <img src='https://images.unsplash.com/photo-1676022763096-a1ad12b2e370?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1032&q=80' alt='' className='w-full h-full object-cover' />
+                        </div>
+                        <div className='px-4 py-4'>
+                            <ul className='pl-3 list-disc text-[rgba(0,_0,_0,_0.60)] font-medium'>
+                                <li>Find course & universities in your favourite country.</li>
+                                <li>Explore In-demand courses.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
 
             </div>
         </div>
