@@ -28,20 +28,6 @@ import FindInstitute from "../pages/FindInstitute/FindInstitute";
 import Institute from "../pages/Institute/Institute";
 
 import VisaApplication from "../pages/VisaApplication/VisaApplication";
-import IELTSClasses from "../pages/IELTSClasses/IELTSClasses";
-import OnlineClasses from "../pages/IELTSClasses/OnlineClasses";
-
-const PaymentRoute = ({ children }) => {
-
-  const { student } = useContext(StudentContext);
-
-  if (!student?.organizationId && !student?.payment) {
-    return <>{children}</>
-  }
-
-  return <></>
-
-}
 
 const Routes = () => {
   // student provider context
@@ -49,101 +35,89 @@ const Routes = () => {
 
   const router = student
     ? createBrowserRouter([
-      {
-        path: "/",
-        element: <PanelLayout />,
-        children: [
-          {
-            path: "/",
-            element: <Home />,
-          },
-          {
-            path: "/assignments",
-            children: [
-              {
-                path: "/assignments",
-                element: <Assignments />,
-              },
-              {
-                // it's route for mobile
-                path: "/assignments/:assignmentId",
-                element: <SingleAssignment />,
-              },
-            ],
-          },
-          {
-            path: "/discussion",
-            element: <Discussions />,
-          },
-          {
-            path: "/notes",
-            element: <Notes />,
-          },
-          {
-            path: "/shortlist-university",
-            element: <ShortlistUniversity />,
-          },
-          {
-            path: "/education-loan",
-            element: <EducationLoan />,
-          },
-          {
-            path: "/modules",
-            element: <Modules />,
-          },
-          {
-            path: "/ielts-classes",
-            element: <PaymentRoute>
-              <IELTSClasses />
-            </PaymentRoute>,
-          },
-          {
-            path: "/ielts-classes/online-classes",
-            element: <PaymentRoute>
-              <OnlineClasses />
-            </PaymentRoute>,
-          },
-          {
-            path: "/visa-application",
-            element: <VisaApplication />,
-          },
-          {
-            path: "/institute",
-            element: <Institute />,
-          },
-          {
-            path: "/find-institute",
-            element: <FindInstitute />,
-          },
-          {
-            path: "/centralized-library",
-            element: <Library />,
-          },
-          {
-            path: "/settings",
-            element: <Settings />,
-          },
-          {
-            path: "*",
-            element: <NotFound />,
-          },
-        ],
-      },
-    ])
+        {
+          path: "/",
+          element: <PanelLayout />,
+          children: [
+            {
+              path: "/",
+              element: <Home />,
+            },
+            {
+              path: "/assignments",
+              children: [
+                {
+                  path: "/assignments",
+                  element: <Assignments />,
+                },
+                {
+                  // it's route for mobile
+                  path: "/assignments/:assignmentId",
+                  element: <SingleAssignment />,
+                },
+              ],
+            },
+            {
+              path: "/discussion",
+              element: <Discussions />,
+            },
+            {
+              path: "/notes",
+              element: <Notes />,
+            },
+            {
+              path: "/shortlist-university",
+              element: <ShortlistUniversity />,
+            },
+            {
+              path: "/education-loan",
+              element: <EducationLoan />,
+            },
+            {
+              path: "/modules",
+              element: <Modules />,
+            },
+            {
+              path: "/visa-application",
+              element: <VisaApplication />,
+            },
+            {
+              path: "/institute",
+              element: <Institute />,
+            },
+            {
+              path: "/find-institute",
+              element: <FindInstitute />,
+            },
+            {
+              path: "/centralized-library",
+              element: <Library />,
+            },
+            {
+              path: "/settings",
+              element: <Settings />,
+            },
+            {
+              path: "*",
+              element: <NotFound />,
+            },
+          ],
+        },
+      ])
     : createBrowserRouter([
-      {
-        path: "/",
-        element: <LoginLayout />,
-      },
-      {
-        path: "/reset-password",
-        element: <SetNewPassword />,
-      },
-      {
-        path: "*",
-        element: <NotFound />,
-      },
-    ]);
+        {
+          path: "/",
+          element: <LoginLayout />,
+        },
+        {
+          path: "/reset-password",
+          element: <SetNewPassword />,
+        },
+        {
+          path: "*",
+          element: <NotFound />,
+        },
+      ]);
 
   return loading ? <Loader /> : <RouterProvider router={router} />;
 };

@@ -34,24 +34,23 @@ const App = () => {
   return (
     <ProSidebarProvider>
       <SocketContext.Provider value={socket}>
-        <QueryClientProvider client={client} >
-          <StudentProvider>
-            <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.3.122/build/pdf.worker.min.js">
-              {/* <button id="whatsapp-login" className="bg-white" onClick={() => {
+        <StudentProvider>
+          <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.3.122/build/pdf.worker.min.js">
+            {/* <button id="whatsapp-login" className="bg-white" onClick={() => {
             sdkInstance.createGetIntentOnClick({
               redirectionURL: 'http://localhost:3000'
             })
           }}>OTP</button> */}
-
+            <QueryClientProvider client={client} >
               <Routes />
               <ToastContainer
                 className="!text-sm"
                 bodyClassName="!my-0"
                 toastClassName="!min-h-fit !py-3"
               />
-            </Worker>
-          </StudentProvider>
-        </QueryClientProvider>
+            </QueryClientProvider>
+          </Worker>
+        </StudentProvider>
       </SocketContext.Provider>
     </ProSidebarProvider>
   );

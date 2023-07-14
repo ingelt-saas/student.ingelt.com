@@ -1,5 +1,7 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import welcomeSVG from "../../assets/images/headingSVG.svg";
+import downSVG from "../../assets/images/downArrow.svg";
+import ShortlistSVG from "../../assets/images/shortlist.svg";
 import { Button, Drawer, Box, Typography, CircularProgress, Alert } from "@mui/material";
 import { Favorite, FilterAlt, HeartBroken } from "@mui/icons-material";
 import { useQuery } from "@tanstack/react-query";
@@ -9,18 +11,6 @@ import { toast } from "react-toastify";
 import FilterMenu from "../../components/University/FilterMenu";
 import ShortlistedUniversities from "../../components/University/ShortlistedUniversities";
 import Header from "../../components/shared/Header/Header";
-import { StudentContext } from "../../contexts";
-
-import img1 from '../../assets/images/globe.svg';
-import img2 from '../../assets/images/courses.svg';
-import img3 from '../../assets/images/universities.svg';
-import img4 from '../../assets/images/landing-pages/school.svg';
-import img5 from '../../assets/images/landing-pages/bachelors-degree.svg';
-import img6 from '../../assets/images/landing-pages/graduation.svg';
-import img7 from '../../assets/images/landing-pages/certificate.svg';
-import img8 from '../../assets/images/landing-pages/graduate.svg';
-import img9 from '../../assets/images/landing-pages/phd.svg';
-import settings from "../../api/settings";
 
 const RightArrowSVG = ({ className, backgroundColor }) => {
   return (
@@ -61,111 +51,13 @@ const RightArrowSVG = ({ className, backgroundColor }) => {
   );
 };
 
-const LandingPage = () => {
-
-  const data = [
-    {
-      image: img4,
-      content: 'High School \n(11th- 12th)',
-    },
-    {
-      image: img5,
-      content: 'UG Diploma/ \nCertificate',
-    },
-    {
-      image: img6,
-      content: 'Undergraduate \n(UG)',
-    },
-    {
-      image: img7,
-      content: 'PG Diploma/ \nCertificate',
-    },
-    {
-      image: img8,
-      content: 'Postgraduate \n(PG)',
-    },
-    {
-      image: img9,
-      content: 'Doctor \nPhilosophy',
-    },
-  ];
-
-  // enter click handler
-  const unlockUniversityShortlist = async (e) => {
-    e.target.disabled = true;
-    try {
-      await settings.update({ universityUnlock: true });
-      window.location.reload();
-    } catch (err) {
-      console.error(err);
-    } finally {
-      e.target.disabled = false;
-    }
-  }
-
-  return <div className="w-full min-h-full max-md:px-3 py-10 bg-[#001E43] grid place-items-center">
-    <div className="flex flex-col items-center gap-y-8">
-      <div className="flex flex-col items-center gap-y-2">
-        <h1 className="text-3xl max-sm:text-xl text-center text-white font-semibold">Apply for University Shortlisting</h1>
-        <p className="text-base text-center text-white">Nulla Lorem mollit cupidatat irure. Laborum</p>
-      </div>
-      <div className='flex items-start gap-x-7'>
-        <div className="flex flex-col items-center">
-          <img src={img3} alt='' className='w-20 aspect-square h-auto' />
-          <h3 className="text-2xl max-sm:text-xl text-center text-white font-semibold">750+ <br /> Universities</h3>
-        </div>
-        <div className="flex flex-col items-center">
-          <img src={img2} alt='' className='w-20 aspect-square h-auto' />
-          <h3 className="text-2xl max-sm:text-xl text-center text-white font-semibold">50,000+ <br /> Courses</h3>
-        </div>
-        <div className="flex flex-col items-center">
-          <img src={img1} alt='' className='w-20 aspect-square h-auto' />
-          <h3 className="text-2xl max-sm:text-xl text-center text-white font-semibold">30+ <br /> Countries</h3>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-2 md:grid-cols-3 max-sm:gap-3 gap-5">
-        {data.map((item, index) => <div key={index} className="bg-white flex gap-x-2 rounded-2xl px-2 py-2 items-center">
-          <img src={item.image} alt='' className='w-12 max-sm:w-10 h-auto aspect-square' />
-          <p className="whitespace-pre-line font-semibold text-[] max-sm:text-sm">{item.content}</p>
-        </div>)}
-      </div>
-
-      <div className=' flex flex-col items-center gap-y-4'>
-        <p className='text-center text-white'>Enter to Shortlist Course / University</p>
-        <Button
-          onClick={unlockUniversityShortlist}
-          variant="contained"
-          sx={{
-            color: '#001E43',
-            textTransform: 'capitalize',
-            fontWeight: '600',
-            backgroundColor: '#fff',
-            padding: '0.5rem 2rem',
-            '&:hover': {
-              backgroundColor: '#f2f2f2',
-            }
-          }}
-        >
-          Enter
-        </Button>
-      </div>
-    </div>
-  </div>;
-}
-
 const ShortlistUniversity = () => {
 
-  // states
   const [isOpen, setIsOpen] = useState(false);
   const [pagination, setPagination] = useState({ page: 1, rows: 100 });
   const [leftDrawer, setLeftDrawer] = useState(false);
   const [filterData, setFilterData] = useState({ country: [], course: [], areaOfInterest: [], });
 
-  // context
-  const { student } = useContext(StudentContext);
-
-  // fetch universities
   const { data, isLoading, refetch } = useQuery({
     queryKey: ['shortlistedUniversities', pagination, filterData],
     queryFn: async () => {
@@ -180,7 +72,6 @@ const ShortlistUniversity = () => {
     }
   });
 
-  // send query
   const sendQuery = async (e) => {
     e.target.disabled = true;
     try {
@@ -217,9 +108,7 @@ const ShortlistUniversity = () => {
 
   return (
     <>
-      {!student?.universityUnlock && <LandingPage />}
-
-      {student?.universityUnlock && <div className="flex flex-row flex-wrap gap-y-10 gap-x-5 w-full py-10 px-5 max-sm:px-2">
+      <div className="flex flex-row flex-wrap gap-y-10 gap-x-5 w-full ">
         <div className="w-full h-20 foo:block ">
           <div className="flex gap-x-5 max-md:flex-col max-md:gap-y-5">
             <Header title="University Shortlisting" subTitle="Choose in demand universities of your choice" Img={welcomeSVG} />
@@ -332,7 +221,7 @@ const ShortlistUniversity = () => {
             </div>
           </div>
         </div>
-      </div>}
+      </div>
 
       {/* Drawer  */}
       <Drawer
