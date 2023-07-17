@@ -139,47 +139,7 @@ const Home = () => {
 
       {/* meeting link */}
       <div className="relative w-full order-2 foo:order-none foo:w-[calc(100%/12*4-10px)]">
-        {!student.organizationId && <LockOverly />}
-        <div className="rounded-xl border border-[#78787840] flex px-2  shadow-lg bg-white">
-          <div className="w-4/12">
-            <img src={meetSVG} alt="meeting svg" className="w-full h-auto" />
-          </div>
-          <div className="w-8/12 flex flex-col justify-around py-2">
-            <div>
-              <h1 className="text-2xl font-semibold">Your Classroom Link</h1>
-
-              <p className="truncate relative pr-6 py-1">
-                {student?.batch?.classroomLink ||
-                  "Your teacher hasn't set the link"}
-                {student?.batch?.classroomLink && (
-                  <Tooltip title={isCopied ? "Copied!" : "Copy to Clipboard"}>
-                    <button
-                      className="text-black absolute top-1/2 right-2 -translate-y-1/2"
-                      onClick={handleCopy}
-                    >
-                      <ContentCopy />
-                    </button>
-                  </Tooltip>
-                )}
-              </p>
-            </div>
-
-            <Button
-              onClick={takeToClass}
-              variant="contained"
-              sx={{
-                fontWeight: 600,
-                textTransform: "capitalize",
-                borderRadius: 2,
-                width: "100%",
-                backgroundColor: "#1B3B7D",
-              }}
-              disabled={student?.batch?.classroomLink ? false : true}
-            >
-              Join Class
-            </Button>
-          </div>
-        </div>
+        
       </div>
 
       {/* profile details */}
@@ -208,7 +168,7 @@ const Home = () => {
 
           <div className="w-full md:w-8/12 px-4 flex items-center">
             <div className="w-full grid grid-cols-2 gap-y-5 gap-x-3 ">
-              
+
               <StudentInfoBlock
                 IconName={Person2}
                 title="Father's Name"

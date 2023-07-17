@@ -16,6 +16,7 @@ import {
   Typography,
 } from "@mui/material";
 import TrackPerformance from "../../components/Institute/TrackPerformance";
+import MeetingLink from "../../components/Institute/MeetingLink";
 
 const Institute = () => {
   const [search, setSearch] = useSearchParams();
@@ -38,7 +39,7 @@ const Institute = () => {
           </p>
         </div>
       </div> */}
-      <div className="pt-3 pb-4 pl-2">
+      <div className="pt-3 pb-4 pl-2 flex gap-5">
         <Box
           sx={{
             display: "flex",
@@ -88,6 +89,9 @@ const Institute = () => {
             />
           </Box>
         </Box>
+        <div className='flex-1'>
+          <MeetingLink />
+        </div>
       </div>
       <div className="flex max-sm:flex-col max-sm:gap-y-3 justify-between items-center mt-10">
         <div className="flex items-end justify-start">

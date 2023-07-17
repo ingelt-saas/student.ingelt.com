@@ -63,5 +63,21 @@ module.exports = {
       '2xl': '1536px'
     },
   },
-  plugins: [],
+  plugins: [
+    function ({ addBase, addUtilities }) {
+      addBase({
+        'table-collapse': { borderCollapse: 'collapse' },
+        'table-separate': { borderCollapse: 'separate' },
+      });
+
+      addUtilities({
+        '.table-collapse > * > *': {
+          borderCollapse: 'collapse',
+        },
+        '.table-separate > * > *': {
+          borderCollapse: 'separate',
+        },
+      });
+    },
+  ],
 };

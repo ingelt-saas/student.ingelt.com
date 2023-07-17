@@ -5,11 +5,11 @@ import CheckoutForm from './CheckoutForm';
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISH_KEY);
 
-const StripeElements = () => {
+const StripeElements = ({ paymentFor, successHandler, loading }) => {
 
     return (
         <Elements stripe={stripePromise} >
-            <CheckoutForm />
+            <CheckoutForm paymentFor={paymentFor} successHandler={successHandler} loading={loading} />
         </Elements>
     );
 }

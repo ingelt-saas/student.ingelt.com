@@ -252,7 +252,6 @@ const Library = () => {
                             alt="library"
                             className="md:relative md:bottom-5 scale-125" />
                     </Box>
-
                 </Box>
                 <Box sx={
                     {

@@ -30,6 +30,8 @@ import Institute from "../pages/Institute/Institute";
 import VisaApplication from "../pages/VisaApplication/VisaApplication";
 import IELTSClasses from "../pages/IELTSClasses/IELTSClasses";
 import OnlineClasses from "../pages/IELTSClasses/OnlineClasses";
+import SpeakingSession from "../pages/SpeakingSession/SpeakingSession";
+import CheckSessions from "../pages/SpeakingSession/CheckSessions";
 
 const PaymentRoute = ({ children }) => {
 
@@ -102,6 +104,14 @@ const Routes = () => {
             element: <PaymentRoute>
               <OnlineClasses />
             </PaymentRoute>,
+          },
+          {
+            path: "/speaking-session",
+            element: <SpeakingSession />,
+          },
+          {
+            path: "/speaking-session/check-sessions",
+            element: <CheckSessions />,
           },
           {
             path: "/visa-application",

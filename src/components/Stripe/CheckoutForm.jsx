@@ -59,7 +59,7 @@ const PaymentMethod = ({ selectedMethod, method, onChange, label, children }) =>
     );
 }
 
-const CheckoutForm = () => {
+const CheckoutForm = ({ paymentFor, successHandler, loading: loadingFunc }) => {
 
     // states 
     const [loading, setLoading] = useState(false);
@@ -101,6 +101,7 @@ const CheckoutForm = () => {
             return;
         }
 
+        typeof loadingFunc === 'function' && loadingFunc(true);
         const { paymentIntent, error: confirmError } = await stripe.confirmCardPayment(
             clientSecret,
             {
@@ -118,21 +119,28 @@ const CheckoutForm = () => {
 
         if (confirmError) {
             setLoading(false);
+            typeof loadingFunc === 'function' && loadingFunc(false);
             setCardError(confirmError.message);
             return;
         }
 
         if (paymentIntent.status === "succeeded") {
-            const paymentData = {
-                transactionId: paymentIntent?.id,
-                amount: paymentIntent.amount,
+
+            if (paymentFor === 'session') {
+                typeof successHandler === 'function' && successHandler(paymentIntent);
+                setLoading(false);
+            } else {
+                const paymentData = {
+                    transactionId: paymentIntent?.id,
+                    amount: paymentIntent.amount,
+                }
+                await paymentApi.paymentSuccess(paymentData);
+                studentFetch();
+                toast.success('You are registered with InGelt Board Live Classes!');
+                setLoading(false);
+                navigate('/institute', { replace: true });;
+                // window.location.pathname = '/institute'
             }
-            await paymentApi.paymentSuccess(paymentData);
-            studentFetch();
-            toast.success('You are registered with InGelt Board Live Classes!');
-            setLoading(false);
-            navigate('/institute', { replace: true });;
-            // window.location.pathname = '/institute'
         }
 
     }
@@ -140,13 +148,13 @@ const CheckoutForm = () => {
     useEffect(() => {
         (async () => {
             try {
-                const result = await paymentApi.createIntent('online');
+                const result = await paymentApi.createIntent(paymentFor === 'session' ? 'session' : 'online');
                 setClientSecret(result.data);
             } catch (err) {
                 console.error(err);
             }
         })();
-    }, []);
+    }, [paymentFor]);
 
 
     const CARD_OPTIONS = {
