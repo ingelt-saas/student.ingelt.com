@@ -397,7 +397,7 @@ const Modules = () => {
         {!loading &&
           (Array.isArray(modules) && modules.length > 0 ? (
             <Box className="mt-5">
-              <div className="grid 2xl:grid-cols-4 xl:grid-cols-3 md:grid-cols-2 gap-y-5 pt-10">
+              <div className="grid 2xl:grid-cols-4 xl:grid-cols-4 md:grid-cols-2 gap-y-5 pt-10">
                 {modules.map((item, index) => (
                   <div
                     onClick={() => handleView(item.file, item)}
@@ -407,11 +407,11 @@ const Modules = () => {
                     {!item.file && (
                       <ModuleOverly releaseDate={item.releaseDate} />
                     )}
-                    <div className="rounded-2xl h-44 overflow-hidden">
+                    <div className="rounded-2xl overflow-hidden">
                       <Image
                         src={item.thumbnail}
                         alt={item.name}
-                        className="w-full h-full object-cover"
+                        className="w-full aspect-video h-auto object-cover"
                       />
                     </div>
                     <div className="mt-5">

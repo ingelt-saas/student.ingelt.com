@@ -12,6 +12,37 @@ const IELTSClasses = () => {
 
     const navigate = useNavigate();
 
+    const freeData = [
+        "Lifetime access",
+        "15 hrs of recorded sessions",
+        "PDF of recorded session",
+        "IELTS strategies",
+        "Assignments",
+        "Self practice mock test",
+        "IELTS library"
+    ];
+
+    const onlineData = [
+        "2 Month crash course",
+        "15 hrs of recorded sessions",
+        "40 hrs of live classes",
+        "Doubt clearing sessions",
+        "Writing evaluation",
+        "Speaking evaluation",
+        "5 Full length mock test"
+    ];
+
+    const offlineData = [
+        "2 Month crash course",
+        "5 days in a week class",
+        "In-person teaching",
+        "Doubt clearing sessions",
+        "Notes & assignments",
+        "Writing & Speaking evaluation",
+        "5 Full length mock test"
+    ];
+
+
     return (
         <div>
             <div className='flex items-center max-md:flex-col gap-7'>
@@ -91,9 +122,12 @@ const IELTSClasses = () => {
                         <h3 className='text-2xl font-semibold text-white absolute top-1/2 -translate-y-1/2 left-5'>Free IELTS Modules</h3>
                     </div>
                     <div className='flex flex-col gap-2'>
-                        <p className='px-3 py-2 bg-[#0C3C821A] rounded-md shadow-md'>25 Modules</p>
-                        <p className='px-3 py-2 bg-[#0C3C821A] rounded-md shadow-md'>Life Time Access</p>
-                        <p className='px-3 py-2 bg-[#0C3C821A] rounded-md shadow-md'>PPT & Assignments</p>
+                        {freeData.map((item, index) =>
+                            <p key={index} className='px-3 py-2 bg-[#0C3C821A] rounded-md shadow-md flex items-center gap-2'>
+                                <span className='w-1.5 h-1.5 rounded-full block bg-black'></span>
+                                <span>{item}</span>
+                            </p>
+                        )}
                     </div>
                     <Button
                         variant='contained'
@@ -105,7 +139,7 @@ const IELTSClasses = () => {
                             }
                         }}
                         onClick={() => navigate('/modules')}
-                    >Watch</Button>
+                    >Free</Button>
                 </div>
                 <div className='p-2 rounded-xl shadow-lg bg-white flex flex-col gap-y-4'>
                     <div className='rounded-xl overflow-hidden relative'>
@@ -113,9 +147,12 @@ const IELTSClasses = () => {
                         <h3 className='text-2xl font-semibold text-white absolute top-1/2 -translate-y-1/2 left-5'>Live / Online Classes</h3>
                     </div>
                     <div className='flex flex-col gap-2'>
-                        <p className='px-3 py-2 bg-[#0C3C821A] rounded-md shadow-md'>2 months Course</p>
-                        <p className='px-3 py-2 bg-[#0C3C821A] rounded-md shadow-md'>Daily Live Classes</p>
-                        <p className='px-3 py-2 bg-[#0C3C821A] rounded-md shadow-md'>British Council Certified</p>
+                        {onlineData.map((item, index) =>
+                            <p key={index} className='px-3 py-2 bg-[#0C3C821A] rounded-md shadow-md flex items-center gap-2'>
+                                <span className='w-1.5 h-1.5 rounded-full block bg-black'></span>
+                                <span>{item}</span>
+                            </p>
+                        )}
                     </div>
                     <Button
                         variant='contained'
@@ -135,9 +172,12 @@ const IELTSClasses = () => {
                         <h3 className='text-2xl font-semibold text-white absolute top-1/2 -translate-y-1/2 left-5'>Offline Classes</h3>
                     </div>
                     <div className='flex flex-col gap-2'>
-                        <p className='px-3 py-2 bg-[#0C3C821A] rounded-md shadow-md'>1-2 months Course</p>
-                        <p className='px-3 py-2 bg-[#0C3C821A] rounded-md shadow-md'>200+ Locations</p>
-                        <p className='px-3 py-2 bg-[#0C3C821A] rounded-md shadow-md'>Multiple Practice Session</p>
+                        {offlineData.map((item, index) =>
+                            <p key={index} className='px-3 py-2 bg-[#0C3C821A] rounded-md shadow-md flex items-center gap-2'>
+                                <span className='w-1.5 h-1.5 rounded-full block bg-black'></span>
+                                <span>{item}</span>
+                            </p>
+                        )}
                     </div>
                     <Button
                         variant='contained'

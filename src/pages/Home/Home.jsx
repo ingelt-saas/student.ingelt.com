@@ -50,17 +50,17 @@ const Home = () => {
 
                 {/* profile info */}
                 <div className='md:col-span-12 lg:col-span-5'>
-                    <div className='rounded-lg bg-white shadow-lg px-4 py-8 flex gap-x-4  items-center'>
-                        <div className='w-1/2'>
-                            <div className=''>
-                                <div className='w-28 h-28 overflow-hidden rounded-full shadow-md mb-4'>
-                                    <ProfileImage
-                                        alt={student?.name}
-                                        src={student?.image}
-                                        gender={student?.gender}
-                                        className='object-cover w-full h-full'
-                                    />
-                                </div>
+                    <div className='rounded-lg bg-white shadow-lg px-4 py-8 flex gap-x-4'>
+                        <div className='w-1/2 relative'>
+                            <div className='w-28 h-28 overflow-hidden rounded-full shadow-md absolute -top-14 left-0'>
+                                <ProfileImage
+                                    alt={student?.name}
+                                    src={student?.image}
+                                    gender={student?.gender}
+                                    className='object-cover w-full h-full'
+                                />
+                            </div>
+                            <div className='h-full flex flex-col items-start justify-end'>
                                 <h1 className='text-[#1B3B7D] text-2xl font-bold'>Hello</h1>
                                 <h3 className='text-[#00000099] text-xl font-semibold flex items-center gap-x-2'>{student?.name}
                                     <svg
@@ -145,7 +145,7 @@ const Home = () => {
                 {/* intro module */}
                 <div className='md:col-span-7 lg:col-span-5'>
                     <div className='w-full overflow-hidden relative rounded-lg shadow-lg pb-[56.25%]'>
-                        <iframe className='w-full h-full absolute top-0 left-0' src="https://www.youtube.com/embed/8xkHNGb59Ns" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
+                        <iframe className='w-full h-full absolute top-0 left-0' src="https://www.youtube.com/embed/8xkHNGb59Ns" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
                     </div>
                 </div>
 
