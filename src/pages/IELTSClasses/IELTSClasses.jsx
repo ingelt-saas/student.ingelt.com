@@ -11,6 +11,37 @@ import { useNavigate } from "react-router-dom";
 const IELTSClasses = () => {
   const navigate = useNavigate();
 
+    const freeData = [
+        "Lifetime access",
+        "15 hrs of recorded sessions",
+        "PDF of recorded session",
+        "IELTS strategies",
+        "Assignments",
+        "Self practice mock test",
+        "IELTS library"
+    ];
+
+    const onlineData = [
+        "2 Month crash course",
+        "15 hrs of recorded sessions",
+        "40 hrs of live classes",
+        "Doubt clearing sessions",
+        "Writing evaluation",
+        "Speaking evaluation",
+        "5 Full length mock test"
+    ];
+
+    const offlineData = [
+        "2 Month crash course",
+        "5 days in a week class",
+        "In-person teaching",
+        "Doubt clearing sessions",
+        "Notes & assignments",
+        "Writing & Speaking evaluation",
+        "5 Full length mock test"
+    ];
+
+
   return (
     <div>
       <div className="flex items-center max-md:flex-col gap-7">
@@ -89,157 +120,86 @@ const IELTSClasses = () => {
         </div>
       </div>
 
-      <div className="grid max-sm:grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 mt-10">
-        <div className="p-2 rounded-xl shadow-lg bg-white flex flex-col gap-y-4">
-          <div className="rounded-xl overflow-hidden relative">
-            <img
-              draggable={false}
-              src={img1}
-              alt=""
-              className="w-full aspect-[16/6] object-cover"
-            />
-            <h3 className="text-2xl font-semibold text-white absolute top-1/2 -translate-y-1/2 left-5">
-              Free IELTS Modules
-            </h3>
-          </div>
-          <div className="flex flex-col gap-2">
-            <p className="px-3 py-2 bg-[#0C3C821A] rounded-md shadow-md">
-              Life Time Access
-            </p>
-            <p className="px-3 py-2 bg-[#0C3C821A] rounded-md shadow-md">
-              15 hrs of recorded sessions
-            </p>
-            <p className="px-3 py-2 bg-[#0C3C821A] rounded-md shadow-md">
-              PDFs of recorded sessions
-            </p>
-            <p className="px-3 py-2 bg-[#0C3C821A] rounded-md shadow-md">
-              IELTS Strategies
-            </p>
-            <p className="px-3 py-2 bg-[#0C3C821A] rounded-md shadow-md">
-              Assignments
-            </p>
-            <p className="px-3 py-2 bg-[#0C3C821A] rounded-md shadow-md">
-              Self Practise Mock Test
-            </p>
-            <p className="px-3 py-2 bg-[#0C3C821A] rounded-md shadow-md">
-              IELTS Library
-            </p>
-          </div>
-          <Button
-            variant="contained"
-            className="!capitalize w-full !rounded-b-xl !rounded-t-md !py-3"
-            sx={{
-              backgroundColor: "#0C3C82",
-              "&:hover": {
-                backgroundColor: "#0C3C82",
-              },
-            }}
-            onClick={() => navigate("/modules")}
-          >
-            Watch
-          </Button>
+            <div className='grid max-sm:grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 mt-10'>
+                <div className='p-2 rounded-xl shadow-lg bg-white flex flex-col gap-y-4'>
+                    <div className='rounded-xl overflow-hidden relative'>
+                        <img draggable={false} src={img1} alt='' className='w-full aspect-[16/6] object-cover' />
+                        <h3 className='text-2xl font-semibold text-white absolute top-1/2 -translate-y-1/2 left-5'>Free IELTS Modules</h3>
+                    </div>
+                    <div className='flex flex-col gap-2'>
+                        {freeData.map((item, index) =>
+                            <p key={index} className='px-3 py-2 bg-[#0C3C821A] rounded-md shadow-md flex items-center gap-2'>
+                                <span className='w-1.5 h-1.5 rounded-full block bg-black'></span>
+                                <span>{item}</span>
+                            </p>
+                        )}
+                    </div>
+                    <Button
+                        variant='contained'
+                        className='!capitalize w-full !rounded-b-xl !rounded-t-md !py-3'
+                        sx={{
+                            backgroundColor: '#0C3C82',
+                            '&:hover': {
+                                backgroundColor: '#0C3C82'
+                            }
+                        }}
+                        onClick={() => navigate('/modules')}
+                    >Free</Button>
+                </div>
+                <div className='p-2 rounded-xl shadow-lg bg-white flex flex-col gap-y-4'>
+                    <div className='rounded-xl overflow-hidden relative'>
+                        <img draggable={false} src={img2} alt='' className='w-full aspect-[16/6] object-cover' />
+                        <h3 className='text-2xl font-semibold text-white absolute top-1/2 -translate-y-1/2 left-5'>Live / Online Classes</h3>
+                    </div>
+                    <div className='flex flex-col gap-2'>
+                        {onlineData.map((item, index) =>
+                            <p key={index} className='px-3 py-2 bg-[#0C3C821A] rounded-md shadow-md flex items-center gap-2'>
+                                <span className='w-1.5 h-1.5 rounded-full block bg-black'></span>
+                                <span>{item}</span>
+                            </p>
+                        )}
+                    </div>
+                    <Button
+                        variant='contained'
+                        className='!capitalize w-full !rounded-b-xl !rounded-t-md !py-3'
+                        sx={{
+                            backgroundColor: '#0C3C82',
+                            '&:hover': {
+                                backgroundColor: '#0C3C82'
+                            }
+                        }}
+                        onClick={() => navigate('/ielts-classes/online-classes')}
+                    >Book Now</Button>
+                </div>
+                <div className='p-2 rounded-xl shadow-lg bg-white flex flex-col gap-y-4'>
+                    <div className='rounded-xl overflow-hidden relative'>
+                        <img draggable={false} src={img3} alt='' className='w-full aspect-[16/6] object-cover' />
+                        <h3 className='text-2xl font-semibold text-white absolute top-1/2 -translate-y-1/2 left-5'>Offline Classes</h3>
+                    </div>
+                    <div className='flex flex-col gap-2'>
+                        {offlineData.map((item, index) =>
+                            <p key={index} className='px-3 py-2 bg-[#0C3C821A] rounded-md shadow-md flex items-center gap-2'>
+                                <span className='w-1.5 h-1.5 rounded-full block bg-black'></span>
+                                <span>{item}</span>
+                            </p>
+                        )}
+                    </div>
+                    <Button
+                        variant='contained'
+                        className='!capitalize w-full !rounded-b-xl !rounded-t-md !py-3'
+                        sx={{
+                            backgroundColor: '#0C3C82',
+                            '&:hover': {
+                                backgroundColor: '#0C3C82'
+                            }
+                        }}
+                        onClick={() => navigate('/find-institute')}
+                    >Book Now</Button>
+                </div>
+            </div>
+
         </div>
-        <div className="p-2 rounded-xl shadow-lg bg-white flex flex-col gap-y-4">
-          <div className="rounded-xl overflow-hidden relative">
-            <img
-              draggable={false}
-              src={img2}
-              alt=""
-              className="w-full aspect-[16/6] object-cover"
-            />
-            <h3 className="text-2xl font-semibold text-white absolute top-1/2 -translate-y-1/2 left-5">
-              Live / Online Classes
-            </h3>
-          </div>
-          <div className="flex flex-col gap-2">
-            <p className="px-3 py-2 bg-[#0C3C821A] rounded-md shadow-md">
-              2 months crash course
-            </p>
-            <p className="px-3 py-2 bg-[#0C3C821A] rounded-md shadow-md">
-              15 hrs of recorded sessions
-            </p>
-            <p className="px-3 py-2 bg-[#0C3C821A] rounded-md shadow-md">
-              40 hrs of live classes
-            </p>
-            <p className="px-3 py-2 bg-[#0C3C821A] rounded-md shadow-md">
-              Doubt clearing sessions
-            </p>
-            <p className="px-3 py-2 bg-[#0C3C821A] rounded-md shadow-md">
-              Writing evaluation
-            </p>
-            <p className="px-3 py-2 bg-[#0C3C821A] rounded-md shadow-md">
-              Speaking evaluation
-            </p>
-            <p className="px-3 py-2 bg-[#0C3C821A] rounded-md shadow-md">
-              5 Full length mock test
-            </p>
-          </div>
-          <Button
-            variant="contained"
-            className="!capitalize w-full !rounded-b-xl !rounded-t-md !py-3"
-            sx={{
-              backgroundColor: "#0C3C82",
-              "&:hover": {
-                backgroundColor: "#0C3C82",
-              },
-            }}
-            onClick={() => navigate("/ielts-classes/online-classes")}
-          >
-            Book Now
-          </Button>
-        </div>
-        <div className="p-2 rounded-xl shadow-lg bg-white flex flex-col gap-y-4">
-          <div className="rounded-xl overflow-hidden relative">
-            <img
-              draggable={false}
-              src={img3}
-              alt=""
-              className="w-full aspect-[16/6] object-cover"
-            />
-            <h3 className="text-2xl font-semibold text-white absolute top-1/2 -translate-y-1/2 left-5">
-              Offline Classes
-            </h3>
-          </div>
-          <div className="flex flex-col gap-2">
-            <p className="px-3 py-2 bg-[#0C3C821A] rounded-md shadow-md">
-              2 Month crash course
-            </p>
-            <p className="px-3 py-2 bg-[#0C3C821A] rounded-md shadow-md">
-              5 days in a week class
-            </p>
-            <p className="px-3 py-2 bg-[#0C3C821A] rounded-md shadow-md">
-              In-person teaching
-            </p>
-            <p className="px-3 py-2 bg-[#0C3C821A] rounded-md shadow-md">
-              Doubt clearing sessions
-            </p>
-            <p className="px-3 py-2 bg-[#0C3C821A] rounded-md shadow-md">
-              Notes & assignments
-            </p>
-            <p className="px-3 py-2 bg-[#0C3C821A] rounded-md shadow-md">
-              Writing & Speaking evaluation
-            </p>
-            <p className="px-3 py-2 bg-[#0C3C821A] rounded-md shadow-md">
-              5 Full length mock test
-            </p>
-          </div>
-          <Button
-            variant="contained"
-            className="!capitalize w-full !rounded-b-xl !rounded-t-md !py-3"
-            sx={{
-              backgroundColor: "#0C3C82",
-              "&:hover": {
-                backgroundColor: "#0C3C82",
-              },
-            }}
-            onClick={() => navigate("/find-institute")}
-          >
-            Book Now
-          </Button>
-        </div>
-      </div>
-    </div>
-  );
-};
+    );
+}
 
 export default IELTSClasses;

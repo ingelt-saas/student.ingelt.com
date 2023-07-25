@@ -94,9 +94,11 @@ const Page2 = () => {
               "InGelt Board is a group of 10+ Registered Immigration Consultant"
             </p>
             <ul className="list-disc list-inside mt-5 text-xl gap-y-2 flex flex-col text-gray max-md:text-lg text-center">
-              <li>Amet minim mollit non deserunt ullamco est sit aliqua </li>
-              <li>Amet minim mollit non deserunt ullamco est sit aliqua </li>
-              <li>Amet minim mollit non deserunt ullamco est sit aliqua </li>
+              <li>
+                Largest group of Registered Immigration Consultants in India{" "}
+              </li>
+              <li>Over 90% visa approved rate</li>
+              <li>1200+ applications processed </li>
             </ul>
           </div>
           <div className="w-2/5">
