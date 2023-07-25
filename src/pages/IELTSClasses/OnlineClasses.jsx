@@ -1,17 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 // assets
-import img1 from '../../assets/images/calendar.svg';
-import img2 from '../../assets/images/course.svg';
-import img3 from '../../assets/images/graduated.svg';
-import img4 from '../../assets/images/online-learning (1) 1.svg';
-import img5 from '../../assets/images/online-classes.png';
-import { Button } from '@mui/material';
-import StripeElements from '../../components/Stripe/StripeElements';
+import img1 from "../../assets/images/calendar.svg";
+import img2 from "../../assets/images/course.svg";
+import img3 from "../../assets/images/graduated.svg";
+import img4 from "../../assets/images/online-learning (1) 1.svg";
+import img5 from "../../assets/images/online-classes.png";
+import { Button } from "@mui/material";
+import StripeElements from "../../components/Stripe/StripeElements";
 
 const OnlineClasses = () => {
-
-    const [isPay, setIsPay] = useState(false);
+  const [isPay, setIsPay] = useState(false);
 
     const data1 = [
         "Types of Sentences",
