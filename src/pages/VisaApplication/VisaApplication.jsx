@@ -56,7 +56,29 @@ const SelectMenu = ({ options, placeholder, value, handleChange, name }) => {
   );
 };
 
-const Page2 = () => {
+const Page2 = ({ data }) => {
+
+  const status = () => {
+    switch (data?.status) {
+      case 'open':
+        return 0;
+      case 'docCollection':
+        return 1;
+      case 'filePreparation':
+        return 2;
+      case 'fileReview':
+        return 3;
+      case 'visaFilled':
+        return 4;
+      case 'approved':
+        return 5;
+      default:
+        return null;
+    }
+  }
+
+  console.log(data)
+
   return (
     <div className="flex flex-row flex-wrap gap-y-10 gap-x-5 w-full sm:m-auto z-10">
       <img src={img3} alt="welcome svg" className="absolute right-32 -z-10" />
@@ -101,15 +123,17 @@ const Page2 = () => {
               <li>1200+ applications processed </li>
             </ul>
           </div>
+
           <div className="w-2/5">
             <section className=" body-font">
               <div className="container px-5 pb-24 pt-10 mx-auto flex flex-wrap">
                 <div className="flex flex-wrap w-full">
                   <div className=" md:pr-10 md:py-6">
                     <div className="flex relative pb-3">
+
                       {/* creating line */}
                       <div class="h-full w-10 absolute inset-0 flex items-center justify-center">
-                        <div class="h-full w-2 bg-[#E5E9EF] pointer-events-none"></div>
+                        <div class={`h-full w-2 ${status() > 0 ? 'bg-[#00285A]' : 'bg-[#E5E9EF]'} pointer-events-none`}></div>
                       </div>
                       <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#00285A] inline-flex items-center justify-center text-white relative z-10">
                         <svg
@@ -125,7 +149,7 @@ const Page2 = () => {
                         </svg>
                       </div>
                       <div className="flex-grow pl-4">
-                        <h2 className="font-extrabold title-font  text-[#00285A] mb-1 tracking-wider">
+                        <h2 className="font-extrabold title-font text-[#00285A] mb-1 tracking-wider">
                           Counselling
                         </h2>
                         <p className="leading-relaxed">
@@ -140,9 +164,9 @@ const Page2 = () => {
                     <div className="flex relative pb-3">
                       {/* creating line */}
                       <div className="h-full w-10 absolute inset-0 flex items-center justify-center">
-                        <div className="h-full w-2 bg-[#E5E9EF] pointer-events-none"></div>
+                        <div class={`h-full w-2 ${status() > 1 ? 'bg-[#00285A]' : 'bg-[#E5E9EF]'} pointer-events-none`}></div>
                       </div>
-                      <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#E5E9EF] inline-flex items-center justify-center text-white relative z-10">
+                      <div className={`flex-shrink-0 w-10 h-10 rounded-full ${status() >= 1 ? 'bg-[#00285A]' : 'bg-[#E5E9EF]'}   inline-flex items-center justify-center text-white relative z-10`}>
                         <svg
                           fill="none"
                           stroke="currentColor"
@@ -171,9 +195,9 @@ const Page2 = () => {
                     <div className="flex relative pb-3">
                       {/* creating line */}
                       <div className="h-full w-10 absolute inset-0 flex items-center justify-center">
-                        <div className="h-full w-2 bg-[#E5E9EF] pointer-events-none"></div>
+                        <div class={`h-full w-2 ${status() > 2 ? 'bg-[#00285A]' : 'bg-[#E5E9EF]'} pointer-events-none`}></div>
                       </div>
-                      <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#E5E9EF] inline-flex items-center justify-center text-white relative z-10">
+                      <div className={`flex-shrink-0 w-10 h-10 rounded-full ${status() >= 2 ? 'bg-[#00285A]' : 'bg-[#E5E9EF]'}   inline-flex items-center justify-center text-white relative z-10`}>
                         <svg
                           fill="none"
                           stroke="currentColor"
@@ -204,9 +228,9 @@ const Page2 = () => {
                     <div className="flex relative pb-3">
                       {/* creating line */}
                       <div className="h-full w-10 absolute inset-0 flex items-center justify-center">
-                        <div className="h-full w-2 bg-[#E5E9EF] pointer-events-none "></div>
+                        <div class={`h-full w-2 ${status() > 3 ? 'bg-[#00285A]' : 'bg-[#E5E9EF]'} pointer-events-none`}></div>
                       </div>
-                      <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#E5E9EF] inline-flex items-center justify-center text-white relative z-10">
+                      <div className={`flex-shrink-0 w-10 h-10 rounded-full ${status() >= 3 ? 'bg-[#00285A]' : 'bg-[#E5E9EF]'}   inline-flex items-center justify-center text-white relative z-10`}>
                         <svg
                           fill="none"
                           stroke="currentColor"
@@ -236,9 +260,9 @@ const Page2 = () => {
 
                     <div className="flex relative pb-3">
                       <div className="h-full w-10 absolute inset-0 flex items-center justify-center">
-                        <div className="h-full w-2 bg-[#E5E9EF] pointer-events-none "></div>
+                        <div class={`h-full w-2 ${status() > 4 ? 'bg-[#00285A]' : 'bg-[#E5E9EF]'} pointer-events-none`}></div>
                       </div>
-                      <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#E5E9EF] inline-flex items-center justify-center text-white relative z-10">
+                      <div className={`flex-shrink-0 w-10 h-10 rounded-full ${status() >= 4 ? 'bg-[#00285A]' : 'bg-[#E5E9EF]'}   inline-flex items-center justify-center text-white relative z-10`}>
                         <svg
                           fill="none"
                           stroke="currentColor"
@@ -267,7 +291,7 @@ const Page2 = () => {
                     </div>
 
                     <div className="flex relative pb-3">
-                      <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#E5E9EF] inline-flex items-center justify-center text-white relative z-10">
+                      <div className={`flex-shrink-0 w-10 h-10 rounded-full ${status() >= 5 ? 'bg-[#00285A]' : 'bg-[#E5E9EF]'}   inline-flex items-center justify-center text-white relative z-10`}>
                         <svg
                           fill="none"
                           stroke="currentColor"
@@ -306,10 +330,12 @@ const Page2 = () => {
 };
 
 const VisaApplication = () => {
-  const [visa, setVisa] = useState();
+
+  const [visa, setVisa] = useState(null);
   const [country, setCountry] = useState();
   const [refusal, setRefusal] = useState();
   const [page2, setPage2] = useState(false);
+
   const [formData, setFormData] = useState({
     email: "",
     name: "",
@@ -319,6 +345,7 @@ const VisaApplication = () => {
     previousRefusal: "",
     studentId: "",
   });
+
   const { student } = useContext(StudentContext);
   const { name, phoneNo, id, email } = student;
   useEffect(() => {
@@ -331,9 +358,9 @@ const VisaApplication = () => {
     });
     const getStates = async () => {
       const res = await query.getvisaQuery(id);
-      console.log(res, "res");
       if (res.data !== null) {
         setPage2(true);
+        setVisa(res.data);
       }
     };
     getStates();
@@ -485,7 +512,7 @@ const VisaApplication = () => {
           </div>
         </div>
       ) : (
-        <Page2 />
+        <Page2 data={visa || {}} />
       )}
     </div>
   );
