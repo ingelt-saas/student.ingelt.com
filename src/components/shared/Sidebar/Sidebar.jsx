@@ -62,7 +62,7 @@ const SideBar = () => {
       show: true,
     },
     {
-      name: "IELTS Lectures",
+      name: "IELTS Modules",
       path: "/modules",
       icon: <ModulesSVG />,
       show: true,
@@ -86,7 +86,13 @@ const SideBar = () => {
       show: true,
     },
     {
-      name: "Universities",
+      name: "Community",
+      path: "/discussion",
+      icon: <DiscussionSVG />,
+      show: true,
+    },
+    {
+      name: "Course Finder",
       path: "/shortlist-university",
       icon: <ShortlistSVG />,
       show: true
@@ -104,23 +110,17 @@ const SideBar = () => {
       show: true
     },
     {
-      name: "Community",
-      path: "/discussion",
-      icon: <DiscussionSVG />,
-      show: true,
-    },
-    {
       name: "Institute",
       path: "/institute",
       icon: <LibrarySVG />,
       show: Boolean(student?.organizationId || student?.payment),
     },
-    {
-      name: "Speaking Session",
-      path: "/speaking-session",
-      icon: <LibrarySVG />,
-      show: true,
-    },
+    // {
+    //   name: "Speaking Session",
+    //   path: "/speaking-session",
+    //   icon: <LibrarySVG />,
+    //   show: true,
+    // },
     // {name: "Notes", path: "/notes", icon: <NotesSVG /> },
   ];
 
