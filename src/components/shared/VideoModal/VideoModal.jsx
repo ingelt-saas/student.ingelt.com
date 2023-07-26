@@ -1,28 +1,27 @@
-import { Box, Modal } from '@mui/material'
+import { Box, CircularProgress, Modal } from '@mui/material'
 import React, { useEffect, useRef, useState } from 'react'
 import ReactPlayer from 'react-player'
 import videojs from 'video.js'
 import 'video.js/dist/video-js.css';
+import getFile from '../../../api/getFile';
 // import 'videojs-hls-quality-selector';
 // import 'videojs-contrib-quality-levels';
 
 // import qualitySelector from 'videojs-hls-quality-selector';
 // import qualityLevels from 'videojs-contrib-quality-levels';
 
-const VideoModal = ({ file, showPopup, closePopup }) => {
+const VideoModal = ({ file, open, close }) => {
 
-  const rootRef = useRef(null);
+  // states
+  const [loading, setLoading] = useState(true);
+
   const videoRef = useRef(null);
-  const playerRef = useRef(null);
+
   const [options, setOptions] = useState({
     autoplay: true,
     controls: true,
     responsive: true,
     fluid: true,
-    sources: [{
-      src: file,
-      type: 'video/mp4'
-    }]
   });
 
   // videojs.registerPlugin('hlsQualitySelector', qualitySelector);
@@ -30,7 +29,6 @@ const VideoModal = ({ file, showPopup, closePopup }) => {
 
   useEffect(() => {
     if (videoRef.current) {
-
 
       const player = videojs(videoRef.current, options);
 
@@ -42,7 +40,7 @@ const VideoModal = ({ file, showPopup, closePopup }) => {
       if (player) {
         player.on('ended', () => {
           player.dispose();
-          closePopup();
+          close();
         });
       }
 
@@ -55,50 +53,49 @@ const VideoModal = ({ file, showPopup, closePopup }) => {
   }, [options]);
 
   useEffect(() => {
-    setOptions({
-      autoplay: true,
-      controls: true,
-      responsive: true,
-      fluid: true,
-      sources: [{
-        src: file,
-        type: 'video/mp4'
-      }]
-    });
+    if (file) {
+      (async () => {
+        try {
+          const res = await getFile(file?.file);
+          const video = res.data;
+          setOptions({
+            ...options,
+            sources: [{
+              src: video,
+              type: file?.fileType
+            }]
+          })
+        } catch (err) {
+          console.error(err);
+        } finally {
+          setLoading(false);
+        }
+      })();
+    }
   }, [file]);
+
+  console.log(options)
 
   return (
     <Modal
-      open={showPopup}
-      onClose={closePopup}
+      open={open}
+      onClose={close}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
       className='grid place-items-center'
     >
       <div className='outline-none bg-white rounded-md w-[80%] max-h-[95vh] h-auto relative'>
-        <video data-setup='{"aspectRatio":"16:9"}' id='video-js' ref={videoRef} className="video-js vjs-default-skin" />
+        {loading && <div className='flex justify-center py-8'>
+          <CircularProgress sx={{ '& circle': { stroke: '#1B3B7D' } }} />
+        </div>}
+
+        {!loading && !options?.sources && <p className='text-center font-medium text-base py-5'>Not Found</p>}
+        {!loading && options?.sources &&
+          <video data-setup='{"aspectRatio":"16:9"}' id='video-js' ref={videoRef} className="video-js vjs-default-skin" />
+        }
+
       </div>
 
-      {/* <Box ref={rootRef} className="absolute w-[90%] md:w-auto outline-none top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"> */}
-
-      {/* <ReactPlayer
-          url={file}
-          style={{ borderRadius: '20px', overflow: 'hidden' }}
-          playing={true}
-          width="100%"
-          height="100%"
-          volume={1}
-          pip={true}
-          controls
-          config={{
-            file: {
-              attributes: {
-                controlsList: 'nodownload',
-              },
-            },
-          }}
-        /> */}
-      {/* </Box> */}
     </Modal>
   )
 }
