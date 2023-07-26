@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Button } from "@mui/material";
 import React from "react";
 
 // assets
@@ -9,6 +9,7 @@ import img3 from "../../assets/images/offline-classes.svg";
 import { Link, useNavigate } from "react-router-dom";
 
 const IELTSClasses = () => {
+
   const navigate = useNavigate();
 
   const freeData = [
@@ -44,63 +45,26 @@ const IELTSClasses = () => {
 
   return (
     <div>
-      <div className="flex items-center max-md:flex-col gap-7">
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            width: { md: "65%", xs: "100%" },
-            height: "20vh",
-            padding: "2rem",
-            backgroundColor: "white",
-            border: "1px solid white",
-            borderRadius: "2rem",
-            boxShadow:
-              "0px 10px 36px rgba(0, 0, 0, 0.16), 0px 0px 0px 1px rgba(0, 0, 0, 0.06);",
-          }}
-        >
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "flex-start",
-              flexDirection: "column",
-              // padding: '2rem 1rem 2rem 1rem',
-              width: { md: "50%", xs: "90%" },
-            }}
-          >
-            <Typography
-              sx={{
-                color: "rgba(0, 0, 0, 0.6);",
-              }}
-            >
-              Start your
-            </Typography>
-            <Typography
-              sx={{
-                fontWeight: "bold",
-                fontSize: "1.5rem",
-              }}
-            >
-              IELTS Preparation
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              width: { md: "60%", xs: "100%" },
-              display: { xs: "none", md: "block" },
-              // padding: '0.3rem'
-            }}
-          >
+      <div className="flex max-md:flex-col gap-7 max-xl:gap-x-5">
+        {/* page header */}
+
+        <div className="rounded-[1.2rem] flex justify-between relative items-center md:w-[65%] bg-white shadow-xl">
+          <div className="px-7 flex flex-col gap-y-1 max-md:py-7 max-sm:px-5">
+            <p className="font-normal text-black opacity-75">Start Your</p>
+            <h1 className="text-2xl font-bold text-[#0C3C82]">IELTS Preparation</h1>
+          </div>
+          <div className="overflow-hidden pr-3 absolute top-0 right-0 h-full w-auto max-md:hidden">
             <img
+              draggable={false}
               src={headerImg}
               alt="library"
-              className={`relative md:bottom-5 ml-auto`}
+              className={`max-h-full max-w-full mix-blend-darken`}
             />
-          </Box>
-        </Box>
-        <div className="rounded-[2rem] max-md:!w-full shadow-xl p-4 flex flex-col gap-y-3 bg-white flex-1">
+          </div>
+        </div>
+
+        {/* speaking practice session */}
+        <div className="rounded-[1.2rem] max-md:!w-full shadow-xl p-4 flex flex-col gap-y-3 bg-white flex-1">
           <h3 className="text-2xl font-bold text-[#0C3C82]">
             Speaking Practice
           </h3>
@@ -122,6 +86,7 @@ const IELTSClasses = () => {
           </Link>
 
         </div>
+
       </div>
 
       <div className='grid max-sm:grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 xl:gap-x-10 mt-10'>
