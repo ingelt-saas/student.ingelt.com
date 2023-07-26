@@ -2,7 +2,7 @@ import moment from "moment/moment";
 import { useContext, useEffect, useState } from "react";
 import { StudentContext } from "../../contexts";
 import ProfileImage from "../shared/ProfileImage/ProfileImage";
-import { Tooltip, MenuItem, Menu, Modal, Button } from "@mui/material";
+import { Tooltip, Modal, Button } from "@mui/material";
 import { Gallery, Item } from "react-photoswipe-gallery";
 import 'photoswipe/dist/photoswipe.css'
 import getFile from "../../api/getFile";
@@ -10,6 +10,7 @@ import ReplyIcon from '@mui/icons-material/Reply';
 import ReportIcon from '@mui/icons-material/Report';
 import { Country } from "country-state-city";
 import Flag from "react-world-flags";
+import { Verified } from '@mui/icons-material';
 
 const CountryFlag = ({ country }) => {
 
@@ -70,7 +71,8 @@ const MessageBox = ({ data, discussionReport, setReplyDiscussion }) => {
     senderCountry,
     discussionImages,
     discussionReports,
-    ParentDiscussion
+    ParentDiscussion,
+    senderVerified
   } = data;
 
   // Check if the message is from the student
@@ -151,7 +153,7 @@ const MessageBox = ({ data, discussionReport, setReplyDiscussion }) => {
 
       {!isStudentMessage && <div className="w-fit md:max-w-[70%] max-w-[82%] flex flex-row items-end">
 
-        {/* my self image show */}
+        {/* sender image show */}
         <div className="px-2">
           <ProfileImage
             alt={senderName}
@@ -162,6 +164,7 @@ const MessageBox = ({ data, discussionReport, setReplyDiscussion }) => {
         </div>
 
         <div className="flex flex-col gap-y-1 flex-1">
+
           {/* if message field is not empty or null */}
           {message && <div className="rounded-md rounded-bl-none bg-[#F2F2F2] flex-1 py-2 px-2 shadow-md relative">
             <span className="absolute flex items-center gap-x-1 top-1/2 -translate-y-1/2 left-full pl-1">
@@ -172,9 +175,13 @@ const MessageBox = ({ data, discussionReport, setReplyDiscussion }) => {
               </Tooltip>
 
             </span>
+
             <div className="flex flex-col gap-y-1 justify-start">
-              <p className="flex text-xs font-semibold justify-between gap-x-3 text-[#1b3b7d] w-full">
-                <span>{senderName}</span>
+              <p className="flex text-xs font-semibold justify-between gap-x-4 text-[#1b3b7d] w-full">
+                <span>
+                  {senderName}
+                  {senderVerified && <Verified className="!ml-1 !w-4 !h-4" />}
+                </span>
                 <span className="flex gap-x-2 items-center">{<CountryFlag country={senderCountry} />}</span>
               </p>
               {ParentDiscussion && <p className="text-xs rounded-lg p-1 bg-[#fff] text-[#1b3b7d]">{ParentDiscussion?.message}</p>}

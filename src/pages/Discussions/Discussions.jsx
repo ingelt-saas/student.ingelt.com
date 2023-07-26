@@ -340,7 +340,7 @@ const Discussions = () => {
               {isSuccess &&
                 [...discussions.pages].reverse().map(item =>
                   [...Object.keys(item.rows)].reverse().map(key => <>
-                    <div className="w-full py-4 flex justify-center">
+                    <div className="w-full py-4 flex justify-center" index={key} >
                       <span className="px-5 py-1 shadow-sm rounded-2xl bg-[#1b3b7d] text-base font-light text-white">{formatDate(key)}</span>
                     </div>
                     {[...item.rows[key]].reverse().map(discussion => <MessageBox key={discussion.id} data={discussion} discussionReport={discussionReport} setReplyDiscussion={setReplyDiscussion} />)}

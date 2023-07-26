@@ -77,8 +77,6 @@ const Page2 = ({ data }) => {
     }
   }
 
-  console.log(data)
-
   return (
     <div className="flex flex-row flex-wrap gap-y-10 gap-x-5 w-full sm:m-auto z-10">
       <img src={img3} alt="welcome svg" className="absolute right-32 -z-10" />

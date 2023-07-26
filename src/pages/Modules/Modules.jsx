@@ -13,9 +13,7 @@ import {
   Alert,
   Box,
   Button,
-  CircularProgress,
-  TablePagination,
-  Typography,
+  CircularProgress
 } from "@mui/material";
 
 // assets
@@ -26,6 +24,7 @@ import img2 from '../../assets/images/copy-writing 1.svg';
 import img3 from '../../assets/images/listening 1.svg';
 import img4 from '../../assets/images/communication 1.svg';
 import settings from "../../api/settings";
+import { audioTypes, fileDownload, videoTypes } from "../../utilities";
 
 
 const DateTimeDisplay = ({ value, type }) => {
@@ -238,13 +237,25 @@ const Modules = () => {
       .padStart(2, 0)} min`;
   };
 
-  const handleView = async (key, file) => {
-    if (!key) {
+  // handle view handler
+  const handleView = async (moduleFile) => {
+
+    if (!moduleFile && moduleFile?.file) {
       return;
     }
-    const res = await getFile(key);
-    setSelectedFile({ file: key, link: res.data });
-    await moduleApi.countViews(file.id); // update views
+
+    await moduleApi.countViews(moduleFile.id); // update views
+
+    // if the module is video or audio
+    if (audioTypes.includes(moduleFile?.fileType) || videoTypes.includes(moduleFile?.fileType)) {
+      setSelectedFile(moduleFile);
+      return;
+    }
+
+    // other wise download this file
+    const res = await getFile(moduleFile?.file);
+    await fileDownload(res.data, moduleFile?.name);
+
   };
 
   const searchModules = (e) => {
@@ -256,6 +267,7 @@ const Modules = () => {
   return (
     <>
       {!student?.modulesUnlock && <LandingPage />}
+
       {student?.modulesUnlock && <Box
         className='py-10'
         sx={{
@@ -400,7 +412,7 @@ const Modules = () => {
               <div className="grid 2xl:grid-cols-4 xl:grid-cols-4 md:grid-cols-2 gap-y-5 pt-10">
                 {modules.map((item, index) => (
                   <div
-                    onClick={() => handleView(item.file, item)}
+                    onClick={() => handleView(item)}
                     className="p-3 relative bg-white rounded-xl h-full shadow-[0px_10px_36px_rgba(0,0,0,0.16),0px_0px_0px_1px_rgba(0,0,0,0.06)] scale-95 hover:scale-100 duration-200 transition-transform cursor-pointer"
                     key={index}
                   >
@@ -517,21 +529,29 @@ const Modules = () => {
               No Modules Found
             </Alert>
           ))}
-
-        {selectedFile && selectedFile?.file?.toLowerCase().endsWith(".mp3") ? (
-          <AudioModal
-            file={selectedFile?.link}
-            showPopup={Boolean(selectedFile)}
-            closePopup={() => setSelectedFile(null)}
-          />
-        ) : (
-          <VideoModal
-            file={selectedFile?.link}
-            showPopup={Boolean(selectedFile)}
-            closePopup={() => setSelectedFile(null)}
-          />
-        )}
       </Box>}
+
+      {/* audio and video modal */}
+
+      {/* audio modal */}
+
+      {selectedFile && audioTypes.includes(selectedFile?.fileType) &&
+        <AudioModal
+          close={() => setSelectedFile(null)}
+          open={Boolean(selectedFile)}
+          file={selectedFile}
+        />
+      }
+
+      {/* video modal */}
+      {selectedFile && videoTypes.includes(selectedFile?.fileType) &&
+        <VideoModal
+          file={selectedFile}
+          close={() => setSelectedFile(null)}
+          open={Boolean(selectedFile)}
+        />
+      }
+
     </>
   );
 };

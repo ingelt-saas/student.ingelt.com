@@ -6,10 +6,26 @@ import 'swiper/css';
 const Countries = () => {
 
     function importAll(r) {
-        return r.keys().map(r);
+
+        const name = (e) => {
+            const obj = {
+                "./": "",
+                ".webp": "",
+            }
+            const pattern = new RegExp(Object.keys(obj).join("|"), "gi");
+            return e.replace(pattern, matched => obj[matched]);
+        }
+
+
+        return r.keys().map(e => ({ name: name(e), image: r(e) }));
     }
 
-    const images = importAll(require.context('../../assets/NewDesign/Country Flag 2', false, /\.(png|jpe?g|svg)$/));
+    // /\.(png|jpe?g|svg)$/
+    const images = () => {
+        let images = require.context('../../assets/NewDesign/Country Flag 2', false, /\.(webp)$/);
+        images = importAll(images);
+        return images;
+    };
 
     return (
         <section className='bg-primary w-full px-5'>
@@ -39,8 +55,13 @@ const Countries = () => {
                         }}
                         modules={[Autoplay]}
                     >
-                        {Array.isArray(images) && images.map((image, index) =>
-                            <SwiperSlide key={index}><img draggable={false} src={image} alt='' /></SwiperSlide>
+                        {Array.isArray(images()) && images().map(({ name, image }, index) =>
+                            <SwiperSlide key={index}>
+                                <div className='flex flex-col items-center gap-3'>
+                                    <img className='w-3/4 aspect-square object-cover mix-blend-darken' draggable={false} src={image} alt={name} />
+                                    <p className='text-sm font-medium text-center'>{name}</p>
+                                </div>
+                            </SwiperSlide>
                         )}
 
                     </Swiper>
