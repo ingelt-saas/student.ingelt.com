@@ -124,8 +124,8 @@ const IELTSClasses = () => {
         </div>
       </div>
 
-      <div className='grid max-sm:grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 mt-10'>
-        <div className='p-2 rounded-xl shadow-lg bg-white flex flex-col gap-y-4'>
+      <div className='grid max-sm:grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 xl:gap-x-10 mt-10'>
+        <div className='p-4 rounded-xl shadow-lg bg-white flex flex-col gap-y-4'>
           <div className='rounded-xl overflow-hidden relative'>
             <img draggable={false} src={img1} alt='' className='w-full aspect-[16/6] object-cover' />
             <h3 className='text-2xl font-semibold text-white absolute top-1/2 -translate-y-1/2 left-5'>Free IELTS Modules</h3>
@@ -150,7 +150,7 @@ const IELTSClasses = () => {
             onClick={() => navigate('/modules')}
           >Free</Button>
         </div>
-        <div className='p-2 rounded-xl shadow-lg bg-white flex flex-col gap-y-4'>
+        <div className='p-4 rounded-xl shadow-lg bg-white flex flex-col gap-y-4'>
           <div className='rounded-xl overflow-hidden relative'>
             <img draggable={false} src={img2} alt='' className='w-full aspect-[16/6] object-cover' />
             <h3 className='text-2xl font-semibold text-white absolute top-1/2 -translate-y-1/2 left-5'>Live / Online Classes</h3>
@@ -175,7 +175,7 @@ const IELTSClasses = () => {
             onClick={() => navigate('/ielts-classes/online-classes')}
           >Book Now</Button>
         </div>
-        <div className='p-2 rounded-xl shadow-lg bg-white flex flex-col gap-y-4'>
+        <div className='p-4 rounded-xl shadow-lg bg-white flex flex-col gap-y-4'>
           <div className='rounded-xl overflow-hidden relative'>
             <img draggable={false} src={img3} alt='' className='w-full aspect-[16/6] object-cover' />
             <h3 className='text-2xl font-semibold text-white absolute top-1/2 -translate-y-1/2 left-5'>Offline Classes</h3>
