@@ -46,7 +46,7 @@ const PaymentModal = ({ open, close }) => {
             <h2 className='text-xl font-semibold text-center'>Payment For Session Booking</h2>
             <h6 className='text-5xl text-[#00000060] mt-4 font-medium text-center flex items-end justify-center gap-x-2'>
                 <span className='text-2xl text-[#00000090]'>&#x20b9;</span>
-                999
+                250
             </h6>
             <div>
                 <StripeElements paymentFor={'session'} successHandler={successHandler} loading={setLoading} />
@@ -175,7 +175,7 @@ const SpeakingSession = () => {
                     <div>
                         <div className='flex gap-5 max-sm:flex-col'>
                             <div className='sm:w-4/12'>
-                                <img src={teacherImg} alt='' className='w-full object-cover aspect-[16/18] rounded-xl shadow-md' />
+                                <img src={teacherImg} alt='' className='w-full object-cover aspect-[16/18] rounded-xl' />
                                 <h6 className='text-2xl font-semibold text-center capitalize mt-3'>Vishal Vats</h6>
                                 <p className='text-center font-medium text-sm flex items-center justify-center gap-2'>
                                     Native Indian
