@@ -115,12 +115,12 @@ const SideBar = () => {
       icon: <LibrarySVG />,
       show: Boolean(student?.organizationId || student?.payment),
     },
-    // {
-    //   name: "Speaking Session",
-    //   path: "/speaking-session",
-    //   icon: <LibrarySVG />,
-    //   show: true,
-    // },
+    {
+      name: "Speaking Session",
+      path: "/speaking-session",
+      icon: <LibrarySVG />,
+      show: true,
+    },
     // {name: "Notes", path: "/notes", icon: <NotesSVG /> },
   ];
 

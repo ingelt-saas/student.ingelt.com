@@ -1,11 +1,16 @@
 import { CalendarMonth, WatchLater } from "@mui/icons-material";
-import React from "react";
+import React, { useContext } from "react";
 import homeApi from "../../api/home";
 import { useQuery } from "@tanstack/react-query";
 import moment from "moment";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import { StudentContext } from "../../contexts";
 
-const UpcomingEvent = ({ studentId }) => {
+const UpcomingEvent = () => {
+
+  const { student } = useContext(StudentContext);
+  const studentId = student?.id;
+
   // fetch event
   const {
     data: upcomingEvent,

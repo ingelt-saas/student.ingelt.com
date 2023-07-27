@@ -32,7 +32,7 @@ const PaymentModal = ({ open, close }) => {
         setLoading(true);
         try {
             await sessionApi.create({ transactionId: paymentIntent.id, amount: paymentIntent.amount, speaker: 'american' });
-            toast.success('You are booking a session');
+            toast.success('You Have Successfully Booked a Session. Kindly Check Your Mail');
             handleClose();
         } catch (err) {
             console.error(err);

@@ -9,6 +9,7 @@ import getFile from "../../api/getFile";
 import Header from "../../components/shared/Header/Header";
 import { useContext } from "react";
 import { StudentContext } from "../../contexts";
+import { useSearchParams } from 'react-router-dom';
 import {
   Alert,
   Box,
@@ -25,6 +26,7 @@ import img3 from '../../assets/images/listening 1.svg';
 import img4 from '../../assets/images/communication 1.svg';
 import settings from "../../api/settings";
 import { audioTypes, fileDownload, videoTypes } from "../../utilities";
+import Library from "../Library/Library";
 
 
 const DateTimeDisplay = ({ value, type }) => {
@@ -166,6 +168,8 @@ const Modules = () => {
   const [loading, setLoading] = useState(true);
   const [pagination, setPagination] = useState({ page: 0, rows: 100 });
   const [selectedFile, setSelectedFile] = useState(null);
+  const [search, setSearch] = useSearchParams();
+  const page = search.get('page');
 
   // context
   const { student } = useContext(StudentContext);
@@ -174,16 +178,20 @@ const Modules = () => {
     (async () => {
       setLoading(true);
       try {
-        const moduleType =
-          activeTab === 1
-            ? "all"
-            : activeTab === 2
-              ? "video"
-              : activeTab === 3
-                ? "mock_test"
-                : activeTab === 4
-                  ? "module_ppt"
-                  : "library";
+
+        const moduleType = page ? page : 'all';
+
+        // const moduleType =
+        //   activeTab === 1
+        //     ? "all"
+        //     : activeTab === 2
+        //       ? "video"
+        //       : activeTab === 3
+        //         ? "mock_test"
+        //         : activeTab === 4
+        //           ? "module_ppt"
+        //           : "library";
+
         const res = await moduleApi.getAll(
           moduleType,
           pagination.page + 1,
@@ -198,7 +206,7 @@ const Modules = () => {
         setLoading(false);
       }
     })();
-  }, [pagination, searchQuery, activeTab]);
+  }, [pagination, searchQuery, page]);
 
   const viewsShorten = (num) => {
     if (typeof num !== "number") {
@@ -297,8 +305,8 @@ const Modules = () => {
         >
           <div className="flex items-end justify-start">
             <button
-              onClick={() => setActiveTab(1)}
-              className={`duration-200 transition-none ease-in ${activeTab === 1
+              onClick={() => setSearch({ 'page': 'all' })}
+              className={`duration-200 transition-none ease-in ${(page === 'all' || !page)
                 ? "border-1 py-3 px-5 md:px-8 font-semibold text-[#1B3B7D] border-[#ECECEC] bg-white border-b-0 rounded-t-xl"
                 : "bg-[#F3F3F3] py-2 px-2 md:px-5 text-sm"
                 }`}
@@ -306,8 +314,8 @@ const Modules = () => {
               All
             </button>
             <button
-              onClick={() => setActiveTab(2)}
-              className={`duration-200 transition-none ease-in ${activeTab === 2
+              onClick={() => setSearch({ 'page': 'video' })}
+              className={`duration-200 transition-none ease-in ${page === 'video'
                 ? "border-1 py-3 px-5 md:px-8 font-semibold text-[#1B3B7D] border-[#ECECEC] bg-white border-b-0 rounded-t-xl"
                 : "bg-[#F3F3F3] py-2 px-2 md:px-5 text-sm"
                 }`}
@@ -315,8 +323,8 @@ const Modules = () => {
               Modules
             </button>
             <button
-              onClick={() => setActiveTab(3)}
-              className={`duration-200 transition-none ease-in ${activeTab === 3
+              onClick={() => setSearch({ 'page': 'module_ppt' })}
+              className={`duration-200 transition-none ease-in ${page === 'module_ppt'
                 ? "border-1 py-3 px-5 md:px-8 font-semibold text-[#1B3B7D] border-[#ECECEC] bg-white border-b-0 rounded-t-xl"
                 : "bg-[#F3F3F3] py-2 px-2 md:px-5 text-sm"
                 }`}
@@ -324,8 +332,8 @@ const Modules = () => {
               Module PPT
             </button>
             <button
-              onClick={() => setActiveTab(4)}
-              className={`duration-200 transition-none ease-in ${activeTab === 4
+              onClick={() => setSearch({ 'page': 'mock_test' })}
+              className={`duration-200 transition-none ease-in ${page === 'mock_test'
                 ? "border-1 py-3 px-5 md:px-8 font-semibold text-[#1B3B7D] border-[#ECECEC] bg-white border-b-0 rounded-t-xl"
                 : "bg-[#F3F3F3] py-2 px-2 md:px-5 text-sm"
                 }`}
@@ -333,8 +341,8 @@ const Modules = () => {
               Mock Test
             </button>
             <button
-              onClick={() => setActiveTab(5)}
-              className={`duration-200 transition-none ease-in ${activeTab === 5
+              onClick={() => setSearch({ 'page': 'library' })}
+              className={`duration-200 transition-none ease-in ${page === 'library'
                 ? "border-1 py-3 px-5 md:px-8 font-semibold text-[#1B3B7D] border-[#ECECEC] bg-white border-b-0 rounded-t-xl"
                 : "bg-[#F3F3F3] py-2 px-2 md:px-5 text-sm"
                 }`}
@@ -353,7 +361,7 @@ const Modules = () => {
           </div>
         )}
 
-        {!loading &&
+        {!loading && page !== 'library' &&
           (Array.isArray(modules) && modules.length > 0 ? (
             <Box className="mt-5">
               <div className="grid 2xl:grid-cols-4 xl:grid-cols-4 md:grid-cols-2 gap-y-5 pt-10">
@@ -475,7 +483,16 @@ const Modules = () => {
             <Alert icon={false} severity="warning" className="w-fit mx-auto mt-5">
               No Modules Found
             </Alert>
-          ))}
+          ))
+        }
+
+        {!loading && page === 'library' &&
+          <Box className="mt-5">
+            <Library />
+          </Box>
+        }
+
+
       </Box>}
 
       {/* audio and video modal */}

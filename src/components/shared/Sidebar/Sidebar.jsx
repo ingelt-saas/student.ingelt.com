@@ -67,6 +67,12 @@ const SidebarMenus = () => {
       icon: <ModulesSVG />,
       show: (!Boolean(student?.organizationId))
     },
+    {
+      name: "Speaking Session",
+      path: "/speaking-session",
+      icon: <LibrarySVG />,
+      show: true,
+    },
     // {
     //   name: "IELTS Library",
     //   path: "/centralized-library",

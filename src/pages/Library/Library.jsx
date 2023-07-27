@@ -198,8 +198,8 @@ const Library = () => {
 
     return (
         <>
-            {!student?.libraryUnlock && <LandingPage />}
-            {student?.libraryUnlock && <Box
+            {/* {!student?.libraryUnlock && <LandingPage />} */}
+            <Box
                 className='py-10'
                 sx={
                     {
@@ -209,7 +209,7 @@ const Library = () => {
                     }
                 }>
 
-                <Box sx={
+                {/* <Box sx={
                     {
                         display: "flex",
                         justifyContent: "center",
@@ -253,7 +253,8 @@ const Library = () => {
                             alt="library"
                             className="md:relative md:bottom-5 scale-125" />
                     </Box>
-                </Box>
+                </Box> */}
+
                 <Box sx={
                     {
                         mt: 5,
@@ -312,6 +313,7 @@ const Library = () => {
                         </div>
                     )
                 }
+
                 {
                     !loading && (Array.isArray(Library) && Library.length > 0 ? <div className="grid 2xl:grid-cols-4 xl:grid-cols-4 lg:grid-cols-2 gap-y-5 pt-10">
                         {
@@ -351,6 +353,7 @@ const Library = () => {
                         Not found
                     </p>)
                 }
+
                 {selectedFile && selectedFile?.file?.toLowerCase().endsWith('.mp3') ? (
                     <AudioModal file={selectedFile?.link} showPopup={showPopup} closePopup={closePopup} />
                 ) : (
@@ -382,7 +385,7 @@ const Library = () => {
                 }
                 className="mt-6" /> */}
 
-            </Box>}
+            </Box>
         </>
     );
 };
