@@ -17,7 +17,7 @@ const FindInstitute = () => {
   // const [institutes, setInstitutes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState({
-    mode: [],
+    mode: ['offline'],
     search: "",
     location: "",
   });
@@ -212,7 +212,7 @@ const FindInstitute = () => {
                     Mode Available
                   </h5>
                   <div className="flex max-md:flex-col max-md:gap-y-1 gap-x-2">
-                    <label
+                    {/* <label
                       htmlFor="online"
                       className="flex items-center w-fit gap-x-1 cursor-pointer"
                     >
@@ -226,13 +226,14 @@ const FindInstitute = () => {
                         className="accent-[#0C3C82]"
                       />
                       Online
-                    </label>
+                    </label> */}
                     <label
                       htmlFor="offline"
                       className="flex items-center w-fit gap-x-1 cursor-pointer"
                     >
                       <input
-                        onChange={modeHandler}
+                        // onChange={modeHandler}
+                        readOnly
                         checked={Boolean(searchQuery.mode.includes("offline"))}
                         value="offline"
                         type="checkbox"
@@ -242,7 +243,7 @@ const FindInstitute = () => {
                       />
                       Offline
                     </label>
-                    <label
+                    {/* <label
                       htmlFor="hybrid"
                       className="flex items-center w-fit gap-x-1 cursor-pointer"
                     >
@@ -256,7 +257,7 @@ const FindInstitute = () => {
                         className="accent-[#0C3C82]"
                       />
                       Hybrid
-                    </label>
+                    </label> */}
                   </div>
                 </div>
               </div>

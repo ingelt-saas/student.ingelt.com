@@ -174,18 +174,18 @@ const Modules = () => {
     (async () => {
       setLoading(true);
       try {
-        const subject =
+        const moduleType =
           activeTab === 1
             ? "all"
             : activeTab === 2
-              ? "reading"
+              ? "modules"
               : activeTab === 3
-                ? "writing"
+                ? "library"
                 : activeTab === 4
-                  ? "speaking"
-                  : "listening";
+                  ? "module_ppt"
+                  : "mock_test";
         const res = await moduleApi.getAll(
-          subject,
+          moduleType,
           pagination.page + 1,
           pagination.rows,
           searchQuery
@@ -276,59 +276,6 @@ const Modules = () => {
           pl: { xl: 0, lg: 2 },
         }}
       >
-        {/* <Box sx={
-                {
-                    display: "flex",
-                    justifyContent: "center",
-                    // alignItems: "center",
-                    height: "20vh",
-                    width: { md: "65%", xs: "100%" },
-                    padding: "0rem 2rem",
-                    backgroundColor: "white",
-                    border: "1px solid white",
-                    borderRadius: "2rem",
-                    boxShadow: "0px 10px 36px rgba(0, 0, 0, 0.16), 0px 0px 0px 1px rgba(0, 0, 0, 0.06);"
-                }
-            }>
-                <Box sx={
-                    {
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "flex-start",
-                        flexDirection: "column",
-                        padding: "2rem 0rem",
-                        width: { md: "50%", xs: "90%" }
-                    }
-                }>
-                    <div>
-                        <Typography
-                            sx={{
-                                fontWeight: "bold",
-                                fontSize: { md: "1.5rem", xs: "1.2rem" },
-                                lineHeight: '1.7rem',
-                                marginBottom: '0.5rem'
-                            }}>Premium IELTS Modules</Typography>
-                        <Typography
-                            sx={{
-                                fontSize: {xs:'0.9rem',md:"1rem"},
-                              }}
-                        >British Council Verified Instructor
-                        </Typography>
-                    </div>
-                </Box>
-                <Box sx={
-                    {
-                        width: { md: "60%", xs: "100%" },
-                        height: '100%',
-                        paddingBottom: '0.5rem',
-                    }
-                }>
-                    <img src={moduleImg}
-                        alt="library"
-                        className="md:relative md:bottom-2 scale-110 w-auto h-full ml-auto" />
-                </Box>
-
-            </Box> */}
         <Header
           title="Premium IELTS Modules"
           subTitle="British Council Verified Instructor"
@@ -365,7 +312,7 @@ const Modules = () => {
                 : "bg-[#F3F3F3] py-2 px-2 md:px-5 text-sm"
                 }`}
             >
-              Reading
+              Modules
             </button>
             <button
               onClick={() => setActiveTab(3)}
@@ -374,7 +321,7 @@ const Modules = () => {
                 : "bg-[#F3F3F3] py-2 px-2 md:px-5 text-sm"
                 }`}
             >
-              Writing
+              Module PPT
             </button>
             <button
               onClick={() => setActiveTab(4)}
@@ -383,7 +330,7 @@ const Modules = () => {
                 : "bg-[#F3F3F3] py-2 px-2 md:px-5 text-sm"
                 }`}
             >
-              Speaking
+              Mock Test
             </button>
             <button
               onClick={() => setActiveTab(5)}

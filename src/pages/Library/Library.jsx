@@ -49,20 +49,21 @@ const LandingPage = () => {
         <div className="flex flex-col items-center gap-y-8">
             <div className="flex flex-col items-center gap-y-2">
                 <h1 className="text-3xl max-sm:text-xl text-center text-white font-semibold">Welcome to InGelt Centralised Library</h1>
-                <p className="text-base text-center text-white">Nulla Lorem mollit cupidatat irure. Laborum</p>
+                <p className="text-base text-center text-white">Full of IELTS Resources</p>
             </div>
             <div className="flex items-center max-md:flex-col max-md:gap-y-10 gap-x-6">
                 <div className="md:w-1/2 flex flex-col gap-y-7">
                     <div className="">
-                        <p className="mb-3 text-center text-lg font-semibold text-white">Heading</p>
+                        <p className="mb-3 text-center text-lg font-semibold text-white">What you will get?</p>
                         <ul className="pl-3 list-outside list-disc">
-                            <li className="text-[#FFFFFF99] text-sm">Nulla Lorem mollit cupidatat irure. Laborum magna nulla</li>
-                            <li className="text-[#FFFFFF99] text-sm">Nulla Lorem mollit cupidatat irure. Laborum magna nulla</li>
-                            <li className="text-[#FFFFFF99] text-sm">Nulla Lorem mollit cupidatat irure. Laborum magna nulla</li>
+                            <li className="text-[#FFFFFF99] text-sm">PDFs covering each topic of each module separately.</li>
+                            <li className="text-[#FFFFFF99] text-sm">Presentation of different topics for better understanding.</li>
+                            <li className="text-[#FFFFFF99] text-sm">Authentic IELTS resources</li>
+                            <li className="text-[#FFFFFF99] text-sm">Audios for Speaking Practice.</li>
                         </ul>
                     </div>
                     <div className=' flex flex-col items-center gap-y-2'>
-                        <p className='text-center text-white'>Nulla Lorem mollit cupidatat irure. Laborum</p>
+                        <p className='text-center text-white'>Get access to IELTS Centralised Library!</p>
                         <Button
                             onClick={unlockLibrary}
                             variant="contained"

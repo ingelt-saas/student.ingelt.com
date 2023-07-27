@@ -107,7 +107,7 @@ const LandingPage = () => {
     <div className="flex flex-col items-center gap-y-8">
       <div className="flex flex-col items-center gap-y-2">
         <h1 className="text-3xl max-sm:text-xl text-center text-white font-semibold">Apply for University Shortlisting</h1>
-        <p className="text-base text-center text-white">Nulla Lorem mollit cupidatat irure. Laborum</p>
+        <p className="text-base text-center text-white">Find your dream university with our advanced Course Finder</p>
       </div>
       <div className='flex items-start gap-x-7'>
         <div className="flex flex-col items-center">

@@ -111,7 +111,7 @@ const Page2 = ({ data }) => {
             /> */}
             <Countries />
             <p className="text-3xl text-center font-semibold text-[#00285A] mt-10 max-md:text-xl max-lg:text-xl">
-              "InGelt Board is a group of 10+ Registered Immigration Consultant"
+              "InGelt Board is a group of 15+ Registered Immigration Consultant"
             </p>
             <ul className="list-disc list-inside mt-5 text-xl gap-y-2 flex flex-col text-gray max-md:text-lg text-center">
               <li>
