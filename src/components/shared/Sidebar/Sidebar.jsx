@@ -108,7 +108,7 @@ const SidebarMenus = () => {
   return (
     <div className="h-full flex flex-col justify-between gap-y-5">
       <div className="w-full">
-        <div className="text-center mt-[1vh] mb-[2vh]">
+        <div className="text-center mt-[3vh] mb-[4vh]">
           <Link to="/" className="mx-auto">
             <img
               src={logo}
