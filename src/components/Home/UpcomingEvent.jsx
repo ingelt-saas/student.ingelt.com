@@ -1,10 +1,16 @@
 import { CalendarMonth, WatchLater } from '@mui/icons-material';
-import React from 'react';
+import React, { useContext } from 'react';
 import homeApi from '../../api/home';
 import { useQuery } from '@tanstack/react-query';
 import moment from 'moment';
+import { StudentContext } from '../../contexts';
 
-const UpcomingEvent = ({ studentId }) => {
+const UpcomingEvent = () => {
+
+
+    //context 
+    const { student } = useContext(StudentContext);
+    const studentId = student?.id;
 
     // fetch event
     const { data: upcomingEvent, isLoading, refetch } = useQuery({
@@ -56,7 +62,7 @@ const UpcomingEvent = ({ studentId }) => {
                     </div>
                 </> : <p className='w-full text-center flex-1 grid place-items-center font-semibold text-lg py-2 text-[#00000099]'>No Upcoming Event</p>}
             </div>
-            <button onClick={handleBook} disabled={Boolean(isBooked) ? true : !Boolean(upcomingEvent)} className='w-full rounded-xl shadow-lg disabled:shadow-none disabled:opacity-60 bg-[#1B3B7D] text-white py-2 font-semibold'>
+            <button onClick={handleBook} disabled={Boolean(isBooked) ? true : !Boolean(upcomingEvent)} className='w-full rounded-xl shadow-lg disabled:shadow-none  bg-[#1B3B7D] text-white py-2 font-semibold'>
                 {isBooked ? 'Booked' : 'Book For Free'}
             </button>
         </>

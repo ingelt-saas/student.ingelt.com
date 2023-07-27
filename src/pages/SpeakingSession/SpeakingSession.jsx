@@ -7,6 +7,15 @@ import StripeElements from '../../components/Stripe/StripeElements';
 import sessionApi from '../../api/session';
 import { toast } from 'react-toastify';
 
+// assets
+import img1 from '../../assets/images/high-five-1.svg';
+import img2 from '../../assets/images/expertise.svg';
+import img3 from '../../assets/images/linguistics.svg';
+import img4 from '../../assets/images/rating.svg';
+import teacherImg from '../../assets/images/Vishal vats.png';
+import indiaFlag from '../../assets/images/india-flag.svg';
+import UpcomingEvent from '../../components/Home/UpcomingEvent';
+
 const PaymentModal = ({ open, close }) => {
 
     const [loading, setLoading] = useState(false);
@@ -49,21 +58,37 @@ const PaymentModal = ({ open, close }) => {
 
 const SpeakingSession = () => {
 
-    const [tab, setTab] = useState(0);
     const [paymentModal, setPaymentModal] = useState(false);
 
     const data = [
-        "🌟Expert in conversational English",
-        "🌟Grammar perfecting ",
-        "🌟TESOL Certification, 4+ years of teaching experience ",
-        "🌟Lived in China, Germany, Slovakia, Poland and currently living in Canada ",
-        "🌟I can use Russian or Ukrainian in explaining during the classes",
-        "🌟Patient, friendly, supportive and organized"
+        "🌟More than 10 years of hands on experience",
+        "🌟British Council certified trainer",
+        "🌟Train the trainer certified trainer",
+        "🌟Mentored more than lakhs of aspirants"
+    ];
+
+    const data2 = [
+        {
+            image: img1,
+            content: 'Warm & \nFriendly',
+        },
+        {
+            image: img2,
+            content: 'Experienced \nTeacher',
+        },
+        {
+            image: img3,
+            content: 'Grammar \nExpert',
+        },
+        {
+            image: img4,
+            content: 'Student \nRating',
+        },
     ];
 
     return (
         <div className=''>
-            <div className='flex gap-5'>
+            <div className='flex max-md:flex-col gap-5'>
                 <Box sx={
                     {
                         display: "flex",
@@ -139,81 +164,61 @@ const SpeakingSession = () => {
                     </div>
                 </div>
             </div>
-            <div className='flex gap-x-5 mt-10'>
-                <div className='w-5/12'>
-                    <div className='bg-white rounded-xl px-5 py-5 shadow-xl'>
-                        <span className='w-8 h-8 grid place-items-center rounded-full bg-[#1D9BF0] bg-opacity-20 text-[#1D9BF0]'>
-                            <Twitter fontSize='small' />
-                        </span>
-                        <h2 className='text-2xl font-semibold my-2'>Join Twitter Space</h2>
-                        <p className='text-base font-semibold'>Group discussion for improving English Speaking</p>
-                        <div className='my-4'>
-                            <span className='text-sm text-[#000000] font-medium opacity-40'>150 Already Booked</span>
-                            <div className='mt-2 flex justify-between text-[#0C3C82] text-base font-medium'>
-                                <span className='flex items-center gap-x-3'>
-                                    <CalendarMonth />
-                                    22.10.2023
-                                </span>
-                                <span className='flex items-center gap-x-3'>
-                                    <WatchLater />
-                                    1 h, 30 min
-                                </span>
-                            </div>
-                        </div>
-                        <ul className='space-y-1 mb-5 pl-3 list-disc text-[#000000] text-base opacity-70'>
-                            <li>Lorem ipsum dolor sit amet, consectetur elit consectetur elit</li>
-                            <li>Lorem ipsum dolor sit amet, consectetur elit consectetur elit</li>
-                            <li>Lorem ipsum dolor sit amet, consectetur elit consectetur elit</li>
-                        </ul>
-                        <Button
-                            variant='contained'
-                            className='!rounded-2xl !py-3 !px-10 text-white !capitalize'
-                            sx={{
-                                backgroundColor: '#0C3C82',
-                                '&:hover': {
-                                    backgroundColor: '#0C3C82'
-                                }
-                            }}
-                        >
-                            Join for free
-                        </Button>
+            <div className='flex max-md:flex-col gap-5 gap-x-5 mt-10'>
+                <div className='md:w-4/12 xl:w-5/12'>
+                    <div className='bg-white rounded-xl px-5 py-5 shadow-xl flex flex-col gap-y-3'>
+                        <UpcomingEvent />
                     </div>
                 </div>
 
-                <div className='w-7/12 bg-white rounded-xl px-5 py-5 shadow-lg'>
+                <div className='md:w-8/12 xl:w-7/12 bg-white rounded-xl px-5 py-5 shadow-lg'>
                     <div>
-                        <div className='flex justify-between mx-auto mb-10 rounded-xl border-2 border-[#001E43] relative overflow-hidden z-10'>
-                            <span className={`absolute w-1/2 h-full bg-[#001E43] top-0 ${tab ? 'left-1/2 rounded-l-lg' : 'left-0 rounded-r-lg'} -z-10 duration-200`}></span>
-                            <button onClick={() => setTab(0)} className={`w-1/2 ${!tab ? 'text-white' : 'text-[#001E43]'} text-center z-20 font-medium py-2 duration-200`}>Indian Speaker</button>
-                            <button onClick={() => setTab(1)} className={`w-1/2 ${tab ? 'text-white' : 'text-[#001E43]'} text-center z-20 font-medium py-2 duration-200`}>American Speaker</button>
-                        </div>
-                        <div className='mt-5 flex gap-x-5'>
-                            <div className='w-4/12'>
-                                <img src='https://images.unsplash.com/photo-1582610285985-a42d9193f2fd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80' alt='' className='w-full object-cover aspect-[16/18] rounded-xl shadow-md' />
-                                <h6 className='text-xl font-semibold text-center capitalize mt-3'>Brooklyn Simmons</h6>
-                                <p className='text-center uppercase text-sm'>Professional Teacher</p>
-                                <Button
-                                    variant='contained'
-                                    className='!rounded-2xl !py-3 !px-10 text-white !capitalize !mt-5'
-                                    sx={{
-                                        backgroundColor: '#0C3C82',
-                                        '&:hover': {
-                                            backgroundColor: '#0C3C82'
-                                        }
-                                    }}
-                                    onClick={() => setPaymentModal(true)}
-                                >
-                                    Book Session
-                                </Button>
+                        <div className='flex gap-5 max-sm:flex-col'>
+                            <div className='sm:w-4/12'>
+                                <img src={teacherImg} alt='' className='w-full object-cover aspect-[16/18] rounded-xl shadow-md' />
+                                <h6 className='text-2xl font-semibold text-center capitalize mt-3'>Vishal Vats</h6>
+                                <p className='text-center font-medium text-sm flex items-center justify-center gap-2'>
+                                    Native Indian
+                                    <img src={indiaFlag} alt='' className='w-5' />
+                                </p>
+                                <p className='flex justify-between text-base mt-3 font-semibold'>
+                                    <span>Teaches</span>
+                                    <span className='flex items-center gap-2'>English
+                                        <svg
+                                            width={18}
+                                            height={13}
+                                            viewBox="0 0 18 13"
+                                            fill="none"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                        >
+                                            <rect width={2} height={13} rx={1} fill="#0DE298" />
+                                            <rect x={4} width={2} height={13} rx={1} fill="#0DE298" />
+                                            <rect x={8} width={2} height={13} rx={1} fill="#0DE298" />
+                                            <rect x={12} width={2} height={13} rx={1} fill="#0DE298" />
+                                            <rect x={16} width={2} height={13} rx={1} fill="#0DE298" />
+                                        </svg>
+
+                                    </span>
+                                </p>
                             </div>
-                            <div className='w-8/12'>
-                                <p className='text-sm font-medium'>✨Certified English Teacher (TESOL) with 5 years of experience✨</p>
-                                <h6 className='text-xl font-semibold mt-4'>About Me</h6>
-                                <p className='text-base uppercase'>WHY CHOOSE BROOKLYN?</p>
-                                {data.map((item, index) => <p key={index} className='text-base'>{item}</p>)}
+                            <div className='sm:w-8/12'>
+                                <h6 className='text-2xl font-normal mt-4'>Book your Speaking Session</h6>
+                                <div className='my-3'>
+                                    <h6 className='text-base font-medium'>About Me</h6>
+                                    {data.map((item, index) => <p key={index} className='text-base'>{item}</p>)}
+                                </div>
+                                <div>
+                                    <h6 className='text-base font-medium'>Featured Batch</h6>
+                                    <div className='flex gap-3 mt-2'>
+                                        {data2.map((item, index) => <div key={index} className='w-1/4 px-2 gap-2 flex flex-col justify-center'>
+                                            <img draggable={false} src={item.image} alt='' className='w-12 h-auto aspect-square mx-auto' />
+                                            <p className='whitespace-pre-line text-sm font-medium text-center'>{item.content}</p>
+                                        </div>)}
+                                    </div>
+                                </div>
 
                                 {/* teacher rating */}
-                                <div className='mt-6 px-4 py-4 flex justify-between shadow-[0px_0px_14px_0px_#d1d1d1] rounded-xl'>
+                                {/* <div className='mt-6 px-4 py-4 flex justify-between shadow-[0px_0px_14px_0px_#d1d1d1] rounded-xl'>
                                     <p className='flex flex-col items-center'>
                                         <span className='text-base font-medium text-[#FFD026] flex items-center gap-x-1'>
                                             <StarRate fontSize='small' />
@@ -233,9 +238,23 @@ const SpeakingSession = () => {
                                         <span className='text-base font-medium text-[#00000070]'>100%</span>
                                         <span className='text-base font-medium text-[#00000099]'>Response</span>
                                     </p>
-                                </div>
+                                </div> */}
                             </div>
                         </div>
+                        <Button
+                            variant='contained'
+                            className='!rounded-xl !font-semibold !py-3 !px-10 text-white !capitalize !mt-5 !flex !justify-between !w-full'
+                            sx={{
+                                backgroundColor: '#0C3C82',
+                                '&:hover': {
+                                    backgroundColor: '#0C3C82'
+                                }
+                            }}
+                            onClick={() => setPaymentModal(true)}
+                        >
+                            <span>Book Session</span>
+                            <span>₹ 250 /-</span>
+                        </Button>
                     </div>
                 </div>
             </div>
