@@ -178,7 +178,7 @@ const Modules = () => {
           activeTab === 1
             ? "all"
             : activeTab === 2
-              ? "modules"
+              ? "video"
               : activeTab === 3
                 ? "mock_test"
                 : activeTab === 4
