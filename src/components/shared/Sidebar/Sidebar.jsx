@@ -67,12 +67,12 @@ const SidebarMenus = () => {
       icon: <ModulesSVG />,
       show: (!Boolean(student?.organizationId))
     },
-    {
-      name: "IELTS Library",
-      path: "/centralized-library",
-      icon: <LibrarySVG />,
-      show: true,
-    },
+    // {
+    //   name: "IELTS Library",
+    //   path: "/centralized-library",
+    //   icon: <LibrarySVG />,
+    //   show: true,
+    // },
     {
       name: "Community",
       path: "/discussion",
@@ -108,13 +108,16 @@ const SidebarMenus = () => {
   return (
     <div className="h-full flex flex-col justify-between gap-y-5">
       <div className="w-full">
-        <Link to="/" className="px-3 inline mx-auto py-8">
-          <img
-            src={logo}
-            alt="Logo"
-            className={`max-md:w-36 w-44 max-w-full duration-500 mx-auto h-auto`}
-          />
-        </Link>
+        <div className="text-center mt-[1vh] mb-[2vh]">
+          <Link to="/" className="mx-auto">
+            <img
+              src={logo}
+              alt="Logo"
+              className={`max-md:w-36 w-44 max-w-full duration-500 mx-auto h-auto`}
+            />
+          </Link>
+        </div>
+
         <ul className="px-2">
           {navItemsArr.map((item, index) => item.show &&
             <li className="navItem mb-1.5" key={index}>

@@ -180,10 +180,10 @@ const Modules = () => {
             : activeTab === 2
               ? "modules"
               : activeTab === 3
-                ? "library"
+                ? "mock_test"
                 : activeTab === 4
                   ? "module_ppt"
-                  : "mock_test";
+                  : "library";
         const res = await moduleApi.getAll(
           moduleType,
           pagination.page + 1,
@@ -339,7 +339,7 @@ const Modules = () => {
                 : "bg-[#F3F3F3] py-2 px-2 md:px-5 text-sm"
                 }`}
             >
-              Listening
+              Library
             </button>
           </div>
           <div className="flex items-end justify-end pt-5 sm:pt-0 md:pl-16 xl:pl-0">
