@@ -137,11 +137,12 @@ const CheckSessions = () => {
 
             <div className='mt-10'>
                 <div className='flex justify-between gap-5 items-center'>
-                    <div className='sm:w-[500px] max-sm:w-11/12 flex justify-between rounded-xl border-2 border-[#0C3C82] relative overflow-hidden z-10'>
+                    <div></div>
+                    {/* <div className='sm:w-[500px] max-sm:w-11/12 flex justify-between rounded-xl border-2 border-[#0C3C82] relative overflow-hidden z-10'>
                         <span className={`absolute w-1/2 h-full bg-[#0C3C82] top-0 ${tab ? 'left-1/2 rounded-l-lg' : 'left-0 rounded-r-lg'} -z-10 duration-200`}></span>
                         <button onClick={() => setTab(0)} className={`w-1/2 ${!tab ? 'text-white' : 'text-[#0C3C82]'} text-center z-20 font-medium py-2 duration-200`}>Indian Speaker</button>
                         <button onClick={() => setTab(1)} className={`w-1/2 ${tab ? 'text-white' : 'text-[#0C3C82]'} text-center z-20 font-medium py-2 duration-200`}>American Speaker</button>
-                    </div>
+                    </div> */}
                     <FormControl size='small' variant="outlined" sx={{ width: '130px', textAlign: 'center', '& fieldset': { borderColor: '#0C3C82 !important' } }}>
                         <Select
                             sx={{ borderRadius: '0.8rem', color: '#0C3C82', }}
