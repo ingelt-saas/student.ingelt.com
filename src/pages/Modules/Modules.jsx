@@ -179,7 +179,7 @@ const Modules = () => {
       setLoading(true);
       try {
 
-        const moduleType = page ? page : 'all';
+        const moduleType = page ? page : 'video';
 
         // const moduleType =
         //   activeTab === 1
@@ -304,7 +304,7 @@ const Modules = () => {
           }}
         >
           <div className="flex items-end justify-start">
-            <button
+            {/* <button
               onClick={() => setSearch({ 'page': 'all' })}
               className={`duration-200 transition-none ease-in ${(page === 'all' || !page)
                 ? "border-1 py-3 px-5 md:px-8 font-semibold text-[#1B3B7D] border-[#ECECEC] bg-white border-b-0 rounded-t-xl"
@@ -312,7 +312,7 @@ const Modules = () => {
                 }`}
             >
               All
-            </button>
+            </button> */}
             <button
               onClick={() => setSearch({ 'page': 'video' })}
               className={`duration-200 transition-none ease-in ${page === 'video'

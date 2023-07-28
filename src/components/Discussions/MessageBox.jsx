@@ -193,7 +193,7 @@ const MessageBox = ({ data, discussionReport, setReplyDiscussion }) => {
                   {!reporterFind &&
                     <Tooltip title='Report'>
                       <button onClick={() => setReportConfirm(true)} className="text-[#1b3b7d]">
-                        <ReportIcon />
+                        <ReportIcon fontSize="small" />
                       </button>
                     </Tooltip>
                   }
