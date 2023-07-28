@@ -208,11 +208,11 @@ const CheckSessions = () => {
                                                     <IconButton className='!absolute !top-2 !right-2' onClick={popupState.close}>
                                                         <Close />
                                                     </IconButton>
-                                                    <h4 className='text-xl font-semibold'>Topic of session</h4>
+                                                    <h4 className='text-xl font-semibold'>{session?.title || ''}</h4>
                                                     <p className='flex gap-x-1 items-center text-sm mt-2 text-[rgba(0,_0,_0,_0.40)]'><CalendarMonth fontSize='small' /> {moment(session.schedule).format('lll')}</p>
                                                     <div className='mt-4 flex items-start gap-x-3'>
-                                                        <img src='https://images.unsplash.com/photo-1582610285985-a42d9193f2fd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80' alt='' className='w-14 aspect-square object-cover rounded-full' />
-                                                        <p className='text-sm flex-1'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim </p>
+                                                        {/* <img src='https://images.unsplash.com/photo-1582610285985-a42d9193f2fd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80' alt='' className='w-14 aspect-square object-cover rounded-full' /> */}
+                                                        <p className='text-sm flex-1'>{session?.desc || ''}</p>
                                                     </div>
                                                 </div>
                                             </Popover>
