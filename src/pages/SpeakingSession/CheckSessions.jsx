@@ -65,11 +65,11 @@ const CheckSessions = () => {
             try {
                 const res = await sessionApi.getSessions();
                 let sessions = res.data;
-                if (tab) {
-                    sessions = sessions.filter(i => i.speaker === 'american');
-                } else {
-                    sessions = sessions.filter(i => i.speaker === 'indian');
-                }
+                // if (tab) {
+                //     sessions = sessions.filter(i => i.speaker === 'american');
+                // } else {
+                //     sessions = sessions.filter(i => i.speaker === 'indian');
+                // }
                 setSessions(sessions);
             } catch (err) {
                 console.error(err);
