@@ -25,7 +25,7 @@ import img2 from '../../assets/images/copy-writing 1.svg';
 import img3 from '../../assets/images/listening 1.svg';
 import img4 from '../../assets/images/communication 1.svg';
 import settings from "../../api/settings";
-import { audioTypes, fileDownload, videoTypes } from "../../utilities";
+import { audioExtensions, audioTypes, fileDownload, videoExtensions, videoTypes } from "../../utilities";
 import Library from "../Library/Library";
 
 
@@ -177,6 +177,7 @@ const Modules = () => {
   useEffect(() => {
     (async () => {
       setLoading(true);
+
       try {
 
         const moduleType = page ? page : 'video';
@@ -253,9 +254,10 @@ const Modules = () => {
     }
 
     await moduleApi.countViews(moduleFile.id); // update views
+    const fileExtension = moduleFile?.file.substring(moduleFile?.file.lastIndexOf('.'));
 
     // if the module is video or audio
-    if (audioTypes.includes(moduleFile?.fileType) || videoTypes.includes(moduleFile?.fileType)) {
+    if (audioExtensions.includes(fileExtension) || videoExtensions.includes(fileExtension)) {
       setSelectedFile(moduleFile);
       return;
     }
@@ -271,6 +273,10 @@ const Modules = () => {
     setSearchQuery(e.target.search.value);
     // setPagination({ page: 0, rows: 5 });
   };
+
+
+  // selected file extension
+  const selectedFileExtension = selectedFile ? selectedFile?.file.substring(selectedFile?.file.lastIndexOf('.')) : null;
 
   return (
     <>
@@ -290,6 +296,7 @@ const Modules = () => {
           Img={moduleImg}
           scale="scale-50"
         />
+
         <Box
           sx={{
             mt: 5,
@@ -315,7 +322,7 @@ const Modules = () => {
             </button> */}
             <button
               onClick={() => setSearch({ 'page': 'video' })}
-              className={`duration-200 transition-none ease-in ${page === 'video'
+              className={`duration-200 transition-none ease-in ${(page === 'video' || !page)
                 ? "border-1 py-3 px-5 md:px-8 font-semibold text-[#1B3B7D] border-[#ECECEC] bg-white border-b-0 rounded-t-xl"
                 : "bg-[#F3F3F3] py-2 px-2 md:px-5 text-sm"
                 }`}
@@ -499,7 +506,7 @@ const Modules = () => {
 
       {/* audio modal */}
 
-      {selectedFile && audioTypes.includes(selectedFile?.fileType) &&
+      {selectedFile && audioExtensions.includes(selectedFileExtension) &&
         <AudioModal
           close={() => setSelectedFile(null)}
           open={Boolean(selectedFile)}
@@ -508,7 +515,7 @@ const Modules = () => {
       }
 
       {/* video modal */}
-      {selectedFile && videoTypes.includes(selectedFile?.fileType) &&
+      {selectedFile && videoExtensions.includes(selectedFileExtension) &&
         <VideoModal
           file={selectedFile}
           close={() => setSelectedFile(null)}
