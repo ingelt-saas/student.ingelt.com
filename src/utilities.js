@@ -24,6 +24,40 @@ export const applicationTypes = [
     "application/vnd.openxmlformats-officedocument.presentationml.presentation", // PowerPoint (OpenXML)
 ];
 
+export const videoExtensions = [
+    ".mp4",
+    ".mkv",
+    ".avi",
+    ".mov",
+    ".wmv",
+    ".flv",
+    ".webm",
+    ".m4v",
+    ".mpeg",
+    ".mpg",
+    ".3gp",
+    ".m2ts",
+    ".vob",
+    ".ts",
+    ".divx",
+];
+
+export const audioExtensions = [
+    ".mp3",
+    ".wav",
+    ".ogg",
+    ".flac",
+    ".aac",
+    ".m4a",
+    ".wma",
+    ".aiff",
+    ".ape",
+    ".alac",
+    ".mid",
+    ".midi",
+    ".amr",
+];
+
 export const fileDownload = (awsFileUrl, fileName) => new Promise(async (resolve, reject) => {
     try {
         const res = await fetch(awsFileUrl);
