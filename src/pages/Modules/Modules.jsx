@@ -262,8 +262,16 @@ const Modules = () => {
       return;
     }
 
-    // other wise download this file
+
     const res = await getFile(moduleFile?.file);
+
+    // if the module file is pdf
+    if (['.pdf'].includes(fileExtension)) {
+      window.open(res.data, '_blank');
+      return;
+    }
+
+    // other wise download this file
     await fileDownload(res.data, moduleFile?.name);
 
   };
