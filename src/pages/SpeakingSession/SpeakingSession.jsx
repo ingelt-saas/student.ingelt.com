@@ -84,7 +84,7 @@ const SpeakingSession = () => {
     "🌟More than 10 years of hands on experience",
     "🌟British Council certified trainer",
     "🌟Train the trainer certified trainer",
-    "🌟Mentored more than lakhs of aspirants",
+    "🌟Mentored more than thousands of aspirants",
   ];
 
   const data2 = [

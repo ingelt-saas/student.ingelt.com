@@ -180,8 +180,9 @@ const Home = () => {
               <ChevronRight fontSize="small" />
             </span>
           </button>
-          <button
-            onClick={() => navigate("/ielts-classes/online-classes")}
+
+          {student?.organization?.modeOfClasses !== 'offline' && <button
+            onClick={() => navigate(student?.organizationId ? '/institute' : '/ielts-classes/online-classes')}
             className="mb-1 flex items-center justify-between bg-white px-3 py-4 duration-200 rounded-xl shadow-lg hover:shadow-none"
           >
             <img src={img3} alt="" className="w-12 h-auto" />
@@ -189,8 +190,9 @@ const Home = () => {
             <span className="w-6 h-6 rounded-full grid place-items-center bg-[#001E4333]">
               <ChevronRight fontSize="small" />
             </span>
-          </button>
-          <button
+          </button>}
+
+          {student?.organization?.modeOfClasses !== 'online' && <button
             onClick={() => navigate("/find-institute")}
             className="mb-1 flex items-center justify-between bg-white px-3 py-4 duration-200 rounded-xl shadow-lg hover:shadow-none"
           >
@@ -199,7 +201,8 @@ const Home = () => {
             <span className="w-6 h-6 rounded-full grid place-items-center bg-[#001E4333]">
               <ChevronRight fontSize="small" />
             </span>
-          </button>
+          </button>}
+
         </div>
 
         <div className="md:col-span-6 lg:col-span-4">
