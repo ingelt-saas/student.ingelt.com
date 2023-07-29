@@ -32,10 +32,12 @@ const NavItem = ({ to, children, collapseMenu, ...props }) => {
       {...props}
       to={to}
       className={({ isActive }) =>
-        `${isActive
-          ? "bg-[#1B3B7D33] text-[#1B3B7D]"
-          : "bg-transparent text-[#7A7C88]"
-        } ${collapseMenu ? "justify-center gap-0" : "justify-start gap-3"
+        `${
+          isActive
+            ? "bg-[#1B3B7D33] text-[#1B3B7D]"
+            : "bg-transparent text-[#7A7C88]"
+        } ${
+          collapseMenu ? "justify-center gap-0" : "justify-start gap-3"
         } flex items-center font-semibold  rounded-md duration-300 px-3 py-2 hover:bg-[#0064E133] hover:text-[#1B3B7D] text-sm`
       }
     >
@@ -45,7 +47,6 @@ const NavItem = ({ to, children, collapseMenu, ...props }) => {
 };
 
 const SidebarMenus = () => {
-
   const { student, logOut } = useContext(StudentContext);
 
   const navItemsArr = [
@@ -65,7 +66,7 @@ const SidebarMenus = () => {
       name: "IELTS Classes",
       path: "/ielts-classes",
       icon: <ModulesSVG />,
-      show: (!Boolean(student?.organizationId))
+      show: !Boolean(student?.organizationId),
     },
     {
       name: "Speaking Session",
@@ -80,35 +81,35 @@ const SidebarMenus = () => {
     //   show: true,
     // },
     {
-      name: "Community",
-      path: "/discussion",
-      icon: <DiscussionSVG />,
-      show: true,
-    },
-    {
       name: "Course Finder",
       path: "/shortlist-university",
       icon: <ShortlistSVG />,
-      show: true
+      show: true,
     },
     {
       name: "Education Loan",
       path: "/education-loan",
       icon: <EducationLoan />,
-      show: true
+      show: true,
     },
     {
       name: "Visa Application",
       path: "/visa-application",
       icon: <PassportSVG />,
-      show: true
+      show: true,
     },
     {
       name: "Institute",
       path: "/institute",
       icon: <LibrarySVG />,
       show: Boolean(student?.organizationId),
-    }
+    },
+    {
+      name: "Community",
+      path: "/discussion",
+      icon: <DiscussionSVG />,
+      show: true,
+    },
   ];
 
   return (
@@ -125,27 +126,25 @@ const SidebarMenus = () => {
         </div>
 
         <ul className="px-2">
-          {navItemsArr.map((item, index) => item.show &&
-            <li className="navItem mb-1.5" key={index}>
-              <NavItem to={item.path}>
-                {item.icon}
-                <span>
-                  {item.name}
-                </span>
-              </NavItem >
-            </li>
+          {navItemsArr.map(
+            (item, index) =>
+              item.show && (
+                <li className="navItem mb-1.5" key={index}>
+                  <NavItem to={item.path}>
+                    {item.icon}
+                    <span>{item.name}</span>
+                  </NavItem>
+                </li>
+              )
           )}
-
         </ul>
       </div>
       <div className="w-full">
         <ul className="px-2">
           <li className="navItem mb-1.5">
-            <NavItem to="/settings" >
+            <NavItem to="/settings">
               <SettingSVG />
-              <span>
-                Settings
-              </span>
+              <span>Settings</span>
             </NavItem>
           </li>
           <li className="navItem mb-1.5">
@@ -157,9 +156,7 @@ const SidebarMenus = () => {
               }}
             >
               <LogoutSVG />
-              <span>
-                Logout
-              </span>
+              <span>Logout</span>
             </NavItem>
           </li>
           <li className="mt-2 pb-2 navItem">
@@ -184,89 +181,92 @@ const SidebarMenus = () => {
           </li>
         </ul>
       </div>
-    </div >
+    </div>
   );
-}
+};
 
 const SideBar = () => {
-
   // states
   const [isOpen, setIsOpen] = useState(false);
 
-  // student context 
+  // student context
   const { student } = useContext(StudentContext);
 
   useEffect(() => {
+    const navItems = document.querySelectorAll("li.navItem");
 
-    const navItems = document.querySelectorAll('li.navItem');
-
-    navItems.forEach(element => {
+    navItems.forEach((element) => {
       // console.log(element);
       // element.onclick = () => {
       //   console.log('Hello')
       //   setIsOpen(false);
       // }
     });
-
   }, []);
 
-  return <>
-
-    {/* large device sidebar */}
-    <div className="lg:w-48 xl:w-56 h-screen max-lg:hidden">
-      <SidebarMenus />
-    </div>
-
-    {/* mobile device navbar  */}
-    <div div className="lg:hidden" >
-      <div className="py-2 px-5 flex items-center justify-between border-b border-[#DCDEE1]">
-        <button onClick={() => setIsOpen(true)} className="text-black outline-none">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={2.5}
-            stroke="currentColor"
-            className={`w-6 h-6`}
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-            />
-          </svg>
-        </button>
-        <h2 className="text-xl font-semibold md:hidden">
-          Welcome {student?.name}
-        </h2>
-        <div className="w-10 h-10 overflow-hidden rounded-full border-2">
-          <Link to="/settings">
-            <ProfileImage
-              src={student?.image}
-              alt={student?.name}
-              gender={student?.gender}
-              className="rounded-full w-full h-full object-cover"
-            />
-          </Link>
-        </div>
-      </div>
-    </div>
-
-    {/* mobile device drawer */}
-    <Drawer anchor={"left"} open={isOpen} onClose={() => setIsOpen(false)} className="lg:hidden">
-      <div className="w-60 bg-[#fff] h-full rounded-r-2xl">
+  return (
+    <>
+      {/* large device sidebar */}
+      <div className="lg:w-48 xl:w-56 h-screen max-lg:hidden">
         <SidebarMenus />
       </div>
-    </Drawer>
 
-  </>
-}
+      {/* mobile device navbar  */}
+      <div div className="lg:hidden">
+        <div className="py-2 px-5 flex items-center justify-between border-b border-[#DCDEE1]">
+          <button
+            onClick={() => setIsOpen(true)}
+            className="text-black outline-none"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={2.5}
+              stroke="currentColor"
+              className={`w-6 h-6`}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+              />
+            </svg>
+          </button>
+          <h2 className="text-xl font-semibold md:hidden">
+            Welcome {student?.name}
+          </h2>
+          <div className="w-10 h-10 overflow-hidden rounded-full border-2">
+            <Link to="/settings">
+              <ProfileImage
+                src={student?.image}
+                alt={student?.name}
+                gender={student?.gender}
+                className="rounded-full w-full h-full object-cover"
+              />
+            </Link>
+          </div>
+        </div>
+      </div>
+
+      {/* mobile device drawer */}
+      <Drawer
+        anchor={"left"}
+        open={isOpen}
+        onClose={() => setIsOpen(false)}
+        className="lg:hidden"
+      >
+        <div className="w-60 bg-[#fff] h-full rounded-r-2xl">
+          <SidebarMenus />
+        </div>
+      </Drawer>
+    </>
+  );
+};
 
 // const SideBar = () => {
 //   const [open, setOpen] = useState(false);
 //   const [collapseMenu, setCollapseMenu] = useState(false);
-
-
 
 //   // const darkModeHandler = () => {
 //   //   if (localStorage.theme) {
@@ -479,7 +479,6 @@ const SideBar = () => {
 //                       <span>{item.name}</span>
 //                     </NavItem>
 //                   </li>)}
-
 
 //                   {/* {student?.organizationId && (
 //                     <li className="navItem">

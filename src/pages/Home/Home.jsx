@@ -17,7 +17,7 @@ import { useQuery } from "@tanstack/react-query";
 import UpcomingEvent from "../../components/Home/UpcomingEvent";
 
 // assets
-import img1 from "../../assets/images/home-bg.png";
+import img1 from "../../assets/images/img1.jpg";
 import img2 from "../../assets/images/release.svg";
 import img3 from "../../assets/images/webinar.svg";
 import img4 from "../../assets/images/online-learning.svg";
@@ -52,7 +52,6 @@ const Home = () => {
   return (
     <div className="pt-5">
       <div className="grid grid-cols-1 md:grid-cols-12 gap-3 xl:gap-5">
-
         {/* profile info */}
         <div className="md:col-span-12 lg:col-span-5">
           <div className="rounded-2xl bg-white shadow-lg px-4 py-8 flex gap-x-4">
@@ -132,24 +131,24 @@ const Home = () => {
         </div>
 
         {/* world clock */}
-        <div className="rounded-2xl bg-white shadow-lg px-4 py-5 gap-x-4 md:col-span-6 lg:col-span-4 flex flex-col gap-y-2">
+        <div className="rounded-2xl bg-white shadow-lg px-4 py-5 gap-x-4 md:col-span-6 lg:col-span-4 flex flex-col items-center justify-center gap-y-2">
           <WorldClocks />
         </div>
 
         {/* speaking practice */}
         <div
-          className="md:col-span-12 flex max-md:flex-col max-md:gap-y-6 items-center rounded-2xl overflow-hidden justify-between bg-cover bg-no-repeat bg-center py-8 px-5 shadow-lg"
+          className="md:col-span-12 flex max-md:flex-col max-md:gap-y-6 items-center rounded-2xl overflow-hidden justify-between bg-cover bg-no-repeat bg-center py-6 px-12 shadow-lg"
           style={{ backgroundImage: `url(${img1})` }}
         >
-          <h1 className="text-white text-3xl font-semibold">
+          <h1 className="text-white text-4xl font-semibold">
             Speaking Practice
           </h1>
-          <ul className="pl-3 list-disc text-white space-y-2">
-            <li>1 hour One to One Practice Session</li>
-            <li>British Council Certified Teacher</li>
+          <ul className="pl-3 list-disc text-white space-y-2 text-lg">
+            <li>1:1 English Speaking Session</li>
+            <li>British Council Certified Instructor</li>
           </ul>
           <Link to="/speaking-session">
-            <button className="px-12 py-2 rounded-md bg-white text-[#0C3C82] font-semibold">
+            <button className="px-12 py-2 rounded-md bg-white text-[#0C3C82] font-semibold text-lg">
               Book
             </button>
           </Link>
