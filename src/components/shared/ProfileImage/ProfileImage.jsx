@@ -25,6 +25,7 @@ const ProfileImage = ({ src, alt, gender, className }) => {
         src={url || avatar}
         alt={alt}
         className={className}
+        draggable={false}
     />
 }
 
