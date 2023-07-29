@@ -170,11 +170,11 @@ const SpeakingSession = () => {
             <h3 className="text-xl font-semibold text-[#0C3C82]">
               My Scheduled Sessions
             </h3>
-            <p className="my-3">Checkout Booked Sessions</p>
+            <p className="my-3 text-sm">Checkout Booked Sessions</p>
             <Link to="/speaking-session/check-sessions">
               <Button
                 variant="contained"
-                className="!rounded-2xl !py-3 !px-10 text-white !capitalize"
+                className="!rounded-2xl !py-3 !px-4 text-white !capitalize text-sm"
                 sx={{
                   backgroundColor: "#0C3C82",
                   "&:hover": {
