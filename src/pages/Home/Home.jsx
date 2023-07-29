@@ -52,11 +52,12 @@ const Home = () => {
   return (
     <div className="pt-5">
       <div className="grid grid-cols-1 md:grid-cols-12 gap-3 xl:gap-5">
+
         {/* profile info */}
         <div className="md:col-span-12 lg:col-span-5">
           <div className="rounded-2xl bg-white shadow-lg px-4 py-8 flex gap-x-4">
             <div className="w-1/2 relative">
-              <div className="w-40 h-40 overflow-hidden rounded-full absolute -top-14 left-0  shadow-xl">
+              <div className="max-md:w-28 max-md:h-28  w-40 h-40 overflow-hidden rounded-full absolute -top-14 left-0  shadow-xl">
                 <ProfileImage
                   alt={student?.name}
                   src={student?.image}
