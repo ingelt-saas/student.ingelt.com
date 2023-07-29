@@ -1,4 +1,4 @@
-import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
+import { PaymentElement, CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import { useContext, useEffect } from 'react';
 import { useState } from 'react';
 import { StudentContext } from '../../contexts';
@@ -6,6 +6,7 @@ import paymentApi from '../../api/payment';
 import { Accordion, AccordionDetails, AccordionSummary, Button, CircularProgress } from '@mui/material';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import CreditCardIcon from '@mui/icons-material/CreditCard';
 
 const MasterCardSVG = ({ className, active }) => (
     <svg
@@ -49,7 +50,7 @@ const PaymentMethod = ({ selectedMethod, method, onChange, label, children }) =>
         >
             <AccordionSummary sx={{ '& .MuiAccordionSummary-content': { margin: '0px !important' } }}>
                 <h3 className={`text-base font-semibold flex items-center gap-x-2 duration-300 ${isExpand ? '!text-[#0C3C82]' : '!text-[#fff]'}`}>
-                    {method === 'card' && <MasterCardSVG className={`w-10 h-auto`} active={isExpand} />}
+                    <CreditCardIcon fontSize='large' />
                     {label}</h3>
             </AccordionSummary>
             <AccordionDetails>
@@ -182,7 +183,9 @@ const CheckoutForm = ({ paymentFor, successHandler, loading: loadingFunc }) => {
     };
 
     return (
-        <form onSubmit={paymentHandler} className='py-5'>
+        <form id='payment-form' onSubmit={paymentHandler} className='py-5'>
+
+
             <div className='mb-3'>
                 <PaymentMethod
                     label={'Pay with Card'}
