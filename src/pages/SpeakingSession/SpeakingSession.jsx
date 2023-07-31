@@ -20,65 +20,66 @@ import img4 from "../../assets/images/rating.svg";
 import teacherImg from "../../assets/images/Vishal vats.png";
 import indiaFlag from "../../assets/images/india-flag.svg";
 import UpcomingEvent from "../../components/Home/UpcomingEvent";
+import RazorPay from "../../components/RazorPay/RazorPay";
 
-const PaymentModal = ({ open, close }) => {
-  const [loading, setLoading] = useState(false);
+// const PaymentModal = ({ open, close }) => {
 
-  const handleClose = () => {
-    if (loading) {
-      return;
-    }
-    close();
-  };
+//   const [loading, setLoading] = useState(false);
 
-  // payment success handler
-  const successHandler = async (paymentIntent) => {
-    setLoading(true);
-    try {
-      await sessionApi.create({
-        transactionId: paymentIntent.id,
-        amount: paymentIntent.amount,
-        speaker: "american",
-      });
-      toast.success(
-        "You Have Successfully Booked a Session. Kindly Check Your Mail"
-      );
-      handleClose();
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
-  };
+//   const handleClose = () => {
+//     if (loading) {
+//       return;
+//     }
+//     close();
+//   };
 
-  return (
-    <Modal
-      open={open}
-      onClose={handleClose}
-      className="grid place-items-center"
-    >
-      <div className="sm:min-w-[400px] max-sm:w-[95vw] max-sm:px-2 bg-white rounded-xl shadow-2xl p-5 outline-none">
-        <h2 className="text-xl font-semibold text-center">
-          Payment For Session Booking
-        </h2>
-        <h6 className="text-5xl text-[#00000060] mt-4 font-medium text-center flex items-end justify-center gap-x-2">
-          <span className="text-2xl text-[#00000090]">&#x20b9;</span>
-          250
-        </h6>
-        <div>
-          <StripeElements
-            paymentFor={"session"}
-            successHandler={successHandler}
-            loading={setLoading}
-          />
-        </div>
-      </div>
-    </Modal>
-  );
-};
+//   // payment success handler
+//   const successHandler = async (paymentIntent) => {
+//     setLoading(true);
+//     try {
+//       await sessionApi.create({
+//         transactionId: paymentIntent.id,
+//         amount: paymentIntent.amount,
+//         speaker: "american",
+//       });
+//       toast.success(
+//         "You Have Successfully Booked a Session. Kindly Check Your Mail"
+//       );
+//       handleClose();
+//     } catch (err) {
+//       console.error(err);
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+//   return (
+//     <Modal
+//       open={open}
+//       onClose={handleClose}
+//       className="grid place-items-center"
+//     >
+//       <div className="sm:min-w-[400px] max-sm:w-[95vw] max-sm:px-2 bg-white rounded-xl shadow-2xl p-5 outline-none">
+//         <h2 className="text-xl font-semibold text-center">
+//           Payment For Session Booking
+//         </h2>
+//         <h6 className="text-5xl text-[#00000060] mt-4 font-medium text-center flex items-end justify-center gap-x-2">
+//           <span className="text-2xl text-[#00000090]">&#x20b9;</span>
+//           250
+//         </h6>
+//         <div>
+//           <StripeElements
+//             paymentFor={"session"}
+//             successHandler={successHandler}
+//             loading={setLoading}
+//           />
+//         </div>
+//       </div>
+//     </Modal>
+//   );
+// };
 
 const SpeakingSession = () => {
-  const [paymentModal, setPaymentModal] = useState(false);
 
   const data = [
     "🌟More than 10 years of hands on experience",
@@ -105,6 +106,22 @@ const SpeakingSession = () => {
       content: "Student \nRating",
     },
   ];
+
+  const successHandler = async (response) => {
+
+    try {
+      await sessionApi.create({
+        transactionId: response.id,
+        amount: response.amount,
+      });
+      toast.success(
+        "You Have Successfully Booked a Session. Kindly Check Your Mail"
+      );
+      // handleClose();
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
     <div className="">
@@ -301,26 +318,21 @@ const SpeakingSession = () => {
                                 </div> */}
               </div>
             </div>
-            <Button
-              variant="contained"
-              className="!rounded-xl !font-semibold !py-3 !px-10 text-white !capitalize !mt-5 !flex !justify-between !w-full"
-              sx={{
-                backgroundColor: "#0C3C82",
-                "&:hover": {
-                  backgroundColor: "#0C3C82",
-                },
-              }}
-              onClick={() => setPaymentModal(true)}
+            <RazorPay
+              description={''}
+              paymentFor='session'
+              successHandler={successHandler}
+              buttonClass={'!rounded-xl !font-semibold !py-3 !px-10 text-white !capitalize !mt-5 !flex !justify-between !w-full'}
             >
               <span>Book Session</span>
               <span>₹ 250 /-</span>
-            </Button>
+            </RazorPay>
+
           </div>
         </div>
       </div>
 
-      {/* payment modal */}
-      <PaymentModal open={paymentModal} close={() => setPaymentModal(false)} />
+
     </div>
   );
 };

@@ -52,10 +52,10 @@ const OnlineClasses = () => {
     const onlineClassesEnrollHandler = async (response) => {
         const paymentId = response.razorpay_payment_id;
         try {
-            await paymentApi.paymentSuccess({ transactionId: paymentId, amount: response?.amount|| 0,});
+            await paymentApi.paymentSuccess({ transactionId: paymentId, amount: response?.amount || 0, });
             studentFetch();
-            navigate('/institute', {replace: true});
-        }catch(err){
+            navigate('/institute', { replace: true });
+        } catch (err) {
             console.error(err);
         }
     }
@@ -128,7 +128,7 @@ const OnlineClasses = () => {
                 <div className='bg-white p-2 rounded-xl shadow-xl flex flex-col gap-y-5'>
                     <div className='rounded-xl overflow-hidden relative'>
                         <img draggable={false} src={img5} alt='' className='w-full aspect-[16/9] object-cover' />
-                        <h3 className='text-2xl whitespace-nowrap font-semibold text-white absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2'>Live/Offline Classes</h3>
+                        <h3 className='text-2xl whitespace-nowrap font-semibold text-white absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2'>Live / Online Classes</h3>
                     </div>
                     <div className='text-center'>
                         <p className='text-3xl font-semibold text-[#0C3C82]'>
@@ -140,9 +140,10 @@ const OnlineClasses = () => {
                     <RazorPay
                         paymentFor={'classes'}
                         description={''}
+                        buttonClass={'!capitalize w-full !rounded-b-xl !rounded-t-md !py-3'}
                         successHandler={onlineClassesEnrollHandler}
                     >Book Your Seat</RazorPay>
-                    
+
                 </div>
             </div>
         </div>
