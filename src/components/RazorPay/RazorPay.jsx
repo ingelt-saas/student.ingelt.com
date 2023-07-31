@@ -4,13 +4,13 @@ import { Button } from '@mui/material';
 import logo from '../../assets/images/navlogo.png';
 import { StudentContext } from '../../contexts';
 
-const RazorPay = ({ children, paymentFor, description, successHandler }) => {
+const RazorPay = ({ children, paymentFor, description, successHandler, buttonClass }) => {
 
     // states
     const [loading, setLoading] = useState(false);
 
     // context
-    const {student } = useContext( StudentContext);
+    const { student } = useContext(StudentContext);
 
     const openRazorpayModal = (order_id) => {
 
@@ -22,7 +22,7 @@ const RazorPay = ({ children, paymentFor, description, successHandler }) => {
         const options = {
             key: process.env.REACT_APP_RAZORPAY_KEY_ID,
             name: "InGelt Board",
-            description: description ||'',
+            description: description || '',
             order_id: order_id,
             image: logo,
             prefill: {
@@ -38,7 +38,7 @@ const RazorPay = ({ children, paymentFor, description, successHandler }) => {
         const razorpay = new window.Razorpay(options);
         razorpay.open();
     }
-    
+
     const createOrder = async () => {
         setLoading(true);
         try {
@@ -63,12 +63,12 @@ const RazorPay = ({ children, paymentFor, description, successHandler }) => {
         script.async = true;
         document.body.appendChild(script);
 
-    },[]);
+    }, []);
 
     return (
         <Button
             variant='contained'
-            className='!capitalize w-full !rounded-b-xl !rounded-t-md !py-3'
+            className={buttonClass}
             sx={{
                 backgroundColor: '#0C3C82',
                 '&:hover': {
@@ -77,7 +77,7 @@ const RazorPay = ({ children, paymentFor, description, successHandler }) => {
             }}
             disabled={loading}
             onClick={createOrder}
-        >{ children}</Button>
+        >{children}</Button>
     );
 }
 
