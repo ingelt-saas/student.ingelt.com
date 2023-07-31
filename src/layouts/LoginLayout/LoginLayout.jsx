@@ -7,6 +7,10 @@ import cloud1 from "../../assets/images/cloud.png"
 import cloud2 from "../../assets/images/cloud1.png"
 import cloud3 from "../../assets/images/cloud2.png"
 import cloud4 from "../../assets/images/cloud3.png"
+import termsAndCondition from '../../assets/terms and condition page.pdf';
+import privacyAndPolicy from '../../assets/privacy policy page.pdf';
+import shipping from '../../assets/shipping page.pdf';
+import refound from '../../assets/refund and cancellation page.pdf';
 
 // Components
 import { Menu, MenuItem, Button, TextField, InputAdornment, IconButton, Input, FormControl, InputLabel, Box, Modal, Typography } from "@mui/material";
@@ -274,7 +278,15 @@ const LoginLayout = () => {
                 </button>
               </div>
               <div className="">
-                <p className="text-center text-sm mt-5"><span className="text-[#0064E1] cursor-pointer">Terms of Use</span> and <span className="text-[#0064E1] cursor-pointer">Privacy Policy</span></p>
+                <p className="text-center text-sm mt-5 flex justify-center gap-x-2">
+                  <a className="text-[#0064E1] cursor-pointer" rel="noreferrer" href={termsAndCondition} target="_blank">Terms of Use</a>
+                  and
+                  <a className="text-[#0064E1] cursor-pointer" rel="noreferrer" href={privacyAndPolicy} target="_blank">Privacy Policy</a>
+                  {/* <a className="text-[#0064E1] cursor-pointer" rel="noreferrer" href={shipping} target="_blank">Privacy Policy</a> */}
+                  {/* <a className="text-[#0064E1] cursor-pointer" rel="noreferrer" href={refound} target="_blank">Privacy Policy</a> */}
+
+                </p>
+
               </div>
             </div>
           </div>
