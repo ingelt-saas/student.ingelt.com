@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 
 // assets
 import img1 from "../../assets/images/calendar.svg";
@@ -6,11 +7,17 @@ import img2 from "../../assets/images/course.svg";
 import img3 from "../../assets/images/graduated.svg";
 import img4 from "../../assets/images/online-learning (1) 1.svg";
 import img5 from "../../assets/images/online-classes.png";
-import { Button } from "@mui/material";
-import StripeElements from "../../components/Stripe/StripeElements";
+// import { Button } from "@mui/material";
+// import StripeElements from "../../components/Stripe/StripeElements";
+import RazorPay from "../../components/RazorPay/RazorPay";
+import paymentApi from "../../api/payment";
+import { StudentContext } from "../../contexts";
 
 const OnlineClasses = () => {
-  const [isPay, setIsPay] = useState(false);
+
+    const navigate = useNavigate();
+    // context 
+    const { studentFetch } = useContext(StudentContext);
 
     const data1 = [
         "Types of Sentences",
@@ -41,6 +48,17 @@ const OnlineClasses = () => {
         "Advance Speaking Techniques",
         "Advance Reading Techniques"
     ];
+
+    const onlineClassesEnrollHandler = async (response) => {
+        const paymentId = response.razorpay_payment_id;
+        try {
+            await paymentApi.paymentSuccess({ transactionId: paymentId, amount: response?.amount|| 0,});
+            studentFetch();
+            navigate('/institute', {replace: true});
+        }catch(err){
+            console.error(err);
+        }
+    }
 
     return (
         <div className='flex max-md:flex-col gap-6'>
@@ -108,33 +126,23 @@ const OnlineClasses = () => {
             </div>
             <div className='md:w-4/12'>
                 <div className='bg-white p-2 rounded-xl shadow-xl flex flex-col gap-y-5'>
-                    {isPay ? <StripeElements />
-                        :
-                        <>
-                            <div className='rounded-xl overflow-hidden relative'>
-                                <img draggable={false} src={img5} alt='' className='w-full aspect-[16/9] object-cover' />
-                                <h3 className='text-2xl whitespace-nowrap font-semibold text-white absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2'>Live/Offline Classes</h3>
-                            </div>
-                            <div className='text-center'>
-                                <p className='text-3xl font-semibold text-[#0C3C82]'>
-                                    <span className='text-black text-lg'>₹</span>
-                                    4999
-                                </p>
-                                <p>Start your IELTS preparation</p>
-                            </div>
-                            <Button
-                                variant='contained'
-                                className='!capitalize w-full !rounded-b-xl !rounded-t-md !py-3'
-                                sx={{
-                                    backgroundColor: '#0C3C82',
-                                    '&:hover': {
-                                        backgroundColor: '#0C3C82'
-                                    }
-                                }}
-                                onClick={() => setIsPay(true)}
-                            >Book Your Seat</Button>
-                        </>
-                    }
+                    <div className='rounded-xl overflow-hidden relative'>
+                        <img draggable={false} src={img5} alt='' className='w-full aspect-[16/9] object-cover' />
+                        <h3 className='text-2xl whitespace-nowrap font-semibold text-white absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2'>Live/Offline Classes</h3>
+                    </div>
+                    <div className='text-center'>
+                        <p className='text-3xl font-semibold text-[#0C3C82]'>
+                            <span className='text-black text-lg'>₹</span>
+                            4999
+                        </p>
+                        <p>Start your IELTS preparation</p>
+                    </div>
+                    <RazorPay
+                        paymentFor={'classes'}
+                        description={''}
+                        successHandler={onlineClassesEnrollHandler}
+                    >Book Your Seat</RazorPay>
+                    
                 </div>
             </div>
         </div>
