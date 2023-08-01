@@ -231,7 +231,7 @@ const ShortlistUniversity = () => {
                   {/* <RightArrowSVG className={'h-5 w-5'} /> */}
                 </button>
                 <div className="flex justify-around gap-x-5 w-full max-md:mt-3">
-                  <div className="xl:col-span-4">
+                  {/* <div className="xl:col-span-4">
                     <Button
                       className=""
                       variant="container"
@@ -253,8 +253,8 @@ const ShortlistUniversity = () => {
                     >
                       Shortlisted
                     </Button>
-                  </div>
-                  <div className="xl:col-span-4">
+                  </div> */}
+                  {/* <div className="xl:col-span-4">
                     <Button
                       className=""
                       variant="container"
@@ -276,10 +276,7 @@ const ShortlistUniversity = () => {
                     >
                       Filter
                     </Button>
-                    {/* <div className="max-xl:hidden">
-                <FilterMenu filterHandler={filterHandler} selectedData={filterData} />
-              </div> */}
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
