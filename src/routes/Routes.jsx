@@ -128,8 +128,12 @@ const Routes = () => {
             element: <EducationLoan />,
           },
           {
-            path: "/modules",
+            path: "/ielts-preparation/modules",
             element: <Modules />,
+          },
+          {
+            path: "/ielts-preparation/speaking-session",
+            element: <SpeakingSession />,
           },
           {
             path: "/ielts-classes",
@@ -143,10 +147,7 @@ const Routes = () => {
               <OnlineClasses />
             </PaymentRoute>,
           },
-          {
-            path: "/speaking-session",
-            element: <SpeakingSession />,
-          },
+
           {
             path: "/speaking-session/check-sessions",
             element: <CheckSessions />,
