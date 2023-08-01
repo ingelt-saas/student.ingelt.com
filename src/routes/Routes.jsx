@@ -9,6 +9,8 @@ import LoginLayout from "../layouts/LoginLayout/LoginLayout";
 // assets
 import CancelPDF from '../assets/refund and cancellation page.pdf';
 import ShippingPDF from '../assets/shipping page.pdf';
+import PrivacyPDF from '../assets/privacy policy page.pdf';
+import TermsPDF from '../assets/terms and condition page.pdf';
 
 // Pages
 import NotFound from "../pages/NotFound/NotFound";
@@ -61,6 +63,29 @@ const RedirectRoute = ({ redirectURL }) => {
 const Routes = () => {
   // student provider context
   const { loading, student } = useContext(StudentContext);
+
+  const publicRoutes = [
+    {
+      path: '/cancellation-policy',
+      element: <RedirectRoute redirectURL={CancelPDF} />,
+    },
+    {
+      path: '/shipping-policy',
+      element: <RedirectRoute redirectURL={ShippingPDF} />,
+    },
+    {
+      path: '/terms-conditions',
+      element: <RedirectRoute redirectURL={TermsPDF} />,
+    },
+    {
+      path: '/privacy-policy',
+      element: <RedirectRoute redirectURL={PrivacyPDF} />,
+    },
+    {
+      path: "/contact",
+      element: <Contact />,
+    },
+  ];
 
   const router = student
     ? createBrowserRouter([
@@ -147,23 +172,12 @@ const Routes = () => {
             element: <Settings />,
           },
           {
-            path: "/contact",
-            element: <Contact />,
-          },
-          {
             path: "*",
             element: <NotFound />,
           },
         ],
       },
-      {
-        path: '/cancellation-policy',
-        element: <RedirectRoute redirectURL={CancelPDF} />,
-      },
-      {
-        path: '/shipping-policy',
-        element: <RedirectRoute redirectURL={ShippingPDF} />,
-      }
+      ...publicRoutes,
     ])
     : createBrowserRouter([
       {
@@ -175,17 +189,10 @@ const Routes = () => {
         element: <SetNewPassword />,
       },
       {
-        path: '/cancellation-policy',
-        element: <RedirectRoute redirectURL={CancelPDF} />,
-      },
-      {
-        path: '/shipping-policy',
-        element: <RedirectRoute redirectURL={ShippingPDF} />,
-      },
-      {
         path: "*",
         element: <NotFound />,
       },
+      ...publicRoutes,
     ]);
 
   return loading ? <Loader /> : <RouterProvider router={router} />;
