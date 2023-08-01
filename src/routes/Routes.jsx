@@ -32,6 +32,7 @@ import IELTSClasses from "../pages/IELTSClasses/IELTSClasses";
 import OnlineClasses from "../pages/IELTSClasses/OnlineClasses";
 import SpeakingSession from "../pages/SpeakingSession/SpeakingSession";
 import CheckSessions from "../pages/SpeakingSession/CheckSessions";
+import Contact from "../pages/Contact/Contact";
 
 const PaymentRoute = ({ children }) => {
 
@@ -132,6 +133,10 @@ const Routes = () => {
           {
             path: "/settings",
             element: <Settings />,
+          },
+          {
+            path: "/contact",
+            element: <Contact />,
           },
           {
             path: "*",
