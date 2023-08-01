@@ -6,6 +6,10 @@ import { useContext, useEffect, useState } from "react";
 import PanelLayout from "../layouts/PanelLayout/PanelLayout";
 import LoginLayout from "../layouts/LoginLayout/LoginLayout";
 
+// assets
+import CancelPDF from '../assets/refund and cancellation page.pdf';
+import ShippingPDF from '../assets/shipping page.pdf';
+
 // Pages
 import NotFound from "../pages/NotFound/NotFound";
 import Home from "../pages/Home/Home";
@@ -44,6 +48,14 @@ const PaymentRoute = ({ children }) => {
 
   return <></>
 
+}
+
+const RedirectRoute = ({ redirectURL }) => {
+  useEffect(() => {
+    if (redirectURL) {
+      window.location = redirectURL;
+    }
+  }, [redirectURL]);
 }
 
 const Routes = () => {
@@ -144,6 +156,14 @@ const Routes = () => {
           },
         ],
       },
+      {
+        path: '/cancellation-policy',
+        element: <RedirectRoute redirectURL={CancelPDF} />,
+      },
+      {
+        path: '/shipping-policy',
+        element: <RedirectRoute redirectURL={ShippingPDF} />,
+      }
     ])
     : createBrowserRouter([
       {
@@ -153,6 +173,14 @@ const Routes = () => {
       {
         path: "/reset-password",
         element: <SetNewPassword />,
+      },
+      {
+        path: '/cancellation-policy',
+        element: <RedirectRoute redirectURL={CancelPDF} />,
+      },
+      {
+        path: '/shipping-policy',
+        element: <RedirectRoute redirectURL={ShippingPDF} />,
       },
       {
         path: "*",
