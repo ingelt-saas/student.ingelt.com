@@ -52,8 +52,6 @@ const NavItem = ({ to, children, collapseMenu, ...props }) => {
 
 const NestedMenus = ({ menus, path, icon, name }) => {
 
-  const navigate = useNavigate();
-
   return <PopupState>
     {(popupState) => <>
       <li className="navItem mb-1.5" {...bindTrigger(popupState)}>
@@ -75,11 +73,8 @@ const NestedMenus = ({ menus, path, icon, name }) => {
         }}>
         <div className='z-[100] bg-white min-w-fit' onClick={popupState.close}>
           <ul className="flex flex-col p-3">
-            {Array.isArray(menus) && menus.map(item => <li key={item.path} className="navItem mb-1.5" {...bindTrigger(popupState)}>
-              <NavItem
-                to={item.path}
-                
-              >
+            {Array.isArray(menus) && menus.map(item => item.show && <li key={item.path} className="navItem mb-1.5" {...bindTrigger(popupState)}>
+              <NavItem to={item.path}>
                 {item.icon}
                 <span>{item.name}</span>
               </NavItem>
@@ -113,6 +108,12 @@ const SidebarMenus = () => {
           path: "/ielts-preparation/modules",
           icon: <ModulesSVG />,
           show: true,
+        },
+        {
+          name: "Online Classes",
+          path: "/ielts-classes/online-classes",
+          icon: <ModulesSVG />,
+          show: !Boolean(student?.organizationId),
         },
         {
           name: "Speaking Session",
