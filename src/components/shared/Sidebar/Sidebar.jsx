@@ -1,9 +1,15 @@
 // React Support
 import React, { useEffect, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 
 // MUI Support
 import Drawer from "@mui/material/Drawer";
+import PopupState, { bindTrigger, bindPopover } from 'material-ui-popup-state';
+import { IconButton, Popover } from "@mui/material";
+import { Close } from '@mui/icons-material';
+import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
+import UnfoldMoreIcon from '@mui/icons-material/UnfoldMore';
+import TableViewIcon from '@mui/icons-material/TableView';
 
 // Sidebar SVGs
 import {
@@ -32,12 +38,10 @@ const NavItem = ({ to, children, collapseMenu, ...props }) => {
       {...props}
       to={to}
       className={({ isActive }) =>
-        `${
-          isActive
-            ? "bg-[#1B3B7D33] text-[#1B3B7D]"
-            : "bg-transparent text-[#7A7C88]"
-        } ${
-          collapseMenu ? "justify-center gap-0" : "justify-start gap-3"
+        `${isActive
+          ? "bg-[#1B3B7D33] text-[#1B3B7D]"
+          : "bg-transparent text-[#7A7C88]"
+        } ${collapseMenu ? "justify-center gap-0" : "justify-start gap-3"
         } flex items-center font-semibold  rounded-md duration-300 px-3 py-2 hover:bg-[#0064E133] hover:text-[#1B3B7D] text-sm`
       }
     >
@@ -45,6 +49,42 @@ const NavItem = ({ to, children, collapseMenu, ...props }) => {
     </NavLink>
   );
 };
+
+const NestedMenus = ({ menus, path, icon, name }) => {
+
+  return <PopupState>
+    {(popupState) => <>
+      <li className="navItem mb-1.5" {...bindTrigger(popupState)}>
+        <NavItem to={path} onClick={(e) => e.preventDefault()}>
+          {icon}
+          <span>{name}</span>
+        </NavItem>
+      </li>
+      <Popover
+        PaperProps={{ className: '!rounded-xl shadow-2xl bg-white ml-4' }}
+        {...bindPopover(popupState)}
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'left',
+        }}>
+        <div className='z-[100] bg-white min-w-fit' onClick={popupState.close}>
+          <ul className="flex flex-col p-3">
+            {Array.isArray(menus) && menus.map(item => item.show && <li key={item.path} className="navItem mb-1.5" {...bindTrigger(popupState)}>
+              <NavItem to={item.path}>
+                {item.icon}
+                <span>{item.name}</span>
+              </NavItem>
+            </li>)}
+          </ul>
+        </div>
+      </Popover>
+    </>}
+  </PopupState>;
+}
 
 const SidebarMenus = () => {
   const { student, logOut } = useContext(StudentContext);
@@ -57,23 +97,40 @@ const SidebarMenus = () => {
       show: true,
     },
     {
-      name: "IELTS Modules",
-      path: "/modules",
-      icon: <ModulesSVG />,
+      name: "IELTS Preparation",
+      path: "/ielts-preparation",
+      icon: <TableViewIcon className="!w-6 !h-6" />,
       show: true,
+      nested: true,
+      menus: [
+        {
+          name: "IELTS Modules",
+          path: "/ielts-preparation/modules",
+          icon: <ModulesSVG />,
+          show: true,
+        },
+        {
+          name: "Online Classes",
+          path: "/ielts-classes/online-classes",
+          icon: <ModulesSVG />,
+          show: !Boolean(student?.organizationId),
+        },
+        {
+          name: "Speaking Session",
+          path: "/ielts-preparation/speaking-session",
+          icon: <LibrarySVG />,
+          show: true,
+        },
+      ]
     },
+
     {
       name: "IELTS Classes",
       path: "/ielts-classes",
       icon: <ModulesSVG />,
       show: !Boolean(student?.organizationId),
     },
-    {
-      name: "Speaking Session",
-      path: "/speaking-session",
-      icon: <LibrarySVG />,
-      show: true,
-    },
+
     // {
     //   name: "IELTS Library",
     //   path: "/centralized-library",
@@ -126,15 +183,24 @@ const SidebarMenus = () => {
         </div>
 
         <ul className="px-2">
+
+          <NestedMenus
+            icon={<HomeSVG />}
+            path={'/'}
+            name={'Preparation'}
+          />
+
           {navItemsArr.map(
             (item, index) =>
               item.show && (
-                <li className="navItem mb-1.5" key={index}>
-                  <NavItem to={item.path}>
-                    {item.icon}
-                    <span>{item.name}</span>
-                  </NavItem>
-                </li>
+                item.nested ?
+                  <NestedMenus {...item} />
+                  : <li className="navItem mb-1.5" key={index}>
+                    <NavItem to={item.path}>
+                      {item.icon}
+                      <span>{item.name}</span>
+                    </NavItem>
+                  </li>
               )
           )}
         </ul>
@@ -147,38 +213,97 @@ const SidebarMenus = () => {
               <span>Settings</span>
             </NavItem>
           </li>
-          <li className="navItem mb-1.5">
-            <NavItem
-              to="/logout"
-              onClick={(e) => {
-                e.preventDefault();
-                logOut();
-              }}
-            >
-              <LogoutSVG />
-              <span>Logout</span>
-            </NavItem>
-          </li>
-          <li className="mt-2 pb-2 navItem">
-            <span className={`flex items-center justify-start gap-3`}>
-              <span className="block w-12 h-12 overflow-hidden rounded-full">
-                <ProfileImage
-                  src={student?.image}
-                  alt={student?.name}
-                  className="w-full h-full object-cover"
-                  gender={student?.gender}
-                />
-              </span>
-              <span>
-                <p className="text-base font-semibold leading-none overflow-hidden">
-                  {student?.name}
-                </p>
-                <p className="text-sm text-[#787878] leading-none mt-1 font-semibold overflow-hidden">
-                  {student?.id}
-                </p>
-              </span>
-            </span>
-          </li>
+
+          {/* bottom popup over */}
+          <PopupState>
+            {(popupState) => <>
+              <li className="mt-2 mb-2 px-1 navItem cursor-pointer py-2 rounded-md duration-300 hover:bg-[#0064E133]" {...bindTrigger(popupState)} >
+                <span className={`flex items-center justify-start gap-3`}>
+                  <span className="block w-12 h-12 overflow-hidden rounded-full">
+                    <ProfileImage
+                      src={student?.image}
+                      alt={student?.name}
+                      className="w-full h-full object-cover"
+                      gender={student?.gender}
+                    />
+                  </span>
+                  <span className="flex-1 flex items-center">
+                    <span className="overflow-hidden flex-1 flex flex-col">
+                      <p className="text-base font-semibold leading-none overflow-hidden">
+                        {student?.name}
+                      </p>
+                      <p className="text-xs text-clip text-[#787878] mt-1 font-semibold overflow-hidden">
+                        {student?.id}
+                      </p>
+                    </span>
+                    <span className="text-[#787878]">
+                      <UnfoldMoreIcon />
+                    </span>
+                  </span>
+                </span>
+              </li>
+              <Popover
+                PaperProps={{ className: '!rounded-2xl shadow-2xl bg-white' }}
+                {...bindPopover(popupState)}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'center',
+                }}
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'center',
+                }}>
+                <div className=' z-50 bg-white min-w-[270px] relative'>
+                  <IconButton className='!absolute !top-2 !right-2' onClick={popupState.close}>
+                    <Close />
+                  </IconButton>
+                  <div className="cursor-pointer p-4 border-b border-[rgba(0,_0,_0,_0.20)]" >
+                    <span className={`flex items-center justify-start gap-3`}>
+                      <span className="block w-12 h-12 overflow-hidden rounded-full">
+                        <ProfileImage
+                          src={student?.image}
+                          alt={student?.name}
+                          className="w-full h-full object-cover"
+                          gender={student?.gender}
+                        />
+                      </span>
+                      <span className="flex-1 flex items-center">
+                        <span className="overflow-hidden flex-1 flex flex-col">
+                          <p className="text-base font-semibold leading-none overflow-hidden">
+                            {student?.name}
+                          </p>
+                          <p className="text-xs text-clip text-[#787878] mt-1 font-semibold overflow-hidden">
+                            {student?.email}
+                          </p>
+                        </span>
+                      </span>
+                    </span>
+                  </div>
+                  <div className="p-4 flex flex-col gap-2">
+                    <p className='flex gap-x-2 font-medium items-center text-sm px-2 text-[#17A26A]'>
+                      <span className="w-6 flex justify-center">
+                        <FiberManualRecordIcon fontSize="16" />
+                      </span>
+                      Updated Version
+                    </p>
+                    <button onClick={logOut} className="flex items-center px-2 py-2 rounded-md text-sm font-medium gap-x-2 text-[#7A7C88] duration-300 hover:bg-[#0064E133]">
+                      <span className="w-6 flex justify-center">
+                        <LogoutSVG />
+                      </span>
+                      <span>Log Out</span>
+                    </button>
+                  </div>
+                  {/* <h4 className='text-xl font-semibold'>{session?.title || ''}</h4> */}
+
+                  {/* <div className='mt-4 flex items-start gap-x-3'>
+                    <img src={teacherImg} alt='' className='w-14 aspect-square object-cover rounded-full' />
+                    <p className='text-sm flex-1'>{session?.desc || ''}</p>
+                  </div> */}
+                </div>
+              </Popover>
+            </>}
+          </PopupState>
+
         </ul>
       </div>
     </div>
