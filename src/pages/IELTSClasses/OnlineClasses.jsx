@@ -58,8 +58,9 @@ const OnlineClasses = () => {
                 amount: response?.amount || 0,
                 invoiceDate: moment(new Date()).format('ll')
             });
-            studentFetch();
-            navigate('/institute', { replace: true });
+            // studentFetch();
+            window.location.pathname = '/institute';
+            // navigate('', { replace: true });
         } catch (err) {
             console.error(err);
         }
