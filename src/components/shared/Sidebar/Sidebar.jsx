@@ -59,9 +59,9 @@ const NestedMenus = ({ menus, path, icon, name }) => {
         <NavItem to={path} onClick={(e) => e.preventDefault()}>
           {icon}
           <span>{name}</span>
-          <span className="flex-1 flex justify-end">
+          {/* <span className="flex-1 flex justify-end">
             <ChevronRightIcon />
-          </span>
+          </span> */}
         </NavItem>
       </li>
       <Popover

@@ -147,7 +147,7 @@ const Home = () => {
             <li>1:1 English Speaking Session</li>
             <li>British Council Certified Instructor</li>
           </ul>
-          <Link to="/speaking-session">
+          <Link to="/ielts-preparation/speaking-session">
             <button className="px-12 py-2 rounded-md bg-white text-[#0C3C82] font-semibold text-lg">
               Book
             </button>
