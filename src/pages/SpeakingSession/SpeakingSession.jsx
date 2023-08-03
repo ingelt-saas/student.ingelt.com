@@ -21,6 +21,7 @@ import teacherImg from "../../assets/images/Vishal vats.png";
 import indiaFlag from "../../assets/images/india-flag.svg";
 import UpcomingEvent from "../../components/Home/UpcomingEvent";
 import RazorPay from "../../components/RazorPay/RazorPay";
+import moment from "moment";
 
 // const PaymentModal = ({ open, close }) => {
 
@@ -113,6 +114,7 @@ const SpeakingSession = () => {
       await sessionApi.create({
         transactionId: response.id,
         amount: response.amount,
+        invoiceDate: moment(new Date()).format('ll')
       });
       toast.success(
         "You Have Successfully Booked a Session. Kindly Check Your Mail"
@@ -325,7 +327,7 @@ const SpeakingSession = () => {
               buttonClass={'!rounded-xl !font-semibold !py-3 !px-10 text-white !capitalize !mt-5 !flex !justify-between !w-full'}
             >
               <span>Book Session</span>
-              <span>₹ 250 /-</span>
+              <span>₹ 249 /-</span>
             </RazorPay>
 
           </div>

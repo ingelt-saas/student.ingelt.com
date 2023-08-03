@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import { useNavigate } from 'react-router-dom';
+import moment from 'moment';
 
 // assets
 import img1 from "../../assets/images/calendar.svg";
@@ -52,7 +53,11 @@ const OnlineClasses = () => {
     const onlineClassesEnrollHandler = async (response) => {
         const paymentId = response.razorpay_payment_id;
         try {
-            await paymentApi.paymentSuccess({ transactionId: paymentId, amount: response?.amount || 0, });
+            await paymentApi.paymentSuccess({
+                transactionId: paymentId,
+                amount: response?.amount || 0,
+                invoiceDate: moment(new Date()).format('ll')
+            });
             studentFetch();
             navigate('/institute', { replace: true });
         } catch (err) {
