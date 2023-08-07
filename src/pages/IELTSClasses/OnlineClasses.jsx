@@ -1,5 +1,5 @@
-import React, { useContext, useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from "react";
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import moment from 'moment';
 
 // assets
@@ -13,10 +13,13 @@ import img5 from "../../assets/images/online-classes.png";
 import RazorPay from "../../components/RazorPay/RazorPay";
 import paymentApi from "../../api/payment";
 import { StudentContext } from "../../contexts";
+import { Button, CircularProgress } from "@mui/material";
 
 const OnlineClasses = () => {
 
     const navigate = useNavigate();
+    const [search] = useSearchParams();
+
     // context 
     const { studentFetch } = useContext(StudentContext);
 
@@ -64,6 +67,45 @@ const OnlineClasses = () => {
         } catch (err) {
             console.error(err);
         }
+    }
+
+    // create a order
+    const createOrder = async (e) => {
+        e.target.disabled = true;
+        try {
+            const res = await paymentApi.createIntent('classes');
+            if (res.data) {
+                window.location = res.data.payment_request.longurl;
+            }
+        } catch (err) {
+            console.error(err);
+        } finally {
+            e.target.disabled = false;
+        }
+    }
+
+    useEffect(() => {
+        if (search.get('payment') === 'success' && search.get('amount')) {
+            (async () => {
+                try {
+                    await paymentApi.paymentSuccess({
+                        transactionId: '',
+                        amount: search.get('amount'),
+                        invoiceDate: moment(new Date()).format('ll')
+                    });
+                    navigate('/ielts-classes/online-classes', { replace: true });
+                } catch (err) {
+                    console.error(err);
+                }
+            })();
+        }
+    }, [search]);
+
+
+    if (search.get('payment') && search.get('amount')) {
+        return <div className="flex justify-center py-20">
+            <CircularProgress sx={{ '& circle': { stroke: '#0C3C82' } }} />
+        </div>
     }
 
     return (
@@ -143,12 +185,23 @@ const OnlineClasses = () => {
                         </p>
                         <p>Start your IELTS preparation</p>
                     </div>
-                    <RazorPay
+                    <Button
+                        variant='contained'
+                        className={'!capitalize w-full !rounded-b-xl !rounded-t-md !py-3'}
+                        sx={{
+                            backgroundColor: '#0C3C82',
+                            '&:hover': {
+                                backgroundColor: '#0C3C82'
+                            }
+                        }}
+                        onClick={createOrder}
+                    >Book Your Seat</Button>
+                    {/* <RazorPay
                         paymentFor={'classes'}
                         description={''}
                         buttonClass={'!capitalize w-full !rounded-b-xl !rounded-t-md !py-3'}
                         successHandler={onlineClassesEnrollHandler}
-                    >Book Your Seat</RazorPay>
+                    >Book Your Seat</RazorPay> */}
 
                 </div>
             </div>

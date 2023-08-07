@@ -4,10 +4,10 @@ import {
   Twitter,
   WatchLater,
 } from "@mui/icons-material";
-import { Box, Button, Modal, Typography } from "@mui/material";
-import React, { useState } from "react";
+import { Box, Button, CircularProgress, Modal, Typography } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import headerImg from "../../assets/images/speaking-practice-header.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import StripeElements from "../../components/Stripe/StripeElements";
 import sessionApi from "../../api/session";
 import { toast } from "react-toastify";
@@ -22,6 +22,7 @@ import indiaFlag from "../../assets/images/india-flag.svg";
 import UpcomingEvent from "../../components/Home/UpcomingEvent";
 import RazorPay from "../../components/RazorPay/RazorPay";
 import moment from "moment";
+import paymentApi from "../../api/payment";
 
 // const PaymentModal = ({ open, close }) => {
 
@@ -82,6 +83,10 @@ import moment from "moment";
 
 const SpeakingSession = () => {
 
+  // states
+  const [search] = useSearchParams();
+  const navigate = useNavigate();
+
   const data = [
     "🌟More than 10 years of hands on experience",
     "🌟British Council certified trainer",
@@ -124,6 +129,47 @@ const SpeakingSession = () => {
       console.error(err);
     }
   };
+
+  // create order
+  const createOrder = async (e) => {
+    e.target.disabled = true;
+    try {
+      const res = await paymentApi.createIntent('session');
+      if (res.data) {
+        window.location = res.data.payment_request.longurl;
+      }
+    } catch (err) {
+      console.error(err)
+    } finally {
+      e.target.disabled = false;
+    }
+  }
+
+  useEffect(() => {
+    if (search.get('payment') === 'success' && search.get('amount')) {
+      (async () => {
+        try {
+          await sessionApi.create({
+            transactionId: 'transactionId',
+            amount: search.get('amount'),
+            invoiceDate: moment(new Date()).format('ll')
+          });
+          toast.success("You Have Successfully Booked a Session. Kindly Check Your Mail");
+          navigate('/ielts-preparation/speaking-session', { replace: true });
+        } catch (err) {
+          console.error(err);
+        }
+      })();
+    }
+  }, [search]);
+
+
+  if (search.get('payment') && search.get('amount')) {
+    return <div className="flex justify-center py-20">
+      <CircularProgress sx={{ '& circle': { stroke: '#0C3C82' } }} />
+    </div>
+  }
+
 
   return (
     <div className="">
@@ -320,7 +366,22 @@ const SpeakingSession = () => {
                                 </div> */}
               </div>
             </div>
-            <RazorPay
+            <Button
+              variant='contained'
+              className={'!rounded-xl !font-semibold !py-3 !px-10 text-white !capitalize !mt-5 !flex !justify-between !w-full'}
+              sx={{
+                backgroundColor: '#0C3C82',
+                '&:hover': {
+                  backgroundColor: '#0C3C82'
+                }
+              }}
+              onClick={createOrder}
+            >
+              <span>Book Session</span>
+              <span>₹ 249 /-</span>
+            </Button>
+
+            {/* <RazorPay
               description={''}
               paymentFor='session'
               successHandler={successHandler}
@@ -328,7 +389,7 @@ const SpeakingSession = () => {
             >
               <span>Book Session</span>
               <span>₹ 249 /-</span>
-            </RazorPay>
+            </RazorPay> */}
 
           </div>
         </div>
