@@ -147,7 +147,7 @@ const Home = () => {
             <li>1:1 English Speaking Session</li>
             <li>British Council Certified Instructor</li>
           </ul>
-          <Link to="/speaking-session">
+          <Link to="/ielts-preparation/speaking-session">
             <button className="px-12 py-2 rounded-md bg-white text-[#0C3C82] font-semibold text-lg">
               Book
             </button>
@@ -192,7 +192,7 @@ const Home = () => {
             </span>
           </button>}
 
-          {student?.organization?.modeOfClasses !== 'online' && <button
+          {/* {student?.organization?.modeOfClasses !== 'online' && <button
             onClick={() => navigate("/find-institute")}
             className="mb-1 flex items-center justify-between bg-white px-3 py-4 duration-200 rounded-xl shadow-lg hover:shadow-none"
           >
@@ -201,7 +201,7 @@ const Home = () => {
             <span className="w-6 h-6 rounded-full grid place-items-center bg-[#001E4333]">
               <ChevronRight fontSize="small" />
             </span>
-          </button>}
+          </button>} */}
 
         </div>
 

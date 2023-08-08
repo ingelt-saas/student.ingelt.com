@@ -180,7 +180,7 @@ const MessageBox = ({ data, discussionReport, setReplyDiscussion }) => {
               <p className="flex text-xs font-semibold justify-between gap-x-4 text-[#1b3b7d] w-full">
                 <span>
                   {senderName}
-                  {senderVerified && <Verified className="!ml-1 !w-4 !h-4" />}
+                  {senderVerified ? <Verified className="!ml-1 !w-4 !h-4" /> : ''}
                 </span>
                 <span className="flex gap-x-2 items-center">{<CountryFlag country={senderCountry} />}</span>
               </p>
