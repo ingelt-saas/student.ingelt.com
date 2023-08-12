@@ -174,61 +174,21 @@ const SpeakingSession = () => {
   return (
     <div className="">
       <div className="flex max-md:flex-col gap-5">
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            width: { md: "65%", xs: "100%" },
-            height: "20vh",
-            padding: "2rem",
-            backgroundColor: "white",
-            border: "1px solid white",
-            borderRadius: "2rem",
-            boxShadow:
-              "0px 10px 36px rgba(0, 0, 0, 0.16), 0px 0px 0px 1px rgba(0, 0, 0, 0.06);",
-          }}
-        >
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "flex-start",
-              flexDirection: "column",
-              // padding: '2rem 1rem 2rem 1rem',
-              width: { md: "50%", xs: "90%" },
-            }}
-          >
-            <Typography
-              sx={{
-                color: "rgba(0, 0, 0, 0.6);",
-              }}
-            >
-              Start your
-            </Typography>
-            <Typography
-              sx={{
-                fontWeight: "bold",
-                fontSize: "1.5rem",
-              }}
-            >
-              Speaking Practice
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              width: { md: "60%", xs: "100%" },
-              display: { xs: "none", md: "block" },
-              // padding: '0.3rem'
-            }}
-          >
+
+        <div className="rounded-[1.2rem] flex justify-between relative items-center md:w-[65%] bg-white shadow-xl">
+          <div className="px-7 flex flex-col gap-y-1 max-md:py-7 max-sm:px-5 max-md:items-center max-md:w-full">
+            <p className="font-normal text-black opacity-75">Start your</p>
+            <h1 className="text-2xl font-bold text-[#0C3C82]">Speaking Practice</h1>
+          </div>
+          <div className="overflow-hidden pr-3 max-w-[30%] max-md:hidden">
             <img
+              draggable={false}
               src={headerImg}
               alt="library"
-              className={`relative md:bottom-5 ml-auto`}
+              className={`max-h-full max-w-full mix-blend-darken`}
             />
-          </Box>
-        </Box>
+          </div>
+        </div>
 
         <div className="flex-1">
           <div className="rounded-2xl bg-white shadow-2xl px-5 py-5">
@@ -253,6 +213,7 @@ const SpeakingSession = () => {
           </div>
         </div>
       </div>
+
       <div className="flex max-md:flex-col gap-5 gap-x-5 mt-10">
         <div className="md:w-4/12 xl:w-5/12">
           <div className="bg-white rounded-xl px-5 py-5 shadow-xl flex flex-col gap-y-3">

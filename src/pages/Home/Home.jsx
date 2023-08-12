@@ -51,7 +51,7 @@ const Home = () => {
 
   return (
     <div className="pt-5">
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-3 xl:gap-5">
+      <div className="grid grid-cols-1 md:grid-cols-12 max-md:gap-6 gap-3 xl:gap-5">
         {/* profile info */}
         <div className="md:col-span-12 lg:col-span-5">
           <div className="rounded-2xl bg-white shadow-lg px-4 py-8 flex gap-x-4">
@@ -132,23 +132,24 @@ const Home = () => {
 
         {/* world clock */}
         <div className="rounded-2xl bg-white shadow-lg px-4 py-5 gap-x-4 md:col-span-6 lg:col-span-4 flex flex-col items-center justify-center gap-y-2">
+          <h2 className='text-2xl font-bold text-left mb-3 mr-auto'>World Clock</h2>
           <WorldClocks />
         </div>
 
         {/* speaking practice */}
         <div
-          className="md:col-span-12 flex max-md:flex-col max-md:gap-y-6 items-center rounded-2xl overflow-hidden justify-between bg-cover bg-no-repeat bg-center py-6 px-12 shadow-lg"
+          className="md:col-span-12 flex max-md:flex-col max-md:gap-y-6 items-center rounded-2xl overflow-hidden justify-between bg-cover bg-no-repeat bg-center py-6 px-12 max-sm:px-6 shadow-lg"
           style={{ backgroundImage: `url(${img1})` }}
         >
-          <h1 className="text-white text-4xl font-semibold">
+          <h1 className="text-white text-4xl max-sm:text-3xl font-bold">
             Speaking Practice
           </h1>
           <ul className="pl-3 list-disc text-white space-y-2 text-lg">
             <li>1:1 English Speaking Session</li>
             <li>British Council Certified Instructor</li>
           </ul>
-          <Link to="/ielts-preparation/speaking-session">
-            <button className="px-12 py-2 rounded-md bg-white text-[#0C3C82] font-semibold text-lg">
+          <Link to="/ielts-preparation/speaking-session" className="max-sm:w-full">
+            <button className="px-12 py-2 rounded-md bg-white text-[#0C3C82] font-semibold text-lg max-sm:w-full">
               Book
             </button>
           </Link>

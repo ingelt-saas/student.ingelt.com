@@ -35,8 +35,8 @@ const MeetingLink = () => {
 
     return (
         <div>
-            <div className="rounded-2xl border border-[#78787840] flex px-2 py-4 gap-x-5 items-center  shadow-lg bg-white">
-                <ProfileImage src={student.image} alt={student.name} gender={student.gender} className='w-24 aspect-square object-cover rounded-full' />
+            <div className="rounded-2xl border border-[#78787840] flex px-2 py-4 max-sm:gap-2 gap-x-5 items-center  shadow-lg bg-white">
+                <ProfileImage src={student.image} alt={student.name} gender={student.gender} className='max-sm:w-16 w-24 aspect-square object-cover rounded-full' />
                 <div className="flex-1 flex flex-col justify-around py-2">
                     <div>
                         <h1 className="text-2xl font-semibold">Your Classroom Link</h1>
