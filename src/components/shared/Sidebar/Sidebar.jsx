@@ -53,7 +53,7 @@ const NavItem = ({ to, children, collapseMenu, ...props }) => {
 
 const NestedMenus = ({ menus, path, icon, name }) => {
 
-  return <PopupState>
+  return <PopupState variant="popover" >
     {(popupState) => <>
       <li className="navItem mb-1.5" {...bindTrigger(popupState)}>
         <NavItem to={path} onClick={(e) => e.preventDefault()}>
@@ -193,7 +193,7 @@ const SidebarMenus = () => {
             (item, index) =>
               item.show && (
                 item.nested ?
-                  <NestedMenus {...item} />
+                  <NestedMenus key={index} {...item} />
                   : <li className="navItem mb-1.5" key={index}>
                     <NavItem to={item.path}>
                       {item.icon}
@@ -215,7 +215,7 @@ const SidebarMenus = () => {
           </li>
 
           {/* bottom popup over */}
-          <PopupState>
+          <PopupState variant="popover">
             {(popupState) => <>
               <li className="mt-2 mb-2 px-1 navItem cursor-pointer py-2 rounded-md duration-300 hover:bg-[#0064E133]" {...bindTrigger(popupState)} >
                 <span className={`flex items-center justify-start gap-3`}>
@@ -337,7 +337,7 @@ const SideBar = () => {
       </div>
 
       {/* mobile device navbar  */}
-      <div div className="lg:hidden">
+      <div className="lg:hidden">
         <div className="py-2 px-5 flex items-center justify-between border-b border-[#DCDEE1]">
           <button
             onClick={() => setIsOpen(true)}

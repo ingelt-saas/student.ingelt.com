@@ -17,6 +17,8 @@ import { Button, CircularProgress } from "@mui/material";
 
 const OnlineClasses = () => {
 
+    const [amount, setAmount] = useState(4999);
+    const [coupon, setCoupon] = useState({ couponCode: '', loading: false, coupon: null });
     const navigate = useNavigate();
     const [search] = useSearchParams();
 
@@ -73,7 +75,7 @@ const OnlineClasses = () => {
     const createOrder = async (e) => {
         e.target.disabled = true;
         try {
-            const res = await paymentApi.createIntent('classes');
+            const res = await paymentApi.createIntent({ paymentFor: 'classes', moduleCoupon: coupon?.couponCode });
             if (res.data) {
                 window.location = res.data.payment_request.longurl;
             }
@@ -101,6 +103,24 @@ const OnlineClasses = () => {
         }
     }, [search]);
 
+    const verifyCoupon = async (e) => {
+        if (!coupon.couponCode) {
+            return;
+        }
+        e.target.disabled = true;
+
+        try {
+            const res = await paymentApi.verifyModuleCoupon({ coupon: coupon.couponCode });
+            setCoupon({ ...coupon, coupon: res.data });
+            if (res.data?.validation) {
+                setAmount(amount - res.data?.coupon?.amount);
+            }
+        } catch (err) {
+            console.error(err);
+        } finally {
+            e.target.disabled = false;
+        }
+    }
 
     if (search.get('payment') && search.get('amount')) {
         return <div className="flex justify-center py-20">
@@ -124,9 +144,24 @@ const OnlineClasses = () => {
                         <div className='text-center'>
                             <p className='text-3xl font-semibold text-[#0C3C82]'>
                                 <span className='text-black text-lg'>₹</span>
-                                4999
+                                {amount}
                             </p>
                             <p>Start your IELTS preparation</p>
+                        </div>
+                        <div className='flex flex-col'>
+                            {!coupon?.coupon?.validation && <div className='flex rounded-lg border border-[#0C3C82] overflow-hidden'>
+                                <input
+                                    type="text"
+                                    value={coupon.couponCode}
+                                    onChange={(e) => setCoupon({ ...coupon, couponCode: e.target.value.toUpperCase() })}
+                                    placeholder="Enter Coupon Code"
+                                    className="!border-none !bg-transparent focus:!outline-none px-3 py-2 flex-1 text-sm"
+                                />
+                                <button onClick={verifyCoupon} disabled={Boolean(!coupon.couponCode)} className="text-[#f2f2f2] px-6 text-sm font-semibold border-none bg-[#0C3C82] disabled:opacity-75">Apply</button>
+                            </div>}
+                            {coupon?.coupon && (!coupon?.coupon?.validation && <p className="text-center text-red-500 font-medium mt-2">{coupon?.coupon?.message}{" "}{coupon?.coupon?.date && moment(coupon?.coupon?.date).format('ll')}</p>)}
+                            {coupon?.coupon && (coupon?.coupon?.validation && <p className="text-center text-green-500 font-medium mt-2">{coupon?.coupon?.message}{" "}{coupon?.coupon?.date && moment(coupon?.coupon?.date).format('ll')}</p>)}
+
                         </div>
                         <Button
                             variant='contained'
@@ -238,7 +273,7 @@ const OnlineClasses = () => {
 
                 </div>
             </div>
-        </div>
+        </div >
     );
 }
 
