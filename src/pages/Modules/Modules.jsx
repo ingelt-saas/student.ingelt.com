@@ -13,7 +13,7 @@ import { useSearchParams } from "react-router-dom";
 import { Alert, Box, Button, CircularProgress } from "@mui/material";
 
 // assets
-import moduleImg from "../../assets/NewDesign/IELT Pre.svg";
+import moduleImg from "../../assets/NewDesign/IELT Pre.png";
 import landingImg from "../../assets/images/landing-pages/modules.png";
 import img1 from "../../assets/images/read 1.svg";
 import img2 from "../../assets/images/copy-writing 1.svg";
@@ -308,7 +308,7 @@ const Modules = () => {
 
       {student?.modulesUnlock && (
         <Box
-          className="py-10"
+          className="pb-10"
           sx={{
             width: "100%",
             pr: { xl: 2, lg: 2 },
@@ -323,17 +323,7 @@ const Modules = () => {
           />
 
           <Box
-            sx={{
-              mt: 5,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: {
-                xs: "space-between",
-                md: "flex-start",
-                lg: "space-between",
-              },
-              flexWrap: "wrap",
-            }}
+            className='!mt-5 !flex !items-center max-md:!flex-col-reverse max-md:!gap-y-5 md:!justify-between md:!items-center'
           >
             <div className="flex items-end justify-start">
               {/* <button
@@ -347,46 +337,42 @@ const Modules = () => {
             </button> */}
               <button
                 onClick={() => setSearch({ page: "video" })}
-                className={`duration-200 transition-none ease-in ${
-                  page === "video" || !page
-                    ? "border-1 py-3 px-5 md:px-8 font-semibold text-[#1B3B7D] border-[#ECECEC] bg-white border-b-0 rounded-t-xl"
-                    : "bg-[#F3F3F3] py-2 px-2 md:px-5 text-sm"
-                }`}
+                className={`duration-200 transition-none ease-in ${page === "video" || !page
+                  ? "border-1 py-3 px-5 md:px-8 font-semibold text-[#1B3B7D] border-[#ECECEC] bg-white border-b-0 rounded-t-xl"
+                  : "bg-[#F3F3F3] py-2 px-2 md:px-5 text-sm"
+                  }`}
               >
                 Lectures
               </button>
               <button
                 onClick={() => setSearch({ page: "module_ppt" })}
-                className={`duration-200 transition-none ease-in ${
-                  page === "module_ppt"
-                    ? "border-1 py-3 px-5 md:px-8 font-semibold text-[#1B3B7D] border-[#ECECEC] bg-white border-b-0 rounded-t-xl"
-                    : "bg-[#F3F3F3] py-2 px-2 md:px-5 text-sm"
-                }`}
+                className={`duration-200 transition-none ease-in ${page === "module_ppt"
+                  ? "border-1 py-3 px-5 md:px-8 font-semibold text-[#1B3B7D] border-[#ECECEC] bg-white border-b-0 rounded-t-xl"
+                  : "bg-[#F3F3F3] py-2 px-2 md:px-5 text-sm"
+                  }`}
               >
                 Lecture PPT
               </button>
               <button
                 onClick={() => setSearch({ page: "mock_test" })}
-                className={`duration-200 transition-none ease-in ${
-                  page === "mock_test"
-                    ? "border-1 py-3 px-5 md:px-8 font-semibold text-[#1B3B7D] border-[#ECECEC] bg-white border-b-0 rounded-t-xl"
-                    : "bg-[#F3F3F3] py-2 px-2 md:px-5 text-sm"
-                }`}
+                className={`duration-200 transition-none ease-in ${page === "mock_test"
+                  ? "border-1 py-3 px-5 md:px-8 font-semibold text-[#1B3B7D] border-[#ECECEC] bg-white border-b-0 rounded-t-xl"
+                  : "bg-[#F3F3F3] py-2 px-2 md:px-5 text-sm"
+                  }`}
               >
                 Mock Test
               </button>
               <button
                 onClick={() => setSearch({ page: "library" })}
-                className={`duration-200 transition-none ease-in ${
-                  page === "library"
-                    ? "border-1 py-3 px-5 md:px-8 font-semibold text-[#1B3B7D] border-[#ECECEC] bg-white border-b-0 rounded-t-xl"
-                    : "bg-[#F3F3F3] py-2 px-2 md:px-5 text-sm"
-                }`}
+                className={`duration-200 transition-none ease-in ${page === "library"
+                  ? "border-1 py-3 px-5 md:px-8 font-semibold text-[#1B3B7D] border-[#ECECEC] bg-white border-b-0 rounded-t-xl"
+                  : "bg-[#F3F3F3] py-2 px-2 md:px-5 text-sm"
+                  }`}
               >
                 IELTS Library
               </button>
             </div>
-            <div className="flex items-end justify-end pt-5 sm:pt-0 md:pl-16 xl:pl-0">
+            <div className="max-sm:w-full flex items-end justify-end pt-5 sm:pt-0 md:pl-16 xl:pl-0">
               <SearchBar handleSubmit={searchModules} />
             </div>
           </Box>
@@ -447,26 +433,26 @@ const Modules = () => {
                         <p className="text-sm mt-3">
                           {item.description?.length > 90
                             ? item.description.split("").slice(0, 90).join("") +
-                              "..."
+                            "..."
                             : item.description}
                         </p>
                         <p className="flex items-center justify-between mt-3">
                           <span className="flex items-center text-[#00285A] gap-x-2 text-sm">
-                          {item?.type === 'video' && <>
+                            {item?.type === 'video' && <>
                               <svg
-                              width={16}
-                              height={16}
-                              viewBox="0 0 16 16"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M8 0C12.4184 0 16 3.5816 16 8C16 12.4184 12.4184 16 8 16C3.5816 16 0 12.4184 0 8C0 3.5816 3.5816 0 8 0ZM7.256 4.4648C7.1079 4.4648 6.96587 4.52363 6.86115 4.62835C6.75643 4.73307 6.6976 4.8751 6.6976 5.0232V9.488C6.6976 9.7968 6.9472 10.0464 7.256 10.0464H11.7208C11.7959 10.0492 11.8707 10.0369 11.9409 10.0102C12.0111 9.98339 12.0751 9.94275 12.1292 9.89065C12.1833 9.83855 12.2264 9.77608 12.2558 9.70696C12.2852 9.63785 12.3003 9.56351 12.3003 9.4884C12.3003 9.41329 12.2852 9.33895 12.2558 9.26984C12.2264 9.20072 12.1833 9.13825 12.1292 9.08615C12.0751 9.03405 12.0111 8.99341 11.9409 8.96665C11.8707 8.93989 11.7959 8.92756 11.7208 8.9304H7.8136V5.0232C7.8136 4.87524 7.75488 4.73333 7.65033 4.62863C7.54578 4.52394 7.40396 4.46501 7.256 4.4648Z"
-                                fill="#00285A"
-                              />
-                            </svg>
+                                width={16}
+                                height={16}
+                                viewBox="0 0 16 16"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M8 0C12.4184 0 16 3.5816 16 8C16 12.4184 12.4184 16 8 16C3.5816 16 0 12.4184 0 8C0 3.5816 3.5816 0 8 0ZM7.256 4.4648C7.1079 4.4648 6.96587 4.52363 6.86115 4.62835C6.75643 4.73307 6.6976 4.8751 6.6976 5.0232V9.488C6.6976 9.7968 6.9472 10.0464 7.256 10.0464H11.7208C11.7959 10.0492 11.8707 10.0369 11.9409 10.0102C12.0111 9.98339 12.0751 9.94275 12.1292 9.89065C12.1833 9.83855 12.2264 9.77608 12.2558 9.70696C12.2852 9.63785 12.3003 9.56351 12.3003 9.4884C12.3003 9.41329 12.2852 9.33895 12.2558 9.26984C12.2264 9.20072 12.1833 9.13825 12.1292 9.08615C12.0751 9.03405 12.0111 8.99341 11.9409 8.96665C11.8707 8.93989 11.7959 8.92756 11.7208 8.9304H7.8136V5.0232C7.8136 4.87524 7.75488 4.73333 7.65033 4.62863C7.54578 4.52394 7.40396 4.46501 7.256 4.4648Z"
+                                  fill="#00285A"
+                                />
+                              </svg>
                               {secondsToHoursMinutes(item.duration)}
-                          </>}
+                            </>}
                           </span>
                           <span className="flex items-center text-[#00285A] gap-x-2 text-sm">
                             <svg
