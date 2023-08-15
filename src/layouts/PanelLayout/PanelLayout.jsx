@@ -12,7 +12,7 @@ const PanelLayout = () => {
 
   useEffect(() => {
     const pathname = location.pathname;
-    const arr = ['/discussion', '/education-loan', '/shortlist-university', '/centralized-library', '/modules'];
+    const arr = ['/discussion', '/education-loan', '/shortlist-university', '/centralized-library', '/ielts-preparation/modules'];
     if (arr.includes(pathname)) {
       setShouldApplyClasses(false);
     } else {
