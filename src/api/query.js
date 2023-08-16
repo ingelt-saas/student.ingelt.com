@@ -10,6 +10,9 @@ const queryApi = {
   getvisaQuery: (data) => instance.get(`/visa-query/${data}`),
 
   findIELTSQuery: (data) => instance.post("/ingelt/find-ielts-query", data),
+  getAllState: (countryId = "IN") => instance.get(`/state-city/state/${countryId}`),
+  getCityFromState: (stateCode) => instance.get(`/state-city/${stateCode}/city`),
+  getAllCountry: () => instance.get(`/state-city/get-all-country`)
 };
 
 export default queryApi;

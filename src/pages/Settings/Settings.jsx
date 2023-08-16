@@ -36,8 +36,9 @@ import intlTelInput from 'intl-tel-input';
 import ProfileImage from "../../components/shared/ProfileImage/ProfileImage";
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/bootstrap.css'
-import { Country, State } from "country-state-city";
+// import { Country, State } from "country-state-city";
 import ImageCropper from "../../components/shared/ImageCropper/ImageCropper";
+import query from '../../api/query'
 
 const StyledButton = styled(Button)(() => ({ textTransform: "capitalize" }));
 
@@ -501,30 +502,75 @@ const Settings = () => {
     setValue('gender', gender);
   }, [country, gender, state]);
 
-  // initial country and state fetcher 
+
+  const [allCountryData, setAllCountryData] = useState([]);
   useEffect(() => {
-    const getCountries = Country.getAllCountries();
+    query.getAllCountry().then(result=>{
+      setAllCountryData(result.data)
+    })
+  }, [])
+
+
+  // useEffect(()=>{
+  //   (async () => {
+  //     query.getAllCountry().then(result=>{
+  //       console.log(result.data, 'result');
+  //       setAllCountryData(result.data);
+  //     })
+  //   })()
+  //   console.log(allCountryData, 'all country data')
+  // }, [])
+
+  // useEffect(()=>{
+  //   console.log(allCountryData, 'all data');
+  // }, [])
+
+  // initial country and state fetcher 
+  // console.log(allCountryData);
+  useEffect(() => {
+    let getCountries= allCountryData;
+    
     setCountries(getCountries.map(i => i.name));
     if (country) {
       const getCountry = getCountries.find(i => i.name === country);
-      const getStates = State.getStatesOfCountry(getCountry.isoCode);
+      // const getStates = State.getStatesOfCountry(getCountry.isoCode);
+      const getStates = (async ()=>{
+        await query.getAllState(getCountry.isoCode).data;
+      })();
+
+      // console.log(getStates, 'data states');
+
       if (Array.isArray(getStates)) {
         setStates(getStates.map(i => i.name));
       }
     }
-  }, [country]);
+  }, [country, allCountryData]);
 
   // states fetch on change country
+  const [selectedCountryState, setSelectedCountryState] = useState([]);
   useEffect(() => {
     if (selectedCountry) {
-      const getCountries = Country.getAllCountries();
+      const getCountries = allCountryData;
       const getCountry = getCountries.find(i => i.name === selectedCountry);
-      const getStates = State.getStatesOfCountry(getCountry.isoCode);
-      if (Array.isArray(getStates)) {
-        setStates(getStates.map(i => i.name));
+      // let getStates = [];
+
+      query.getAllState(getCountry.isoCode).then((result)=>{
+        // setSelectedCountryState(result.data);
+        // setStates(result.data)
+        setStates(result.data.map(i => i.name));
+      });
+      
+      // console.log(states  , 'data states');
+      if (Array.isArray(selectedCountryState)) {
+        setStates(selectedCountryState.map(i => i.name));
       }
     }
   }, [selectedCountry]);
+
+  // useEffect(()=>{
+  //   console.log(states, selectedCountryState); 
+  // })
+  // console.log(selectedCountryState);
 
   return (
     <div className="flex flex-col md:flex-row w-full gap-y-5 py-4 h-full">

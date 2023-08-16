@@ -6,7 +6,7 @@ import loanSVG from "../../assets/images/visa.svg";
 import darkDownSVG from "../../assets/images/darkDown.svg";
 import img2 from "../../assets/images/travel.svg";
 import img3 from "../../assets/images/aeroplane.svg";
-import { Country, State, City } from "country-state-city";
+// import { Country, State, City } from "country-state-city";
 import query from "../../api/query";
 import Countries from "../../components/VisaApplication/Countries";
 
