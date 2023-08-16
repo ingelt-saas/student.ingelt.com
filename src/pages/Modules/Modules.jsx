@@ -9,7 +9,7 @@ import getFile from "../../api/getFile";
 import Header from "../../components/shared/Header/Header";
 import { useContext } from "react";
 import { StudentContext } from "../../contexts";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { Alert, Box, Button, CircularProgress } from "@mui/material";
 
 // assets
@@ -28,6 +28,9 @@ import {
   videoTypes,
 } from "../../utilities";
 import Library from "../Library/Library";
+import { LockOpen } from "@mui/icons-material";
+import moment from "moment";
+import paymentApi from "../../api/payment";
 
 const DateTimeDisplay = ({ value, type }) => {
   return (
@@ -88,6 +91,14 @@ const ModuleOverly = ({ releaseDate }) => {
 };
 
 const LandingPage = () => {
+
+  // context
+  const { student } = useContext(StudentContext);
+
+  //states 
+  const [amount, setAmount] = useState(student?.moduleFee || 0);
+  const [coupon, setCoupon] = useState({ couponCode: '', loading: false, coupon: null });
+
   const data = [
     {
       image: img1,
@@ -107,23 +118,45 @@ const LandingPage = () => {
     },
   ];
 
-  // enter click handler
-  const unlockModules = async (e) => {
+  // create order
+  const createOrder = async (e) => {
     e.target.disabled = true;
     try {
-      await settings.update({ modulesUnlock: true });
-      window.location.reload();
+      const res = await paymentApi.createIntent({ paymentFor: 'module', moduleCoupon: coupon.couponCode });
+      if (res.data) {
+        window.location = res.data.payment_request.longurl;
+      }
     } catch (err) {
       console.error(err);
     } finally {
       e.target.disabled = false;
     }
-  };
+  }
+
+  // verify module coupon
+  const verifyCoupon = async (e) => {
+    if (!coupon.couponCode) {
+      return;
+    }
+    e.target.disabled = true;
+
+    try {
+      const res = await paymentApi.verifyModuleCoupon({ coupon: coupon.couponCode });
+      setCoupon({ ...coupon, coupon: res.data });
+      if (res.data?.validation) {
+        setAmount(amount - res.data?.coupon?.amount);
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      e.target.disabled = false;
+    }
+  }
 
   return (
     <div className="w-full min-h-full max-sm:px-3 py-5 bg-[#001E43] grid place-items-center">
-      <div className="flex flex-col items-center gap-y-8">
-        <div className="w-[80vw] sm:max-w-[300px] mx-auto">
+      <div className="flex flex-col items-center gap-y-5">
+        <div className="w-[80vw] sm:max-w-[220px] mx-auto">
           <img src={landingImg} alt="" className="w-full h-auto" />
         </div>
         <h1 className="text-3xl max-sm:text-xl text-center text-white font-semibold">
@@ -138,7 +171,7 @@ const LandingPage = () => {
               <img
                 src={item.image}
                 alt=""
-                className="w-12 max-sm:w-10 h-auto aspect-square"
+                className="w-9 max-sm:w-8 h-auto aspect-square"
               />
               <p className="whitespace-pre-line font-semibold text-[] max-sm:text-sm">
                 {item.content}
@@ -147,24 +180,38 @@ const LandingPage = () => {
           ))}
         </div>
         <div className=" flex flex-col items-center gap-y-2">
-          <p className="text-center text-white">
-            Access to Free IELTS Classes{" "}
+          <p className='text-3xl font-semibold text-[#f2f2f2]'>
+            <span className='text-lg'>₹</span>
+            {amount}
           </p>
+          <div className='flex flex-col'>
+            {!coupon?.coupon?.validation && <div className='flex rounded-lg border border-white overflow-hidden'>
+              <input
+                type="text"
+                value={coupon.couponCode}
+                onChange={(e) => setCoupon({ ...coupon, couponCode: e.target.value.toUpperCase() })}
+                placeholder="Enter Coupon Code"
+                className="!border-none !bg-transparent focus:!outline-none px-3 py-2 flex-1 text-sm text-white"
+              />
+              <button onClick={verifyCoupon} disabled={Boolean(!coupon.couponCode)} className="text-[#001E43] px-6 text-sm font-semibold border-none bg-[#f2f2f2] disabled:opacity-90">Apply</button>
+            </div>}
+            {coupon?.coupon && (!coupon?.coupon?.validation && <p className="text-center text-red-500 font-medium mt-2">{coupon?.coupon?.message}{" "}{coupon?.coupon?.date && moment(coupon?.coupon?.date).format('ll')}</p>)}
+            {coupon?.coupon && (coupon?.coupon?.validation && <p className="text-center text-green-500 font-medium mt-2">{coupon?.coupon?.message}{" "}{coupon?.coupon?.date && moment(coupon?.coupon?.date).format('ll')}</p>)}
+
+          </div>
           <Button
-            onClick={unlockModules}
+            onClick={createOrder}
             variant="contained"
+            className="!mt-3 !text-[#001E43] !capitalize !font-semibold !py-2 !px-8"
             sx={{
-              color: "#001E43",
-              textTransform: "capitalize",
-              fontWeight: "600",
               backgroundColor: "#fff",
-              padding: "0.5rem 2rem",
               "&:hover": {
                 backgroundColor: "#f2f2f2",
               },
             }}
+            startIcon={<LockOpen />}
           >
-            Enter
+            Unlock
           </Button>
         </div>
       </div>
@@ -183,6 +230,7 @@ const Modules = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [search, setSearch] = useSearchParams();
   const page = search.get("page");
+  const navigate = useNavigate();
 
   // context
   const { student } = useContext(StudentContext);
@@ -301,6 +349,30 @@ const Modules = () => {
   const selectedFileExtension = selectedFile
     ? selectedFile?.file.substring(selectedFile?.file.lastIndexOf("."))
     : null;
+
+  useEffect(() => {
+    if (search.get('payment') === 'success' && search.get('amount')) {
+      (async () => {
+        try {
+          await paymentApi.paymentSuccess({
+            amount: search.get('amount'),
+            invoiceDate: moment(new Date()).format('ll'),
+            moduleUnlock: true,
+          });
+          navigate('/ielts-preparation/modules', { replace: true });
+        } catch (err) {
+          console.error(err);
+        }
+      })();
+    }
+  }, [search]);
+
+  // if payment is success
+  if (search.get('payment') && search.get('amount')) {
+    return <div className="flex justify-center py-20">
+      <CircularProgress sx={{ '& circle': { stroke: '#0C3C82' } }} />
+    </div>
+  }
 
   return (
     <>

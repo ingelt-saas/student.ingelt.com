@@ -21,7 +21,7 @@ const OnlineClasses = () => {
     const [search] = useSearchParams();
 
     // context 
-    const { studentFetch } = useContext(StudentContext);
+    const { student } = useContext(StudentContext);
 
     const data1 = [
         "Types of Sentences",
@@ -73,7 +73,7 @@ const OnlineClasses = () => {
     const createOrder = async (e) => {
         e.target.disabled = true;
         try {
-            const res = await paymentApi.createIntent('classes');
+            const res = await paymentApi.createIntent({ paymentFor: 'classes' });
             if (res.data) {
                 window.location = res.data.payment_request.longurl;
             }
@@ -101,7 +101,6 @@ const OnlineClasses = () => {
         }
     }, [search]);
 
-
     if (search.get('payment') && search.get('amount')) {
         return <div className="flex justify-center py-20">
             <CircularProgress sx={{ '& circle': { stroke: '#0C3C82' } }} />
@@ -124,7 +123,7 @@ const OnlineClasses = () => {
                         <div className='text-center'>
                             <p className='text-3xl font-semibold text-[#0C3C82]'>
                                 <span className='text-black text-lg'>₹</span>
-                                4999
+                                {student?.classFee}
                             </p>
                             <p>Start your IELTS preparation</p>
                         </div>
@@ -238,7 +237,7 @@ const OnlineClasses = () => {
 
                 </div>
             </div>
-        </div>
+        </div >
     );
 }
 
