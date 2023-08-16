@@ -5,7 +5,7 @@ import welcomeSVG from "../../assets/images/scholar.svg";
 import loanSVG from "../../assets/images/loan.svg";
 import darkDownSVG from "../../assets/images/darkDown.svg";
 import img2 from "../../assets/images/Personal finance-pana.svg";
-import { Country, State, City } from "country-state-city";
+// import { Country, State, City } from "country-state-city";
 import query from "../../api/query";
 import BankingPart from "../../components/EducationLoan/BankingPart"
 import funding from "../../assets/NewDesign/loan icon/funding.svg";
@@ -304,7 +304,7 @@ const EducationLoan = () => {
     });
     const getStates = async () => {
       const res = await query.getLoanQuery(id);
-      console.log(res, "res");
+      // console.log(res, "res");
       if (res.data !== null) {
         setPage2(true);
       }
@@ -333,13 +333,23 @@ const EducationLoan = () => {
       window.location.reload();
     }
   };
+
+  //TODO REMOVE THIS STATE FETCHING.
   const getAllStates = async () => {
-    await setStates(State.getStatesOfCountry("IN"));
+    // console.log(State.getStatesOfCountry("IN"));
+    
+    await setStates((await query.getAllState()).data);
     if (stateCode) {
-      await setState(State.getStateByCodeAndCountry(stateCode, "IN"));
-      await setCities(City.getCitiesOfState("IN", stateCode));
+      // await setStates(query.getAllState());
+      await setState((await query.getAllState()).data);
+      await setCities((await query.getCityFromState(stateCode)).data);
     }
   };
+  // useEffect(()=>{
+  //   getAllStates();
+  //   console.log('all data',state);
+  // })
+
 
   const handleOpenSignUp = () => {
     setOpenSignUp(!openSignUp);
