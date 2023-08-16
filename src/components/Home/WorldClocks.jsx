@@ -95,16 +95,16 @@ const WorldClocks = () => {
           className="relative cursor-pointer rounded-2xl overflow-hidden shadow-md"
         >
           <img
-            className="w-full object-cover aspect-[16/6]"
+            className="w-full object-cover aspect-[16/6] max-md:aspect-video"
             alt=""
             src={image}
           />
-          <div className="absolute top-0 left-0 w-full h-full px-2 bg-[#000] bg-opacity-40 duration-200 opacity-100 flex flex-col justify-center">
-            <p className="text-[#fff] flex items-center text-sm font-semibold gap-x-1">
+          <div className="absolute top-0 left-0 w-full h-full px-2 bg-[#000] bg-opacity-40 duration-200 opacity-100 flex flex-col max-md:gap-1 justify-center">
+            <p className="text-[#fff] flex items-center max-md:text-base text-sm font-semibold gap-x-1">
               <FmdGood fontSize="small" />
               {country}
             </p>
-            <p className="text-[#fff] flex items-center text-sm gap-x-1 font-semibold">
+            <p className="text-[#fff] flex items-center max-md:text-base text-sm gap-x-1 font-semibold">
               <WatchLater fontSize="small" />
               {time}
             </p>

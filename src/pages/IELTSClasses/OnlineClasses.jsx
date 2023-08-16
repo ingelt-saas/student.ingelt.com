@@ -1,5 +1,5 @@
-import React, { useContext, useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from "react";
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import moment from 'moment';
 
 // assets
@@ -13,12 +13,15 @@ import img5 from "../../assets/images/online-classes.png";
 import RazorPay from "../../components/RazorPay/RazorPay";
 import paymentApi from "../../api/payment";
 import { StudentContext } from "../../contexts";
+import { Button, CircularProgress } from "@mui/material";
 
 const OnlineClasses = () => {
 
     const navigate = useNavigate();
+    const [search] = useSearchParams();
+
     // context 
-    const { studentFetch } = useContext(StudentContext);
+    const { student } = useContext(StudentContext);
 
     const data1 = [
         "Types of Sentences",
@@ -66,14 +69,85 @@ const OnlineClasses = () => {
         }
     }
 
+    // create a order
+    const createOrder = async (e) => {
+        e.target.disabled = true;
+        try {
+            const res = await paymentApi.createIntent({ paymentFor: 'classes' });
+            if (res.data) {
+                window.location = res.data.payment_request.longurl;
+            }
+        } catch (err) {
+            console.error(err);
+        } finally {
+            e.target.disabled = false;
+        }
+    }
+
+    useEffect(() => {
+        if (search.get('payment') === 'success' && search.get('amount')) {
+            (async () => {
+                try {
+                    await paymentApi.paymentSuccess({
+                        transactionId: '',
+                        amount: search.get('amount'),
+                        invoiceDate: moment(new Date()).format('ll')
+                    });
+                    navigate('/ielts-classes/online-classes', { replace: true });
+                } catch (err) {
+                    console.error(err);
+                }
+            })();
+        }
+    }, [search]);
+
+    if (search.get('payment') && search.get('amount')) {
+        return <div className="flex justify-center py-20">
+            <CircularProgress sx={{ '& circle': { stroke: '#0C3C82' } }} />
+        </div>
+    }
+
     return (
         <div className='flex max-md:flex-col gap-6'>
             <div className='md:w-8/12'>
-                <div className='py-5 px-5 rounded-3xl bg-[#0C3C82] shadow-xl'>
+                <div className='py-5 px-5 max-md:text-center max-md:px-3 rounded-3xl bg-[#0C3C82] shadow-xl'>
                     <h1 className='text-2xl font-bold text-white'>Live Classes</h1>
                     <p className='text-white mt-3'>IELTS preparation with British Council Certified Expert</p>
                 </div>
-                <div className='mt-10 flex max-md:flex-col px-5'>
+                <div className="md:hidden max-md:mt-5">
+                    <div className='bg-white p-2 rounded-xl shadow-xl flex flex-col gap-y-5'>
+                        <div className='rounded-xl overflow-hidden relative'>
+                            <img draggable={false} src={img5} alt='' className='w-full aspect-[16/9] object-cover' />
+                            <h3 className='text-2xl whitespace-nowrap font-semibold text-white absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2'>Live / Online Classes</h3>
+                        </div>
+                        <div className='text-center'>
+                            <p className='text-3xl font-semibold text-[#0C3C82]'>
+                                <span className='text-black text-lg'>₹</span>
+                                {student?.classFee}
+                            </p>
+                            <p>Start your IELTS preparation</p>
+                        </div>
+                        <Button
+                            variant='contained'
+                            className={'!capitalize w-full !rounded-b-xl !rounded-t-md !py-3'}
+                            sx={{
+                                backgroundColor: '#0C3C82',
+                                '&:hover': {
+                                    backgroundColor: '#0C3C82'
+                                }
+                            }}
+                            onClick={createOrder}
+                        >Book Your Seat</Button>
+                        {/* <RazorPay
+                        paymentFor={'classes'}
+                        description={''}
+                        buttonClass={'!capitalize w-full !rounded-b-xl !rounded-t-md !py-3'}
+                        successHandler={onlineClassesEnrollHandler}
+                    >Book Your Seat</RazorPay> */}
+
+                    </div>
+                </div>
+                <div className='mt-10 flex max-md:flex-col-reverse max-md:gap-5 px-5'>
                     <div className='md:w-9/12'>
                         <p className='font-medium'>Your Course</p>
                         <div className='md:border-r border-[#D9D9D9] md:pr-3'>
@@ -98,7 +172,7 @@ const OnlineClasses = () => {
                             </div>
                         </div>
                     </div>
-                    <div className='md:w-3/12 flex max-md:flex-row max-md:flex-wrap flex-col gap-5 md:pl-4 pt-5'>
+                    <div className='md:w-3/12 flex max-md:flex-row max-md:flex-wrap flex-col gap-5 md:pl-4 md:pt-5'>
                         <div className=' flex gap-x-5'>
                             <img src={img1} alt='' className='w-8 h-auto' />
                             <div className='text-[#0C3C82] text-sm'>
@@ -130,7 +204,7 @@ const OnlineClasses = () => {
                     </div>
                 </div>
             </div>
-            <div className='md:w-4/12'>
+            <div className='md:w-4/12 max-md:hidden'>
                 <div className='bg-white p-2 rounded-xl shadow-xl flex flex-col gap-y-5'>
                     <div className='rounded-xl overflow-hidden relative'>
                         <img draggable={false} src={img5} alt='' className='w-full aspect-[16/9] object-cover' />
@@ -143,16 +217,27 @@ const OnlineClasses = () => {
                         </p>
                         <p>Start your IELTS preparation</p>
                     </div>
-                    <RazorPay
+                    <Button
+                        variant='contained'
+                        className={'!capitalize w-full !rounded-b-xl !rounded-t-md !py-3'}
+                        sx={{
+                            backgroundColor: '#0C3C82',
+                            '&:hover': {
+                                backgroundColor: '#0C3C82'
+                            }
+                        }}
+                        onClick={createOrder}
+                    >Book Your Seat</Button>
+                    {/* <RazorPay
                         paymentFor={'classes'}
                         description={''}
                         buttonClass={'!capitalize w-full !rounded-b-xl !rounded-t-md !py-3'}
                         successHandler={onlineClassesEnrollHandler}
-                    >Book Your Seat</RazorPay>
+                    >Book Your Seat</RazorPay> */}
 
                 </div>
             </div>
-        </div>
+        </div >
     );
 }
 

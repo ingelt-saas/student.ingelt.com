@@ -4,10 +4,10 @@ import {
   Twitter,
   WatchLater,
 } from "@mui/icons-material";
-import { Box, Button, Modal, Typography } from "@mui/material";
-import React, { useState } from "react";
+import { Box, Button, CircularProgress, Modal, Typography } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import headerImg from "../../assets/images/speaking-practice-header.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import StripeElements from "../../components/Stripe/StripeElements";
 import sessionApi from "../../api/session";
 import { toast } from "react-toastify";
@@ -22,6 +22,7 @@ import indiaFlag from "../../assets/images/india-flag.svg";
 import UpcomingEvent from "../../components/Home/UpcomingEvent";
 import RazorPay from "../../components/RazorPay/RazorPay";
 import moment from "moment";
+import paymentApi from "../../api/payment";
 
 // const PaymentModal = ({ open, close }) => {
 
@@ -82,6 +83,10 @@ import moment from "moment";
 
 const SpeakingSession = () => {
 
+  // states
+  const [search] = useSearchParams();
+  const navigate = useNavigate();
+
   const data = [
     "🌟More than 10 years of hands on experience",
     "🌟British Council certified trainer",
@@ -125,64 +130,65 @@ const SpeakingSession = () => {
     }
   };
 
+  // create order
+  const createOrder = async (e) => {
+    e.target.disabled = true;
+    try {
+      const res = await paymentApi.createIntent('session');
+      if (res.data) {
+        window.location = res.data.payment_request.longurl;
+      }
+    } catch (err) {
+      console.error(err)
+    } finally {
+      e.target.disabled = false;
+    }
+  }
+
+  useEffect(() => {
+    if (search.get('payment') === 'success' && search.get('amount')) {
+      (async () => {
+        try {
+          await sessionApi.create({
+            transactionId: 'transactionId',
+            amount: search.get('amount'),
+            invoiceDate: moment(new Date()).format('ll')
+          });
+          toast.success("You Have Successfully Booked a Session. Kindly Check Your Mail");
+          navigate('/ielts-preparation/speaking-session', { replace: true });
+        } catch (err) {
+          console.error(err);
+        }
+      })();
+    }
+  }, [search]);
+
+
+  if (search.get('payment') && search.get('amount')) {
+    return <div className="flex justify-center py-20">
+      <CircularProgress sx={{ '& circle': { stroke: '#0C3C82' } }} />
+    </div>
+  }
+
+
   return (
     <div className="">
       <div className="flex max-md:flex-col gap-5">
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            width: { md: "65%", xs: "100%" },
-            height: "20vh",
-            padding: "2rem",
-            backgroundColor: "white",
-            border: "1px solid white",
-            borderRadius: "2rem",
-            boxShadow:
-              "0px 10px 36px rgba(0, 0, 0, 0.16), 0px 0px 0px 1px rgba(0, 0, 0, 0.06);",
-          }}
-        >
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "flex-start",
-              flexDirection: "column",
-              // padding: '2rem 1rem 2rem 1rem',
-              width: { md: "50%", xs: "90%" },
-            }}
-          >
-            <Typography
-              sx={{
-                color: "rgba(0, 0, 0, 0.6);",
-              }}
-            >
-              Start your
-            </Typography>
-            <Typography
-              sx={{
-                fontWeight: "bold",
-                fontSize: "1.5rem",
-              }}
-            >
-              Speaking Practice
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              width: { md: "60%", xs: "100%" },
-              display: { xs: "none", md: "block" },
-              // padding: '0.3rem'
-            }}
-          >
+
+        <div className="rounded-[1.2rem] flex justify-between relative items-center md:w-[65%] bg-white shadow-xl">
+          <div className="px-7 flex flex-col gap-y-1 max-md:py-7 max-sm:px-5 max-md:items-center max-md:w-full">
+            <p className="font-normal text-black opacity-75">Start your</p>
+            <h1 className="text-2xl font-bold text-[#0C3C82]">Speaking Practice</h1>
+          </div>
+          <div className="overflow-hidden pr-3 max-w-[30%] max-md:hidden">
             <img
+              draggable={false}
               src={headerImg}
               alt="library"
-              className={`relative md:bottom-5 ml-auto`}
+              className={`max-h-full max-w-full mix-blend-darken`}
             />
-          </Box>
-        </Box>
+          </div>
+        </div>
 
         <div className="flex-1">
           <div className="rounded-2xl bg-white shadow-2xl px-5 py-5">
@@ -207,6 +213,7 @@ const SpeakingSession = () => {
           </div>
         </div>
       </div>
+
       <div className="flex max-md:flex-col gap-5 gap-x-5 mt-10">
         <div className="md:w-4/12 xl:w-5/12">
           <div className="bg-white rounded-xl px-5 py-5 shadow-xl flex flex-col gap-y-3">
@@ -320,7 +327,22 @@ const SpeakingSession = () => {
                                 </div> */}
               </div>
             </div>
-            <RazorPay
+            <Button
+              variant='contained'
+              className={'!rounded-xl !font-semibold !py-3 !px-10 text-white !capitalize !mt-5 !flex !justify-between !w-full'}
+              sx={{
+                backgroundColor: '#0C3C82',
+                '&:hover': {
+                  backgroundColor: '#0C3C82'
+                }
+              }}
+              onClick={createOrder}
+            >
+              <span>Book Session</span>
+              <span>₹ 249 /-</span>
+            </Button>
+
+            {/* <RazorPay
               description={''}
               paymentFor='session'
               successHandler={successHandler}
@@ -328,7 +350,7 @@ const SpeakingSession = () => {
             >
               <span>Book Session</span>
               <span>₹ 249 /-</span>
-            </RazorPay>
+            </RazorPay> */}
 
           </div>
         </div>

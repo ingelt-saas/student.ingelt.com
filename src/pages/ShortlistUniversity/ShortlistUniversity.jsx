@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import welcomeSVG from "../../assets/images/headingSVG.svg";
+import welcomeSVG from "../../assets/images/university-heading.png";
 import { Button, Drawer, Box, Typography, CircularProgress, Alert } from "@mui/material";
 import { Favorite, FilterAlt, HeartBroken } from "@mui/icons-material";
 import { useQuery } from "@tanstack/react-query";

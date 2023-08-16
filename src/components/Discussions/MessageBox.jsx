@@ -1,5 +1,5 @@
 import moment from "moment/moment";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useLayoutEffect, useState } from "react";
 import { StudentContext } from "../../contexts";
 import ProfileImage from "../shared/ProfileImage/ProfileImage";
 import { Tooltip, Modal, Button } from "@mui/material";
@@ -8,13 +8,22 @@ import 'photoswipe/dist/photoswipe.css'
 import getFile from "../../api/getFile";
 import ReplyIcon from '@mui/icons-material/Reply';
 import ReportIcon from '@mui/icons-material/Report';
-import { Country } from "country-state-city";
+// import { Country } from "country-state-city";
 import Flag from "react-world-flags";
 import { Verified } from '@mui/icons-material';
+import query from "../../api/query";
+
 
 const CountryFlag = ({ country }) => {
 
-  let countries = Country.getAllCountries();
+  const [countries, setCountries]= useState([]);
+  useLayoutEffect(() => {
+    query.getAllCountry().then(result=>{
+      setCountries(result.data)
+    })
+  }, [])
+  
+  // let countries = Country.getAllCountries();
   let countryCode = countries.find(i => i.name === country);
 
   if (countryCode) {

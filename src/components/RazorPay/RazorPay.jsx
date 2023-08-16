@@ -54,7 +54,6 @@ const RazorPay = ({ children, paymentFor, description, successHandler, buttonCla
         }
     }
 
-
     useEffect(() => {
 
         // init razor pay script

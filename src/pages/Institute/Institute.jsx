@@ -17,6 +17,7 @@ import {
 } from "@mui/material";
 import TrackPerformance from "../../components/Institute/TrackPerformance";
 import MeetingLink from "../../components/Institute/MeetingLink";
+import Header from "../../components/shared/Header/Header";
 
 const Institute = () => {
   const [search, setSearch] = useSearchParams();
@@ -39,8 +40,13 @@ const Institute = () => {
           </p>
         </div>
       </div> */}
-      <div className="pt-3 pb-4 pl-2 flex gap-5">
-        <Box
+      <div className="pt-3 pb-4 pl-2 flex max-md:flex-col gap-5">
+        <Header
+          Img={welcomeSVG}
+          title={'Institute'}
+          subTitle={'Crack IELTS with our Partnered Institutes'}
+        />
+        {/* <Box
           sx={{
             display: "flex",
             justifyContent: "left",
@@ -88,13 +94,23 @@ const Institute = () => {
               className="relative md:bottom-4  md:left-28 "
             />
           </Box>
-        </Box>
+        </Box> */}
         <div className='flex-1'>
           <MeetingLink />
         </div>
       </div>
-      <div className="flex max-sm:flex-col max-sm:gap-y-3 justify-between items-center mt-10">
+
+      <div className="flex max-md:flex-col-reverse max-md:gap-y-3 justify-between items-center mt-10">
         <div className="flex items-end justify-start">
+          <button
+            onClick={() => setSearch({ page: "track-performance" })}
+            className={`duration-200 transition-none ease-in ${page === "track-performance"
+              ? "border-1 py-3 px-5 md:px-8 font-semibold text-[#1B3B7D] border-[#ECECEC] bg-white border-b-0 rounded-t-xl"
+              : "bg-[#F3F3F3] py-2 px-2 md:px-5 text-sm"
+              }`}
+          >
+            Track Performance
+          </button>
           <button
             onClick={() => setSearch({ page: "assignments" })}
             className={`duration-200 transition-none ease-in ${page === "assignments" || !page
@@ -113,17 +129,9 @@ const Institute = () => {
           >
             Notes
           </button>
-          <button
-            onClick={() => setSearch({ page: "track-performance" })}
-            className={`duration-200 transition-none ease-in ${page === "track-performance"
-              ? "border-1 py-3 px-5 md:px-8 font-semibold text-[#1B3B7D] border-[#ECECEC] bg-white border-b-0 rounded-t-xl"
-              : "bg-[#F3F3F3] py-2 px-2 md:px-5 text-sm"
-              }`}
-          >
-            Track Performance
-          </button>
+
         </div>
-        <div className="flex items-end justify-end pt-5 sm:pt-0 md:pl-16 xl:pl-0">
+        <div className="flex items-end justify-end pt-5 max-md:w-full sm:pt-0 md:pl-16 xl:pl-0">
           {page !== 'track-performance' && <SearchBar handleSubmit={searchForm} />}
         </div>
       </div>

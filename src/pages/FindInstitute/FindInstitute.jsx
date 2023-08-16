@@ -6,11 +6,13 @@ import { Favorite, FilterAlt, Search } from "@mui/icons-material";
 import InstituteItem from "../../components/FindInstitute/InstituteItem";
 import instituteApi from "../../api/institute";
 import { StudentContext } from "../../contexts";
-import { Country, State } from "country-state-city";
+// import { Country, State } from "country-state-city";
 import { Alert, Box, Button, Typography } from "@mui/material";
 import { toast } from "react-toastify";
 import Header from "../../components/shared/Header/Header";
 import { useQuery } from "@tanstack/react-query";
+import query from "../../api/query";
+
 
 const FindInstitute = () => {
   //states
@@ -96,7 +98,8 @@ const FindInstitute = () => {
   // fetch cities
   useEffect(() => {
     const getAllStates = async () => {
-      await setStates(State.getStatesOfCountry("IN"));
+      // await setStates(State.getStatesOfCountry("IN"));
+      await setStates((await query.getAllState()).data);
     };
     getAllStates();
   }, []);
