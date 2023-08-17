@@ -1,4 +1,4 @@
-import { PaymentElement, CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
+// import { PaymentElement, CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import { useContext, useEffect } from 'react';
 import { useState } from 'react';
 import { StudentContext } from '../../contexts';
@@ -73,78 +73,78 @@ const CheckoutForm = ({ paymentFor, successHandler, loading: loadingFunc }) => {
 
     const navigate = useNavigate();
 
-    const stripe = useStripe();
-    const elements = useElements();
+    // const stripe = useStripe();
+    // const elements = useElements();
 
     // payment handler
-    const paymentHandler = async (e) => {
+    // const paymentHandler = async (e) => {
 
-        setCardError('');
-        setLoading(true);
-        e.preventDefault();
+    //     setCardError('');
+    //     setLoading(true);
+    //     e.preventDefault();
 
-        if (!stripe || !elements) {
-            setLoading(false);
-            return;
-        }
+    //     if (!stripe || !elements) {
+    //         setLoading(false);
+    //         return;
+    //     }
 
-        const card = elements.getElement(CardElement);
-        if (!card) {
-            setLoading(false);
-            return;
-        }
+    //     const card = elements.getElement(CardElement);
+    //     if (!card) {
+    //         setLoading(false);
+    //         return;
+    //     }
 
-        const { error } = await stripe.createPaymentMethod({ type: 'card', card });
+    //     const { error } = await stripe.createPaymentMethod({ type: 'card', card });
 
-        if (error) {
-            setCardError(error.message);
-            setLoading(false);
-            return;
-        }
+    //     if (error) {
+    //         setCardError(error.message);
+    //         setLoading(false);
+    //         return;
+    //     }
 
-        typeof loadingFunc === 'function' && loadingFunc(true);
-        const { paymentIntent, error: confirmError } = await stripe.confirmCardPayment(
-            clientSecret,
-            {
-                payment_method: {
-                    card: card,
-                    billing_details: {
-                        name: student?.name,
-                        email: student?.email,
-                        phone: student?.phoneNo,
-                        address: `${student?.city}- ${student?.state}-${student?.country}`,
-                    },
-                },
-            },
-        );
+    //     typeof loadingFunc === 'function' && loadingFunc(true);
+    //     const { paymentIntent, error: confirmError } = await stripe.confirmCardPayment(
+    //         clientSecret,
+    //         {
+    //             payment_method: {
+    //                 card: card,
+    //                 billing_details: {
+    //                     name: student?.name,
+    //                     email: student?.email,
+    //                     phone: student?.phoneNo,
+    //                     address: `${student?.city}- ${student?.state}-${student?.country}`,
+    //                 },
+    //             },
+    //         },
+    //     );
 
-        if (confirmError) {
-            setLoading(false);
-            typeof loadingFunc === 'function' && loadingFunc(false);
-            setCardError(confirmError.message);
-            return;
-        }
+    //     if (confirmError) {
+    //         setLoading(false);
+    //         typeof loadingFunc === 'function' && loadingFunc(false);
+    //         setCardError(confirmError.message);
+    //         return;
+    //     }
 
-        if (paymentIntent.status === "succeeded") {
+    //     if (paymentIntent.status === "succeeded") {
 
-            if (paymentFor === 'session') {
-                typeof successHandler === 'function' && successHandler(paymentIntent);
-                setLoading(false);
-            } else {
-                const paymentData = {
-                    transactionId: paymentIntent?.id,
-                    amount: paymentIntent.amount,
-                }
-                await paymentApi.paymentSuccess(paymentData);
-                studentFetch();
-                toast.success('You are registered with InGelt Board Live Classes!');
-                setLoading(false);
-                navigate('/institute', { replace: true });;
-                // window.location.pathname = '/institute'
-            }
-        }
+    //         if (paymentFor === 'session') {
+    //             typeof successHandler === 'function' && successHandler(paymentIntent);
+    //             setLoading(false);
+    //         } else {
+    //             const paymentData = {
+    //                 transactionId: paymentIntent?.id,
+    //                 amount: paymentIntent.amount,
+    //             }
+    //             await paymentApi.paymentSuccess(paymentData);
+    //             studentFetch();
+    //             toast.success('You are registered with InGelt Board Live Classes!');
+    //             setLoading(false);
+    //             navigate('/institute', { replace: true });;
+    //             // window.location.pathname = '/institute'
+    //         }
+    //     }
 
-    }
+    // }
 
     useEffect(() => {
         (async () => {
@@ -183,7 +183,7 @@ const CheckoutForm = ({ paymentFor, successHandler, loading: loadingFunc }) => {
     };
 
     return (
-        <form id='payment-form' onSubmit={paymentHandler} className='py-5'>
+        <form id='payment-form' onSubmit={()=>console.log('error in payment')} className='py-5'>
 
 
             <div className='mb-3'>
@@ -194,7 +194,7 @@ const CheckoutForm = ({ paymentFor, successHandler, loading: loadingFunc }) => {
                     selectedMethod={selectedMethod}
                 >
                     <div className='bg-[#fff] py-3 px-2 shadow-md'>
-                        <CardElement options={CARD_OPTIONS} />
+                        {/* <CardElement options={CARD_OPTIONS} /> */}
                     </div>
                 </PaymentMethod>
             </div>
@@ -214,7 +214,7 @@ const CheckoutForm = ({ paymentFor, successHandler, loading: loadingFunc }) => {
                         backgroundColor: '#0C3C82'
                     }
                 }}
-                disabled={!stripe || loading}
+                disabled={true}
                 startIcon={loading && <CircularProgress size={16} sx={{ '& circle': { stroke: 'white', strokeWidth: 7 } }} />}
             >
                 Pay

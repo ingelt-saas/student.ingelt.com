@@ -3,7 +3,6 @@ import { useEffect } from "react";
 import StudentProvider from "./providers/StudentProvider";
 import { ProSidebarProvider } from "react-pro-sidebar";
 import "react-toastify/dist/ReactToastify.css";
-import OTPlessSdk from "otpless-js-sdk";
 import { SocketContext, socket } from "./contexts";
 
 // Routes
@@ -13,22 +12,12 @@ import { ToastContainer } from "react-toastify";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const App = () => {
-  const sdkInstance = new OTPlessSdk({
-    appId: "123456789",
-    enableErrorLogging: true,
-  });
-
   useEffect(() => {
     if (localStorage.theme === "dark") {
       document.documentElement.classList.add("dark");
     }
   }, []);
-
-  useEffect(() => {
-    const sdk = sdkInstance.getState();
-    console.log(sdk);
-  }, [sdkInstance]);
-
+  
   const client = new QueryClient();
 
   return (
