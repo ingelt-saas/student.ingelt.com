@@ -8,7 +8,7 @@ import { Box, Button, CircularProgress, Modal, Typography } from "@mui/material"
 import React, { useEffect, useState } from "react";
 import headerImg from "../../assets/images/speaking-practice-header.png";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
-import StripeElements from "../../components/Stripe/StripeElements";
+// import StripeElements from "../../components/Stripe/StripeElements";
 import sessionApi from "../../api/session";
 import { toast } from "react-toastify";
 
