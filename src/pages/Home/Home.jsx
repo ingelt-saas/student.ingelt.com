@@ -172,7 +172,7 @@ const Home = () => {
         {/* shortcut buttons */}
         <div className="md:col-span-5 lg:col-span-3 flex flex-col gap-y-3">
           <button
-            onClick={() => navigate("/modules")}
+            onClick={() => navigate("/ielts-preparation/modules")}
             className="mb-1 flex items-center justify-between bg-white px-3 py-4 duration-200 rounded-xl shadow-lg hover:shadow-none"
           >
             <img src={img2} alt="" className="w-12 h-auto" />
