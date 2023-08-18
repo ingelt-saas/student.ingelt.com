@@ -122,7 +122,7 @@ const Page2 = ({ data }) => {
             </ul>
           </div>
 
-          <div className="w-2/5">
+          <div className="w-2/5 max-md:w-full ">
             <section className=" body-font">
               <div className="container px-5 pb-24 pt-10 mx-auto flex flex-wrap">
                 <div className="flex flex-wrap w-full">

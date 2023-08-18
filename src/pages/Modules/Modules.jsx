@@ -376,9 +376,9 @@ const Modules = () => {
 
   return (
     <>
-      {!student?.modulesUnlock && <LandingPage />}
+      {/* {!student?.modulesUnlock && <LandingPage />} */}
 
-      {student?.modulesUnlock && (
+      {true && (
         <Box
           className="pb-10"
           sx={{

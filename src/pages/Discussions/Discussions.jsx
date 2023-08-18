@@ -266,7 +266,7 @@ const Discussions = () => {
     <>
       {!student?.communityUnlock && <LandingPage studentName={student?.name} />}
       {student?.communityUnlock && <div className="w-full h-full flex flex-col">
-        <div className="py-8 bg-white w-full shadow-lg flex items-center justify-center px-5">
+        <div className="py-8 max-md:py-4 bg-white w-full shadow-lg flex items-center justify-center px-5">
           <div className="flex items-start justify-center flex-col w-full flex-[0.7] md:flex-[0.8]">
             <p className="text-xl md:text-3xl font-medium text-[#1B3B7D]">
               InGelt Centralized Community
