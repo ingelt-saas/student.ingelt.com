@@ -65,7 +65,7 @@ const NestedMenus = ({ menus, path, icon, name }) => {
         </NavItem>
       </li>
       <Popover
-        PaperProps={{ className: '!rounded-xl shadow-2xl bg-white ml-5' }}
+        PaperProps={{ className: '!rounded-xl shadow-2xl bg-white' }}
         {...bindPopover(popupState)}
         anchorOrigin={{
           vertical: 'top',
@@ -77,7 +77,7 @@ const NestedMenus = ({ menus, path, icon, name }) => {
         }}>
         <div className='z-[100] bg-white min-w-fit' onClick={popupState.close}>
           <ul className="flex flex-col p-3">
-            {Array.isArray(menus) && menus.map((item, index) => item.show && <li key={index} className="navItem mb-1.5" {...bindTrigger(popupState)}>
+            {Array.isArray(menus) && menus.map((item, index) => item.show && <li key={index} className="navItem mb-1.5">
               <NavItem to={item.path}>
                 {item.icon}
                 <span>{item.name}</span>
@@ -280,7 +280,7 @@ const SidebarMenus = () => {
                     </span>
                   </div>
                   <div className="p-4 flex flex-col gap-2">
-                    <p className='flex gap-x-2 font-medium items-center text-sm px-2 text-[#17A26A]'>
+                    <p className='flex gap-x-2 font-medium items-center text-sm px-2 text-[#17A26A]' onClick={(e)=>e.stopPropagation()}>
                       <span className="w-6 flex justify-center">
                         <FiberManualRecordIcon fontSize="16" />
                       </span>
@@ -327,7 +327,7 @@ const SideBar = () => {
       }
     });
 
-  });
+  }, []);
 
   return (
     <>
