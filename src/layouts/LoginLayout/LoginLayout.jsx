@@ -161,7 +161,10 @@ const LoginLayout = () => {
       if (process.env.NODE_ENV === 'development') {
         Cookies.set('student_auth_token', res?.data?.token, { expires: 7, path: '/' })
       } else {
-        Cookies.set('student_auth_token', res?.data?.token, { expires: 7, path: '/', domain: 'ingelt.com' })
+        Cookies.set('student_auth_token', res?.data?.token, { expires: 7, path: '/', domain: 'ingelt.com' });
+        const data = { key: 'login', token: res?.data?.token };
+        window.parent.postMessage(JSON.stringify(data), 'https://www.ingeltboard.com');
+
       }
 
       window.location.reload();
