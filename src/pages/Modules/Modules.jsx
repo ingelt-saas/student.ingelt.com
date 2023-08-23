@@ -397,7 +397,7 @@ const Modules = () => {
           <Box
             className='!mt-5 !flex !items-center max-md:!flex-col-reverse max-md:!gap-y-5 md:!justify-between md:!items-center'
           >
-            <div className="flex items-end justify-start">
+            <div className="flex items-stretch justify-start">
               {/* <button
               onClick={() => setSearch({ 'page': 'all' })}
               className={`duration-200 transition-none ease-in ${(page === 'all' || !page)
