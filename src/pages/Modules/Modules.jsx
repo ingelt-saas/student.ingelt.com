@@ -31,6 +31,7 @@ import Library from "../Library/Library";
 import { LockOpen } from "@mui/icons-material";
 import moment from "moment";
 import paymentApi from "../../api/payment";
+import Lecture from "../../components/Modules/Lecture";
 
 const DateTimeDisplay = ({ value, type }) => {
   return (
@@ -242,17 +243,6 @@ const Modules = () => {
       try {
         const moduleType = page ? page : "video";
 
-        // const moduleType =
-        //   activeTab === 1
-        //     ? "all"
-        //     : activeTab === 2
-        //       ? "video"
-        //       : activeTab === 3
-        //         ? "mock_test"
-        //         : activeTab === 4
-        //           ? "module_ppt"
-        //           : "library";
-
         const res = await moduleApi.getAll(
           moduleType,
           pagination.page + 1,
@@ -376,11 +366,11 @@ const Modules = () => {
 
   return (
     <>
-      {/* {!student?.modulesUnlock && <LandingPage />} */}
+      {!student?.modulesUnlock && <LandingPage />}
 
-      {true && (
+      {student?.modulesUnlock && (
         <Box
-          className="pb-10"
+          className="py-8"
           sx={{
             width: "100%",
             pr: { xl: 2, lg: 2 },
@@ -455,8 +445,11 @@ const Modules = () => {
             </div>
           )}
 
+          {!loading && ((page === "video" || !page) && <Lecture modules={modules} />)}
+
+
           {!loading &&
-            page !== "library" &&
+            page === "module_ppt" && page === "mock_test" &&
             (Array.isArray(modules) && modules.length > 0 ? (
               <Box className="mt-5">
                 <div className="grid 2xl:grid-cols-4 xl:grid-cols-4 md:grid-cols-2 gap-y-5 pt-10">
