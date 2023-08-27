@@ -155,6 +155,12 @@ const SidebarMenus = () => {
       show: true,
     },
     {
+      name: "Accommodation",
+      path: "/accommodation",
+      icon: <EducationLoan />,
+      show: true,
+    },
+    {
       name: "Visa Application",
       path: "/visa-application",
       icon: <PassportSVG />,
@@ -280,7 +286,7 @@ const SidebarMenus = () => {
                     </span>
                   </div>
                   <div className="p-4 flex flex-col gap-2">
-                    <p className='flex gap-x-2 font-medium items-center text-sm px-2 text-[#17A26A]' onClick={(e)=>e.stopPropagation()}>
+                    <p className='flex gap-x-2 font-medium items-center text-sm px-2 text-[#17A26A]' onClick={(e) => e.stopPropagation()}>
                       <span className="w-6 flex justify-center">
                         <FiberManualRecordIcon fontSize="16" />
                       </span>
