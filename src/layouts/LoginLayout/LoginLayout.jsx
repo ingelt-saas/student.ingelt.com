@@ -141,6 +141,14 @@ const LoginLayout = () => {
     setAnchorEl(null);
   };
 
+  // open popup and shared data
+  const openPopup = (data) => {
+    const popup = window.open('http://localhost:3001', 'popup', 'height=300px, width=500px');
+    popup.postMessage(data, 'http://localhost:3001');
+  }
+
+
+  // handler login
   const handleLogin = async (e) => {
     e.preventDefault();
     const form = e.target;
@@ -162,10 +170,11 @@ const LoginLayout = () => {
         Cookies.set('student_auth_token', res?.data?.token, { expires: 7, path: '/' })
       } else {
         Cookies.set('student_auth_token', res?.data?.token, { expires: 7, path: '/', domain: 'ingelt.com' });
-        const data = { key: 'login', token: res?.data?.token };
-        window.parent.postMessage(JSON.stringify(data), 'https://www.ingeltboard.com');
 
       }
+
+      const data = { key: 'login', token: res?.data?.token };
+      // openPopup(JSON.stringify(data));
 
       window.location.reload();
     } catch (err) {
