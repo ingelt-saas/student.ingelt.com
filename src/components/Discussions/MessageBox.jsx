@@ -163,7 +163,7 @@ const MessageBox = ({ data, discussionReport, setReplyDiscussion }) => {
       {!isStudentMessage && <div className="w-fit md:max-w-[70%] max-w-[82%] flex flex-row items-end">
 
         {/* sender image show */}
-        <div className="px-2">
+        <div className="px-2 w-[55px] h-[40px]">
           <ProfileImage
             alt={senderName}
             gender={senderGender}
