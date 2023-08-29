@@ -3,6 +3,7 @@ import { Button, Tooltip, Popover, CircularProgress, Alert } from '@mui/material
 import { Search, ArrowDropDown } from '@mui/icons-material';
 import PopupState, { bindPopover, bindTrigger } from 'material-ui-popup-state';
 import { useSearchParams } from 'react-router-dom';
+import headerImg from '../../assets/images/accommodation-header.png';
 
 // dropdown button
 const DropdownButton = ({ children, options, value, changeHandler }) => {
@@ -57,7 +58,6 @@ const DropdownButton = ({ children, options, value, changeHandler }) => {
         </>}
     </PopupState>
 }
-
 
 const AccommodationItem = ({ item }) => {
 
@@ -181,12 +181,12 @@ const Accommodation = () => {
             {/* header start */}
             <div className='shadow-xl rounded-xl max-sm:px-3 px-5 py-5 bg-white'>
                 <div className='flex justify-between'>
-                    <div className='flex flex-col gap-2'>
+                    <div className='flex-1 flex flex-col gap-3'>
                         <h1 className="text-2xl font-bold text-[#0C3C82]">Accommodation</h1>
-                        <p className="font-normal text-black opacity-75 sm:max-w-[300px]">
-                            In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the
+                        <p className="font-normal text-black opacity-75 sm:max-w-[350px]">
+                            Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor.
                         </p>
-                        <div className='flex flex-wrap max-sm:gap-x-1 gap-3 max-md:justify-center'>
+                        <div className='flex flex-wrap max-sm:gap-x-1 gap-3 max-md:justify-center mt-2'>
                             <form onSubmit={formHandler} className='flex rounded-full overflow-hidden  max-sm:text-xs text-sm border-2 border-[#0C3C82] max-sm:w-full w-[260px] px-1 py-0.5 items-center'>
                                 <input type='text' placeholder='Search by Collage, City and Country' className='focus:outline-none border-none bg-transparent pl-2 pr-1 flex-1' value={value} onChange={(e) => setValue(e.target.value)} />
                                 <Tooltip title='Search by Collage, City and Country'>
@@ -227,6 +227,9 @@ const Accommodation = () => {
                                 changeHandler={(data) => searchHandler({ duration: data?.value })}
                             >Stay Duration</DropdownButton>
                         </div>
+                    </div>
+                    <div className='w-fit max-md:hidden'>
+                        <img src={headerImg} alt="" className='w-auto h-auto' />
                     </div>
                 </div>
             </div>
