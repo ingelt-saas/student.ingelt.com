@@ -1,8 +1,9 @@
 import { Modal } from '@mui/material';
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/bootstrap.css'
 import queryApi from "../../api/query";
+import OtpInput from 'react-otp-input';
 // images
 import { TaskAlt } from '@mui/icons-material';
 
@@ -17,6 +18,7 @@ import preVisa from "../../assets/NewDesign/loan icon/pre visa.svg";
 import score from "../../assets/NewDesign/loan icon/score based.svg"
 import BankingPart from './BankingPart';
 
+import './SignUpStepOne.css'
 
 const SignupStepOne = ({ img, open, text, formData, setFormData, handleClose }) => {
 
@@ -143,6 +145,7 @@ const SignupStepOne = ({ img, open, text, formData, setFormData, handleClose }) 
                                 <p className="xl:text-3xl text-xl font-bold">
                                     {text}</p>
                                 <input type="text" required
+                                    autoFocus={true}
                                     value={name}
                                     placeholder="Enter Your Full Name"
                                     className="rounded-xl w-full px-4 py-3 shadow-xl mt-5 focus:outline-none"
@@ -153,8 +156,7 @@ const SignupStepOne = ({ img, open, text, formData, setFormData, handleClose }) 
                                     <PhoneInput inputProps={
                                         {
                                             name: 'phone',
-                                            required: true,
-                                            autoFocus: true
+                                            required: true
                                         }
                                     }
                                         country={'in'}
@@ -181,7 +183,7 @@ const SignupStepOne = ({ img, open, text, formData, setFormData, handleClose }) 
                                 {otpStatus.status && <p className='text-xs mt-2 text-green-500'>{otpStatus.message}</p>}
                                 {!otpStatus.status && <p className='text-xs mt-2 text-red-500'>{otpStatus.message}</p>}
 
-                                <input type="number" required
+                                {/* <input type="number" required
                                     value={otp}
                                     min={100_000}
                                     max={999_999}
@@ -191,7 +193,23 @@ const SignupStepOne = ({ img, open, text, formData, setFormData, handleClose }) 
                                     className="rounded-xl w-full px-4 py-3 shadow-xl mt-3 focus:outline-none"
                                     onChange={
                                         (e) => setOtp(e.target.value)
-                                    } />
+                                    } /> */}
+                                <OtpInput
+                                    value={otp}
+                                    onChange={setOtp}
+                                    numInputs={6}
+                                    renderSeparator={<span>-</span>}
+                                    renderInput={(props) => <input required id="otp_id" {...props} />}
+                                    inputStyle={{
+                                        width: "2rem",
+                                        height: "2rem",
+                                        borderRadius: 4,
+                                        border: "1px solid rgba(0,0,0,0.3)",
+                                        outline: "none"
+                                    }}
+                                    containerStyle="w-full mt-3 flex justify-around"
+                                    inputType='number'
+                                />
                                 <button type="submit"
                                     className="bg-[#001E43] mt-5 w-full py-2 rounded-lg text-white font-semibold">
                                     Continue
