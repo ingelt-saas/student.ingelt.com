@@ -12,7 +12,8 @@ const queryApi = {
   findIELTSQuery: (data) => instance.post("/ingelt/find-ielts-query", data),
   getAllState: (countryId = "IN") => instance.get(`/state-city/state/${countryId}`),
   getCityFromState: (stateCode) => instance.get(`/state-city/${stateCode}/city`),
-  getAllCountry: () => instance.get(`/state-city/get-all-country`)
+  getAllCountry: () => instance.get(`/state-city/get-all-country`),
+  sendOTP: (data) => instance.post("/send-otp", data),
 };
 
 export default queryApi;

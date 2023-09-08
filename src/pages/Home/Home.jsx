@@ -56,7 +56,7 @@ const Home = () => {
         <div className="md:col-span-12 lg:col-span-5">
           <div className="rounded-2xl bg-white shadow-lg px-4 py-8 flex gap-x-4">
             <div className="w-1/2 relative">
-              <div className="max-md:w-28 max-md:h-28  w-40 h-40 overflow-hidden rounded-full absolute -top-14 left-0  shadow-xl">
+              <div className={`overflow-hidden rounded-full absolute -top-14 left-0  ${student?.image ? "max-md:w-28 max-md:h-28 w-40 h-40 shadow-xl " : " w-20 h-20 mt-10 md:mt-14"} `}>
                 <ProfileImage
                   alt={student?.name}
                   src={student?.image}

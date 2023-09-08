@@ -38,6 +38,7 @@
     "react-h5-audio-player": "^3.8.6",
     "react-hook-form": "^7.44.3",
     "react-icons": "^4.7.1",
+    "react-otp-input": "^3.0.4",
     "react-phone-input-2": "^2.15.1",
     "react-photoswipe-gallery": "^2.2.7",
     "react-player": "^2.12.0",
