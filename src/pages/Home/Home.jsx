@@ -50,7 +50,7 @@ const Home = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="pt-5">
+    <div className="pt-1">
       <div className="grid grid-cols-1 md:grid-cols-12 max-md:gap-6 gap-3 xl:gap-5">
         {/* profile info */}
         <div className="md:col-span-12 lg:col-span-5">
@@ -157,7 +157,7 @@ const Home = () => {
 
         {/* intro module */}
         <div className="md:col-span-7 lg:col-span-5">
-          <div className="w-full overflow-hidden relative rounded-2xl shadow-lg pb-[56.25%]">
+          <div className="w-full h-full overflow-hidden relative rounded-2xl shadow-lg pb-[56.25%]">
             <iframe
               className="w-full h-full absolute top-0 left-0"
               src="https://www.youtube.com/embed/8xkHNGb59Ns"
@@ -170,7 +170,7 @@ const Home = () => {
         </div>
 
         {/* shortcut buttons */}
-        <div className="md:col-span-5 lg:col-span-3 flex flex-col gap-y-3">
+        <div className="md:col-span-5 lg:col-span-3 flex flex-col gap-y-3 h-full justify-between">
           <button
             onClick={() => navigate("/ielts-preparation/modules")}
             className="mb-1 flex items-center justify-between bg-white px-3 py-4 duration-200 rounded-xl shadow-lg hover:shadow-none"
@@ -187,7 +187,7 @@ const Home = () => {
             className="mb-1 flex items-center justify-between bg-white px-3 py-4 duration-200 rounded-xl shadow-lg hover:shadow-none"
           >
             <img src={img3} alt="" className="w-12 h-auto" />
-            <span className="font-medium">Online Modules</span>
+            <span className="font-medium">Online IELTS Classes</span>
             <span className="w-6 h-6 rounded-full grid place-items-center bg-[#001E4333]">
               <ChevronRight fontSize="small" />
             </span>

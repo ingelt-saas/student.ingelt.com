@@ -32,6 +32,7 @@ import { LockOpen } from "@mui/icons-material";
 import moment from "moment";
 import paymentApi from "../../api/payment";
 import Lecture from "../../components/Modules/Lecture";
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
 const DateTimeDisplay = ({ value, type }) => {
   return (
@@ -377,8 +378,8 @@ const Modules = () => {
             pl: { xl: 0, lg: 2 },
           }}
         >
-          <div className="flex-col flex sm:flex-row px-4">
-            <div className="w-full sm:w-6/12">
+          <div className="flex-col flex sm:flex-row">
+            <div className="w-full sm:w-[70%] scale-90">
             <Header
               title="Premium IELTS Modules"
               subTitle="British Council Verified Instructor"
@@ -387,16 +388,17 @@ const Modules = () => {
             />
             </div>
 
-            <div className="w-full sm:w-4/12 my-3 sm:mx-3 sm:my-0">
-              <div style={{ boxShadow: ' 0px 0px 0px 1px rgba(0, 0, 0, 0.06), 0px 5px 36px 0px rgba(0, 0, 0, 0.16)' }} className="bg-white h-full w-full p-5 rounded-2xl flex justify-between flex-col  items-center">
-                <p className="text-[#00285A] text-lg text-center">Self study through IELTS modules</p>
-                <p className='text-3xl font-semibold text-[#0C3C82]'>
-                  <strong className=''>₹ 299/-</strong> 
-                  &nbsp;
-                  <del className='text-black text-lg'>₹ 999/-</del> 
-                </p>
-                <button className="hover:bg-[#00285A] text-lg bg-transparent duration-300 border-2 border-[#00285A] text-[#00285A] hover:text-white py-1 max-md:text-base px-3 w-full rounded-2xl justify-around flex items-center">
-                  Buy Now
+            <div className="w-full sm:w-[30%] scale-90 my-3 sm:mx-3 sm:my-0">
+              <div style={{ boxShadow: ' 0px 0px 0px 1px rgba(0, 0, 0, 0.06), 0px 5px 36px 0px rgba(0, 0, 0, 0.16)' }} className="bg-white h-full w-full p-5 rounded-2xl flex justify-between flex-col ">
+                <p className="text-[#00285A] text-lg ">Self study through IELTS modules</p>
+                <br />
+                <button className="hover:bg-[#00285A] hover:text-white text-lg bg-transparent duration-300 border-2 border-[#00285A] text-[#00285A] py-1 max-md:text-base px-3 w-5/12 rounded-2xl justify-around flex items-center">
+                  <p className='text-lg font-semibold flex items-center justify-around'>
+                    <strong className=''>₹ 299/- </strong> 
+                    &nbsp; &nbsp;
+                    <span className="w-6 h-6 border-1 rounded-full flex justify-center items-center bg-[#00285A] text-white"><ChevronRightIcon/></span>
+                  </p>
+                  {/* Buy Now */}
                   {/* <RightArrowSVG className={'h-5 w-5'} /> */}
                 </button>
               </div>

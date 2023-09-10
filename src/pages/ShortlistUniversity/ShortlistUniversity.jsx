@@ -219,11 +219,23 @@ const ShortlistUniversity = () => {
     <>
       {!student?.universityUnlock && <LandingPage />}
 
-      {student?.universityUnlock && <div className="flex flex-row flex-wrap gap-y-10 gap-x-5 w-full py-10 px-5 max-sm:px-2">
+      {/* {student?.universityUnlock && <div className="flex flex-row flex-wrap gap-y-10 gap-x-5 w-full py-10 px-5 max-sm:px-2">
         <div className="w-full h-20 foo:block ">
           <div className="flex gap-x-5 max-md:flex-col max-md:gap-y-5">
-            <Header title="University Shortlisting" subTitle="Choose in demand universities of your choice" Img={welcomeSVG} />
-            <div className="">
+             */}
+      {student?.universityUnlock && <Box
+          className="py-8"
+          sx={{
+            width: "100%",
+            pr: { xl: 2, lg: 2 },
+            pl: { xl: 0, lg: 2 },
+          }}
+        >
+          <div className="flex-col flex sm:flex-row">
+            <div className="w-full sm:w-[70%] scale-90">
+            <Header title="University Shortlisting" subTitle="Choose in demand universities of your choice" Img={welcomeSVG} width="full"/>
+            </div>
+            <div className="w-full sm:w-[30%] scale-90 my-3 sm:mx-3 sm:my-0">
               <div style={{ boxShadow: ' 0px 0px 0px 1px rgba(0, 0, 0, 0.06), 0px 5px 36px 0px rgba(0, 0, 0, 0.16)' }} className="bg-white h-full w-full p-5 rounded-2xl flex justify-between flex-col gap-y-4 items-center">
                 <p className="text-[#00285A] text-lg text-center">Need more help in finding your course?</p>
                 <button onClick={sendQuery} className="hover:bg-[#00285A] text-lg bg-transparent duration-300 border-2 border-[#00285A] text-[#00285A] hover:text-white py-1 max-md:text-base px-3 w-full rounded-2xl justify-around flex items-center">
@@ -281,7 +293,7 @@ const ShortlistUniversity = () => {
               </div>
             </div>
           </div>
-
+          
           <div className="pb-10 grid  gap-x-5 max-md:mt-1 mt-10 max-lg:pb-20">
             {/* <div className="xl:col-span-4">
               <Button
@@ -328,8 +340,7 @@ const ShortlistUniversity = () => {
 
             </div>
           </div>
-        </div>
-      </div>}
+        </Box>}
 
       {/* Drawer  */}
       <Drawer
