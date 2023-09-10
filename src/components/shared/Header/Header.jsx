@@ -13,7 +13,7 @@ const Header = ({ title, subTitle, Img, scale, width='65%' }) => {
                     draggable={false}
                     src={Img}
                     alt="library"
-                    className={`max-h-full max-w-full mix-blend-darken`}
+                    className={`max-h-28 max-w-fit mix-blend-darken`}
                 />
             </div>
         </div>

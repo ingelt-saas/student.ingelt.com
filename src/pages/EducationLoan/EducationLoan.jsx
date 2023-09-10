@@ -402,9 +402,14 @@ const EducationLoan = () => {
         {!page2 ? (
           <div className="flex flex-row flex-wrap gap-y-10 gap-x-5 w-full">
             <div className="w-full h-20 foo:block ">
-              <div className="flex gap-x-5 max-md:flex-col max-md:gap-y-5 mb-10">
+              {/* <div className="flex gap-x-5 max-md:flex-col max-md:gap-y-5 mb-10">
+              </div> */}
+              <div className="w-full sm:w-[70%] scale-90">
                 <Header title="Education Loan" subTitle="Optimal solution for overseas education loan" Img={welcomeSVG} scale="scale-75" />
               </div>
+
+
+
               <div className="flex max-md:flex-col w-full justify-between items-center">
                 <div className="w-1/2 max-md:w-full flex flex-col justify-center items-center">
                   {/* <img
