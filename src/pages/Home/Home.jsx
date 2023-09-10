@@ -54,7 +54,7 @@ const Home = () => {
       <div className="grid grid-cols-1 md:grid-cols-12 max-md:gap-6 gap-3 xl:gap-5">
         {/* profile info */}
         <div className="md:col-span-12 lg:col-span-5">
-          <div className="rounded-2xl bg-white shadow-lg px-4 py-8 flex gap-x-4">
+          <div className="rounded-2xl bg-white shadow-lg px-4 py-8 flex gap-x-4 min-h-full">
             <div className="w-1/2 relative">
               <div className={`overflow-hidden rounded-full absolute -top-14 left-0  ${student?.image ? "max-md:w-28 max-md:h-28 w-40 h-40 shadow-xl " : " w-20 h-20 mt-10 md:mt-14"} `}>
                 <ProfileImage
@@ -100,7 +100,7 @@ const Home = () => {
               </div>
             </div>
             <div className="w-1/2">
-              <div className="flex flex-col gap-y-4 md:gap-y-7">
+              <div className="flex flex-col gap-y-4 md:gap-y-7 h-full justify-center">
                 <StudentInfoBlock
                   title={"Student ID"}
                   text={student.id}
@@ -125,7 +125,7 @@ const Home = () => {
 
         {/* upcoming event */}
         <div className="md:col-span-6 lg:col-span-3">
-          <div className="min-h-[90%] rounded-2xl bg-white shadow-lg px-4 py-5 gap-x-4 flex flex-col justify-between gap-y-2">
+          <div className="min-h-full rounded-2xl bg-white shadow-lg px-4 py-5 gap-x-4 flex flex-col justify-between gap-y-2">
             <UpcomingEvent studentId={student?.id} />
           </div>
         </div>
@@ -142,7 +142,7 @@ const Home = () => {
           style={{ backgroundImage: `url(${img1})` }}
         >
           <h1 className="text-white text-4xl max-sm:text-3xl font-bold">
-            Speaking Practice
+            IELTS Speaking Practice
           </h1>
           <ul className="pl-3 list-disc text-white space-y-2 text-lg">
             <li>1:1 English Speaking Session</li>
@@ -176,7 +176,7 @@ const Home = () => {
             className="mb-1 flex items-center justify-between bg-white px-3 py-4 duration-200 rounded-xl shadow-lg hover:shadow-none"
           >
             <img src={img2} alt="" className="w-12 h-auto" />
-            <span className="font-medium">Free IELTS Classes</span>
+            <span className="font-medium">IELTS Modules</span>
             <span className="w-6 h-6 rounded-full grid place-items-center bg-[#001E4333]">
               <ChevronRight fontSize="small" />
             </span>
@@ -187,22 +187,22 @@ const Home = () => {
             className="mb-1 flex items-center justify-between bg-white px-3 py-4 duration-200 rounded-xl shadow-lg hover:shadow-none"
           >
             <img src={img3} alt="" className="w-12 h-auto" />
-            <span className="font-medium">Live / Online Classes</span>
+            <span className="font-medium">Online Modules</span>
             <span className="w-6 h-6 rounded-full grid place-items-center bg-[#001E4333]">
               <ChevronRight fontSize="small" />
             </span>
           </button>}
 
-          {/* {student?.organization?.modeOfClasses !== 'online' && <button
+          {student?.organization?.modeOfClasses !== 'online' && <button
             onClick={() => navigate("/find-institute")}
             className="mb-1 flex items-center justify-between bg-white px-3 py-4 duration-200 rounded-xl shadow-lg hover:shadow-none"
           >
             <img src={img4} alt="" className="w-12 h-auto" />
-            <span className="font-medium">Offline Classes</span>
+            <span className="font-medium">Offline IELTS Classes</span>
             <span className="w-6 h-6 rounded-full grid place-items-center bg-[#001E4333]">
               <ChevronRight fontSize="small" />
             </span>
-          </button>} */}
+          </button>}
 
         </div>
 

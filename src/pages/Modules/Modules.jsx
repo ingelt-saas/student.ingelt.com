@@ -377,12 +377,31 @@ const Modules = () => {
             pl: { xl: 0, lg: 2 },
           }}
         >
-          <Header
-            title="Premium IELTS Modules"
-            subTitle="British Council Verified Instructor"
-            Img={moduleImg}
-            scale="scale-50"
-          />
+          <div className="flex-col flex sm:flex-row px-4">
+            <div className="w-full sm:w-6/12">
+            <Header
+              title="Premium IELTS Modules"
+              subTitle="British Council Verified Instructor"
+              Img={moduleImg}
+              width="full"
+            />
+            </div>
+
+            <div className="w-full sm:w-4/12 my-3 sm:mx-3 sm:my-0">
+              <div style={{ boxShadow: ' 0px 0px 0px 1px rgba(0, 0, 0, 0.06), 0px 5px 36px 0px rgba(0, 0, 0, 0.16)' }} className="bg-white h-full w-full p-5 rounded-2xl flex justify-between flex-col  items-center">
+                <p className="text-[#00285A] text-lg text-center">Self study through IELTS modules</p>
+                <p className='text-3xl font-semibold text-[#0C3C82]'>
+                  <strong className=''>₹ 299/-</strong> 
+                  &nbsp;
+                  <del className='text-black text-lg'>₹ 999/-</del> 
+                </p>
+                <button className="hover:bg-[#00285A] text-lg bg-transparent duration-300 border-2 border-[#00285A] text-[#00285A] hover:text-white py-1 max-md:text-base px-3 w-full rounded-2xl justify-around flex items-center">
+                  Buy Now
+                  {/* <RightArrowSVG className={'h-5 w-5'} /> */}
+                </button>
+              </div>
+            </div>
+          </div>
 
           <Box
             className='!mt-5 !flex !items-center max-md:!flex-col-reverse max-md:!gap-y-5 md:!justify-between md:!items-center'

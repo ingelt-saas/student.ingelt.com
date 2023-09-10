@@ -56,8 +56,9 @@ const UpcomingEvent = () => {
             </h1>
             <p className="text-[#00000099] font-medium">
               {upcomingEvent?.eventBookings.length > 0
-                ? `${upcomingEvent?.eventBookings.length} Already Booked`
-                : "0 Booked"}
+                // ? `${upcomingEvent?.eventBookings.length}+ Already Booked`
+                ? `100+ Already Booked`
+                : "100+ Booked"}
             </p>
             <div className="flex w-full items-center">
               <span className="w-1/2 text-[#1B3B7D] text-base flex items-center gap-x-1">
