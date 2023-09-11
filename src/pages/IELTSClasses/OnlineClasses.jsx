@@ -122,12 +122,21 @@ const OnlineClasses = () => {
                     <div className='bg-white p-2 rounded-xl shadow-xl flex flex-col gap-y-5'>
                         <div className='rounded-xl overflow-hidden relative'>
                             <img draggable={false} src={img5} alt='' className='w-full aspect-[16/9] object-cover' />
-                            <h3 className='text-2xl whitespace-nowrap font-semibold text-white absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2'>Live / Online Classes</h3>
+                            <h3 className='text-2xl whitespace-nowrap font-semibold text-white absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2'>Online IELTS Classes</h3>
                         </div>
-                        <div className='text-center'>
+                        {/* <div className='text-center'>
                             <p className='text-3xl font-semibold text-[#0C3C82]'>
                                 <span className='text-black text-lg'>₹</span>
                                 {student?.classFee}
+                            </p>
+                            <p>Start your IELTS preparation</p>
+                        </div> */}
+                        <div className='text-center'>
+                            <p className='text-xl font-semibold text-[#0C3C82]'>
+                                <span className='text-black text-lg'>₹</span>
+                                6999 /-
+                                <del className='ml-3 text-black text-lg'>₹ 14999 /-</del>
+                                
                             </p>
                             <p>Start your IELTS preparation</p>
                         </div>
