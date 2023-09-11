@@ -10,7 +10,7 @@ import Header from "../../components/shared/Header/Header";
 import { useContext } from "react";
 import { StudentContext } from "../../contexts";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { Alert, Box, Button, CircularProgress } from "@mui/material";
+import { Alert, Box, Button, CircularProgress, Modal } from "@mui/material";
 
 // assets
 import moduleImg from "../../assets/NewDesign/IELT Pre.png";
@@ -33,6 +33,7 @@ import moment from "moment";
 import paymentApi from "../../api/payment";
 import Lecture from "../../components/Modules/Lecture";
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import pay4999Img from '../../assets/paymentQR/4999.png'
 
 const DateTimeDisplay = ({ value, type }) => {
   return (
@@ -233,6 +234,7 @@ const Modules = () => {
   const [search, setSearch] = useSearchParams();
   const page = search.get("page");
   const navigate = useNavigate();
+  const [openPaymentQr, setOpenPaymentQr] = useState(false);
 
   // context
   const { student } = useContext(StudentContext);
@@ -367,9 +369,9 @@ const Modules = () => {
 
   return (
     <>
-      {!student?.modulesUnlock && <LandingPage />}
+      {/* {!student?.modulesUnlock && <LandingPage />} */}
 
-      {student?.modulesUnlock && (
+      {/* {student?.modulesUnlock && ( */}
         <Box
           className="py-8"
           sx={{
@@ -379,7 +381,7 @@ const Modules = () => {
           }}
         >
           <div className="flex-col flex sm:flex-row">
-            <div className="w-full sm:w-[70%] scale-90">
+            <div className="w-full sm:w-[70%] mx-0 sm:ml-10">
             <Header
               title="Premium IELTS Modules"
               subTitle="British Council Verified Instructor"
@@ -388,13 +390,13 @@ const Modules = () => {
             />
             </div>
 
-            <div className="w-full sm:w-[30%] scale-90 my-3 sm:mx-3 sm:my-0">
+            <div className="w-full sm:w-[30%] mx-0 sm:mx-4 my-3 sm:my-0">
               <div style={{ boxShadow: ' 0px 0px 0px 1px rgba(0, 0, 0, 0.06), 0px 5px 36px 0px rgba(0, 0, 0, 0.16)' }} className="bg-white h-full w-full p-5 rounded-2xl flex justify-between flex-col ">
-                <p className="text-[#00285A] text-lg ">Self study through IELTS modules</p>
+                <p className="text-[#00285A] text-lg font-medium">Self study through IELTS modules</p>
                 <br />
-                <button className="hover:bg-[#00285A] hover:text-white text-lg bg-transparent duration-300 border-2 border-[#00285A] text-[#00285A] py-1 max-md:text-base px-3 w-5/12 rounded-2xl justify-around flex items-center">
+                <button onClick={()=>setOpenPaymentQr(true)} className="hover:bg-[#00285A] hover:text-white text-lg bg-transparent duration-300 border-2 border-[#00285A] text-[#00285A] py-1 max-md:text-base px-3 min-w-[150px] w-5/12 rounded-2xl justify-around flex items-center">
                   <p className='text-lg font-semibold flex items-center justify-around'>
-                    <strong className=''>₹ 299/- </strong> 
+                    <strong className='text-sm md:text-base'>₹ 299/- </strong> 
                     &nbsp; &nbsp;
                     <span className="w-6 h-6 border-1 rounded-full flex justify-center items-center bg-[#00285A] text-white"><ChevronRightIcon/></span>
                   </p>
@@ -404,6 +406,27 @@ const Modules = () => {
               </div>
             </div>
           </div>
+
+          <Modal
+              open={openPaymentQr}
+              onClose={()=>setOpenPaymentQr(false)}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+              <Box sx={{
+                position: 'absolute',
+                top: '50%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
+                width: 350,
+                bgcolor: 'background.paper',
+                borderRadius: 6,
+                boxShadow: 24,
+                p: 4,
+              }}>
+                <img src={pay4999Img} alt="payment qr"/>
+              </Box>
+            </Modal>
 
           <Box
             className='!mt-5 !flex !items-center max-md:!flex-col-reverse max-md:!gap-y-5 md:!justify-between md:!items-center'
@@ -606,7 +629,7 @@ const Modules = () => {
             </Box>
           )}
         </Box>
-      )}
+      {/* )} */}
 
       {/* audio and video modal */}
 
