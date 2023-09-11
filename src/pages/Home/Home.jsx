@@ -68,6 +68,7 @@ const Home = () => {
                 <h1 className="text-[#1B3B7D] text-2xl font-bold">Hello</h1>
                 <h3 className="text-[#00000099] text-xl font-semibold flex items-center gap-x-2">
                   {student?.name}
+                  <br />
                   <svg
                     className="w-6 h-6"
                     viewBox="0 0 24 25"

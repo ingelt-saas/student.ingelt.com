@@ -19,6 +19,7 @@ import img3 from "../../assets/images/linguistics.svg";
 import img4 from "../../assets/images/rating.svg";
 import teacherImg from "../../assets/images/Vishal vats.png";
 import indiaFlag from "../../assets/images/india-flag.svg";
+import pay4999Img from '../../assets/paymentQR/4999.png'
 import UpcomingEvent from "../../components/Home/UpcomingEvent";
 import RazorPay from "../../components/RazorPay/RazorPay";
 import moment from "moment";
@@ -86,6 +87,7 @@ const SpeakingSession = () => {
   // states
   const [search] = useSearchParams();
   const navigate = useNavigate();
+  const [openPaymentQr, setOpenPaymentQr] = useState(false);
 
   const data = [
     "🌟More than 10 years of hands on experience",
@@ -175,10 +177,10 @@ const SpeakingSession = () => {
     <div className="">
       <div className="flex-col flex sm:flex-row">
 
-        <div className="w-full sm:w-[65%] rounded-[1.2rem] flex justify-between relative items-center bg-white shadow-xl">
+        <div className="w-full sm:w-[70%] rounded-[1.2rem] flex justify-between relative items-center bg-white shadow-xl">
           <div className="px-7 flex flex-col gap-y-1 max-md:py-7 max-sm:px-5 max-md:items-center max-md:w-full">
-            <p className="font-normal text-black opacity-75">Start your</p>
-            <h1 className="text-2xl font-bold text-[#0C3C82]">Speaking Practice</h1>
+            <p className="font-normal text-black opacity-75">Start your IELTS Speaking Practice</p>
+            <h1 className="text-2xl font-bold text-[#0C3C82]">Speaking Practice with Expert</h1>
           </div>
           <div className="overflow-hidden pr-3 max-w-[30%] max-md:hidden">
             <img
@@ -190,7 +192,7 @@ const SpeakingSession = () => {
           </div>
         </div>
 
-        <div className="w-full sm:w-[35%] my-3 px-5 sm:mx-3 sm:my-0 flex-1">
+        <div className="w-full sm:w-[30%] sm:mx-4 my-3 sm:my-0">
           <div className="rounded-2xl bg-white shadow-2xl px-5 py-5">
             <h3 className="text-xl font-semibold text-[#0C3C82]">
               My Scheduled Sessions
@@ -233,11 +235,11 @@ const SpeakingSession = () => {
                 <h6 className="text-2xl font-semibold text-center capitalize mt-3">
                   Vishal Vats
                 </h6>
-                <p className="text-center font-medium text-sm flex items-center justify-center gap-2">
+                {/* <p className="text-center font-medium text-sm flex items-center justify-center gap-2">
                   Native Indian
                   <img src={indiaFlag} alt="" className="w-5" />
-                </p>
-                <p className="flex justify-between text-base mt-3 font-semibold">
+                </p> */}
+                {/* <p className="flex justify-between text-base mt-3 font-semibold">
                   <span>Teaches</span>
                   <span className="flex items-center gap-2">
                     English
@@ -267,7 +269,7 @@ const SpeakingSession = () => {
                       />
                     </svg>
                   </span>
-                </p>
+                </p> */}
               </div>
               <div className="sm:w-8/12">
                 <h6 className="text-2xl font-normal mt-4">
@@ -336,12 +338,37 @@ const SpeakingSession = () => {
                   backgroundColor: '#0C3C82'
                 }
               }}
-              onClick={createOrder}
+              onClick={()=>setOpenPaymentQr(true)}
             >
               <span>Book Session</span>
-              <span>₹ 249 /-</span>
+              <span>
+                ₹ 499 /-
+                
+                <del className="ml-3">₹ 1299 /-</del>
+              </span>
+              
             </Button>
 
+            <Modal
+              open={openPaymentQr}
+              onClose={()=>setOpenPaymentQr(false)}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+              <Box sx={{
+                position: 'absolute',
+                top: '50%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
+                width: 350,
+                bgcolor: 'background.paper',
+                borderRadius: 6,
+                boxShadow: 24,
+                p: 4,
+              }}>
+                <img src={pay4999Img} alt="payment qr"/>
+              </Box>
+            </Modal>
             {/* <RazorPay
               description={''}
               paymentFor='session'

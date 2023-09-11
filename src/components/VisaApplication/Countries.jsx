@@ -15,9 +15,8 @@ const Countries = () => {
             const pattern = new RegExp(Object.keys(obj).join("|"), "gi");
             return e.replace(pattern, matched => obj[matched]);
         }
-
-
-        return r.keys().map(e => ({ name: name(e), image: r(e) }));
+        
+        return r.keys().filter(item=> item==="./USA.webp" || item==="./Canada.webp" || item==="./Australia.webp" || item==="./UK.webp" || item==="./Ireland.webp").map(e => ({ name: name(e), image: r(e) }));
     }
 
     // /\.(png|jpe?g|svg)$/
@@ -31,9 +30,9 @@ const Countries = () => {
         <section className='bg-primary w-full px-5'>
             <div className='container mx-auto'>
                 <div className='text-center'>
-                    <h1 className='text-xl md:text-4xl font-bold mx-auto text-[#001E43] w-fit relative'>Our Countries</h1>
+                    {/* <h1 className='text-xl md:text-4xl font-bold mx-auto text-[#001E43] w-fit relative'>Our Countries</h1> */}
                 </div>
-                <div className='mt-5'>
+                <div className='mt-0'>
                     <Swiper
                         speed={700}
                         draggable={false}
