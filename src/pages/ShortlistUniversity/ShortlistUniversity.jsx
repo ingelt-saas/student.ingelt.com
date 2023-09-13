@@ -225,19 +225,12 @@ const ShortlistUniversity = () => {
         <div className="w-full h-20 foo:block ">
           <div className="flex gap-x-5 max-md:flex-col max-md:gap-y-5">
              */}
-      {student?.universityUnlock && <Box
-          className="py-8"
-          sx={{
-            width: "100%",
-            pr: { xl: 2, lg: 2 },
-            pl: { xl: 0, lg: 2 },
-          }}
-        >
-          <div className="flex-col flex sm:flex-row">
-            <div className="w-full sm:w-[70%] sm:ml-10">
-            <Header title="University Shortlisting" subTitle="Choose in demand universities of your choice" Img={welcomeSVG} width="full"/>
-            </div>
-            {/* <div className="w-full sm:w-[30%] my-3 sm:mx-3 sm:my-0">
+      {student?.universityUnlock && <Box className="py-5 px-3 sm:px-5">
+        <div className="flex-col flex md:flex-row gap-5">
+          <div className="w-full md:w-[70%]">
+            <Header title="University Shortlisting" subTitle="Choose in demand universities of your choice" Img={welcomeSVG} width="full" />
+          </div>
+          {/* <div className="w-full sm:w-[30%] my-3 sm:mx-3 sm:my-0">
               <div style={{ boxShadow: ' 0px 0px 0px 1px rgba(0, 0, 0, 0.06), 0px 5px 36px 0px rgba(0, 0, 0, 0.16)' }} className="bg-white h-full w-full p-5 rounded-2xl flex justify-between flex-col gap-y-4 items-center">
                 <p className="text-[#00285A] text-lg text-center">Need more help in finding your course?</p>
                 <button onClick={sendQuery} className="hover:bg-[#00285A] text-lg bg-transparent duration-300 border-2 border-[#00285A] text-[#00285A] hover:text-white py-1 max-md:text-base px-3 w-full rounded-2xl justify-around flex items-center">
@@ -247,7 +240,7 @@ const ShortlistUniversity = () => {
                 </div>
               </div>
             </div> */}
-            {/* <div className="w-full sm:w-[30%] max-h-36 my-3 sm:mx-3 sm:my-0">
+          {/* <div className="w-full sm:w-[30%] max-h-36 my-3 sm:mx-3 sm:my-0">
               <div style={{ boxShadow: ' 0px 0px 0px 1px rgba(0, 0, 0, 0.06), 0px 5px 36px 0px rgba(0, 0, 0, 0.16)' }} className="bg-white h-full w-full px-5 py-3 rounded-2xl flex justify-between flex-col ">
                 <p className="text-[#00285A] text-lg font-medium">Need more help in finding your course?</p>
                 <br />
@@ -261,24 +254,24 @@ const ShortlistUniversity = () => {
               </div>
             </div> */}
 
-            <div className="w-full sm:w-[30%] my-3 sm:mx-3 sm:my-0">
-                <div style={{ boxShadow: ' 0px 0px 0px 1px rgba(0, 0, 0, 0.06), 0px 5px 36px 0px rgba(0, 0, 0, 0.16)' }} className="bg-white h-full w-full p-5 rounded-2xl flex justify-between flex-col gap-y-4">
-                  <p className="text-[#00285A] text-base md:text-sm lg:text-base font-semibold">Need more help in finding your course?</p>
-                  <button onClick={sendQuery} className="hover:bg-[#00285A] hover:text-white text-lg bg-transparent duration-300 border-2 border-[#00285A] text-[#00285A] py-1 max-md:text-base px-3 min-w-fit w-4/12 sm:w-7/12 md:w-min rounded-2xl justify-around flex items-center">
-                  <p className='text-lg font-semibold flex items-center justify-around'>
-                    <strong className='text-sm md:text-base'> Talk to expert </strong> 
-                    &nbsp; &nbsp;
-                    <span className="w-6 h-6 border-1 rounded-full flex justify-center items-center bg-[#00285A] text-white"><ChevronRightIcon/></span>
-                  </p>
-                  {/* Buy Now */}
-                  {/* <RightArrowSVG className={'h-5 w-5'} /> */}
-                </button>
-                </div>
-              </div>
+          <div className="w-full md:w-[30%] ">
+            <div style={{ boxShadow: ' 0px 0px 0px 1px rgba(0, 0, 0, 0.06), 0px 5px 36px 0px rgba(0, 0, 0, 0.16)' }} className="bg-white h-full w-full p-5 rounded-2xl flex justify-between flex-col gap-y-4">
+              <p className="text-[#00285A] text-base md:text-sm lg:text-base font-semibold">Need more help in finding your course?</p>
+              <button onClick={sendQuery} className="hover:bg-[#00285A] hover:text-white text-lg bg-transparent duration-300 border-2 border-[#00285A] text-[#00285A] py-1 max-md:text-base px-3 min-w-fit w-4/12 sm:w-7/12 md:w-min rounded-2xl justify-around flex items-center">
+                <p className='text-lg font-semibold flex items-center justify-around'>
+                  <strong className='text-sm md:text-base'> Talk to expert </strong>
+                  &nbsp; &nbsp;
+                  <span className="w-6 h-6 border-1 rounded-full flex justify-center items-center bg-[#00285A] text-white"><ChevronRightIcon /></span>
+                </p>
+                {/* Buy Now */}
+                {/* <RightArrowSVG className={'h-5 w-5'} /> */}
+              </button>
+            </div>
           </div>
-          
-          <div className="pb-10 grid  gap-x-5 max-md:mt-1 mt-10 max-lg:pb-20">
-            {/* <div className="xl:col-span-4">
+        </div>
+
+        <div className="pb-10 grid  gap-x-5 max-md:mt-1 mt-10 max-lg:pb-20">
+          {/* <div className="xl:col-span-4">
               <Button
                 className="xl:!hidden"
                 variant="container"
@@ -300,30 +293,30 @@ const ShortlistUniversity = () => {
                 <FilterMenu filterHandler={filterHandler} />
               </div>
             </div> */}
-            <div className="w-full">
+          <div className="w-full">
 
-              {isLoading && <div className="py-5 flex justify-center">
-                <CircularProgress sx={{ '&: svg circle': { stroke: '#00285A' } }} />
-              </div>}
+            {isLoading && <div className="py-5 flex justify-center">
+              <CircularProgress sx={{ '&: svg circle': { stroke: '#00285A' } }} />
+            </div>}
 
-              {!isLoading && (Array.isArray(data?.rows) && data?.rows?.length > 0 ?
-                <div className="sm:ml-2 grid w-full max-md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-x-5">
-                  {data?.rows?.map(item =>
-                    <UniversityItem
-                      RightArrowSVG={RightArrowSVG}
-                      university={item}
-                      shortlistHandler={shortlistHandler}
-                      key={item.id}
-                      sendQuery={sendQuery}
-                    />
-                  )}
-                </div> :
-                <Alert severity="warning" icon={false} className="mx-auto mt-5 w-fit" >No University Found</Alert>
-              )}
+            {!isLoading && (Array.isArray(data?.rows) && data?.rows?.length > 0 ?
+              <div className="sm:ml-2 grid w-full max-md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-x-5">
+                {data?.rows?.map(item =>
+                  <UniversityItem
+                    RightArrowSVG={RightArrowSVG}
+                    university={item}
+                    shortlistHandler={shortlistHandler}
+                    key={item.id}
+                    sendQuery={sendQuery}
+                  />
+                )}
+              </div> :
+              <Alert severity="warning" icon={false} className="mx-auto mt-5 w-fit" >No University Found</Alert>
+            )}
 
-            </div>
           </div>
-        </Box>}
+        </div>
+      </Box>}
 
       {/* Drawer  */}
       <Drawer

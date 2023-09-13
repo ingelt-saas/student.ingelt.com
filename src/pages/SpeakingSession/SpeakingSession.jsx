@@ -220,6 +220,21 @@ const SpeakingSession = () => {
         <div className="md:w-4/12 xl:w-5/12">
           <div className="bg-white rounded-xl px-5 py-5 shadow-xl flex flex-col gap-y-3">
             <UpcomingEvent />
+            <div className="mt-4">
+              <ul>
+                <li className="font-semibold">How this one to one session is helpful</li>
+                <li>- Identify the learner's strengths and weaknesses</li>
+                <li>- Instant feedback on errors</li>
+                <li>- Teach new vocabulary and grammar</li>
+                <li>- Build speaking confidence</li>
+                <li>- Learn british accent</li>
+                <li>- Right usage of Idioms and Phrases</li>
+                <li>- Techniques to speak fluently</li>
+                <li>- Pronunciation Drill</li>
+                <li>- International Phonetic Alphabet</li>
+                <li>- Advance Speaking Techniques</li>
+              </ul>
+            </div>
           </div>
         </div>
 
