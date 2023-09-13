@@ -378,8 +378,8 @@ const Modules = () => {
           }}
         >
           <Header
-            title="Premium IELTS Modules"
-            subTitle="British Council Verified Instructor"
+            title="Premium IELTS Resources"
+            subTitle="Over 12,000+ IELTS Aspirants have got their desired band score"
             Img={moduleImg}
             scale="scale-50"
           />
@@ -404,7 +404,7 @@ const Modules = () => {
                   : "bg-[#F3F3F3] py-2 px-2 md:px-5 text-sm"
                   }`}
               >
-                Lectures
+                IELTS Modules
               </button>
               <button
                 onClick={() => setSearch({ page: "module_ppt" })}
@@ -413,9 +413,9 @@ const Modules = () => {
                   : "bg-[#F3F3F3] py-2 px-2 md:px-5 text-sm"
                   }`}
               >
-                Lecture PPT
+                Module PPT
               </button>
-              <button
+              {/* <button
                 onClick={() => setSearch({ page: "mock_test" })}
                 className={`duration-200 transition-none ease-in ${page === "mock_test"
                   ? "border-1 py-3 px-5 md:px-8 font-semibold text-[#1B3B7D] border-[#ECECEC] bg-white border-b-0 rounded-t-xl"
@@ -423,7 +423,7 @@ const Modules = () => {
                   }`}
               >
                 Mock Test
-              </button>
+              </button> */}
               <button
                 onClick={() => setSearch({ page: "library" })}
                 className={`duration-200 transition-none ease-in ${page === "library"
