@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Tooltip, Popover, CircularProgress, Alert } from '@mui/material';
-import { Search, ArrowDropDown } from '@mui/icons-material';
+import { Button, Popover, CircularProgress, Alert, Pagination } from '@mui/material';
+import { ArrowDropDown } from '@mui/icons-material';
 import PopupState, { bindPopover, bindTrigger } from 'material-ui-popup-state';
-import { useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import headerImg from '../../assets/images/accommodation-header.png';
+import SearchInput from '../../components/Accommodation/SearchInput';
+import PriceRange from '../../components/Accommodation/PriceRange';
+import AccommodationDetails from './AccommodationDetails';
 
 // dropdown button
-const DropdownButton = ({ children, options, value, changeHandler }) => {
+const DropdownPopover = ({ children, options, value, changeHandler, desc }) => {
 
     // states
     const [selected, setSelected] = useState(null);
@@ -26,7 +29,7 @@ const DropdownButton = ({ children, options, value, changeHandler }) => {
                 className='!rounded-full !overflow-hidden !px-5 max-sm:!px-3 !bg-transparent !border-2 !border-[#0C3C82] !capitalize !text-[#0C3C82] max-sm:!text-xs !text-sm !font-medium'
                 endIcon={<ArrowDropDown fontSize='small' />}
             >
-                {!selected ? children : selected?.label}
+                {children}
             </Button>
             <Popover
                 PaperProps={{ className: '!rounded-xl shadow-2xl bg-white mt-3 max-h-[70vh] overflow-y-auto' }}
@@ -40,15 +43,19 @@ const DropdownButton = ({ children, options, value, changeHandler }) => {
                     horizontal: 'center',
                 }}>
                 <div className='z-[100] bg-white min-w-fit'>
-                    <ul className="flex flex-col p-3">
+                    <h2 className='text-lg font-semibold text-[#001E43] px-2 pt-2'>{desc}</h2>
+                    <ul className="flex flex-col pt-1 pb-3 px-1">
                         {Array.isArray(options) && options?.length > 0 ? options.map((item, index) => <li key={index}
-                            className={`font-medium py-2 px-3 duration-200 cursor-pointer hover:bg-[#0C3C82] hover:bg-opacity-10 ${selected?.value === item?.value && 'bg-[#0C3C82] bg-opacity-10'} text-[#0C3C82] text-left rounded-md text-sm`}
+                            className={`font-medium py-2 px-3 duration-200 cursor-pointer text-[#0C3C82] text-left rounded-md text-sm flex gap-2 items-center`}
                             onClick={() => {
                                 setSelected(item);
                                 typeof changeHandler === 'function' && changeHandler(item);
                                 popupState.close();
                             }}
                         >
+                            <span className='w-2 h-2 rounded-full bg-[#001E43] block relative'>
+                                {selected?.value === item?.value && <span className='absolute w-full h-full top-0 left-0 rounded-full bg-[#001E4333]' style={{ transform: 'scale(2)' }}></span>}
+                            </span>
                             {item?.label}
                         </li>) : <li className='font-medium py-2 px-3 duration-200 cursor-pointer hover:bg-[#0C3C82] hover:bg-opacity-10 text-[#0C3C82] text-left rounded-md text-sm'>No Options</li>
                         }
@@ -61,7 +68,7 @@ const DropdownButton = ({ children, options, value, changeHandler }) => {
 
 const AccommodationItem = ({ item }) => {
 
-    const { name, location, features, pricing: { min_price }, partner_link, image_featured_link } = item;
+    const { name, location, features, pricing: { min_price, duration, price }, id, image_featured_link } = item;
 
     return <div className='flex max-sm:flex-col bg-white rounded-lg p-3 gap-3 shadow-md'>
         <div className='aspect-[16/12] overflow-hidden rounded-md w-full md:w-1/3'>
@@ -75,25 +82,25 @@ const AccommodationItem = ({ item }) => {
                     <div className='flex flex-wrap gap-1'>
                         {Array.isArray(features) && features.map((feature, index) => <span className='text-xs text-[#0C3C82] bg-[#0C3C82] bg-opacity-10 px-2 py-1 rounded-md font-medium' key={index}>{feature.name}</span>)}
                     </div>
-
                 </div>
                 <div className='flex flex-col'>
                     <span className='text-xs'>From</span>
-                    <p className='text-lg font-bold text-[#0C3C82]'>${min_price}/week</p>
-                    <a href={partner_link} rel="noreferrer" target='_blank' className='text-sm bg-[#0C3C82] bg-opacity-30 px-4 py-2 rounded-md text-[#0C3C82] font-medium w-fit' >View</a>
+                    <p className='text-lg font-bold text-[#0C3C82]'>${min_price || price}/{duration}</p>
+                    <Link className='text-sm bg-[#0C3C82] bg-opacity-30 px-4 py-2 rounded-md text-[#0C3C82] font-medium w-fit' to={`/accommodation?id=${id}`}>
+                        View
+                    </Link>
                 </div>
             </div>
         </div>
     </div>
 }
 
-
 const Accommodation = () => {
 
     // states
-    const [value, setValue] = useState('');
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [count, setCount] = useState(1);
 
     const [searchParams, setSearchParams] = useSearchParams();
 
@@ -101,11 +108,12 @@ const Accommodation = () => {
     const searchHandler = (data) => {
 
         const search = searchParams.get('search');
-        const sort = searchParams.get('sort');
+        const sort = searchParams.get('sort') || 'relevance';
         const price = searchParams.get('price');
         const duration = searchParams.get('duration');
+        const page = searchParams.get('page');
 
-        let searchData = { search, sort, price, duration };
+        let searchData = { search, sort, price, duration, page };
         searchData = { ...searchData, ...data };
 
         for (let key of Object.keys(searchData)) {
@@ -115,20 +123,22 @@ const Accommodation = () => {
         }
 
         setSearchParams(searchData);
-    }
+    };
 
-    // search input submit  
-    const formHandler = (e) => {
-        e.preventDefault();
-        searchHandler({ search: value });
-    }
+    // debounce function
+    const debounce = (func, delay = 1000) => {
+        let timerId;
 
-    // set default search value
-    useEffect(() => {
-        if (searchParams.get('search')) {
-            setValue(searchParams.get('search'));
-        }
-    }, [searchParams]);
+        return function (...args) {
+            if (timerId) {
+                clearTimeout(timerId);
+            }
+
+            timerId = setTimeout(() => {
+                func.apply(this, args);
+            }, delay);
+        };
+    }
 
     // fetch accommodation
     useEffect(() => {
@@ -137,9 +147,12 @@ const Accommodation = () => {
             try {
 
                 const search = new URLSearchParams();
-                search.append('limit', 50);
-                search.append('p', 1);
+                search.append('limit', 20);
                 search.append('currency', 'usd');
+
+                if (searchParams.get('page')) {
+                    search.append('p', searchParams.get('page'));
+                }
 
                 if (searchParams.get('search')) {
                     search.append('location_place_name', searchParams.get('search'));
@@ -166,6 +179,7 @@ const Accommodation = () => {
                 if (data?.message === 'success') {
                     const result = data.data;
                     setData(result.result);
+                    setCount(result?.meta?.count || 0);
                 }
             } catch (err) {
                 // location_place_name = chicago
@@ -176,8 +190,14 @@ const Accommodation = () => {
         })();
     }, [searchParams]);
 
+    // single accommodation showing
+    if (searchParams.get('id')) {
+        return <AccommodationDetails accommodations={data} id={searchParams.get('id')} />
+    }
+
     return (
         <div>
+
             {/* header start */}
             <div className='shadow-xl rounded-xl max-sm:px-3 px-5 py-5 bg-white'>
                 <div className='flex justify-between'>
@@ -187,45 +207,35 @@ const Accommodation = () => {
                             Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor.
                         </p>
                         <div className='flex flex-wrap max-sm:gap-x-1 gap-3 max-md:justify-center mt-2'>
-                            <form onSubmit={formHandler} className='flex rounded-full overflow-hidden  max-sm:text-xs text-sm border-2 border-[#0C3C82] max-sm:w-full w-[260px] px-1 py-0.5 items-center'>
-                                <input type='text' placeholder='Search by Collage, City and Country' className='focus:outline-none border-none bg-transparent pl-2 pr-1 flex-1' value={value} onChange={(e) => setValue(e.target.value)} />
-                                <Tooltip title='Search by Collage, City and Country'>
-                                    <button type='submit' className='rounded-full grid place-items-center bg-[#0C3C82] text-white w-8 h-8'>
-                                        <Search fontSize='small' />
-                                    </button>
-                                </Tooltip>
-                            </form>
-                            <DropdownButton
+                            <SearchInput
+                                searchHandler={searchHandler}
+                                searchValue={searchParams.get('search')}
+                            />
+                            <DropdownPopover
                                 options={[
                                     { value: 'relevance', label: 'Recommended' },
                                     { value: 'distance', label: 'Nearest' },
                                     { value: 'available_price', label: 'Price' },
                                     { value: 'created', label: 'Newly Added' },
                                 ]}
+                                desc='Sort By'
                                 value={searchParams.get('sort')}
                                 changeHandler={(data) => searchHandler({ sort: data?.value })}
-                            >Sort</DropdownButton>
-                            <DropdownButton
-                                options={[
-                                    { value: '0,500', label: '$0 - $500' },
-                                    { value: '500,1000', label: '$500 - $1000' },
-                                    { value: '1000,2000', label: '$1000 - $2000' },
-                                    { value: '2000,3000', label: '$2000 - $3000' },
-                                    { value: '3000,4000', label: '$3000 - $4000' },
-                                    { value: '4000,5000', label: '$4000 - $5000' },
-                                ]}
+                            >Sort</DropdownPopover>
+                            <PriceRange
+                                searchHandler={debounce(searchHandler)}
                                 value={searchParams.get('price')}
-                                changeHandler={(data) => searchHandler({ price: data?.value })}
-                            >Price</DropdownButton>
-                            <DropdownButton
+                            />
+                            <DropdownPopover
                                 options={[
                                     { value: '0,4', label: '0 - 4 Months' },
                                     { value: '5,8', label: '5 - 8 Months' },
                                     { value: '8', label: '8+ Months' },
                                 ]}
+                                desc='Stay Duration'
                                 value={searchParams.get('duration')}
                                 changeHandler={(data) => searchHandler({ duration: data?.value })}
-                            >Stay Duration</DropdownButton>
+                            >Stay Duration</DropdownPopover>
                         </div>
                     </div>
                     <div className='w-fit max-md:hidden'>
@@ -247,6 +257,19 @@ const Accommodation = () => {
                     <Alert icon={false} className='!mx-auto !w-fit ' severity='warning'>No Result Found</Alert>
                 </div>
             )}
+
+            {/* pagination */}
+            {!loading && (count / 20) > 1 && <div className='mt-10 flex justify-center'>
+                <Pagination
+                    count={Math.ceil(count / 20)}
+                    page={parseInt(searchParams.get('page')) || 1}
+                    variant="outlined"
+                    shape="rounded"
+                    boundaryCount={1}
+                    siblingCount={1}
+                    onChange={(_, newPage) => searchHandler({ page: newPage })}
+                />
+            </div>}
 
         </div>
     );

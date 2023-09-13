@@ -149,7 +149,7 @@ const Home = () => {
             <li>British Council Certified Instructor</li>
           </ul>
           <Link to="/ielts-preparation/speaking-session" className="max-sm:w-full">
-            <button className="px-12 py-2 rounded-md bg-white text-[#0C3C82] font-semibold text-lg max-sm:w-full">
+            <button className="px-12 py-2 rounded-md bg-white text-[#0C3C82] font-bold text-lg max-sm:w-full">
               Book
             </button>
           </Link>

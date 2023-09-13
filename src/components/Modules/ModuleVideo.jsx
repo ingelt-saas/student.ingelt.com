@@ -6,6 +6,13 @@ import 'videojs-contrib-quality-levels';
 import moduleTrackApi from '../../api/moduleTrack';
 import getFile from '../../api/getFile';
 
+// get file type form file name
+export const getFileType = (fileName) => {
+    // Get the last portion of the file name after the last dot (.)
+    const fileExtension = fileName.split('.').pop();
+    return fileExtension.toLowerCase(); // Convert to lowercase for consistency
+}
+
 const ModuleVideo = ({ open, close, data }) => {
     // states
     const [loading, setLoading] = useState(true);
@@ -17,13 +24,6 @@ const ModuleVideo = ({ open, close, data }) => {
 
     // video ref
     const videoRef = useRef();
-
-    // get file type form file name
-    const getFileType = (fileName) => {
-        // Get the last portion of the file name after the last dot (.)
-        const fileExtension = fileName.split('.').pop();
-        return fileExtension.toLowerCase(); // Convert to lowercase for consistency
-    }
 
     //  update end duration
     const setEndDuration = async () => {
@@ -129,8 +129,6 @@ const ModuleVideo = ({ open, close, data }) => {
         return () => window.removeEventListener('beforeunload', createTrack);
 
     }, []);
-
-    console.log(watchTime);
 
     return <Modal open={open} onClose={handleClose} className='grid place-items-center p-5' >
         <div className='outline-none bg-white rounded-md w-[80%] max-h-[95vh] h-auto relative'>

@@ -114,4 +114,18 @@ export const secondsToHoursMinutes = (seconds) => {
         .padStart(2, 0)} min`;
 };
 
+// debounce function
+export const debounce = (func, delay = 1000) => {
+    let timerId;
+
+    return function (...args) {
+        if (timerId) {
+            clearTimeout(timerId);
+        }
+
+        timerId = setTimeout(() => {
+            func.apply(this, args);
+        }, delay);
+    };
+}
 

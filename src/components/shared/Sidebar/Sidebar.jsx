@@ -23,6 +23,7 @@ import {
   ModulesSVG,
   EducationLoan,
   PassportSVG,
+  AccommodationSVG,
 } from "./SidebarSVG.jsx";
 // navbar svg
 
@@ -157,7 +158,7 @@ const SidebarMenus = () => {
     {
       name: "Accommodation",
       path: "/accommodation",
-      icon: <EducationLoan />,
+      icon: <AccommodationSVG />,
       show: true,
     },
     {
