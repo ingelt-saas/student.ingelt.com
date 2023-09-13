@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/bootstrap.css'
 import queryApi from "../../api/query";
+import OtpInput from 'react-otp-input';
 // images
 import { TaskAlt } from '@mui/icons-material';
 
@@ -17,6 +18,7 @@ import preVisa from "../../assets/NewDesign/loan icon/pre visa.svg";
 import score from "../../assets/NewDesign/loan icon/score based.svg"
 import BankingPart from './BankingPart';
 
+import './SignUpStepOne.css'
 
 const SignupStepOne = ({ img, open, text, formData, setFormData, handleClose }) => {
 
@@ -57,16 +59,17 @@ const SignupStepOne = ({ img, open, text, formData, setFormData, handleClose }) 
 
     const [phone, setPhone] = useState('');
     const [name, setName] = useState('');
-    // console.log({...formData});
+    const [otp, setOtp] = useState();
 
     const handleQuery = async (e) => {
         e.preventDefault();
         const data = {
             name: name,
-            phoneNo: phone
+            phoneNo: phone,
+            otp: otp
         }
-        await setFormData({ ...formData, name: name, phoneNo: phone });
-        console.log(formData);
+        await setFormData({ ...formData, ...data });
+
         try {
             if (text === "Free IELTS Classes") {
                 await queryApi.ieltsPrepQuery(data);
@@ -85,6 +88,16 @@ const SignupStepOne = ({ img, open, text, formData, setFormData, handleClose }) 
             // Handle errors
             console.error('Error fetching data:', error);
         }
+    }
+
+    const [otpStatus, setOtpStatus] = useState({ message: "", status: false });
+
+    function handleGetOTP() {
+        queryApi.sendOTP({ mobileNumber: phone }).then(res => {
+            setOtpStatus({ message: res?.data?.message, status: res?.data?.status });
+        }).catch(err => {
+            setOtpStatus({ message: err?.response?.data?.message, status: err?.response?.data?.status });
+        })
     }
 
     return (
@@ -132,35 +145,71 @@ const SignupStepOne = ({ img, open, text, formData, setFormData, handleClose }) 
                                 <p className="xl:text-3xl text-xl font-bold">
                                     {text}</p>
                                 <input type="text" required
+                                    autoFocus={true}
                                     value={name}
                                     placeholder="Enter Your Full Name"
                                     className="rounded-xl w-full px-4 py-3 shadow-xl mt-5 focus:outline-none"
                                     onChange={
                                         (e) => setName(e.target.value)
                                     } />
-                                <PhoneInput inputProps={
-                                    {
-                                        name: 'phone',
-                                        required: true,
-                                        autoFocus: true
-                                    }
-                                }
-                                    country={'in'}
-                                    value={phone}
-                                    placeholder="Phone Number"
-                                    onChange={phone => setPhone('+' + phone)}
-                                    containerClass="mt-5"
-                                    inputClass="PhoneInput"
-                                    inputStyle={
+                                <div className='flex w-full'>
+                                    <PhoneInput inputProps={
                                         {
-                                            width: "100%",
-                                            padding: "0.75rem 3.3rem",
-                                            borderRadius: "0.75rem",
-                                            outline: "none",
-                                            border: "none",
-                                            boxShadow: "0px 7px 29px rgba(100, 100, 111, 0.2)"
+                                            name: 'phone',
+                                            required: true
                                         }
-                                    } />
+                                    }
+                                        country={'in'}
+                                        value={phone}
+                                        placeholder="Phone Number"
+                                        onChange={phone => setPhone('+' + phone)}
+                                        containerClass="mt-5"
+                                        inputClass="PhoneInput"
+                                        inputStyle={
+                                            {
+                                                width: "100%",
+                                                padding: "0.75rem 3.3rem",
+                                                borderRadius: "0.75rem",
+                                                outline: "none",
+                                                border: "none",
+                                                boxShadow: "0px 7px 29px rgba(100, 100, 111, 0.2)"
+                                            }
+                                        }
+                                    />
+                                    <button onClick={handleGetOTP} className="bg-[#001E43] mt-5 ml-2 w-24 py-2 rounded-lg text-white font-normal text-sm">
+                                        Get OTP
+                                    </button>
+                                </div>
+                                {otpStatus.status && <p className='text-xs mt-2 text-green-500'>{otpStatus.message}</p>}
+                                {!otpStatus.status && <p className='text-xs mt-2 text-red-500'>{otpStatus.message}</p>}
+
+                                {/* <input type="number" required
+                                    value={otp}
+                                    min={100_000}
+                                    max={999_999}
+                                    minLength={6}
+                                    maxLength={6}
+                                    placeholder="Enter OTP"
+                                    className="rounded-xl w-full px-4 py-3 shadow-xl mt-3 focus:outline-none"
+                                    onChange={
+                                        (e) => setOtp(e.target.value)
+                                    } /> */}
+                                <OtpInput
+                                    value={otp}
+                                    onChange={setOtp}
+                                    numInputs={6}
+                                    renderSeparator={<span>-</span>}
+                                    renderInput={(props) => <input required id="otp_id" {...props} />}
+                                    inputStyle={{
+                                        width: "2rem",
+                                        height: "2rem",
+                                        borderRadius: 4,
+                                        border: "1px solid rgba(0,0,0,0.3)",
+                                        outline: "none"
+                                    }}
+                                    containerStyle="w-full mt-3 flex justify-around"
+                                    inputType='number'
+                                />
                                 <button type="submit"
                                     className="bg-[#001E43] mt-5 w-full py-2 rounded-lg text-white font-semibold">
                                     Continue

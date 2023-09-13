@@ -56,8 +56,9 @@ const UpcomingEvent = () => {
             </h1>
             <p className="text-[#00000099] font-medium">
               {upcomingEvent?.eventBookings.length > 0
-                ? `${upcomingEvent?.eventBookings.length} Already Booked`
-                : "0 Booked"}
+                // ? `${upcomingEvent?.eventBookings.length}+ Already Booked`
+                ? `100+ Already Booked`
+                : "100+ Booked"}
             </p>
             <div className="flex w-full items-center">
               <span className="w-1/2 text-[#1B3B7D] text-base flex items-center gap-x-1">
@@ -73,9 +74,28 @@ const UpcomingEvent = () => {
             </div>
           </>
         ) : (
-          <p className="w-full text-center flex-1 grid place-items-center font-semibold text-lg py-2 text-[#00000099]">
-            No Upcoming Event
-          </p>
+          // <p className="w-full text-center flex-1 grid place-items-center font-semibold text-lg py-2 text-[#00000099]">
+          //   No Upcoming Event
+          // </p>
+
+          <>
+            <h1 className="text-xl font-medium text-[#1B3B7D]">
+              Seminar on study and work opportunity abroad
+            </h1>
+            <p className="text-[#00000099] font-medium">
+              100+ Already Booked
+            </p>
+            <div className="flex w-full items-center">
+              <span className="w-1/2 text-[#1B3B7D] text-base flex items-center gap-x-1">
+                <CalendarMonth fontSize="small" />
+                25.10.2023
+              </span>
+              <span className="w-1/2 text-[#1B3B7D] text-base flex items-center gap-x-1">
+                <WatchLater fontSize="small" />
+                1hr:30min
+              </span>
+            </div>
+          </>
         )}
       </div>
 

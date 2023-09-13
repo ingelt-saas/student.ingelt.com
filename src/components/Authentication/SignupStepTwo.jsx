@@ -120,7 +120,7 @@ const SignupStepTwo = ({
                 window.location.href = 'https://student.ingelt.com';
             }
         } catch (err) {
-            toast.error('Sorry! Something went wrong.');
+            toast.error(err?.response?.data?.message);
         }
     };
     useEffect(() => {

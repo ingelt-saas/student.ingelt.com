@@ -58,11 +58,13 @@ const NestedMenus = ({ menus, path, icon, name }) => {
     {(popupState) => <>
       <li className="navItem mb-1.5" {...bindTrigger(popupState)}>
         <NavItem to={path} onClick={(e) => e.preventDefault()}>
-          {icon}
-          <span>{name}</span>
-          {/* <span className="flex-1 flex justify-end">
-            <ChevronRightIcon />
-          </span> */}
+          <span className="flex items-center">
+            {icon}
+            <span className="mx-2">{name}</span>
+            <span className="flex-1 flex justify-end">
+              <ChevronRightIcon />
+            </span>
+          </span>
         </NavItem>
       </li>
       <Popover

@@ -1,8 +1,8 @@
 import React from 'react'
 
-const Header = ({ title, subTitle, Img }) => {
+const Header = ({ title, subTitle, Img, width = '65%' }) => {
     return (
-        <div className="rounded-[1.2rem] flex justify-between relative items-center max-md:w-full md:w-[65%] bg-white shadow-xl aspect-[16/4]">
+        <div className={`rounded-[1.2rem] flex justify-between relative items-center max-md:w-full md:w-[${width}] bg-white shadow-xl aspect-[16/4] h-full`}>
             <div className="px-7 flex flex-col max-md:items-center max-md:text-center gap-y-1 max-md:py-7 max-sm:px-5 max-md:w-full">
                 <h1 className="text-2xl font-bold text-[#0C3C82]">{title}</h1>
                 <p className="font-normal text-black opacity-75">{subTitle}</p>
@@ -12,7 +12,7 @@ const Header = ({ title, subTitle, Img }) => {
                     draggable={false}
                     src={Img}
                     alt="library"
-                    className={`max-h-full max-w-full mix-blend-darken`}
+                    className={`max-h-28 max-w-fit mix-blend-darken`}
                 />
             </div>
         </div>

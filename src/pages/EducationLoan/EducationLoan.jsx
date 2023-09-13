@@ -30,6 +30,8 @@ import {
 } from "@mui/material";
 import Header from "../../components/shared/Header/Header";
 import settings from "../../api/settings";
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+
 
 const LandingPage = () => {
 
@@ -274,11 +276,11 @@ const Page2 = () => {
 const EducationLoan = () => {
 
   const [states, setStates] = useState("");
-  const [stateCode, setStateCode] = useState("");
+  const [stateCode, setStateCode] = useState("DL");
   const [cities, setCities] = useState("");
   const [state, setState] = useState("");
-  const [city, setCity] = useState("");
-  const [income, setIncome] = useState("");
+  const [city, setCity] = useState("New Delhi");
+  const [income, setIncome] = useState("10 Lakhs");
   const [intake, setIntake] = useState("");
   const [openSignUp, setOpenSignUp] = useState(false);
   const [page2, setPage2] = useState(false);
@@ -345,6 +347,7 @@ const EducationLoan = () => {
       await setCities((await query.getCityFromState(stateCode)).data);
     }
   };
+  // console.log(cities);
   // useEffect(()=>{
   //   getAllStates();
   //   console.log('all data',state);
@@ -401,10 +404,32 @@ const EducationLoan = () => {
       {student?.educationLoanUnlock && <div className="flex py-10 px-5 max-sm:px-2">
         {!page2 ? (
           <div className="flex flex-row flex-wrap gap-y-10 gap-x-5 w-full">
-            <div className="w-full h-20 foo:block ">
-              <div className="flex gap-x-5 max-md:flex-col max-md:gap-y-5 mb-10">
-                <Header title="Education Loan" subTitle="Optimal solution for overseas education loan" Img={welcomeSVG} scale="scale-75" />
+            <div className="w-full -mt-5">
+              {/* <div className="flex gap-x-5 max-md:flex-col max-md:gap-y-5 mb-10">
+              </div> */}
+              <div className="flex-col flex sm:flex-row">
+                <div className="w-full sm:w-[70%] sm:ml-5">
+                  <Header title="Education Loan" subTitle="Optimal solution for overseas education loan" Img={welcomeSVG} scale="scale-75" width="full"/>
+                </div>
+                <div className="w-full sm:w-[30%] my-3 sm:mx-3 sm:my-0">
+                <div style={{ boxShadow: ' 0px 0px 0px 1px rgba(0, 0, 0, 0.06), 0px 5px 36px 0px rgba(0, 0, 0, 0.16)' }} className="bg-white h-full w-full p-5 rounded-2xl flex justify-between flex-col gap-y-4">
+                  <p className="text-[#00285A] font-semibold text-base md:text-sm lg:text-base">Looking for end to end education loan assistance?</p>
+                  <button className="hover:bg-[#00285A] hover:text-white text-lg bg-transparent duration-300 border-2 border-[#00285A] text-[#00285A] py-1 max-md:text-base px-3 min-w-fit w-4/12 sm:w-7/12 md:w-min rounded-2xl justify-around flex items-center">
+                  <p className='text-lg font-semibold flex items-center justify-around'>
+                    <strong className='text-sm md:text-base'> Talk to expert </strong> 
+                    &nbsp; &nbsp;
+                    <span className="w-6 h-6 border-1 rounded-full flex justify-center items-center bg-[#00285A] text-white"><ChevronRightIcon/></span>
+                  </p>
+                  {/* Buy Now */}
+                  {/* <RightArrowSVG className={'h-5 w-5'} /> */}
+                </button>
+                </div>
               </div>
+            </div>
+            <br />
+
+
+
               <div className="flex max-md:flex-col w-full justify-between items-center">
                 <div className="w-1/2 max-md:w-full flex flex-col justify-center items-center">
                   {/* <img
@@ -435,7 +460,7 @@ const EducationLoan = () => {
                     <div className="flex flex-col max-lg:items-start w-full justify-center">
                       <div className="inline-block relative mt-5 w-full">
                         <label htmlFor="State">
-                          In which state do you reside?
+                          Select your state
                           <sup className="text-red-500">*</sup>
                         </label>
                         <select
@@ -447,11 +472,12 @@ const EducationLoan = () => {
                           }}
                           className="block appearance-none w-full mt-2 bg-white border-none hover:border-gray-500 px-4 py-4 pr-8 rounded-xl shadow-xl leading-tight focus:outline-none focus:shadow-outline"
                         >
-                          <option value="">Select your State</option>
+                          {/* <option value="DL">Delhi</option> */}
                           {states &&
                             states.map((state, index) => (
-                              <option key={index} value={state.isoCode}>
-                                {state.name}
+
+                              <option key={index} value={state.isoCode} selected defaultChecked>
+                                {state.name}  
                               </option>
                             ))}
                         </select>
@@ -461,7 +487,7 @@ const EducationLoan = () => {
                       </div>
                       <div className="inline-block relative mt-5 w-full">
                         <label htmlFor="State">
-                          What's your current city?
+                          Select your city
                           <sup className="text-red-500">*</sup>
                         </label>
                         <select
@@ -471,7 +497,7 @@ const EducationLoan = () => {
                           onChange={(e) => setCity(e.target.value)}
                           className="block appearance-none w-full mt-2 bg-white border-none hover:border-gray-500 px-4 py-4 pr-8 rounded-xl shadow-xl leading-tight focus:outline-none focus:shadow-outline"
                         >
-                          <option value="">Select your City</option>
+                          {/* <option value="">Select your City</option> */}
                           {cities &&
                             cities.map((city, index) => (
                               <option key={index} value={city.name}>
@@ -484,7 +510,7 @@ const EducationLoan = () => {
                         </div>
                       </div>
                       <label className="mt-5" htmlFor="income">
-                        Write here your Annual Family Income
+                        Family Annual Income
                         <sup className="text-red-500">*</sup>
                       </label>
                       <input
@@ -492,7 +518,7 @@ const EducationLoan = () => {
                         type="text"
                         required
                         value={income}
-                        placeholder="Family Annual Income"
+                        placeholder="10 Lakhs"
                         className="rounded-xl w-full px-4 py-3 shadow-xl focus:outline-none"
                         onChange={(e) => setIncome(e.target.value)}
                       />
@@ -501,17 +527,7 @@ const EducationLoan = () => {
                         <sup className="text-red-500">*</sup>
                       </p>
                       <div className="flex gap-x-5 mt-2">
-                        <div
-                          className={`py-3 px-6 cursor-pointer flex items-center justify-center max-lg:px-3 max-lg:border rounded-2xl border-2 border-[#001E43] ${intake === "September 2023"
-                            ? "bg-[#001E43] text-white"
-                            : "border-2 border-[#001E43]"
-                            }`}
-                          onClick={() => {
-                            setIntake("September 2023");
-                          }}
-                        >
-                          <p className="max-xl:text-xs text-base">Sep 2023</p>
-                        </div>
+                        
                         <div
                           className={`py-3 px-6 cursor-pointer flex items-center justify-center max-lg:px-3 max-lg:border rounded-2xl border-2 border-[#001E43] ${intake === "January 2024"
                             ? "bg-[#001E43] text-white"
@@ -533,6 +549,17 @@ const EducationLoan = () => {
                           }}
                         >
                           <p className="max-xl:text-xs text-base">May 2024</p>
+                        </div>
+                        <div
+                          className={`py-3 px-6 cursor-pointer flex items-center justify-center max-lg:px-3 max-lg:border rounded-2xl border-2 border-[#001E43] ${intake === "September 2024"
+                            ? "bg-[#001E43] text-white"
+                            : "border-2 border-[#001E43]"
+                            }`}
+                          onClick={() => {
+                            setIntake("September 2024");
+                          }}
+                        >
+                          <p className="max-xl:text-xs text-base">Sep 2024</p>
                         </div>
                       </div>
                       <button

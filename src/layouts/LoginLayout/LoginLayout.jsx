@@ -129,7 +129,8 @@ const LoginLayout = () => {
     phoneNo: '',
     preferredMode: '',
     state: '',
-    city: ''
+    city: '',
+    otp: ''
   });
 
   const open = Boolean(anchorEl);
