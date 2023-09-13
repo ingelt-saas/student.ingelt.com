@@ -69,7 +69,7 @@ const SignupStepOne = ({ img, open, text, formData, setFormData, handleClose }) 
             otp: otp
         }
         await setFormData({ ...formData, ...data });
-        
+
         try {
             if (text === "Free IELTS Classes") {
                 await queryApi.ieltsPrepQuery(data);
@@ -89,14 +89,14 @@ const SignupStepOne = ({ img, open, text, formData, setFormData, handleClose }) 
             console.error('Error fetching data:', error);
         }
     }
-    
-    const [otpStatus, setOtpStatus] = useState({message: "", status: false});
+
+    const [otpStatus, setOtpStatus] = useState({ message: "", status: false });
 
     function handleGetOTP() {
-        queryApi.sendOTP({mobileNumber: phone}).then(res=>{
-            setOtpStatus({message: res?.data?.message, status: res?.data?.status});
-        }).catch(err=>{
-            setOtpStatus({message: err?.response?.data?.message, status: err?.response?.data?.status});
+        queryApi.sendOTP({ mobileNumber: phone }).then(res => {
+            setOtpStatus({ message: res?.data?.message, status: res?.data?.status });
+        }).catch(err => {
+            setOtpStatus({ message: err?.response?.data?.message, status: err?.response?.data?.status });
         })
     }
 
@@ -175,7 +175,7 @@ const SignupStepOne = ({ img, open, text, formData, setFormData, handleClose }) 
                                                 boxShadow: "0px 7px 29px rgba(100, 100, 111, 0.2)"
                                             }
                                         }
-                                        />
+                                    />
                                     <button onClick={handleGetOTP} className="bg-[#001E43] mt-5 ml-2 w-24 py-2 rounded-lg text-white font-normal text-sm">
                                         Get OTP
                                     </button>

@@ -1,8 +1,9 @@
 import { Alert } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import getFile from '../../api/getFile';
 import { secondsToHoursMinutes, viewsShorten } from '../../utilities';
 import ModuleVideo from './ModuleVideo';
+import { StudentContext } from '../../contexts';
 
 const DateTimeDisplay = ({ value, type }) => {
     return (
@@ -82,6 +83,9 @@ const Lecture = ({ modules }) => {
 
     // states
     const [videoOn, setVideoOn] = useState(null);
+
+    // context
+    const { student } = useContext(StudentContext);
 
     // if modules is not array or is modules length less than 1 
     if (!Array.isArray(modules) || modules.length <= 0) {

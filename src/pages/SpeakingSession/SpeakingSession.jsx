@@ -175,7 +175,7 @@ const SpeakingSession = () => {
 
   return (
     <div className="">
-      <div className="flex-col flex sm:flex-row">
+      <div className="flex-col flex sm:flex-row gap-5">
 
         <div className="w-full sm:w-[70%] rounded-[1.2rem] flex justify-between relative items-center bg-white shadow-xl">
           <div className="px-7 flex flex-col gap-y-1 max-md:py-7 max-sm:px-5 max-md:items-center max-md:w-full">
@@ -192,10 +192,10 @@ const SpeakingSession = () => {
           </div>
         </div>
 
-        <div className="w-full sm:w-[30%] sm:mx-4 my-3 sm:my-0">
+        <div className="w-full sm:w-[30%]">
           <div className="rounded-2xl bg-white shadow-2xl px-5 py-5">
             <h3 className="text-xl font-semibold text-[#0C3C82]">
-              My Scheduled Sessions
+              Here is the schedule of speaking practice session booked by you
             </h3>
             <p className="my-3 text-sm">Checkout Booked Sessions</p>
             <Link to="/speaking-session/check-sessions">
@@ -220,6 +220,21 @@ const SpeakingSession = () => {
         <div className="md:w-4/12 xl:w-5/12">
           <div className="bg-white rounded-xl px-5 py-5 shadow-xl flex flex-col gap-y-3">
             <UpcomingEvent />
+            <div className="mt-4">
+              <ul>
+                <li className="font-semibold">How this one to one session is helpful</li>
+                <li>- Identify the learner's strengths and weaknesses</li>
+                <li>- Instant feedback on errors</li>
+                <li>- Teach new vocabulary and grammar</li>
+                <li>- Build speaking confidence</li>
+                <li>- Learn british accent</li>
+                <li>- Right usage of Idioms and Phrases</li>
+                <li>- Techniques to speak fluently</li>
+                <li>- Pronunciation Drill</li>
+                <li>- International Phonetic Alphabet</li>
+                <li>- Advance Speaking Techniques</li>
+              </ul>
+            </div>
           </div>
         </div>
 
@@ -338,20 +353,20 @@ const SpeakingSession = () => {
                   backgroundColor: '#0C3C82'
                 }
               }}
-              onClick={()=>setOpenPaymentQr(true)}
+              onClick={() => setOpenPaymentQr(true)}
             >
               <span>Book Session</span>
               <span>
                 ₹ 499 /-
-                
+
                 <del className="ml-3">₹ 1299 /-</del>
               </span>
-              
+
             </Button>
 
             <Modal
               open={openPaymentQr}
-              onClose={()=>setOpenPaymentQr(false)}
+              onClose={() => setOpenPaymentQr(false)}
               aria-labelledby="modal-modal-title"
               aria-describedby="modal-modal-description"
             >
@@ -366,7 +381,7 @@ const SpeakingSession = () => {
                 boxShadow: 24,
                 p: 4,
               }}>
-                <img src={pay4999Img} alt="payment qr"/>
+                <img src={pay4999Img} alt="payment qr" />
               </Box>
             </Modal>
             {/* <RazorPay
