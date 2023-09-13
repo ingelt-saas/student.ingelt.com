@@ -482,6 +482,7 @@ const Modules = () => {
           </div>
         )}
 
+        {/* modules lecture page */}
         {!loading && ((page === "video" || !page) && <Lecture modules={modules} />)}
 
 

@@ -13,7 +13,7 @@ import img5 from "../../assets/images/online-classes.png";
 import RazorPay from "../../components/RazorPay/RazorPay";
 import paymentApi from "../../api/payment";
 import { StudentContext } from "../../contexts";
-import { Button, CircularProgress, Modal, Box} from "@mui/material";
+import { Button, CircularProgress, Modal, Box } from "@mui/material";
 import pay4999Img from '../../assets/paymentQR/4999.png'
 
 
@@ -116,7 +116,7 @@ const OnlineClasses = () => {
             <div className='md:w-8/12'>
                 <div className='py-5 px-5 max-md:text-center max-md:px-3 rounded-3xl bg-[#0C3C82] shadow-xl'>
                     <h1 className='text-2xl font-bold text-white'>Online IELTS Classes</h1>
-                    <p className='text-white mt-3'>IELTS preparation with British Council Certified Expert</p>
+                    <p className='text-white mt-3'>IELTS Preparation Under the Guidance of British Council Certified Instructor</p>
                 </div>
                 <div className="md:hidden max-md:mt-5">
                     <div className='bg-white p-2 rounded-xl shadow-xl flex flex-col gap-y-5'>
@@ -136,9 +136,9 @@ const OnlineClasses = () => {
                                 <span className='text-black text-lg'>₹</span>
                                 6999 /-
                                 <del className='ml-3 text-black text-lg'>₹ 14999 /-</del>
-                                
+
                             </p>
-                            <p>Start your IELTS preparation</p>
+                            <p>Crack IELTS with 7+ Bands</p>
                         </div>
                         <Button
                             variant='contained'
@@ -228,7 +228,7 @@ const OnlineClasses = () => {
                             <span className='text-black text-lg'>₹</span>
                             6999 /-
                             <del className='ml-3 text-black text-lg'>₹ 14999 /-</del>
-                            
+
                         </p>
                         <p>Start your IELTS preparation</p>
                     </div>
@@ -241,15 +241,15 @@ const OnlineClasses = () => {
                                 backgroundColor: '#0C3C82'
                             }
                         }}
-                        onClick={()=>setOpenPaymentQr(true)}
+                        onClick={() => setOpenPaymentQr(true)}
                     >Book Your Seat</Button>
 
                     <Modal
                         open={openPaymentQr}
-                        onClose={()=>setOpenPaymentQr(false)}
+                        onClose={() => setOpenPaymentQr(false)}
                         aria-labelledby="modal-modal-title"
                         aria-describedby="modal-modal-description"
-                        >
+                    >
                         <Box sx={{
                             position: 'absolute',
                             top: '50%',
@@ -261,9 +261,9 @@ const OnlineClasses = () => {
                             boxShadow: 24,
                             p: 4,
                         }}>
-                            <img src={pay4999Img} alt="payment qr"/>
+                            <img src={pay4999Img} alt="payment qr" />
                         </Box>
-                        </Modal>
+                    </Modal>
                     {/* <RazorPay
                         paymentFor={'classes'}
                         description={''}
