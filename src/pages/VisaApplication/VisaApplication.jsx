@@ -11,6 +11,10 @@ import query from "../../api/query";
 import Countries from "../../components/VisaApplication/Countries";
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import pay4999Img from '../../assets/paymentQR/4999.png'
+import immigrationImg from '../../assets/images/immigration.png';
+import visaApplicationImg from '../../assets/images/visa-application.png';
+import visaExperienceImg from '../../assets/images/visa-experience.png';
+
 
 import {
   Box,
@@ -19,7 +23,7 @@ import {
   Typography,
 } from "@mui/material";
 
-import { FormControl, MenuItem, OutlinedInput, Select,Modal } from "@mui/material";
+import { FormControl, MenuItem, OutlinedInput, Select, Modal } from "@mui/material";
 import Header from "../../components/shared/Header/Header";
 
 const SelectMenu = ({ options, placeholder, value, handleChange, name }) => {
@@ -387,184 +391,181 @@ const VisaApplication = () => {
   };
 
   return (
-    <div className="flex">
-      {!page2 ? (
-        <div className="flex flex-row flex-wrap gap-y-10 gap-x-5 w-full ">
-          <div className="w-full h-20 foo:block ">
-            {/* <div className="flex gap-x-5 max-md:flex-col max-md:gap-y-5">
-              <Header
-                title="Visa Application"
-                subTitle="Hassel free visa processing and approval"
-                Img={welcomeSVG}
-                scale="scale-75"
-              />
-            </div> */}
-          <div className="flex-col flex sm:flex-row">
-            <div className="w-full sm:w-[70%] max-h-36">
-            <Header
-              title="Visa Application"
-              subTitle="Hassel free visa processing and approval"
-              Img={welcomeSVG}
-              width="full"
-            />
-            </div>
+    <div className="flex flex-col gap-10">
 
-            <div className="w-full sm:w-[30%] max-h-36 my-3 sm:mx-3 sm:my-0">
-              <div style={{ boxShadow: ' 0px 0px 0px 1px rgba(0, 0, 0, 0.06), 0px 5px 36px 0px rgba(0, 0, 0, 0.16)' }} className="bg-white h-full w-full px-5 py-3 rounded-2xl flex justify-between flex-col ">
-                <p className="text-[#00285A] font-semibold text-base md:text-sm lg:text-base">Schedule call with Registered Immegration Consultants</p>
-                <br />
-                <button onClick={()=>setOpenPaymentQr(true)} className="hover:bg-[#00285A] hover:text-white text-lg bg-transparent duration-300 border-2 border-[#00285A] text-[#00285A] py-1 max-md:text-base px-3 min-w-[160px] w-5/12 rounded-2xl justify-around flex items-center">
-                  <p className='font-semibold flex items-center justify-around text-base'>
-                    <strong className='text-sm md:text-base'>50.00 USD </strong> 
-                    &nbsp; &nbsp;
-                    <span className="w-6 h-6 border-1 rounded-full flex justify-center items-center bg-[#00285A] text-white"><ChevronRightIcon/></span>
-                  </p>
-                </button>
-              </div>
-            </div>
+      {/* page header start */}
+      <div className="flex-col flex sm:flex-row gap-5">
+        <div className="w-full md:w-[70%]">
+          <Header
+            title="Visa Application"
+            subTitle="Hassel free visa processing and approval"
+            Img={welcomeSVG}
+            width="full"
+          />
+        </div>
+
+        <div className="w-full md:w-[30%]">
+          <div style={{ boxShadow: ' 0px 0px 0px 1px rgba(0, 0, 0, 0.06), 0px 5px 36px 0px rgba(0, 0, 0, 0.16)' }} className="bg-white h-full w-full px-5 py-3 rounded-2xl flex justify-between flex-col ">
+            <p className="text-[#00285A] font-semibold text-base md:text-sm lg:text-base">Schedule call with Registered Immegration Consultants</p>
+            <br />
+            <button onClick={() => setOpenPaymentQr(true)} className="hover:bg-[#00285A] hover:text-white text-lg bg-transparent duration-300 border-2 border-[#00285A] text-[#00285A] py-1 max-md:text-base px-3 min-w-[160px] w-5/12 rounded-2xl justify-around flex items-center">
+              <p className='font-semibold flex items-center justify-around text-base'>
+                <strong className='text-sm md:text-base'>50.00 USD </strong>
+                &nbsp; &nbsp;
+                <span className="w-6 h-6 border-1 rounded-full flex justify-center items-center bg-[#00285A] text-white"><ChevronRightIcon /></span>
+              </p>
+            </button>
           </div>
-          <Modal
-              open={openPaymentQr}
-              onClose={()=>setOpenPaymentQr(false)}
-              aria-labelledby="modal-modal-title"
-              aria-describedby="modal-modal-description"
-            >
-              <Box sx={{
-                position: 'absolute',
-                top: '50%',
-                left: '50%',
-                transform: 'translate(-50%, -50%)',
-                width: 350,
-                bgcolor: 'background.paper',
-                borderRadius: 6,
-                boxShadow: 24,
-                p: 4,
-              }}>
-                <img src={pay4999Img} alt="payment qr"/>
-              </Box>
-            </Modal>
+        </div>
+      </div>
 
-            <div className="flex w-full  max-md:flex-col items-center justify-between mt-6">
-              <div className="w-1/2 max-md:w-full flex flex-col items-center justify-between h-full">
-                {/* <img
-                  src={loanSVG}
-                  alt="welcome svg"
-                  className="w-400 h-auto mx-auto my-10"
-                /> */}
-                <Countries />
-                {/* <p className="text-3xl text-center font-semibold text-[#00285A] mt-10 max-md:text-xl max-lg:text-2xl">
-                  "InGelt Board is a group of 15+ Registered Immigration
-                  Consultant"
-                </p> */}
-                <ul className=" list-disc mt-5 text-xl gap-y-2 flex flex-col  max-md:text-lg max-lg:text-xl list-inside">
-                  {/* <li>
-                    Largest group of Registered Immigration Consultants in India{" "}
-                  </li>
-                  <li>Over 90% visa approved rate</li>
-                  <li>1200+ applications processed </li> */}
-                  <li>95% Visa Approval Rate</li>
-                  <li>Expertise in Refusal Cases</li>
-                  <li>Dedicated Visa Filling Manager</li>
-                  <li>5000+ Students Counselled</li>
+      {/* page header end */}
 
-                </ul>
+      {/* visa first page start */}
+      {!page2 && <div className="flex max-md:flex-col gap-5">
+        <div className="flex flex-col gap-10 md:w-1/2 md:px-10">
+          <div className="w-full">
+            <Countries />
+          </div>
+          <h1 className="text-2xl text-center font-bold text-[#001E43]">InGelt Board is a group of Registered Immigration Consultants.</h1>
+          <div className="flex flex-col gap-5 md:px-5">
+            <div className="p-2 shadow-xl rounded-lg bg-white flex items-center gap-5">
+              <div className="aspect-square w-14 overflow-hidden rounded-md bg-[#D0E2E7] p-1">
+                <img src={immigrationImg} className="w-full h-full object-cover" alt="" />
               </div>
-              <div className="w-2/5 max-md:w-full">
-                <form
-                  onSubmit={onSubmit}
-                  className="flex flex-col items-center md:items-start h-full justify-center pb-10"
-                >
-                  <div className="flex flex-col max-lg:items-start w-full justify-center">
-                    <div className="inline-block relative mt-5 w-full">
-                      <label htmlFor="State">
-                        What type of visa do you want to apply for?
-                      </label>
-                      <select
-                        id="State"
-                        value={visa}
-                        required={true}
-                        onChange={(e) => {
-                          setVisa(e.target.value);
-                        }}
-                        className="block appearance-none w-full mt-2 bg-white border-none hover:border-gray-500 px-4 py-4 pr-8 rounded-xl shadow-xl leading-tight focus:outline-none focus:shadow-outline"
-                      >
-                        <option value="" selected disabled>
-                          Type of Visa
-                        </option>
-                        <option value="Study Visa">Study Visa</option>
-                        <option value="Visitor Visa">Visitor Visa</option>
-                        <option value="Tourist Visa">Tourist Visa</option>
-                        <option value="Open Work Permit">Open Work Permit</option>
-                        <option value="Permanent Residence">Permanent Residence</option>
-                      </select>
-                      <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 mt-8 text-gray-700">
-                        {/* <ArrowDropDown /> */}
-                      </div>
-                    </div>
-                    <div className="inline-block relative mt-5 w-full">
-                      <label htmlFor="State">
-                        In which country you want to apply visa for?
-                      </label>
-                      <select
-                        id="State"
-                        value={country}
-                        required={true}
-                        onChange={(e) => setCountry(e.target.value)}
-                        className="block appearance-none w-full mt-2 bg-white border-none hover:border-gray-500 px-4 py-4 pr-8 rounded-xl shadow-xl leading-tight focus:outline-none focus:shadow-outline"
-                      >
-                        <option value="" selected disabled>
-                          Select your city
-                        </option>
-                        <option value="Australia">Australia</option>
-                        <option value="Canada">Canada</option>
-                        <option value="USA">United States of America</option>
-                        <option value="UK">United Kingdom</option>
-                        <option value="Ireland">Ireland</option>
-                      </select>
-                      <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 mt-8 text-gray-700">
-                        {/* <ArrowDropDown /> */}
-                      </div>
-                    </div>
-                    <div className="inline-block relative mt-5 ml-2">
-                      <p className="mb-2">Previous Refusal</p>
-                      <input
-                        type="radio"
-                        name="radio"
-                        className="hover:cursor-pointer"
-                        value={true}
-                        onChange={(e) => setRefusal(e.target.value)}
-                      />
-                      <label className="ml-1" htmlFor="Yes">
-                        Yes
-                      </label>
-
-                      <input
-                        type="radio"
-                        name="radio"
-                        className="ml-4 hover:cursor-pointer"
-                        value={false}
-                        onChange={(e) => setRefusal(e.target.value)}
-                      />
-                      <label className="ml-1" htmlFor="No">
-                        No
-                      </label>
-                    </div>
-                    <button
-                      type="submit"
-                      disabled={!visa || !country || !refusal}
-                      className="bg-[#001E43] disabled:bg-gray-400 mt-5 w-full py-2 rounded-lg text-white font-semibold"
-                    >
-                      Continue
-                    </button>
-                  </div>
-                </form>
+              <p className="font-medium">Dedicated Visa Filling Manager</p>
+            </div>
+            <div className="p-2 shadow-xl rounded-lg bg-white flex items-center gap-5">
+              <div className="aspect-square w-14 overflow-hidden rounded-md bg-[#DEB78E] p-1">
+                <img src={visaApplicationImg} className="w-full h-full object-cover" alt="" />
               </div>
+              <p className="font-medium">99% Visa Approval Rate</p>
+            </div>
+            <div className="p-2 shadow-xl rounded-lg bg-white flex items-center gap-5">
+              <div className="aspect-square w-14 overflow-hidden rounded-md bg-[#E7EBF5] p-1">
+                <img src={visaExperienceImg} className="w-full h-full object-cover" alt="" />
+              </div>
+              <p className="font-medium">Expertise in Refusal Cases</p>
             </div>
           </div>
         </div>
-      ) : (
-        <Page2 data={visa || {}} />
-      )}
+        <div className="md:w-1/2">
+          <form
+            onSubmit={onSubmit}
+            className="flex flex-col items-center md:items-start h-full justify-center pb-10"
+          >
+            <div className="flex flex-col max-lg:items-start w-full justify-center">
+              <div className="inline-block relative mt-5 w-full">
+                <label htmlFor="State">
+                  What type of visa do you want to apply for?
+                </label>
+                <select
+                  id="State"
+                  value={visa}
+                  required={true}
+                  onChange={(e) => {
+                    setVisa(e.target.value);
+                  }}
+                  className="block appearance-none w-full mt-2 bg-white border-none hover:border-gray-500 px-4 py-4 pr-8 rounded-xl shadow-xl leading-tight focus:outline-none focus:shadow-outline"
+                >
+                  <option value="" selected disabled>
+                    Type of Visa
+                  </option>
+                  <option value="Study Visa">Study Visa</option>
+                  <option value="Visitor Visa">Visitor Visa</option>
+                  <option value="Tourist Visa">Tourist Visa</option>
+                  <option value="Open Work Permit">Open Work Permit</option>
+                  <option value="Permanent Residence">Permanent Residence</option>
+                </select>
+                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 mt-8 text-gray-700">
+                  {/* <ArrowDropDown /> */}
+                </div>
+              </div>
+              <div className="inline-block relative mt-5 w-full">
+                <label htmlFor="State">
+                  In which country you want to apply visa for?
+                </label>
+                <select
+                  id="State"
+                  value={country}
+                  required={true}
+                  onChange={(e) => setCountry(e.target.value)}
+                  className="block appearance-none w-full mt-2 bg-white border-none hover:border-gray-500 px-4 py-4 pr-8 rounded-xl shadow-xl leading-tight focus:outline-none focus:shadow-outline"
+                >
+                  <option value="" selected disabled>
+                    Select your city
+                  </option>
+                  <option value="Australia">Australia</option>
+                  <option value="Canada">Canada</option>
+                  <option value="USA">United States of America</option>
+                  <option value="UK">United Kingdom</option>
+                  <option value="Ireland">Ireland</option>
+                </select>
+                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 mt-8 text-gray-700">
+                  {/* <ArrowDropDown /> */}
+                </div>
+              </div>
+              <div className="inline-block relative mt-5 ml-2">
+                <p className="mb-2">Previous Refusal</p>
+                <input
+                  type="radio"
+                  name="radio"
+                  className="hover:cursor-pointer"
+                  value={true}
+                  onChange={(e) => setRefusal(e.target.value)}
+                />
+                <label className="ml-1" htmlFor="Yes">
+                  Yes
+                </label>
+
+                <input
+                  type="radio"
+                  name="radio"
+                  className="ml-4 hover:cursor-pointer"
+                  value={false}
+                  onChange={(e) => setRefusal(e.target.value)}
+                />
+                <label className="ml-1" htmlFor="No">
+                  No
+                </label>
+              </div>
+              <button
+                type="submit"
+                disabled={!visa || !country || !refusal}
+                className="bg-[#001E43] disabled:bg-gray-400 mt-5 w-full py-2 rounded-lg text-white font-semibold"
+              >
+                Continue
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>}
+      {/* visa first page end */}
+
+
+      {/* qr code modal */}
+
+      <Modal
+        open={openPaymentQr}
+        onClose={() => setOpenPaymentQr(false)}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: 350,
+          bgcolor: 'background.paper',
+          borderRadius: 6,
+          boxShadow: 24,
+          p: 4,
+        }}>
+          <img src={pay4999Img} alt="payment qr" />
+        </Box>
+      </Modal>
+
     </div>
   );
 };
