@@ -372,7 +372,7 @@ const Modules = () => {
       {/* {!student?.modulesUnlock && <LandingPage />} */}
 
       {/* {student?.modulesUnlock && ( */}
-      <Box className="!py-5 px-3 !sm:px-5 !w-full">
+      <Box className="!py-3 px-3 !sm:px-3 !w-full">
         <div className="flex-col flex md:flex-row gap-5">
           <div className="w-full md:w-[70%]">
             <Header
@@ -417,7 +417,8 @@ const Modules = () => {
             boxShadow: 24,
             p: 4,
           }}>
-            <img src={pay4999Img} alt="payment qr" />
+            <img src={pay4999Img} alt="payment qr" /> <br/>
+            <p className="font-medium text-sm text-center">Kindly confirm the payment status with our team and ask for the coupon code to open the IELTS Modules</p>
           </Box>
         </Modal>
 
