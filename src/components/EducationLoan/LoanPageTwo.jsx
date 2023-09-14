@@ -2,13 +2,17 @@ import React, { useState } from 'react';
 import BankingPart from './BankingPart';
 import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material';
 import { KeyboardArrowRight } from '@mui/icons-material';
+import img from '../../assets/images/education-page-two.png';
+import loanImg from '../../assets/images/loan.png';
+import interestImg from '../../assets/images/interest-rate.png';
+import clockImg from '../../assets/images/fast-time.png';
 
 
 const AccordionItem = ({ qus, ans, index, open, setActiveIndex }) => {
 
     return <Accordion sx={{ '&:before': { height: '0px' } }} className='!border-0 !shadow-none' expanded={open} onChange={() => setActiveIndex(index)}>
         <AccordionSummary>
-            <div className='flex justify-between items-center w-full'>
+            <div className='flex justify-between gap-3 items-center w-full'>
                 <h3 className={`text-[#170F49] duration-200 font-medium text-base ${open && '!text-[#0C3C82]'}`}>{qus}</h3>
                 <span className={`text-[#170F49] duration-200 ${open && '!text-[#0C3C82] rotate-90'}`}>
                     <KeyboardArrowRight fontSize='medium' color='inherit' />
@@ -78,9 +82,42 @@ const LoanPageTwo = () => {
     return (
         <div className='w-full gap-10 mt-10 flex flex-col'>
             <div className='flex max-md:flex-col gap-5'>
-                <div className='w-1/2'></div>
-                <div className='w-1/2'>
-                    <div className='w-full bg-white rounded-[1.2rem] shadow-lg py-7 px-7'>
+                <div className='md:w-1/2'>
+                    <div className='flex flex-col items-center gap-10'>
+                        <div className='mx-auto w-[200px]'>
+                            <img src={img} alt='' className='w-full h-auto' />
+                        </div>
+                        <div className='md:w-3/4 max-md:px-5'>
+                            <h1 className='text-2xl text-center font-semibold text-[#001E43]'>It looks like your chances of getting a loan are high*</h1>
+                            <p className='text-[#00000099] text-center font-normal mt-2'>Our loan expert will connect with you shortly</p>
+                        </div>
+                        <div className='grid max-sm:grid-cols-1 w-full grid-cols-3 gap-3'>
+                            <div className='flex flex-col justify-between gap-1 bg-white max-sm:py-7 p-3 rounded-2xl shadow-lg'>
+                                <img src={loanImg} alt="" className='w-auto h-auto mx-auto' />
+                                <div className='flex flex-col gap-1 items-center'>
+                                    <p className='text-normal text-sm max-sm:text-base text-center'>Loan amount upto </p>
+                                    <h2 className='text-xl max-sm:text-2xl font-bold text-center'>$ 10 Lakhs</h2>
+                                </div>
+                            </div>
+                            <div className='flex flex-col justify-between gap-1 bg-white max-sm:py-7 p-3 rounded-2xl shadow-lg'>
+                                <img src={interestImg} alt="" className='w-auto h-auto mx-auto' />
+                                <div className='flex flex-col gap-1 items-center'>
+                                    <p className='text-normal text-sm max-sm:text-base text-center'>Interest rate starting</p>
+                                    <h2 className='text-xl max-sm:text-2xl font-bold text-center'>11.5%</h2>
+                                </div>
+                            </div>
+                            <div className='flex flex-col justify-between gap-1 bg-white max-sm:py-7 p-3 rounded-2xl shadow-lg'>
+                                <img src={clockImg} alt="" className='w-auto h-auto mx-auto' />
+                                <div className='flex flex-col gap-1 items-center'>
+                                    <p className='text-normal text-sm max-sm:text-base text-center'>Minimum processing time</p>
+                                    <h2 className='text-xl max-sm:text-2xl font-bold text-center'>7</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className='md:w-1/2'>
+                    <div className='w-full bg-white rounded-[1.2rem] shadow-lg max-sm:px-2 max-sm:py-5 py-7 px-7'>
                         {data.map((item, index) => <AccordionItem
                             key={index}
                             index={index}
