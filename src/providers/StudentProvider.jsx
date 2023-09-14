@@ -55,8 +55,9 @@ const StudentProvider = ({ children }) => {
   //   }
   // }, []);
 
+  //coupon amount is used to know the exact amount that the user has been paid
   return (
-    <StudentContext.Provider value={{ student, loading, logOut, studentFetch }}>
+    <StudentContext.Provider value={{ student, loading, logOut, studentFetch, coupons: [''] }}>
       {children}
     </StudentContext.Provider>
   );

@@ -171,7 +171,7 @@ const Home = () => {
         </div>
 
         {/* shortcut buttons */}
-        <div className="md:col-span-5 lg:col-span-3 flex flex-col gap-y-3 h-full justify-between">
+        <div className="md:col-span-5 lg:col-span-3 flex flex-col gap-y-3 h-full">
           <button
             onClick={() => navigate("/ielts-preparation/modules")}
             className="mb-1 flex items-center justify-between bg-white px-3 py-4 duration-200 rounded-xl shadow-lg hover:shadow-none"
@@ -194,7 +194,7 @@ const Home = () => {
             </span>
           </button>}
 
-          {student?.organization?.modeOfClasses !== 'online' && <button
+          {/* {student?.organization?.modeOfClasses !== 'online' && <button
             onClick={() => navigate("/find-institute")}
             className="mb-1 flex items-center justify-between bg-white px-3 py-4 duration-200 rounded-xl shadow-lg hover:shadow-none"
           >
@@ -203,7 +203,7 @@ const Home = () => {
             <span className="w-6 h-6 rounded-full grid place-items-center bg-[#001E4333]">
               <ChevronRight fontSize="small" />
             </span>
-          </button>}
+          </button>} */}
 
         </div>
 
