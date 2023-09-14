@@ -11,6 +11,7 @@ import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import UnfoldMoreIcon from '@mui/icons-material/UnfoldMore';
 import TableViewIcon from '@mui/icons-material/TableView';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import StarBorderIcon from '@mui/icons-material/StarBorder';
 
 // Sidebar SVGs
 import {
@@ -94,6 +95,7 @@ const NestedMenus = ({ menus, path, icon, name }) => {
 }
 
 const SidebarMenus = () => {
+
   const { student, logOut } = useContext(StudentContext);
 
   const navItemsArr = [
@@ -216,6 +218,12 @@ const SidebarMenus = () => {
 
       <div className="w-full">
         <ul className="px-2">
+          <li className="navItem mb-1.5">
+            <a href="https://g.page/r/CUZZJ7sFom8FEBM/review" target="_blank" rel="noreferrer" className="bg-transparent text-[#7A7C88] justify-start gap-3 flex items-center font-semibold  rounded-md duration-300 px-2 py-2 hover:bg-[#0064E133] hover:text-[#1B3B7D] text-sm">
+              <StarBorderIcon className="!w-6 !h-6" />
+              <span>Rate the App</span>
+            </a>
+          </li>
           <li className="navItem mb-1.5">
             <NavItem to="/settings">
               <SettingSVG />
