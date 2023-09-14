@@ -14,22 +14,22 @@ import { Verified } from '@mui/icons-material';
 import query from "../../api/query";
 
 
-const CountryFlag = ({ country }) => {
+export const CountryFlag = ({ country, name }) => {
 
-  const [countries, setCountries]= useState([]);
+  const [countries, setCountries] = useState([]);
   useLayoutEffect(() => {
-    query.getAllCountry().then(result=>{
+    query.getAllCountry().then(result => {
       setCountries(result.data)
     })
   }, [])
-  
+
   // let countries = Country.getAllCountries();
   let countryCode = countries.find(i => i.name === country);
 
   if (countryCode) {
     return <>
       <Flag code={countryCode.isoCode} width={20} />
-      {country}
+      {name && country}
     </>
   }
 
@@ -191,7 +191,7 @@ const MessageBox = ({ data, discussionReport, setReplyDiscussion }) => {
                   {senderName}
                   {senderVerified ? <Verified className="!ml-1 !w-4 !h-4" /> : ''}
                 </span>
-                <span className="flex gap-x-2 items-center">{<CountryFlag country={senderCountry} />}</span>
+                <span className="flex gap-x-2 items-center">{<CountryFlag name={true} country={senderCountry} />}</span>
               </p>
               {ParentDiscussion && <p className="text-xs rounded-lg p-1 bg-[#fff] text-[#1b3b7d]">{ParentDiscussion?.message}</p>}
               <p className="text-sm lg:text-base text-[#1b3b7d] flex gap-x-1 items-start">
@@ -219,7 +219,7 @@ const MessageBox = ({ data, discussionReport, setReplyDiscussion }) => {
               <div className="rounded-md rounded-br-none bg-[#F2F2F2] flex-1 shadow-md py-2 px-2 flex-col flex gap-1 items-start">
                 <p className="flex text-xs font-semibold justify-between gap-x-2 text-[#1b3b7d] w-full">
                   <span>{senderName}</span>
-                  <span className="flex gap-x-2 items-center">{<CountryFlag country={senderCountry} />}</span>
+                  <span className="flex gap-x-2 items-center">{<CountryFlag name={true} country={senderCountry} />}</span>
                 </p>
                 {
                   <Gallery>

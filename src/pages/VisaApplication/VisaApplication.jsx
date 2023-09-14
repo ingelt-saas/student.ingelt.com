@@ -421,13 +421,18 @@ const VisaApplication = () => {
 
       {/* page header end */}
 
-      {/* visa first page start */}
-      {!page2 && <div className="flex max-md:flex-col gap-5">
+      <div className="flex max-md:flex-col gap-5">
         <div className="flex flex-col gap-10 md:w-1/2 md:px-10">
           <div className="w-full">
             <Countries />
           </div>
-          <h1 className="text-2xl text-center font-bold text-[#001E43]">InGelt Board is a group of Registered Immigration Consultants.</h1>
+          {/* if apply visa application */}
+          {page2 && <div>
+            <h1 className="text-2xl text-center font-bold text-[#001E43]">It looks like your chances of getting a visa approval are high*</h1>
+            <p className="text-center text-[#00000099] mt-2">Our visa expert will connect with you shortly</p>
+          </div>}
+          {!page2 && <h1 className="text-2xl text-center font-bold text-[#001E43]">InGelt Board is a group of Registered Immigration Consultants.</h1>}
+
           <div className="flex flex-col gap-5 md:px-5">
             <div className="p-2 shadow-xl rounded-lg bg-white flex items-center gap-5">
               <div className="aspect-square w-14 overflow-hidden rounded-md bg-[#D0E2E7] p-1">
@@ -539,8 +544,7 @@ const VisaApplication = () => {
             </div>
           </form>
         </div>
-      </div>}
-      {/* visa first page end */}
+      </div>
 
 
       {/* qr code modal */}
