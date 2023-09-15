@@ -1,8 +1,8 @@
 import homeApi from "../api/home";
 import { StudentContext } from "../contexts";
-// import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 
 const StudentProvider = ({ children }) => {
 
@@ -32,6 +32,7 @@ const StudentProvider = ({ children }) => {
 
   };
 
+  const couponState = useState(false);
   // useEffect(() => {
   //   // if (Cookies.get("student_auth_token")) {
   //   if (Cookies.get('student_auth_token')) {
@@ -57,7 +58,7 @@ const StudentProvider = ({ children }) => {
 
   //coupon amount is used to know the exact amount that the user has been paid
   return (
-    <StudentContext.Provider value={{ student, loading, logOut, studentFetch, coupons: [''] }}>
+    <StudentContext.Provider value={{ student, loading, logOut, studentFetch, couponState }}>
       {children}
     </StudentContext.Provider>
   );

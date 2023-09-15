@@ -7,6 +7,7 @@ import { StudentContext } from '../../contexts';
 // import lockIcon from '../../assets/NewDesign/lock-120.svg';
 import lockIcon from '../../assets/images/lock.png';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import paymentApi from '../../api/payment';
 
 
 const DateTimeDisplay = ({ value, type }) => {
@@ -106,7 +107,8 @@ const Lecture = ({ modules }) => {
     const [couponData, setCouponData] = useState('');
 
     // context
-    const { student, coupons } = useContext(StudentContext);
+    let {  couponState } = useContext(StudentContext);
+    const [isValidCoupon, setisValidCoupon] = couponState;
 
     // if modules is not array or is modules length less than 1 
     if (!Array.isArray(modules) || modules.length <= 0) {
@@ -118,16 +120,21 @@ const Lecture = ({ modules }) => {
     //check here that the user has a valid coupon or not
     function hasValidCoupon(order) {
         // send the token to server if server verified it then change the status that this 
-            // user has the token and able to view all content
-        let isValidCoupon= false
-        if(Array.isArray(coupons) && coupons.includes('299')) isValidCoupon= true;
+        // user has the token and able to view all content
         return order === 1 || isValidCoupon;
     }
 
     function handleCouponDataSubmit(e) {
-        // get a token after verifying the coupon from server set it in cookie,
-        console.log(couponData, 'coupon');
+        // get a token after verifying the coupon from server set it in cookie
+        paymentApi.verifyModuleCoupon({coupon: couponData}).then(res=>{
+            setisValidCoupon(res?.data?.validation)
+        }).catch(err=>{
+            console.log(err);
+        }).finally(()=>{
+            setCouponModal(false);
+        })
     }
+
     return (
         <>
             <div className="grid 2xl:grid-cols-4 xl:grid-cols-4 md:grid-cols-2 gap-y-5 pt-10">
