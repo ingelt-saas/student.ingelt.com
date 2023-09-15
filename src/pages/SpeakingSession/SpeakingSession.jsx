@@ -3,6 +3,7 @@ import {
   StarRate,
   Twitter,
   WatchLater,
+  Add, Remove
 } from "@mui/icons-material";
 import { Box, Button, CircularProgress, Modal, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
@@ -24,6 +25,7 @@ import UpcomingEvent from "../../components/Home/UpcomingEvent";
 import RazorPay from "../../components/RazorPay/RazorPay";
 import moment from "moment";
 import paymentApi from "../../api/payment";
+import GoogleReview from "../../components/shared/GoogleReview/GoogleReview";
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
 
@@ -197,7 +199,7 @@ const SpeakingSession = () => {
 
         <div className="w-full sm:w-[30%]">
           <div className="rounded-2xl bg-white shadow-2xl px-5 py-5">
-            <h3 className="text-xl font-semibold text-[#0C3C82]">
+            <h3 className="text-xl font-semibold text-[#0C3C82] mb-3">
               Here is the schedule of speaking practice session booked by you
             </h3>
             <br />
@@ -216,21 +218,21 @@ const SpeakingSession = () => {
 
       <div className="flex max-md:flex-col gap-5 gap-x-5 mt-10">
         <div className="md:w-4/12 xl:w-5/12">
-          <div className="bg-white rounded-xl px-5 py-5 shadow-xl flex flex-col gap-y-3">
-            <UpcomingEvent />
-            <div className="mt-4">
-              <ul>
-                <li className="font-semibold">How this one to one session is helpful</li>
-                <li>- Identify the learner's strengths and weaknesses</li>
-                <li>- Instant feedback on errors</li>
-                <li>- Teach new vocabulary and grammar</li>
-                <li>- Build speaking confidence</li>
-                <li>- Learn british accent</li>
-                <li>- Right usage of Idioms and Phrases</li>
-                <li>- Techniques to speak fluently</li>
-                <li>- Pronunciation Drill</li>
-                <li>- International Phonetic Alphabet</li>
-                <li>- Advance Speaking Techniques</li>
+          <div className="bg-white rounded-xl px-5 py-5 shadow-xl flex flex-col gap-y-3 min-h-full">
+            {/* <UpcomingEvent /> */}
+            <div className="">
+              <h3 className="text-2xl text-[#0C3C82] font-medium">How this one-to-one session is helpful</h3>
+              <ul className="mt-3 pl-4 list-disc">
+                <li>Identify the learner's strengths and weaknesses</li>
+                <li>Instant feedback on errors</li>
+                <li>Teach new vocabulary and grammar</li>
+                <li>Build speaking confidence</li>
+                <li>Learn british accent</li>
+                <li>Right usage of Idioms and Phrases</li>
+                <li>Techniques to speak fluently</li>
+                <li>Pronunciation Drill</li>
+                <li>International Phonetic Alphabet</li>
+                <li>Advance Speaking Techniques</li>
               </ul>
             </div>
           </div>
@@ -342,25 +344,42 @@ const SpeakingSession = () => {
                                 </div> */}
               </div>
             </div>
-            <Button
-              variant='contained'
-              className={'!rounded-xl !font-semibold !py-3 !px-10 text-white !capitalize !mt-5 !flex !justify-between !w-full'}
-              sx={{
-                backgroundColor: '#0C3C82',
-                '&:hover': {
-                  backgroundColor: '#0C3C82'
-                }
-              }}
-              onClick={() => setOpenPaymentQr(true)}
-            >
-              <span>Book Session</span>
-              <span>
-                ₹ 499 /-
+            <div className="flex max-sm:flex-col gap-5 mt-10">
+              <Button
+                variant='contained'
+                className={'!rounded-xl !font-semibold !py-3 !px-5 text-white !capitalize !flex !justify-center !items-center !w-fit !gap-4'}
+                sx={{
+                  backgroundColor: '#0C3C82',
+                  '&:hover': {
+                    backgroundColor: '#0C3C82'
+                  }
+                }}
+                onClick={() => setOpenPaymentQr(true)}
+              >
+                <span className="w-6 h-6 rounded-full text-white border border-white grid place-items-center"><Remove fontSize="small" /></span>
+                <span>Book for 1 hour</span>
+                <span className="w-6 h-6 rounded-full text-white border border-white grid place-items-center"><Add fontSize="small" /></span>
+              </Button>
+              <Button
+                variant='contained'
+                className={'!rounded-xl !font-semibold !py-3 !px-10 text-white !capitalize !flex !justify-between !flex-1'}
+                sx={{
+                  backgroundColor: '#0C3C82',
+                  '&:hover': {
+                    backgroundColor: '#0C3C82'
+                  }
+                }}
+                onClick={() => setOpenPaymentQr(true)}
+              >
+                <span>Book Session</span>
+                <span>
+                  ₹ 499 /-
 
-                <del className="ml-3">₹ 1299 /-</del>
-              </span>
+                  <del className="ml-3">₹ 1299 /-</del>
+                </span>
 
-            </Button>
+              </Button>
+            </div>
 
             <Modal
               open={openPaymentQr}
@@ -397,6 +416,9 @@ const SpeakingSession = () => {
         </div>
       </div>
 
+      <div className="mt-10">
+        <GoogleReview />
+      </div>
 
     </div>
   );
