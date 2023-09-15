@@ -400,7 +400,8 @@ const SpeakingSession = () => {
                 boxShadow: 24,
                 p: 4,
               }}>
-                <img src={pay4999Img} alt="payment qr" />
+                <img src={pay4999Img} alt="payment qr" /> <br/>
+                <p className="font-medium text-sm text-center">Kindly confirm the payment status with our team and ask for the coupon code to open the IELTS Modules</p>
               </Box>
             </Modal>
             {/* <RazorPay

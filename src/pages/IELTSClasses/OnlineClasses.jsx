@@ -160,7 +160,7 @@ const OnlineClasses = () => {
 
                     </div>
                 </div>
-                <div className='mt-10 flex max-md:flex-col-reverse max-md:gap-5 px-5'>
+                <div className='mt-10 flex max-md:flex-col-reverse max-md:gap-5 '>
                     <div className='md:w-9/12'>
                         <p className='font-medium'>Your Course</p>
                         <div className='md:border-r border-[#D9D9D9] md:pr-3'>
@@ -230,7 +230,7 @@ const OnlineClasses = () => {
                             <del className='ml-3 text-black text-lg'>₹ 14999 /-</del>
 
                         </p>
-                        <p>Start your IELTS preparation</p>
+                        <p>Crack IELTS with 7+ Bands</p>
                     </div>
                     <Button
                         variant='contained'
@@ -261,7 +261,8 @@ const OnlineClasses = () => {
                             boxShadow: 24,
                             p: 4,
                         }}>
-                            <img src={pay4999Img} alt="payment qr" />
+                            <img src={pay4999Img} alt="payment qr" /> <br/>
+                            <p className="font-medium text-sm text-center">Kindly confirm the payment status with our team and ask for the coupon code to open the IELTS Modules</p>
                         </Box>
                     </Modal>
                     {/* <RazorPay

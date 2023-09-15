@@ -1,9 +1,12 @@
-import { Alert } from '@mui/material';
+import { Alert, Modal, Box, FormControl, InputLabel, OutlinedInput } from '@mui/material';
 import React, { useContext, useEffect, useState } from 'react';
 import getFile from '../../api/getFile';
 import { secondsToHoursMinutes, viewsShorten } from '../../utilities';
 import ModuleVideo from './ModuleVideo';
 import { StudentContext } from '../../contexts';
+import lockIcon from '../../assets/NewDesign/lock-120.svg';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+
 
 const DateTimeDisplay = ({ value, type }) => {
     return (
@@ -65,16 +68,31 @@ const ModuleOverly = ({ releaseDate }) => {
     );
 };
 
-const ModuleThumbnail = ({ src }) => {
+const ModuleThumbnail = ({ src, isUnlock }) => {
 
     const [url, setUrl] = useState(null);
 
     useEffect(() => {
         getFile(src).then(res => setUrl(res.data));
     }, [src]);
-
+    if(isUnlock) {
+        return <div className=''>
+            <img src={url} alt="Module Thumbnail" className="w-full aspect-video h-auto object-cover" />
+        </div>
+    }
     return <>
-        <img src={url} alt="Module Thumbnail" className="w-full aspect-video h-auto object-cover" />
+        {
+            url && <div class={`w-full aspect-video h-full !object-contain`} style={{
+                    backgroundImage: `url(${url})`, 
+                    backgroundSize:     'cover',
+                    backgroundRepeat:   'no-repeat',
+                    backgroundPosition: 'center center',
+                }}>
+                <div class="h-full w-full backdrop-brightness-100 backdrop-blur-md">
+                    <img src={lockIcon} alt="module lock" className='' />
+                </div>
+            </div>
+        }
     </>
 }
 
@@ -83,9 +101,11 @@ const Lecture = ({ modules }) => {
 
     // states
     const [videoOn, setVideoOn] = useState(null);
+    const [couponModal, setCouponModal] = useState(false);
+    const [couponData, setCouponData] = useState('');
 
     // context
-    const { student } = useContext(StudentContext);
+    const { student, coupons } = useContext(StudentContext);
 
     // if modules is not array or is modules length less than 1 
     if (!Array.isArray(modules) || modules.length <= 0) {
@@ -94,12 +114,31 @@ const Lecture = ({ modules }) => {
         </div>
     }
 
+    //check here that the user has a valid coupon or not
+    function hasValidCoupon(order) {
+        // send the token to server if server verified it then change the status that this 
+            // user has the token and able to view all content
+        let isValidCoupon= false
+        if(Array.isArray(coupons) && coupons.includes('299')) isValidCoupon= true;
+        return order === 1 || isValidCoupon;
+    }
+
+    function handleCouponDataSubmit(e) {
+        // get a token after verifying the coupon from server set it in cookie,
+        console.log(couponData, 'coupon');
+    }
     return (
         <>
             <div className="grid 2xl:grid-cols-4 xl:grid-cols-4 md:grid-cols-2 gap-y-5 pt-10">
                 {modules.map((item, index) => (
                     <div
-                        onClick={() => item?.file && setVideoOn(item)}
+                        onClick={() => {
+                            if( hasValidCoupon(item?.order) ) {
+                                return item?.file && setVideoOn(item)
+                            } else {
+                                setCouponModal(true);
+                            }
+                        }}
                         className="p-3 relative bg-white rounded-xl h-full shadow-[0px_10px_36px_rgba(0,0,0,0.16),0px_0px_0px_1px_rgba(0,0,0,0.06)] scale-95 hover:scale-100 duration-200 transition-transform cursor-pointer"
                         key={index}
                     >
@@ -110,7 +149,7 @@ const Lecture = ({ modules }) => {
 
                         {/* module thumbnail */}
                         <div className="rounded-2xl overflow-hidden">
-                            <ModuleThumbnail src={item.thumbnail} />
+                            <ModuleThumbnail src={item.thumbnail} isUnlock={(item?.order === 1 || hasValidCoupon())} />
                         </div>
 
                         {/* module content; name, description views */}
@@ -196,6 +235,53 @@ const Lecture = ({ modules }) => {
                 data={videoOn}
             />
 
+            <Modal
+                open={couponModal}
+                onClose={()=>{
+                    setCouponModal(false);
+                    setCouponData('');
+                }}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+            <Box sx={{
+                position: 'absolute',
+                top: '50%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
+                width: 350,
+                // height: 350,
+                bgcolor: 'background.paper',
+                borderRadius: 6,
+                boxShadow: 24,
+                p: 4
+            }}>
+                <div className='font-medium md:text-base lg:text-lg'>
+                    Kindly initiate the payment to get the coupon code…
+                </div>
+                <div className='mt-6'>
+                    <FormControl size='small' variant="outlined">
+                        <InputLabel className='!text-sm' htmlFor="outlined-adornment-coupon">Coupon</InputLabel>
+                        <OutlinedInput
+                            id="outlined-adornment-coupon"
+                            label="Coupon"
+                            className='!text-sm'
+                            onChange={(e)=>setCouponData(e.target.value)}
+                            value={couponData}
+                        />
+                    </FormControl>
+                </div>
+                
+                <button onClick={handleCouponDataSubmit} className="mt-4 hover:bg-[#00285A] hover:text-white text-lg bg-transparent duration-300 border-2 border-[#00285A] text-[#00285A] py-1 max-md:text-base px-5 min-w-fit rounded-2xl justify-around flex items-center">
+                    <p className='text-lg font-semibold flex items-center justify-around'>
+                    <strong className='text-sm md:text-base'>Submit </strong>
+                    &nbsp; &nbsp;
+                    <span className="w-6 h-6 border-1 rounded-full flex justify-center items-center bg-[#00285A] text-white"><ChevronRightIcon /></span>
+                    </p>
+                </button>
+                
+            </Box>
+            </Modal>
         </>
     );
 }
