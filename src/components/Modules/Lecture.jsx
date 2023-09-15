@@ -4,8 +4,12 @@ import getFile from '../../api/getFile';
 import { secondsToHoursMinutes, viewsShorten } from '../../utilities';
 import ModuleVideo from './ModuleVideo';
 import { StudentContext } from '../../contexts';
-import lockIcon from '../../assets/NewDesign/lock-120.svg';
+// import lockIcon from '../../assets/NewDesign/lock-120.svg';
+import lockIcon from '../../assets/images/lock.png';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import paymentApi from '../../api/payment';
+import Cookies from "js-cookie";
+
 
 
 const DateTimeDisplay = ({ value, type }) => {
@@ -88,8 +92,8 @@ const ModuleThumbnail = ({ src, isUnlock }) => {
                     backgroundRepeat:   'no-repeat',
                     backgroundPosition: 'center center',
                 }}>
-                <div class="h-full w-full backdrop-brightness-100 backdrop-blur-md">
-                    <img src={lockIcon} alt="module lock" className='' />
+                <div class="h-full w-full backdrop-brightness-100 backdrop-blur-md flex justify-center items-center">
+                    <img src={lockIcon} alt="module lock" className='w-32' />
                 </div>
             </div>
         }
@@ -105,7 +109,8 @@ const Lecture = ({ modules }) => {
     const [couponData, setCouponData] = useState('');
 
     // context
-    const { student, coupons } = useContext(StudentContext);
+    let {  couponState } = useContext(StudentContext);
+    const [isValidCoupon, setisValidCoupon] = couponState;
 
     // if modules is not array or is modules length less than 1 
     if (!Array.isArray(modules) || modules.length <= 0) {
@@ -117,16 +122,23 @@ const Lecture = ({ modules }) => {
     //check here that the user has a valid coupon or not
     function hasValidCoupon(order) {
         // send the token to server if server verified it then change the status that this 
-            // user has the token and able to view all content
-        let isValidCoupon= false
-        if(Array.isArray(coupons) && coupons.includes('299')) isValidCoupon= true;
+        // user has the token and able to view all content
         return order === 1 || isValidCoupon;
     }
 
     function handleCouponDataSubmit(e) {
-        // get a token after verifying the coupon from server set it in cookie,
-        console.log(couponData, 'coupon');
+        e.preventDefault();
+        // get a token after verifying the coupon from server set it in cookie
+        Cookies.set('couponCode', couponData, {expires: 730})
+        paymentApi.verifyModuleCoupon({coupon: couponData}).then(res=>{
+            setisValidCoupon(res?.data?.validation)
+        }).catch(err=>{
+            console.log(err);
+        }).finally(()=>{
+            setCouponModal(false);
+        })
     }
+
     return (
         <>
             <div className="grid 2xl:grid-cols-4 xl:grid-cols-4 md:grid-cols-2 gap-y-5 pt-10">
@@ -256,29 +268,32 @@ const Lecture = ({ modules }) => {
                 boxShadow: 24,
                 p: 4
             }}>
-                <div className='font-medium md:text-base lg:text-lg'>
-                    Kindly initiate the payment to get the coupon code…
-                </div>
-                <div className='mt-6'>
-                    <FormControl size='small' variant="outlined">
-                        <InputLabel className='!text-sm' htmlFor="outlined-adornment-coupon">Coupon</InputLabel>
-                        <OutlinedInput
-                            id="outlined-adornment-coupon"
-                            label="Coupon"
-                            className='!text-sm'
-                            onChange={(e)=>setCouponData(e.target.value)}
-                            value={couponData}
-                        />
-                    </FormControl>
-                </div>
-                
-                <button onClick={handleCouponDataSubmit} className="mt-4 hover:bg-[#00285A] hover:text-white text-lg bg-transparent duration-300 border-2 border-[#00285A] text-[#00285A] py-1 max-md:text-base px-5 min-w-fit rounded-2xl justify-around flex items-center">
-                    <p className='text-lg font-semibold flex items-center justify-around'>
-                    <strong className='text-sm md:text-base'>Submit </strong>
-                    &nbsp; &nbsp;
-                    <span className="w-6 h-6 border-1 rounded-full flex justify-center items-center bg-[#00285A] text-white"><ChevronRightIcon /></span>
-                    </p>
-                </button>
+                <form onSubmit={handleCouponDataSubmit}>
+
+                    <div className='font-medium md:text-base lg:text-lg'>
+                        Kindly initiate the payment to get the coupon code…
+                    </div>
+                    <div className='mt-6'>
+                        <FormControl size='small' variant="outlined">
+                            <InputLabel className='!text-sm' htmlFor="outlined-adornment-coupon">Coupon</InputLabel>
+                            <OutlinedInput
+                                id="outlined-adornment-coupon"
+                                label="Coupon"
+                                className='!text-sm'
+                                onChange={(e)=>setCouponData(e.target.value)}
+                                value={couponData}
+                            />
+                        </FormControl>
+                    </div>
+                    
+                    <button type='submit' className="mt-4 hover:bg-[#00285A] hover:text-white text-lg bg-transparent duration-300 border-2 border-[#00285A] text-[#00285A] py-1 max-md:text-base px-5 min-w-fit rounded-2xl justify-around flex items-center">
+                        <p className='text-lg font-semibold flex items-center justify-around'>
+                        <strong className='text-sm md:text-base'>Submit </strong>
+                        &nbsp; &nbsp;
+                        <span className="w-6 h-6 border-1 rounded-full flex justify-center items-center bg-[#00285A] text-white"><ChevronRightIcon /></span>
+                        </p>
+                    </button>
+                </form>
                 
             </Box>
             </Modal>

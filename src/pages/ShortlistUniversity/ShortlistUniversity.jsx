@@ -225,34 +225,12 @@ const ShortlistUniversity = () => {
         <div className="w-full h-20 foo:block ">
           <div className="flex gap-x-5 max-md:flex-col max-md:gap-y-5">
              */}
-      {student?.universityUnlock && <Box className="py-5 px-3 sm:px-5">
-        <div className="flex-col flex md:flex-row gap-5">
+      {student?.universityUnlock && <Box className="sm:px-10 sm:py-6 p-2"> 
+      {/* py-5 px-3 sm:px-5 */}
+        {/* <div className="flex-col flex md:flex-row gap-5">
           <div className="w-full md:w-[70%]">
             <Header title="University Shortlisting" subTitle="Choose in demand universities of your choice" Img={welcomeSVG} width="full" />
           </div>
-          {/* <div className="w-full sm:w-[30%] my-3 sm:mx-3 sm:my-0">
-              <div style={{ boxShadow: ' 0px 0px 0px 1px rgba(0, 0, 0, 0.06), 0px 5px 36px 0px rgba(0, 0, 0, 0.16)' }} className="bg-white h-full w-full p-5 rounded-2xl flex justify-between flex-col gap-y-4 items-center">
-                <p className="text-[#00285A] text-lg text-center">Need more help in finding your course?</p>
-                <button onClick={sendQuery} className="hover:bg-[#00285A] text-lg bg-transparent duration-300 border-2 border-[#00285A] text-[#00285A] hover:text-white py-1 max-md:text-base px-3 w-full rounded-2xl justify-around flex items-center">
-                  Talk to expert
-                </button>
-                <div className="flex justify-around gap-x-5 w-full max-md:mt-3">
-                </div>
-              </div>
-            </div> */}
-          {/* <div className="w-full sm:w-[30%] max-h-36 my-3 sm:mx-3 sm:my-0">
-              <div style={{ boxShadow: ' 0px 0px 0px 1px rgba(0, 0, 0, 0.06), 0px 5px 36px 0px rgba(0, 0, 0, 0.16)' }} className="bg-white h-full w-full px-5 py-3 rounded-2xl flex justify-between flex-col ">
-                <p className="text-[#00285A] text-lg font-medium">Need more help in finding your course?</p>
-                <br />
-                <button onClick={sendQuery} className="hover:bg-[#00285A] hover:text-white text-lg bg-transparent duration-300 border-2 border-[#00285A] text-[#00285A] py-1 max-md:text-base px-3 min-w-[170px] w-5/12 sm:w-6/12 md:w-8/12 rounded-2xl justify-around flex items-center">
-                  <p className='font-semibold flex items-center justify-around text-base'>
-                    <strong className='text-sm md:text-base'> Talk to expert </strong> 
-                    &nbsp; &nbsp;
-                    <span className="w-6 h-6 border-1 rounded-full flex justify-center items-center bg-[#00285A] text-white"><ChevronRightIcon/></span>
-                  </p>
-                </button>
-              </div>
-            </div> */}
 
           <div className="w-full md:w-[30%] ">
             <div style={{ boxShadow: ' 0px 0px 0px 1px rgba(0, 0, 0, 0.06), 0px 5px 36px 0px rgba(0, 0, 0, 0.16)' }} className="bg-white h-full w-full p-5 rounded-2xl flex justify-between flex-col gap-y-4">
@@ -263,8 +241,40 @@ const ShortlistUniversity = () => {
                   &nbsp; &nbsp;
                   <span className="w-6 h-6 border-1 rounded-full flex justify-center items-center bg-[#00285A] text-white"><ChevronRightIcon /></span>
                 </p>
-                {/* Buy Now */}
-                {/* <RightArrowSVG className={'h-5 w-5'} /> */}
+              </button>
+            </div>
+          </div>
+        </div> */}
+
+        <div className="flex-col flex sm:flex-row gap-5">
+          <div className="w-full sm:w-[70%] rounded-[1.2rem] flex justify-between relative items-center bg-white shadow-xl">
+            <div className="px-7 flex flex-col gap-y-1 max-md:py-7 max-sm:px-5 max-md:items-center max-md:w-full">
+
+              <h1 className="text-2xl font-bold text-[#0C3C82]">University Shortlisting</h1>
+              <p className="font-normal text-black opacity-75">Choose in demand universities of your choice</p>
+            </div>
+            <div className="overflow-hidden pr-3 max-w-[30%] max-md:hidden">
+              <img
+                draggable={false}
+                src={welcomeSVG}
+                alt="library"
+                className={`max-h-28 max-w-fit mix-blend-darken`}
+              />
+            </div>
+          </div>
+
+          <div className="w-full sm:w-[30%]">
+            <div className="rounded-2xl bg-white shadow-2xl px-5 py-5">
+              <h3 className="text-xl font-semibold text-[#0C3C82]">
+                Need more help in finding your course?
+              </h3>
+              <br />
+              <button onClick={sendQuery} className="hover:bg-[#00285A] hover:text-white text-lg bg-transparent duration-300 border-2 border-[#00285A] text-[#00285A] py-1 max-md:text-base px-3 md:min-w-[180px] min-w-[150px] md:w-7/12 rounded-2xl justify-around flex items-center">
+                <p className='text-lg font-semibold flex items-center justify-around'>
+                  <strong className='text-sm md:text-base'> Talk to expert  </strong>
+                  &nbsp; &nbsp;
+                  <span className="w-6 h-6 border-1 rounded-full flex justify-center items-center bg-[#00285A] text-white"><ChevronRightIcon /></span>
+                </p>
               </button>
             </div>
           </div>

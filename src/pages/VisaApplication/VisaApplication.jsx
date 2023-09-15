@@ -395,7 +395,7 @@ const VisaApplication = () => {
     <div className="flex flex-col gap-10">
 
       {/* page header start */}
-      <div className="flex-col flex sm:flex-row gap-5">
+      {/* <div className="flex-col flex sm:flex-row gap-5">
         <div className="w-full md:w-[70%]">
           <Header
             title="Visa Application"
@@ -405,13 +405,47 @@ const VisaApplication = () => {
           />
         </div>
 
-        <div className="w-full md:w-[30%]">
-          <div style={{ boxShadow: ' 0px 0px 0px 1px rgba(0, 0, 0, 0.06), 0px 5px 36px 0px rgba(0, 0, 0, 0.16)' }} className="bg-white h-full w-full px-5 py-3 rounded-2xl flex justify-between flex-col ">
-            <p className="text-[#00285A] font-semibold text-base md:text-sm lg:text-base">Schedule call with Registered Immegration Consultants</p>
+            <div className="w-full sm:w-[30%] max-h-36 my-3 sm:mx-3 sm:my-0">
+              <div style={{ boxShadow: ' 0px 0px 0px 1px rgba(0, 0, 0, 0.06), 0px 5px 36px 0px rgba(0, 0, 0, 0.16)' }} className="bg-white h-full w-full px-5 py-3 rounded-2xl flex justify-between flex-col ">
+                <p className="text-[#00285A] font-semibold text-base md:text-sm lg:text-base">Schedule call with Registered Immegration Consultants</p>
+                <br />
+                <button onClick={()=>setOpenPaymentQr(true)} className="hover:bg-[#00285A] hover:text-white text-lg bg-transparent duration-300 border-2 border-[#00285A] text-[#00285A] py-1 max-md:text-base px-3 min-w-[160px] w-5/12 rounded-2xl justify-around flex items-center">
+                  <p className='font-semibold flex items-center justify-around text-base'>
+                    <strong className='text-sm md:text-base'>50.00 USD </strong> 
+                    &nbsp; &nbsp;
+                    <span className="w-6 h-6 border-1 rounded-full flex justify-center items-center bg-[#00285A] text-white"><ChevronRightIcon/></span>
+                  </p>
+                </button>
+              </div>
+            </div>
+          </div> */}
+
+      <div className="flex-col flex sm:flex-row gap-5">
+        <div className="w-full sm:w-[70%] rounded-[1.2rem] flex justify-between relative items-center bg-white shadow-xl">
+          <div className="px-7 flex flex-col gap-y-1 max-md:py-7 max-sm:px-5 max-md:items-center max-md:w-full">
+
+            <h1 className="text-2xl font-bold text-[#0C3C82]">Visa Application</h1>
+            <p className="font-normal text-black opacity-75">Hassel free visa processing and approval</p>
+          </div>
+          <div className="overflow-hidden pr-3 max-w-[30%] max-md:hidden">
+            <img
+              draggable={false}
+              src={welcomeSVG}
+              alt="library"
+              className={`max-h-28 max-w-fit mix-blend-darken`}
+            />
+          </div>
+        </div>
+
+        <div className="w-full sm:w-[30%]">
+          <div className="rounded-2xl bg-white shadow-2xl px-5 py-5">
+            <h3 className="text-xl font-semibold text-[#0C3C82]">
+              Schedule call with Registered Immegration Consultants
+            </h3>
             <br />
-            <button onClick={() => setOpenPaymentQr(true)} className="hover:bg-[#00285A] hover:text-white text-lg bg-transparent duration-300 border-2 border-[#00285A] text-[#00285A] py-1 max-md:text-base px-3 min-w-[160px] w-5/12 rounded-2xl justify-around flex items-center">
-              <p className='font-semibold flex items-center justify-around text-base'>
-                <strong className='text-sm md:text-base'>50.00 USD </strong>
+            <button onClick={() => setOpenPaymentQr(true)} className="hover:bg-[#00285A] hover:text-white text-lg bg-transparent duration-300 border-2 border-[#00285A] text-[#00285A] py-1 max-md:text-base px-3 md:min-w-[180px] min-w-[150px] md:w-7/12 rounded-2xl justify-around flex items-center">
+              <p className='text-lg font-semibold flex items-center justify-around'>
+                <strong className='text-sm md:text-base'> 50.00 USD </strong>
                 &nbsp; &nbsp;
                 <span className="w-6 h-6 border-1 rounded-full flex justify-center items-center bg-[#00285A] text-white"><ChevronRightIcon /></span>
               </p>
@@ -420,6 +454,27 @@ const VisaApplication = () => {
         </div>
       </div>
 
+      <Modal
+        open={openPaymentQr}
+        onClose={() => setOpenPaymentQr(false)}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: 350,
+          bgcolor: 'background.paper',
+          borderRadius: 6,
+          boxShadow: 24,
+          p: 4,
+        }}>
+          <img src={pay4999Img} alt="payment qr" /> <br />
+          <p className="font-medium text-sm text-center">Kindly confirm the payment status with our team and ask for the coupon code to open the IELTS Modules</p>
+        </Box>
+      </Modal>
       {/* page header end */}
 
       <div className="flex max-md:flex-col gap-5">
