@@ -8,6 +8,8 @@ import { StudentContext } from '../../contexts';
 import lockIcon from '../../assets/images/lock.png';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import paymentApi from '../../api/payment';
+import Cookies from "js-cookie";
+
 
 
 const DateTimeDisplay = ({ value, type }) => {
@@ -125,7 +127,9 @@ const Lecture = ({ modules }) => {
     }
 
     function handleCouponDataSubmit(e) {
+        e.preventDefault();
         // get a token after verifying the coupon from server set it in cookie
+        Cookies.set('couponCode', couponData, {expires: 730})
         paymentApi.verifyModuleCoupon({coupon: couponData}).then(res=>{
             setisValidCoupon(res?.data?.validation)
         }).catch(err=>{
@@ -264,29 +268,32 @@ const Lecture = ({ modules }) => {
                 boxShadow: 24,
                 p: 4
             }}>
-                <div className='font-medium md:text-base lg:text-lg'>
-                    Kindly initiate the payment to get the coupon code…
-                </div>
-                <div className='mt-6'>
-                    <FormControl size='small' variant="outlined">
-                        <InputLabel className='!text-sm' htmlFor="outlined-adornment-coupon">Coupon</InputLabel>
-                        <OutlinedInput
-                            id="outlined-adornment-coupon"
-                            label="Coupon"
-                            className='!text-sm'
-                            onChange={(e)=>setCouponData(e.target.value)}
-                            value={couponData}
-                        />
-                    </FormControl>
-                </div>
-                
-                <button onClick={handleCouponDataSubmit} className="mt-4 hover:bg-[#00285A] hover:text-white text-lg bg-transparent duration-300 border-2 border-[#00285A] text-[#00285A] py-1 max-md:text-base px-5 min-w-fit rounded-2xl justify-around flex items-center">
-                    <p className='text-lg font-semibold flex items-center justify-around'>
-                    <strong className='text-sm md:text-base'>Submit </strong>
-                    &nbsp; &nbsp;
-                    <span className="w-6 h-6 border-1 rounded-full flex justify-center items-center bg-[#00285A] text-white"><ChevronRightIcon /></span>
-                    </p>
-                </button>
+                <form onSubmit={handleCouponDataSubmit}>
+
+                    <div className='font-medium md:text-base lg:text-lg'>
+                        Kindly initiate the payment to get the coupon code…
+                    </div>
+                    <div className='mt-6'>
+                        <FormControl size='small' variant="outlined">
+                            <InputLabel className='!text-sm' htmlFor="outlined-adornment-coupon">Coupon</InputLabel>
+                            <OutlinedInput
+                                id="outlined-adornment-coupon"
+                                label="Coupon"
+                                className='!text-sm'
+                                onChange={(e)=>setCouponData(e.target.value)}
+                                value={couponData}
+                            />
+                        </FormControl>
+                    </div>
+                    
+                    <button type='submit' className="mt-4 hover:bg-[#00285A] hover:text-white text-lg bg-transparent duration-300 border-2 border-[#00285A] text-[#00285A] py-1 max-md:text-base px-5 min-w-fit rounded-2xl justify-around flex items-center">
+                        <p className='text-lg font-semibold flex items-center justify-around'>
+                        <strong className='text-sm md:text-base'>Submit </strong>
+                        &nbsp; &nbsp;
+                        <span className="w-6 h-6 border-1 rounded-full flex justify-center items-center bg-[#00285A] text-white"><ChevronRightIcon /></span>
+                        </p>
+                    </button>
+                </form>
                 
             </Box>
             </Modal>

@@ -2,7 +2,8 @@ import homeApi from "../api/home";
 import { StudentContext } from "../contexts";
 import Cookies from "js-cookie";
 import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import paymentApi from "../api/payment";
 
 const StudentProvider = ({ children }) => {
 
@@ -25,7 +26,7 @@ const StudentProvider = ({ children }) => {
     } else {
       Cookies.remove("student_auth_token", { path: '/', domain: 'ingelt.com' });
     }
-
+    Cookies.remove("couponCode");
     studentFetch();
     // Cookies.remove("student_auth_token", { path: '/', domain: 'board.ingelt.com' });
     window.location.pathname = "/";
@@ -33,6 +34,17 @@ const StudentProvider = ({ children }) => {
   };
 
   const couponState = useState(false);
+  useEffect(()=>{
+    let coupon= Cookies.get('couponCode')
+    if(coupon) {
+      paymentApi.verifyModuleCoupon({coupon}).then(res=>{
+        couponState[1](true);
+      }).catch(err=>{
+        console.log(err);
+        Cookies.remove("couponCode");
+      })
+    }
+  }, []);
   // useEffect(() => {
   //   // if (Cookies.get("student_auth_token")) {
   //   if (Cookies.get('student_auth_token')) {
