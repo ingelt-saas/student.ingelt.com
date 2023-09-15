@@ -33,6 +33,8 @@ import logo from "../../../assets/images/navlogo.png";
 import { useContext } from "react";
 import { StudentContext } from "../../../contexts.js";
 import ProfileImage from "../ProfileImage/ProfileImage.jsx";
+import { VscFeedback } from 'react-icons/vsc';
+import { AiFillGift } from 'react-icons/ai';
 
 // Navbar Item Components
 const NavItem = ({ to, children, collapseMenu, ...props }) => {
@@ -220,9 +222,15 @@ const SidebarMenus = () => {
         <ul className="px-2">
           <li className="navItem mb-1.5">
             <a href="https://g.page/r/CUZZJ7sFom8FEBM/review" target="_blank" rel="noreferrer" className="bg-transparent text-[#7A7C88] justify-start gap-3 flex items-center font-semibold  rounded-md duration-300 px-2 py-2 hover:bg-[#0064E133] hover:text-[#1B3B7D] text-sm">
-              <StarBorderIcon className="!w-6 !h-6" />
-              <span>Rate the App</span>
+              <VscFeedback className="!w-6 !h-6" />
+              <span>Feedback</span>
             </a>
+          </li>
+          <li className="navItem mb-1.5">
+            <NavItem to="/referral">
+              <AiFillGift className="!w-6 !h-6" />
+              <span>Referral</span>
+            </NavItem>
           </li>
           <li className="navItem mb-1.5">
             <NavItem to="/settings">

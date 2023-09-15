@@ -40,6 +40,7 @@ import SpeakingSession from "../pages/SpeakingSession/SpeakingSession";
 import CheckSessions from "../pages/SpeakingSession/CheckSessions";
 import Contact from "../pages/Contact/Contact";
 import Accommodation from "../pages/Accommodation/Accommodation";
+import Referral from "../pages/Referral/Referral";
 
 const PaymentRoute = ({ children }) => {
 
@@ -176,6 +177,10 @@ const Routes = () => {
           {
             path: "/settings",
             element: <Settings />,
+          },
+          {
+            path: "/referral",
+            element: <Referral />,
           },
           {
             path: "*",
