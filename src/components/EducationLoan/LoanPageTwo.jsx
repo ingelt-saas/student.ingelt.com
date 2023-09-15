@@ -8,7 +8,7 @@ import interestImg from '../../assets/images/interest-rate.png';
 import clockImg from '../../assets/images/fast-time.png';
 
 
-const AccordionItem = ({ qus, ans, index, open, setActiveIndex }) => {
+export const AccordionItem = ({ qus, ans, index, open, setActiveIndex }) => {
 
     return <Accordion sx={{ '&:before': { height: '0px' } }} className='!border-0 !shadow-none' expanded={open} onChange={() => setActiveIndex(index)}>
         <AccordionSummary>

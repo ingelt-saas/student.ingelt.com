@@ -25,6 +25,7 @@ import {
 
 import { FormControl, MenuItem, OutlinedInput, Select, Modal } from "@mui/material";
 import Header from "../../components/shared/Header/Header";
+import VisaFAQ from "../../components/VisaApplication/VisaFAQ";
 
 const SelectMenu = ({ options, placeholder, value, handleChange, name }) => {
 
@@ -455,7 +456,8 @@ const VisaApplication = () => {
           </div>
         </div>
         <div className="md:w-1/2">
-          <form
+          {page2 && <VisaFAQ />}
+          {!page2 && <form
             onSubmit={onSubmit}
             className="flex flex-col items-center md:items-start h-full justify-center pb-10"
           >
@@ -542,7 +544,7 @@ const VisaApplication = () => {
                 Continue
               </button>
             </div>
-          </form>
+          </form>}
         </div>
       </div>
 
