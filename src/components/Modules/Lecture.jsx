@@ -4,7 +4,8 @@ import getFile from '../../api/getFile';
 import { secondsToHoursMinutes, viewsShorten } from '../../utilities';
 import ModuleVideo from './ModuleVideo';
 import { StudentContext } from '../../contexts';
-import lockIcon from '../../assets/NewDesign/lock-120.svg';
+// import lockIcon from '../../assets/NewDesign/lock-120.svg';
+import lockIcon from '../../assets/images/lock.png';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
 
@@ -88,8 +89,8 @@ const ModuleThumbnail = ({ src, isUnlock }) => {
                     backgroundRepeat:   'no-repeat',
                     backgroundPosition: 'center center',
                 }}>
-                <div class="h-full w-full backdrop-brightness-100 backdrop-blur-md">
-                    <img src={lockIcon} alt="module lock" className='' />
+                <div class="h-full w-full backdrop-brightness-100 backdrop-blur-md flex justify-center items-center">
+                    <img src={lockIcon} alt="module lock" className='w-32' />
                 </div>
             </div>
         }

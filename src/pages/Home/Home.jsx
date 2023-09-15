@@ -174,7 +174,7 @@ const Home = () => {
         <div className="md:col-span-5 lg:col-span-3 flex flex-col gap-y-3 h-full">
           <button
             onClick={() => navigate("/ielts-preparation/modules")}
-            className="mb-1 flex items-center justify-between bg-white px-3 py-4 duration-200 rounded-xl shadow-lg hover:shadow-none"
+            className="grow mb-1 flex items-center justify-between bg-white px-3 py-4 duration-200 rounded-xl shadow-lg hover:shadow-none"
           >
             <img src={img2} alt="" className="w-12 h-auto" />
             <span className="font-medium">IELTS Modules</span>
@@ -185,7 +185,7 @@ const Home = () => {
 
           {student?.organization?.modeOfClasses !== 'offline' && <button
             onClick={() => navigate(student?.organizationId ? '/institute' : '/ielts-classes/online-classes')}
-            className="mb-1 flex items-center justify-between bg-white px-3 py-4 duration-200 rounded-xl shadow-lg hover:shadow-none"
+            className="grow mb-1 flex items-center justify-between bg-white px-3 py-4 duration-200 rounded-xl shadow-lg hover:shadow-none"
           >
             <img src={img3} alt="" className="w-12 h-auto" />
             <span className="font-medium">Online IELTS Classes</span>
