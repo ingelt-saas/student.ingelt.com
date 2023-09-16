@@ -147,3 +147,29 @@ code {
   background-color: #0C3C8250 !important;
   transform: scale(1.7) translate(0%, 0%);
 }
+
+
+/* accommodation price range css  */
+.MuiSlider-thumb {
+  background-color: #0C3C82 !important;
+  border: 2px solid #0C3C82 !important;
+}
+
+.MuiSlider-valueLabel {
+  font-size: 12px;
+}
+
+.MuiSlider-mark {
+  background-color: #e3dddd !important;
+  border-color: #e3dddd !important;
+}
+
+.MuiSlider-markActive {
+  background-color: #0C3C82 !important;
+}
+
+
+
+.google-review-video video {
+  object-fit: cover !important;
+}

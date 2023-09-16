@@ -1,8 +1,9 @@
 import homeApi from "../api/home";
 import { StudentContext } from "../contexts";
-// import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import { useQuery } from "@tanstack/react-query";
+import { useState, useEffect } from "react";
+import paymentApi from "../api/payment";
 
 const StudentProvider = ({ children }) => {
 
@@ -25,13 +26,26 @@ const StudentProvider = ({ children }) => {
     } else {
       Cookies.remove("student_auth_token", { path: '/', domain: 'ingelt.com' });
     }
-
+    Cookies.remove("couponCode");
     studentFetch();
     // Cookies.remove("student_auth_token", { path: '/', domain: 'board.ingelt.com' });
     window.location.pathname = "/";
 
   };
 
+  const couponState = useState('');
+  useEffect(()=>{
+    let coupon= Cookies.get('couponCode')
+    if(coupon) {
+      paymentApi.verifyModuleCoupon({coupon}).then(res=>{
+        // console.log(res?.data?.coupon?.amount);
+        couponState[1](res?.data?.coupon?.amount);
+      }).catch(err=>{
+        console.log(err);
+        Cookies.remove("couponCode");
+      })
+    }
+  }, []);
   // useEffect(() => {
   //   // if (Cookies.get("student_auth_token")) {
   //   if (Cookies.get('student_auth_token')) {
@@ -55,8 +69,9 @@ const StudentProvider = ({ children }) => {
   //   }
   // }, []);
 
+  //coupon amount is used to know the exact amount that the user has been paid
   return (
-    <StudentContext.Provider value={{ student, loading, logOut, studentFetch }}>
+    <StudentContext.Provider value={{ student, loading, logOut, studentFetch, couponState }}>
       {children}
     </StudentContext.Provider>
   );

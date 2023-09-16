@@ -29,21 +29,21 @@ const WorldClocks = () => {
       country: "USA",
       time: momentTimeZone().tz("America/New_York").format("hh:mm:ss A"),
     },
-    {
-      image: australiaImg,
-      country: "Australia",
-      time: momentTimeZone().tz("Australia/Sydney").format("hh:mm:ss A"),
-    },
+    // {
+    //   image: australiaImg,
+    //   country: "Australia",
+    //   time: momentTimeZone().tz("Australia/Sydney").format("hh:mm:ss A"),
+    // },
     {
       image: irelandImg,
       country: "Ireland",
       time: momentTimeZone().tz("Europe/Dublin").format("hh:mm:ss A"),
     },
-    {
-      image: germanyImg,
-      country: "Germany",
-      time: momentTimeZone().tz("Europe/Berlin").format("hh:mm:ss A"),
-    },
+    // {
+    //   image: germanyImg,
+    //   country: "Germany",
+    //   time: momentTimeZone().tz("Europe/Berlin").format("hh:mm:ss A"),
+    // },
   ]);
 
   useEffect(() => {
@@ -66,21 +66,21 @@ const WorldClocks = () => {
           country: "USA",
           time: momentTimeZone().tz("America/New_York").format("hh:mm:ss A"),
         },
-        {
-          image: australiaImg,
-          country: "Australia",
-          time: momentTimeZone().tz("Australia/Sydney").format("hh:mm:ss A"),
-        },
+        // {
+        //   image: australiaImg,
+        //   country: "Australia",
+        //   time: momentTimeZone().tz("Australia/Sydney").format("hh:mm:ss A"),
+        // },
         {
           image: irelandImg,
           country: "Ireland",
           time: momentTimeZone().tz("Europe/Dublin").format("hh:mm:ss A"),
         },
-        {
-          image: germanyImg,
-          country: "Germany",
-          time: momentTimeZone().tz("Europe/Berlin").format("hh:mm:ss A"),
-        },
+        // {
+        //   image: germanyImg,
+        //   country: "Germany",
+        //   time: momentTimeZone().tz("Europe/Berlin").format("hh:mm:ss A"),
+        // },
       ]);
     }, 1000);
 
@@ -92,21 +92,21 @@ const WorldClocks = () => {
       {worldClocksData.map(({ image, country, time }) => (
         <div
           key={country}
-          className="relative cursor-pointer rounded-2xl overflow-hidden shadow-md"
+          className="relative cursor-pointer rounded-2xl overflow-hidden shadow-md h-20"
         >
           <img
-            className="w-full object-cover aspect-[16/6] max-md:aspect-video"
+            className="w-full object-cover aspect-[16/8] max-md:aspect-video"
             alt=""
             src={image}
           />
           <div className="absolute top-0 left-0 w-full h-full px-2 bg-[#000] bg-opacity-40 duration-200 opacity-100 flex flex-col max-md:gap-1 justify-center">
             <p className="text-[#fff] flex items-center max-md:text-base text-sm font-semibold gap-x-1">
               <FmdGood fontSize="small" />
-              {country}
+              <p className="text-lg">{country}</p>
             </p>
             <p className="text-[#fff] flex items-center max-md:text-base text-sm gap-x-1 font-semibold">
               <WatchLater fontSize="small" />
-              {time}
+              <p className="text-lg">{time}</p>
             </p>
           </div>
         </div>

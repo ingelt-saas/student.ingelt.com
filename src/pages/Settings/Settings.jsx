@@ -574,18 +574,20 @@ const Settings = () => {
 
   return (
     <div className="flex flex-col md:flex-row w-full gap-y-5 py-4 h-full">
-      <div className=" md:w-2/5 md:mr-2 flex flex-col gap-y-3 items-center mt-4">
-        <ProfileImage
-          src={image}
-          alt={name}
-          gender={student?.gender}
-          className="rounded-full object-cover object-center h-52 w-52 md:h-64 md:w-64 mb-4"
-        />
-        <ImageCropper
-          resizableImage={profilePictureHandler}
-        >
-          {student?.image ? 'Edit Photo' : 'Add Photo'}
-        </ImageCropper>
+      <div className="w-full md:w-2/5 flex justify-center">
+        <div className={`md:mr-2 flex flex-col gap-y-3 items-center mt-4 ${image ? "  " : " w-[90px] h-[155px]"}`}>
+          <ProfileImage
+            src={image}
+            alt={name}
+            gender={student?.gender}
+            className="rounded-full object-cover object-center h-52 w-52 md:h-64 md:w-64 mb-4"
+          />
+          <ImageCropper
+            resizableImage={profilePictureHandler}
+          >
+            {student?.image ? 'Edit Photo' : 'Add Photo'}
+          </ImageCropper>
+        </div>
       </div>
 
       <form className="md:w-3/5" onSubmit={handleSubmit(updateProfile)}>

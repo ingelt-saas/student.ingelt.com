@@ -37,11 +37,11 @@ const Carousel = () => {
       <Swiper
         pagination={{ clickable: true }}
         modules={[Pagination]}
-        className="!bg-white !shadow-xl !rounded-2xl !overflow-hidden !pb-5 homeCarousel"
+        className="!bg-white !shadow-xl !rounded-2xl !overflow-hidden !pb-5 homeCarousel h-full"
       >
         {data.map(({ image, options }, index) => (
           <SwiperSlide key={index}>
-            <div className="relative w-full">
+            <div className="relative w-full flex-col">
               <span className="absolute top-2 left-2 bg-white rounded-full px-3 py-1 font-medium shadow-xl text-sm">
                 What’s new
               </span>

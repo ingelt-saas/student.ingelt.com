@@ -1,6 +1,8 @@
 import { Outlet, useLocation } from "react-router-dom";
 import SideBar from "../../components/shared/Sidebar/Sidebar";
 import { useEffect, useState } from "react";
+import { socket } from "../../contexts";
+import Cookies from "js-cookie";
 
 
 const PanelLayout = () => {
@@ -20,6 +22,24 @@ const PanelLayout = () => {
     }
   }, [location]);
 
+  // 
+  useEffect(() => {
+    let interval;
+
+    const sendActiveRequest = () => {
+      socket.emit('studentActivity', {
+        student_auth_token: Cookies.get("student_auth_token"),
+      });
+    }
+
+    interval = setInterval(() => {
+      sendActiveRequest();
+    }, 1000 * 30);
+
+    sendActiveRequest();
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div className="flex flex-col lg:flex-row h-screen">
@@ -28,7 +48,7 @@ const PanelLayout = () => {
       >
         <SideBar />
       </div>
-      <div className={`flex-1 overflow-x-hidden overflow-y-auto bg-slate-50 ${shouldApplyClasses ? 'px-2 md:px-5 2xl:px-10 py-6' : ''}`}>
+      <div className={`flex-1 overflow-x-hidden overflow-y-auto bg-slate-50 ${shouldApplyClasses ? 'px-2 md:px-5 2xl:px-10 md:py-5 py-6' : ''}`}>
         <Outlet />
       </div>
     </div>

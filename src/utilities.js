@@ -74,3 +74,58 @@ export const fileDownload = (awsFileUrl, fileName) => new Promise(async (resolve
         reject(err)
     }
 });
+
+export const viewsShorten = (num) => {
+
+    if (typeof num !== "number") {
+        return "0";
+    }
+    num = num?.toString().replace(/[^0-9.]/g, "");
+    if (num < 1000) {
+        return num;
+    }
+    let si = [
+        { v: 1e3, s: "K" },
+        { v: 1e6, s: "M" },
+        { v: 1e9, s: "B" },
+        { v: 1e12, s: "T" },
+        { v: 1e15, s: "P" },
+        { v: 1e18, s: "E" },
+    ];
+    let index;
+    for (index = si.length - 1; index > 0; index--) {
+        if (num >= si[index].v) {
+            break;
+        }
+    }
+    return (
+        (num / si[index].v).toFixed(2).replace(/\.0+$|(\.[0-9]*[1-9])0+$/, "$1") +
+        si[index].s
+    );
+};
+
+export const secondsToHoursMinutes = (seconds) => {
+
+    const hours = Math.floor(seconds / 3600); // Number of whole hours
+    const remainingSeconds = seconds % 3600; // Remaining seconds after calculating hours
+    const minutes = Math.floor(remainingSeconds / 60); // Number of whole minutes
+    return `${hours.toString().padStart(2, 0)} h ${minutes
+        .toString()
+        .padStart(2, 0)} min`;
+};
+
+// debounce function
+export const debounce = (func, delay = 1000) => {
+    let timerId;
+
+    return function (...args) {
+        if (timerId) {
+            clearTimeout(timerId);
+        }
+
+        timerId = setTimeout(() => {
+            func.apply(this, args);
+        }, delay);
+    };
+}
+

@@ -50,13 +50,13 @@ const Home = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="pt-5">
+    <div className="pt-1">
       <div className="grid grid-cols-1 md:grid-cols-12 max-md:gap-6 gap-3 xl:gap-5">
         {/* profile info */}
         <div className="md:col-span-12 lg:col-span-5">
-          <div className="rounded-2xl bg-white shadow-lg px-4 py-8 flex gap-x-4">
+          <div className="rounded-2xl bg-white shadow-lg px-4 py-8 flex gap-x-4 min-h-full">
             <div className="w-1/2 relative">
-              <div className="max-md:w-28 max-md:h-28  w-40 h-40 overflow-hidden rounded-full absolute -top-14 left-0  shadow-xl">
+              <div className={`overflow-hidden rounded-full absolute -top-14 left-0  ${student?.image ? "max-md:w-28 max-md:h-28 w-40 h-40 shadow-xl " : " w-20 h-20 mt-10 md:mt-14"} `}>
                 <ProfileImage
                   alt={student?.name}
                   src={student?.image}
@@ -68,6 +68,7 @@ const Home = () => {
                 <h1 className="text-[#1B3B7D] text-2xl font-bold">Hello</h1>
                 <h3 className="text-[#00000099] text-xl font-semibold flex items-center gap-x-2">
                   {student?.name}
+                  <br />
                   <svg
                     className="w-6 h-6"
                     viewBox="0 0 24 25"
@@ -100,7 +101,7 @@ const Home = () => {
               </div>
             </div>
             <div className="w-1/2">
-              <div className="flex flex-col gap-y-4 md:gap-y-7">
+              <div className="flex flex-col gap-y-4 md:gap-y-7 h-full justify-center">
                 <StudentInfoBlock
                   title={"Student ID"}
                   text={student.id}
@@ -125,7 +126,7 @@ const Home = () => {
 
         {/* upcoming event */}
         <div className="md:col-span-6 lg:col-span-3">
-          <div className="min-h-[90%] rounded-2xl bg-white shadow-lg px-4 py-5 gap-x-4 flex flex-col justify-between gap-y-2">
+          <div className="min-h-full rounded-2xl bg-white shadow-lg px-4 py-5 gap-x-4 flex flex-col justify-between gap-y-2">
             <UpcomingEvent studentId={student?.id} />
           </div>
         </div>
@@ -142,14 +143,14 @@ const Home = () => {
           style={{ backgroundImage: `url(${img1})` }}
         >
           <h1 className="text-white text-4xl max-sm:text-3xl font-bold">
-            Speaking Practice
+            IELTS Speaking Practice
           </h1>
           <ul className="pl-3 list-disc text-white space-y-2 text-lg">
             <li>1:1 English Speaking Session</li>
             <li>British Council Certified Instructor</li>
           </ul>
           <Link to="/ielts-preparation/speaking-session" className="max-sm:w-full">
-            <button className="px-12 py-2 rounded-md bg-white text-[#0C3C82] font-semibold text-lg max-sm:w-full">
+            <button className="px-12 py-2 rounded-md bg-white text-[#0C3C82] font-bold text-lg max-sm:w-full">
               Book
             </button>
           </Link>
@@ -157,7 +158,7 @@ const Home = () => {
 
         {/* intro module */}
         <div className="md:col-span-7 lg:col-span-5">
-          <div className="w-full overflow-hidden relative rounded-2xl shadow-lg pb-[56.25%]">
+          <div className="w-full h-full overflow-hidden relative rounded-2xl shadow-lg pb-[56.25%]">
             <iframe
               className="w-full h-full absolute top-0 left-0"
               src="https://www.youtube.com/embed/8xkHNGb59Ns"
@@ -170,13 +171,13 @@ const Home = () => {
         </div>
 
         {/* shortcut buttons */}
-        <div className="md:col-span-5 lg:col-span-3 flex flex-col gap-y-3">
+        <div className="md:col-span-5 lg:col-span-3 flex flex-col gap-y-3 h-full">
           <button
             onClick={() => navigate("/ielts-preparation/modules")}
-            className="mb-1 flex items-center justify-between bg-white px-3 py-4 duration-200 rounded-xl shadow-lg hover:shadow-none"
+            className="grow mb-1 flex items-center justify-between bg-white px-3 py-4 duration-200 rounded-xl shadow-lg hover:shadow-none"
           >
             <img src={img2} alt="" className="w-12 h-auto" />
-            <span className="font-medium">Free IELTS Classes</span>
+            <span className="font-medium">IELTS Modules</span>
             <span className="w-6 h-6 rounded-full grid place-items-center bg-[#001E4333]">
               <ChevronRight fontSize="small" />
             </span>
@@ -184,10 +185,10 @@ const Home = () => {
 
           {student?.organization?.modeOfClasses !== 'offline' && <button
             onClick={() => navigate(student?.organizationId ? '/institute' : '/ielts-classes/online-classes')}
-            className="mb-1 flex items-center justify-between bg-white px-3 py-4 duration-200 rounded-xl shadow-lg hover:shadow-none"
+            className="grow mb-1 flex items-center justify-between bg-white px-3 py-4 duration-200 rounded-xl shadow-lg hover:shadow-none"
           >
             <img src={img3} alt="" className="w-12 h-auto" />
-            <span className="font-medium">Live / Online Classes</span>
+            <span className="font-medium">Online IELTS Classes</span>
             <span className="w-6 h-6 rounded-full grid place-items-center bg-[#001E4333]">
               <ChevronRight fontSize="small" />
             </span>
@@ -198,7 +199,7 @@ const Home = () => {
             className="mb-1 flex items-center justify-between bg-white px-3 py-4 duration-200 rounded-xl shadow-lg hover:shadow-none"
           >
             <img src={img4} alt="" className="w-12 h-auto" />
-            <span className="font-medium">Offline Classes</span>
+            <span className="font-medium">Offline IELTS Classes</span>
             <span className="w-6 h-6 rounded-full grid place-items-center bg-[#001E4333]">
               <ChevronRight fontSize="small" />
             </span>

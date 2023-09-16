@@ -39,6 +39,8 @@ import OnlineClasses from "../pages/IELTSClasses/OnlineClasses";
 import SpeakingSession from "../pages/SpeakingSession/SpeakingSession";
 import CheckSessions from "../pages/SpeakingSession/CheckSessions";
 import Contact from "../pages/Contact/Contact";
+import Accommodation from "../pages/Accommodation/Accommodation";
+import Referral from "../pages/Referral/Referral";
 
 const PaymentRoute = ({ children }) => {
 
@@ -157,6 +159,10 @@ const Routes = () => {
             element: <VisaApplication />,
           },
           {
+            path: "/accommodation",
+            element: <Accommodation />,
+          },
+          {
             path: "/institute",
             element: <Institute />,
           },
@@ -171,6 +177,10 @@ const Routes = () => {
           {
             path: "/settings",
             element: <Settings />,
+          },
+          {
+            path: "/referral",
+            element: <Referral />,
           },
           {
             path: "*",

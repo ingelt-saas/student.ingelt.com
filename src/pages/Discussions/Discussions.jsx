@@ -4,7 +4,7 @@ import CryptoJS from "crypto-js";
 import Cookies from "js-cookie";
 import { useInfiniteQuery } from "@tanstack/react-query";
 // Components
-import MessageBox from "../../components/Discussions/MessageBox";
+import MessageBox, { CountryFlag } from "../../components/Discussions/MessageBox";
 import { FiSend } from "react-icons/fi";
 import { useRef } from "react";
 import {
@@ -22,7 +22,9 @@ import moment from "moment";
 
 // assets 
 import landingImg from '../../assets/images/landing-pages/community.png';
+import headerImg from '../../assets/images/discussion-header.png';
 import settings from "../../api/settings";
+import ProfileImage from "../../components/shared/ProfileImage/ProfileImage";
 
 const LandingPage = ({ studentName }) => {
 
@@ -75,6 +77,7 @@ const LandingPage = ({ studentName }) => {
 
 const Discussions = () => {
 
+  // context
   const socket = useContext(SocketContext);
   const { student } = useContext(StudentContext);
 
@@ -266,31 +269,51 @@ const Discussions = () => {
     <>
       {!student?.communityUnlock && <LandingPage studentName={student?.name} />}
       {student?.communityUnlock && <div className="w-full h-full flex flex-col">
-        <div className="py-8 max-md:py-4 bg-white w-full shadow-lg flex items-center justify-center px-5">
-          <div className="flex items-start justify-center flex-col w-full flex-[0.7] md:flex-[0.8]">
-            <p className="text-xl md:text-3xl font-medium text-[#1B3B7D]">
-              InGelt Centralized Community
-            </p>
-            <p className="pt-1 text-[#555454] text-sm md:text-base">
-              "Explore The World Through Us InGelt"
-            </p>
-          </div>
-          <div className="w-full flex items-center justify-center flex-[0.3] md:flex-[0.2]">
-            <div className="flex items-start justify-center flex-col">
-              <div className="flex items-center justify-center">
-                <p className="text-[#828282] md:text-base text-xs pr-2">
-                  {onlineMembers}
-                  &nbsp;Online
+        <div className="p-5 max-sm:p-2">
+          <div className="py-2 max-md:py-4 bg-white w-full shadow-lg flex max-sm:flex-col max-sm:gap-5 items-center justify-between px-5 rounded-[1.2rem]">
+            <div className="flex items-center gap-5">
+              <div className="flex items-start justify-center flex-col w-full flex-[0.7] md:flex-[0.8]">
+                <p className="text-xl md:text-3xl font-medium text-[#1B3B7D] whitespace-nowrap">
+                  InGelt Centralized Community
                 </p>
-                <div className="w-2 h-2 rounded-full bg-[#00FF19]"></div>
+                <p className="pt-1 text-[#555454] text-sm md:text-base">
+                  "Explore The World Through Us InGelt"
+                </p>
               </div>
-              <p className="text-[#828282] md:text-base text-xs">
-                {formatNumber(totalMembers)}
-                &nbsp;Members
-              </p>
+              <div className="w-[200px] max-xl:hidden">
+                <img draggable={false} src={headerImg} alt='' className="w-full h-full object-cover" />
+              </div>
+            </div>
+            <div className="max-sm:w-full flex flex-col max-sm:flex-row max-sm:items-center max-sm:justify-between items-end gap-2">
+              <div className="flex gap-3 max-sm:flex-row-reverse items-center">
+                <div className="flex flex-col max-sm:items-start items-end">
+                  <h3 className="text-[#001E43] font-semibold text-xl">{student?.name}</h3>
+                  <p className="flex items-center text-sm gap-2 font-medium">
+                    Active
+                    <CountryFlag country={student?.country} />
+                  </p>
+                </div>
+                <ProfileImage gender={student?.gender} src={student?.image} alt="" className={'max-sm:w-14 w-16 aspect-square object-cover rounded-full'} />
+              </div>
+              <div className="flex items-center justify-center">
+                <div className="flex items-start justify-center flex-col">
+                  <div className="flex items-center justify-center">
+                    <p className="text-[#828282] md:text-base text-xs pr-2">
+                      {onlineMembers}
+                      &nbsp;Online
+                    </p>
+                    <div className="w-2 h-2 rounded-full bg-[#00FF19]"></div>
+                  </div>
+                  <p className="text-[#828282] md:text-base text-xs">
+                    {formatNumber(totalMembers)}
+                    &nbsp;Members
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
+
         <div id="scroll-div" className="w-full flex-1 relative">
           <div
             id="journal-scroll"
@@ -350,6 +373,7 @@ const Discussions = () => {
             </div>
           </div>
         </div>
+
         <div className="w-full bg-white">
 
           {selectedImages.length > 0 && (

@@ -11,6 +11,7 @@ import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import UnfoldMoreIcon from '@mui/icons-material/UnfoldMore';
 import TableViewIcon from '@mui/icons-material/TableView';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import StarBorderIcon from '@mui/icons-material/StarBorder';
 
 // Sidebar SVGs
 import {
@@ -23,6 +24,7 @@ import {
   ModulesSVG,
   EducationLoan,
   PassportSVG,
+  AccommodationSVG,
 } from "./SidebarSVG.jsx";
 // navbar svg
 
@@ -31,6 +33,8 @@ import logo from "../../../assets/images/navlogo.png";
 import { useContext } from "react";
 import { StudentContext } from "../../../contexts.js";
 import ProfileImage from "../ProfileImage/ProfileImage.jsx";
+import { VscFeedback } from 'react-icons/vsc';
+import { AiFillGift } from 'react-icons/ai';
 
 // Navbar Item Components
 const NavItem = ({ to, children, collapseMenu, ...props }) => {
@@ -57,15 +61,17 @@ const NestedMenus = ({ menus, path, icon, name }) => {
     {(popupState) => <>
       <li className="navItem mb-1.5" {...bindTrigger(popupState)}>
         <NavItem to={path} onClick={(e) => e.preventDefault()}>
-          {icon}
-          <span>{name}</span>
-          {/* <span className="flex-1 flex justify-end">
-            <ChevronRightIcon />
-          </span> */}
+          <span className="flex items-center">
+            {icon}
+            <span className="mx-2">{name}</span>
+            <span className="flex-1 flex justify-end">
+              <ChevronRightIcon />
+            </span>
+          </span>
         </NavItem>
       </li>
       <Popover
-        PaperProps={{ className: '!rounded-xl shadow-2xl bg-white ml-5' }}
+        PaperProps={{ className: '!rounded-xl shadow-2xl bg-white' }}
         {...bindPopover(popupState)}
         anchorOrigin={{
           vertical: 'top',
@@ -77,7 +83,7 @@ const NestedMenus = ({ menus, path, icon, name }) => {
         }}>
         <div className='z-[100] bg-white min-w-fit' onClick={popupState.close}>
           <ul className="flex flex-col p-3">
-            {Array.isArray(menus) && menus.map((item, index) => item.show && <li key={index} className="navItem mb-1.5" {...bindTrigger(popupState)}>
+            {Array.isArray(menus) && menus.map((item, index) => item.show && <li key={index} className="navItem mb-1.5">
               <NavItem to={item.path}>
                 {item.icon}
                 <span>{item.name}</span>
@@ -91,6 +97,7 @@ const NestedMenus = ({ menus, path, icon, name }) => {
 }
 
 const SidebarMenus = () => {
+
   const { student, logOut } = useContext(StudentContext);
 
   const navItemsArr = [
@@ -155,6 +162,12 @@ const SidebarMenus = () => {
       show: true,
     },
     {
+      name: "Accommodation",
+      path: "/accommodation",
+      icon: <AccommodationSVG />,
+      show: true,
+    },
+    {
       name: "Visa Application",
       path: "/visa-application",
       icon: <PassportSVG />,
@@ -207,6 +220,18 @@ const SidebarMenus = () => {
 
       <div className="w-full">
         <ul className="px-2">
+          <li className="navItem mb-1.5">
+            <a href="https://g.page/r/CUZZJ7sFom8FEBM/review" target="_blank" rel="noreferrer" className="bg-transparent text-[#7A7C88] justify-start gap-3 flex items-center font-semibold  rounded-md duration-300 px-2 py-2 hover:bg-[#0064E133] hover:text-[#1B3B7D] text-sm">
+              <VscFeedback className="!w-6 !h-6" />
+              <span>Feedback</span>
+            </a>
+          </li>
+          <li className="navItem mb-1.5">
+            <NavItem to="/referral">
+              <AiFillGift className="!w-6 !h-6" />
+              <span>Refer & Earn</span>
+            </NavItem>
+          </li>
           <li className="navItem mb-1.5">
             <NavItem to="/settings">
               <SettingSVG />
@@ -280,7 +305,7 @@ const SidebarMenus = () => {
                     </span>
                   </div>
                   <div className="p-4 flex flex-col gap-2">
-                    <p className='flex gap-x-2 font-medium items-center text-sm px-2 text-[#17A26A]'>
+                    <p className='flex gap-x-2 font-medium items-center text-sm px-2 text-[#17A26A]' onClick={(e) => e.stopPropagation()}>
                       <span className="w-6 flex justify-center">
                         <FiberManualRecordIcon fontSize="16" />
                       </span>
@@ -327,7 +352,7 @@ const SideBar = () => {
       }
     });
 
-  });
+  }, []);
 
   return (
     <>

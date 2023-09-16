@@ -1,0 +1,9 @@
+#otp_id {
+    appearance:textfield;
+}
+#otp_id::-webkit-inner-spin-button{
+    appearance: none;
+}
+#otp_id::-webkit-outer-spin-button{
+    appearance: none;
+}

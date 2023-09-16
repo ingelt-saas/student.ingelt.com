@@ -13,12 +13,16 @@ import img5 from "../../assets/images/online-classes.png";
 import RazorPay from "../../components/RazorPay/RazorPay";
 import paymentApi from "../../api/payment";
 import { StudentContext } from "../../contexts";
-import { Button, CircularProgress } from "@mui/material";
+import { Button, CircularProgress, Modal, Box } from "@mui/material";
+import pay4999Img from '../../assets/paymentQR/4999.png'
+
 
 const OnlineClasses = () => {
 
     const navigate = useNavigate();
     const [search] = useSearchParams();
+    const [openPaymentQr, setOpenPaymentQr] = useState(false);
+
 
     // context 
     const { student } = useContext(StudentContext);
@@ -111,21 +115,30 @@ const OnlineClasses = () => {
         <div className='flex max-md:flex-col gap-6'>
             <div className='md:w-8/12'>
                 <div className='py-5 px-5 max-md:text-center max-md:px-3 rounded-3xl bg-[#0C3C82] shadow-xl'>
-                    <h1 className='text-2xl font-bold text-white'>Live Classes</h1>
-                    <p className='text-white mt-3'>IELTS preparation with British Council Certified Expert</p>
+                    <h1 className='text-2xl font-bold text-white'>Online IELTS Classes</h1>
+                    <p className='text-white mt-3'>IELTS Preparation Under the Guidance of British Council Certified Instructor</p>
                 </div>
                 <div className="md:hidden max-md:mt-5">
                     <div className='bg-white p-2 rounded-xl shadow-xl flex flex-col gap-y-5'>
                         <div className='rounded-xl overflow-hidden relative'>
                             <img draggable={false} src={img5} alt='' className='w-full aspect-[16/9] object-cover' />
-                            <h3 className='text-2xl whitespace-nowrap font-semibold text-white absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2'>Live / Online Classes</h3>
+                            <h3 className='text-2xl whitespace-nowrap font-semibold text-white absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2'>Online IELTS Classes</h3>
                         </div>
-                        <div className='text-center'>
+                        {/* <div className='text-center'>
                             <p className='text-3xl font-semibold text-[#0C3C82]'>
                                 <span className='text-black text-lg'>₹</span>
                                 {student?.classFee}
                             </p>
                             <p>Start your IELTS preparation</p>
+                        </div> */}
+                        <div className='text-center'>
+                            <p className='text-xl font-semibold text-[#0C3C82]'>
+                                <span className='text-black text-lg'>₹</span>
+                                6999 /-
+                                <del className='ml-3 text-black text-lg'>₹ 14999 /-</del>
+
+                            </p>
+                            <p>Crack IELTS with 7+ Bands</p>
                         </div>
                         <Button
                             variant='contained'
@@ -147,7 +160,7 @@ const OnlineClasses = () => {
 
                     </div>
                 </div>
-                <div className='mt-10 flex max-md:flex-col-reverse max-md:gap-5 px-5'>
+                <div className='mt-10 flex max-md:flex-col-reverse max-md:gap-5 '>
                     <div className='md:w-9/12'>
                         <p className='font-medium'>Your Course</p>
                         <div className='md:border-r border-[#D9D9D9] md:pr-3'>
@@ -208,14 +221,16 @@ const OnlineClasses = () => {
                 <div className='bg-white p-2 rounded-xl shadow-xl flex flex-col gap-y-5'>
                     <div className='rounded-xl overflow-hidden relative'>
                         <img draggable={false} src={img5} alt='' className='w-full aspect-[16/9] object-cover' />
-                        <h3 className='text-2xl whitespace-nowrap font-semibold text-white absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2'>Live / Online Classes</h3>
+                        <h3 className='text-2xl whitespace-nowrap font-semibold text-white absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2'>Online IELTS Classes</h3>
                     </div>
                     <div className='text-center'>
                         <p className='text-3xl font-semibold text-[#0C3C82]'>
                             <span className='text-black text-lg'>₹</span>
-                            4999
+                            6999 /-
+                            <del className='ml-3 text-black text-lg'>₹ 14999 /-</del>
+
                         </p>
-                        <p>Start your IELTS preparation</p>
+                        <p>Crack IELTS with 7+ Bands</p>
                     </div>
                     <Button
                         variant='contained'
@@ -226,8 +241,30 @@ const OnlineClasses = () => {
                                 backgroundColor: '#0C3C82'
                             }
                         }}
-                        onClick={createOrder}
+                        onClick={() => setOpenPaymentQr(true)}
                     >Book Your Seat</Button>
+
+                    <Modal
+                        open={openPaymentQr}
+                        onClose={() => setOpenPaymentQr(false)}
+                        aria-labelledby="modal-modal-title"
+                        aria-describedby="modal-modal-description"
+                    >
+                        <Box sx={{
+                            position: 'absolute',
+                            top: '50%',
+                            left: '50%',
+                            transform: 'translate(-50%, -50%)',
+                            width: 350,
+                            bgcolor: 'background.paper',
+                            borderRadius: 6,
+                            boxShadow: 24,
+                            p: 4,
+                        }}>
+                            <img src={pay4999Img} alt="payment qr" /> <br/>
+                            <p className="font-medium text-sm text-center">Kindly confirm the payment status with our team and ask for the coupon code to open the IELTS Modules</p>
+                        </Box>
+                    </Modal>
                     {/* <RazorPay
                         paymentFor={'classes'}
                         description={''}

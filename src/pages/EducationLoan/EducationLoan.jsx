@@ -30,6 +30,10 @@ import {
 } from "@mui/material";
 import Header from "../../components/shared/Header/Header";
 import settings from "../../api/settings";
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import LoanPageTwo from "../../components/EducationLoan/LoanPageTwo";
+import { Link } from "react-router-dom";
+
 
 const LandingPage = () => {
 
@@ -94,10 +98,11 @@ const LandingPage = () => {
 const Page2 = () => {
   return (
     <div className="flex flex-row flex-wrap gap-y-10 gap-x-5 w-full  sm:m-auto">
-      <div className="w-full h-20 foo:block ">
+      <div className="w-full foo:block ">
         <div className="flex gap-x-5 max-md:flex-col max-md:gap-y-5">
           <Header title="Education Loan" subTitle="Optimal solution for overseas education loan" Img={welcomeSVG} scale={"scale-75"} />
         </div>
+
         <div className="flex w-full">
           <div className="w-1/2 flex max-md:hidden">
             <img
@@ -274,11 +279,11 @@ const Page2 = () => {
 const EducationLoan = () => {
 
   const [states, setStates] = useState("");
-  const [stateCode, setStateCode] = useState("");
+  const [stateCode, setStateCode] = useState("DL");
   const [cities, setCities] = useState("");
   const [state, setState] = useState("");
-  const [city, setCity] = useState("");
-  const [income, setIncome] = useState("");
+  const [city, setCity] = useState("New Delhi");
+  const [income, setIncome] = useState("10 Lakhs");
   const [intake, setIntake] = useState("");
   const [openSignUp, setOpenSignUp] = useState(false);
   const [page2, setPage2] = useState(false);
@@ -337,7 +342,7 @@ const EducationLoan = () => {
   //TODO REMOVE THIS STATE FETCHING.
   const getAllStates = async () => {
     // console.log(State.getStatesOfCountry("IN"));
-    
+
     await setStates((await query.getAllState()).data);
     if (stateCode) {
       // await setStates(query.getAllState());
@@ -345,6 +350,7 @@ const EducationLoan = () => {
       await setCities((await query.getCityFromState(stateCode)).data);
     }
   };
+  // console.log(cities);
   // useEffect(()=>{
   //   getAllStates();
   //   console.log('all data',state);
@@ -398,159 +404,208 @@ const EducationLoan = () => {
   return (
     <>
       {!student?.educationLoanUnlock && <LandingPage />}
-      {student?.educationLoanUnlock && <div className="flex py-10 px-5 max-sm:px-2">
+      {student?.educationLoanUnlock && <div className="sm:px-10 sm:py-6 p-2">
+
+        {/* header start */}
+        {/* <div className="flex-col flex sm:flex-row gap-5 mb-5">
+          <div className="w-full md:w-[70%]">
+            <Header title="Education Loan" subTitle="Optimal solution for overseas education loan" Img={welcomeSVG} scale="scale-75" width="full" />
+          </div>
+          <div className="w-full sm:w-[30%]">
+            <div style={{ boxShadow: ' 0px 0px 0px 1px rgba(0, 0, 0, 0.06), 0px 5px 36px 0px rgba(0, 0, 0, 0.16)' }} className="bg-white h-full w-full p-5 rounded-2xl flex justify-between flex-col gap-y-4">
+              <p className="text-[#00285A] font-semibold text-base md:text-sm lg:text-base">Are you looking for end to end education loan assistance?</p>
+              <button className="hover:bg-[#00285A] hover:text-white text-lg bg-transparent duration-300 border-2 border-[#00285A] text-[#00285A] py-1 max-md:text-base px-3 min-w-fit w-4/12 sm:w-7/12 md:w-min rounded-2xl justify-around flex items-center">
+                <p className='text-lg font-semibold flex items-center justify-around'>
+                  <strong className='text-sm md:text-base'> Talk to expert </strong>
+                  &nbsp; &nbsp;
+                  <span className="w-6 h-6 border-1 rounded-full flex justify-center items-center bg-[#00285A] text-white"><ChevronRightIcon /></span>
+                </p>
+              </button>
+            </div>
+          </div>
+        </div> */}
+
+        <div className="flex-col flex sm:flex-row gap-5">
+          <div className="w-full sm:w-[70%] rounded-[1.2rem] flex justify-between relative items-center bg-white shadow-xl">
+            <div className="px-7 flex flex-col gap-y-1 max-md:py-7 max-sm:px-5 max-md:items-center max-md:w-full">
+
+              <h1 className="text-2xl font-bold text-[#0C3C82]">Education Loan</h1>
+              <p className="font-normal text-black opacity-75">Optimal solution for overseas education loan</p>
+            </div>
+            <div className="overflow-hidden pr-3 max-w-[30%] max-md:hidden">
+              <img
+                draggable={false}
+                src={welcomeSVG}
+                alt="library"
+                className={`max-h-28 max-w-fit mix-blend-darken`}
+              />
+            </div>
+          </div>
+
+          <div className="w-full sm:w-[30%]">
+            <div className="rounded-2xl bg-white shadow-2xl px-5 py-5">
+              <h3 className="text-xl my-1 font-semibold text-[#0C3C82]">
+                Are you looking for end to end education loan assistance?
+              </h3>
+              <br />
+              <Link to="//wa.me/+919205762929" className="hover:bg-[#00285A] hover:text-white text-lg bg-transparent duration-300 border-2 border-[#00285A] text-[#00285A] py-1 max-md:text-base px-3 md:min-w-[180px] min-w-[150px] md:w-7/12 rounded-2xl justify-around flex items-center">
+                <p className='text-lg font-semibold flex items-center justify-around'>
+                  <strong className='text-sm md:text-base'> Talk to expert  </strong>
+                  &nbsp; &nbsp;
+                  <span className="w-6 h-6 border-1 rounded-full flex justify-center items-center bg-[#00285A] text-white"><ChevronRightIcon /></span>
+                </p>
+              </Link>
+            </div>
+          </div>
+        </div>
+        {/* header end */}
+
         {!page2 ? (
-          <div className="flex flex-row flex-wrap gap-y-10 gap-x-5 w-full">
-            <div className="w-full h-20 foo:block ">
-              <div className="flex gap-x-5 max-md:flex-col max-md:gap-y-5 mb-10">
-                <Header title="Education Loan" subTitle="Optimal solution for overseas education loan" Img={welcomeSVG} scale="scale-75" />
-              </div>
-              <div className="flex max-md:flex-col w-full justify-between items-center">
-                <div className="w-1/2 max-md:w-full flex flex-col justify-center items-center">
-                  {/* <img
+          <div className="flex max-md:flex-col w-full justify-between items-center">
+            <div className="w-1/2 max-md:w-full flex flex-col justify-center items-center">
+              {/* <img
                   src={loanSVG}
                   alt="welcome svg"
                   className="w-400 h-auto mx-auto my-10"
                 /> */}
-                  <div className="flex mb-10 flex-wrap gap-x-2 2xl:gap-x-2 xl:gap-x-3 gap-y-3 items-center justify-center w-full max-xl:hidden ">
-                    {icons.map((item, index) => {
-                      return (
-                        <div key={index} className="flex items-center justify-start rounded-xl w-56 px-5 py-3">
-                          <img src={item.img} className="w-10 h-10 mr-
-                                3" alt="icon" />
-                          <p className="font-semibold text-sm ml-3">{item.text}</p>
-                        </div>
-                      )
-                    })}
-                  </div>
-                  <BankingPart />
-                </div>
 
-                <div className="w-2/5 max-md:w-full max-md:pb-10">
-                  <form
-                    onSubmit={onSubmit}
-                    className="flex flex-col items-center md:items-start h-full justify-center"
-                  >
-                    {/* <p className="xl:text-3xl text-xl font-bold">text</p> */}
-                    <div className="flex flex-col max-lg:items-start w-full justify-center">
-                      <div className="inline-block relative mt-5 w-full">
-                        <label htmlFor="State">
-                          In which state do you reside?
-                          <sup className="text-red-500">*</sup>
-                        </label>
-                        <select
-                          id="State"
-                          value={stateCode}
-                          required={true}
-                          onChange={(e) => {
-                            setStateCode(e.target.value);
-                          }}
-                          className="block appearance-none w-full mt-2 bg-white border-none hover:border-gray-500 px-4 py-4 pr-8 rounded-xl shadow-xl leading-tight focus:outline-none focus:shadow-outline"
-                        >
-                          <option value="">Select your State</option>
-                          {states &&
-                            states.map((state, index) => (
-                              <option key={index} value={state.isoCode}>
-                                {state.name}
-                              </option>
-                            ))}
-                        </select>
-                        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 mt-8 text-gray-700">
-                          {/* <ArrowDropDown /> */}
-                        </div>
-                      </div>
-                      <div className="inline-block relative mt-5 w-full">
-                        <label htmlFor="State">
-                          What's your current city?
-                          <sup className="text-red-500">*</sup>
-                        </label>
-                        <select
-                          id="State"
-                          value={city}
-                          required={true}
-                          onChange={(e) => setCity(e.target.value)}
-                          className="block appearance-none w-full mt-2 bg-white border-none hover:border-gray-500 px-4 py-4 pr-8 rounded-xl shadow-xl leading-tight focus:outline-none focus:shadow-outline"
-                        >
-                          <option value="">Select your City</option>
-                          {cities &&
-                            cities.map((city, index) => (
-                              <option key={index} value={city.name}>
-                                {city.name}
-                              </option>
-                            ))}
-                        </select>
-                        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 mt-8 text-gray-700">
-                          {/* <ArrowDropDown /> */}
-                        </div>
-                      </div>
-                      <label className="mt-5" htmlFor="income">
-                        Write here your Annual Family Income
-                        <sup className="text-red-500">*</sup>
-                      </label>
-                      <input
-                        id="income"
-                        type="text"
-                        required
-                        value={income}
-                        placeholder="Family Annual Income"
-                        className="rounded-xl w-full px-4 py-3 shadow-xl focus:outline-none"
-                        onChange={(e) => setIncome(e.target.value)}
-                      />
-                      <p className="mt-5">
-                        What's your preferred intake?
-                        <sup className="text-red-500">*</sup>
-                      </p>
-                      <div className="flex gap-x-5 mt-2">
-                        <div
-                          className={`py-3 px-6 cursor-pointer flex items-center justify-center max-lg:px-3 max-lg:border rounded-2xl border-2 border-[#001E43] ${intake === "September 2023"
-                            ? "bg-[#001E43] text-white"
-                            : "border-2 border-[#001E43]"
-                            }`}
-                          onClick={() => {
-                            setIntake("September 2023");
-                          }}
-                        >
-                          <p className="max-xl:text-xs text-base">Sep 2023</p>
-                        </div>
-                        <div
-                          className={`py-3 px-6 cursor-pointer flex items-center justify-center max-lg:px-3 max-lg:border rounded-2xl border-2 border-[#001E43] ${intake === "January 2024"
-                            ? "bg-[#001E43] text-white"
-                            : "border-2 border-[#001E43]"
-                            }`}
-                          onClick={() => {
-                            setIntake("January 2024");
-                          }}
-                        >
-                          <p className="max-xl:text-xs text-base">Jan 2024</p>
-                        </div>
-                        <div
-                          className={`py-3 px-6 cursor-pointer flex items-center justify-center max-lg:px-3 max-lg:border rounded-2xl border-2 border-[#001E43] ${intake === "May 2024"
-                            ? "bg-[#001E43] text-white"
-                            : "border-2 border-[#001E43]"
-                            }`}
-                          onClick={() => {
-                            setIntake("May 2024");
-                          }}
-                        >
-                          <p className="max-xl:text-xs text-base">May 2024</p>
-                        </div>
-                      </div>
-                      <button
-                        type="submit"
-                        disabled={!stateCode || !city || !income || !intake}
-                        className="bg-[#001E43] disabled:bg-gray-400 mt-5 w-full py-2 rounded-lg text-white font-semibold"
-                      >
-                        Continue
-                      </button>
+              <BankingPart />
+              <div className="flex mt-8 flex-wrap gap-x-2 2xl:gap-x-2 xl:gap-x-3 gap-y-3 items-center justify-center w-full max-xl:hidden ">
+                {icons.map((item, index) => {
+                  return (
+                    <div key={index} className="flex items-center justify-start rounded-xl w-56 px-5 py-3">
+                      <img src={item.img} className="w-10 h-10 mr-
+                                3" alt="icon" />
+                      <p className="font-semibold text-sm ml-3">{item.text}</p>
                     </div>
-                  </form>
-                </div>
+                  )
+                })}
               </div>
             </div>
+
+            <div className="w-2/5 max-md:w-full max-md:pb-10">
+              <form
+                onSubmit={onSubmit}
+                className="flex flex-col items-center md:items-start h-full justify-center"
+              >
+                {/* <p className="xl:text-3xl text-xl font-bold">text</p> */}
+                <div className="flex flex-col max-lg:items-start w-full justify-center">
+                  <div className="inline-block relative mt-5 w-full">
+                    <label htmlFor="State">
+                      Select your state
+                      <sup className="text-red-500">*</sup>
+                    </label>
+                    <select
+                      id="State"
+                      value={stateCode}
+                      required={true}
+                      onChange={(e) => {
+                        setStateCode(e.target.value);
+                      }}
+                      className="block appearance-none w-full mt-2 bg-white border-none hover:border-gray-500 px-4 py-4 pr-8 rounded-xl shadow-xl leading-tight focus:outline-none focus:shadow-outline"
+                    >
+                      {/* <option value="DL">Delhi</option> */}
+                      {states &&
+                        states.map((state, index) => (
+
+                          <option key={index} value={state.isoCode} selected defaultChecked>
+                            {state.name}
+                          </option>
+                        ))}
+                    </select>
+                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 mt-8 text-gray-700">
+                      {/* <ArrowDropDown /> */}
+                    </div>
+                  </div>
+                  <div className="inline-block relative mt-5 w-full">
+                    <label htmlFor="State">
+                      Select your city
+                      <sup className="text-red-500">*</sup>
+                    </label>
+                    <select
+                      id="State"
+                      value={city}
+                      required={true}
+                      onChange={(e) => setCity(e.target.value)}
+                      className="block appearance-none w-full mt-2 bg-white border-none hover:border-gray-500 px-4 py-4 pr-8 rounded-xl shadow-xl leading-tight focus:outline-none focus:shadow-outline"
+                    >
+                      {/* <option value="">Select your City</option> */}
+                      {cities &&
+                        cities.map((city, index) => (
+                          <option key={index} value={city.name}>
+                            {city.name}
+                          </option>
+                        ))}
+                    </select>
+                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 mt-8 text-gray-700">
+                      {/* <ArrowDropDown /> */}
+                    </div>
+                  </div>
+                  <label className="mt-5" htmlFor="income">
+                    Family Annual Income
+                    <sup className="text-red-500">*</sup>
+                  </label>
+                  <input
+                    id="income"
+                    type="text"
+                    required
+                    value={income}
+                    placeholder="10 Lakhs"
+                    className="rounded-xl w-full px-4 py-3 shadow-xl focus:outline-none"
+                    onChange={(e) => setIncome(e.target.value)}
+                  />
+                  <p className="mt-5">
+                    What's your preferred intake?
+                    <sup className="text-red-500">*</sup>
+                  </p>
+                  <div className="flex gap-x-5 mt-2">
+
+                    <div
+                      className={`py-3 px-6 cursor-pointer flex items-center justify-center max-lg:px-3 max-lg:border rounded-2xl border-2 border-[#001E43] ${intake === "January 2024"
+                        ? "bg-[#001E43] text-white"
+                        : "border-2 border-[#001E43]"
+                        }`}
+                      onClick={() => {
+                        setIntake("January 2024");
+                      }}
+                    >
+                      <p className="max-xl:text-xs text-base">Jan 2024</p>
+                    </div>
+                    <div
+                      className={`py-3 px-6 cursor-pointer flex items-center justify-center max-lg:px-3 max-lg:border rounded-2xl border-2 border-[#001E43] ${intake === "May 2024"
+                        ? "bg-[#001E43] text-white"
+                        : "border-2 border-[#001E43]"
+                        }`}
+                      onClick={() => {
+                        setIntake("May 2024");
+                      }}
+                    >
+                      <p className="max-xl:text-xs text-base">May 2024</p>
+                    </div>
+                    <div
+                      className={`py-3 px-6 cursor-pointer flex items-center justify-center max-lg:px-3 max-lg:border rounded-2xl border-2 border-[#001E43] ${intake === "September 2024"
+                        ? "bg-[#001E43] text-white"
+                        : "border-2 border-[#001E43]"
+                        }`}
+                      onClick={() => {
+                        setIntake("September 2024");
+                      }}
+                    >
+                      <p className="max-xl:text-xs text-base">Sep 2024</p>
+                    </div>
+                  </div>
+                  <button
+                    type="submit"
+                    disabled={!stateCode || !city || !income || !intake}
+                    className="bg-[#001E43] disabled:bg-gray-400 mt-5 w-full py-2 rounded-lg text-white font-semibold"
+                  >
+                    Continue
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
-        ) : (
-          <Page2 />
-        )}
+        ) : <LoanPageTwo />}
       </div>}
     </>
   );

@@ -30,6 +30,35 @@ const SignupStepTwo = ({
     const [password, setPassword] = useState();
     const [confirmPassword, setConfirmPassword] = useState('');
 
+    const [passwordChecker, setPasswordChecker] = useState({
+        lengthCheck: false,
+        uppercaseCheck: false,
+        lowercaseCheck: false,
+        numberCheck: false,
+        specialCharCheck: false
+    })
+
+    useEffect(()=>{ 
+        function checkPasswordStrength(curr_password) {
+            const newPassCheckerValue= {
+                lengthCheck: false,
+                uppercaseCheck: false,
+                lowercaseCheck: false,
+                numberCheck: false,
+                specialCharCheck: false
+            }
+            
+            if(curr_password?.length >= 8) newPassCheckerValue.lengthCheck=true;
+            if(curr_password?.match(/[a-z]/gm)) newPassCheckerValue.lowercaseCheck=true;            
+            if(curr_password?.match(/[A-Z]/gm)) newPassCheckerValue.uppercaseCheck=true;
+            if(curr_password?.match(/[0-9]/gm)) newPassCheckerValue.numberCheck=true;
+            if(curr_password?.match(/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/gm)) newPassCheckerValue.specialCharCheck=true;
+
+            setPasswordChecker(newPassCheckerValue);            
+        }
+        checkPasswordStrength(password); 
+    }, [password])
+
     const icons = [
         {
             img: funding,
@@ -91,7 +120,7 @@ const SignupStepTwo = ({
                 window.location.href = 'https://student.ingelt.com';
             }
         } catch (err) {
-            toast.error('Sorry! Something went wrong.');
+            toast.error(err?.response?.data?.message);
         }
     };
     useEffect(() => {
@@ -179,7 +208,13 @@ const SignupStepTwo = ({
                                     )
                                 }
                                 <div className=" mt-4">
-                                    <p className="text-xs text-center">Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character.</p>
+                                    <p className="text-xs">
+                                        <p className={`${passwordChecker.lengthCheck ? " text-green-500 ": " text-red-500 "}`} >Password must be at least 8 characters long</p>
+                                        <p className={`${passwordChecker.lowercaseCheck ? " text-green-500 ": " text-red-500 "}`} >Must contain at least one lowercase letter</p>
+                                        <p className={`${passwordChecker.uppercaseCheck ? " text-green-500 ": " text-red-500 "}`} >Must contain at least one uppercase letter</p>
+                                        <p className={`${passwordChecker.numberCheck ? " text-green-500 ": " text-red-500 "}`} >Must contain at least one number</p>
+                                        <p className={`${passwordChecker.specialCharCheck ? " text-green-500 ": " text-red-500 "}`} >Must contain at least one special character</p>
+                                    </p>
                                 </div>
                                 <button type="submit"
                                     disabled={
