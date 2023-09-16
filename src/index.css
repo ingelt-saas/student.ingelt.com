@@ -167,3 +167,9 @@ code {
 .MuiSlider-markActive {
   background-color: #0C3C82 !important;
 }
+
+
+
+.google-review-video video {
+  object-fit: cover !important;
+}
