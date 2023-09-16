@@ -50,7 +50,7 @@ const ReviewItem = ({ url }) => {
 
     return <div className='flex flex-col rounded-xl overflow-hidden shadow-2xl'>
         <div className='aspect-[9/11] group relative bg-[#0C3C82]'>
-            <video data-setup='{"aspectRatio":"9:11"}' id='video-js' ref={videoRef} className="video-js vjs-default-skin" />
+            <video data-setup='{"aspectRatio":"9:11"}' id='video-js' ref={videoRef} className="video-js vjs-default-skin google-review-video" />
             {/* <img draggable={false} src="https://s3-alpha-sig.figma.com/img/1e42/16ef/b0757955d3b7a6cd2b223bc16541bfec?Expires=1695600000&Signature=keYfEKD6Tvlb6HyokRuCUcV79-K97Itxktk2naAXJ8AvWfwt67VVqwv59NsMYv2-TJuBvE99n-bzom8B~PiUY3sHkLm4NJ3mZOaoJwcgeTc~ENjah2Ywbot1E1kUonWHiBqkS-Gt6bxvXQEL3DTFmsW9m2Nb61U8YlN5g0g-5GylEIPxvBOaz3LZwG75A3Yrm7DaHukQqRMTg0RlUBVsY13VzHOvO3B4O3OjkKlYMpLyAXURUq3tY7f17KAECr3ssVKTFA6fH3kjeZJhkytf-2gXepY2YrzU~JipXIUpIkxYkuFgoCqQNoti6FgZeG9DCbWLjRxRP9hVmxt4dgzmVg__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4" alt="" className='w-full h-full object-cover' /> */}
             <svg
                 className='w-16 h-16 group-hover:hidden duration-200 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'
