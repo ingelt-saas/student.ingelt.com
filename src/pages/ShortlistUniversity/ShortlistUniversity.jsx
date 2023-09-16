@@ -265,7 +265,7 @@ const ShortlistUniversity = () => {
 
           <div className="w-full sm:w-[30%]">
             <div className="rounded-2xl bg-white shadow-2xl px-5 py-5">
-              <h3 className="text-xl font-semibold text-[#0C3C82]">
+              <h3 className="text-xl my-1 font-semibold text-[#0C3C82]">
                 Need more help in finding your course?
               </h3>
               <br />
