@@ -201,10 +201,10 @@ const Accommodation = () => {
             {/* header start */}
             <div className='shadow-xl rounded-xl max-sm:px-3 px-5 py-5 bg-white'>
                 <div className='flex justify-between'>
-                    <div className='flex-1 flex flex-col gap-3'>
-                        <h1 className="text-2xl font-bold text-[#0C3C82]">Accommodation</h1>
+                    <div className='flex-1 flex flex-col gap-3 sm:max-h-fit'>
+                        <h1 className="text-2xl font-bold text-[#0C3C82]">Student Accommodation</h1>
                         <p className="font-normal text-black opacity-75 sm:max-w-[350px]">
-                            Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor.
+                            Book student accommodations near top universities and cities across the globe.
                         </p>
                         <div className='flex flex-wrap max-sm:gap-x-1 gap-3 max-md:justify-center mt-2'>
                             <SearchInput
@@ -239,7 +239,7 @@ const Accommodation = () => {
                         </div>
                     </div>
                     <div className='w-fit max-md:hidden'>
-                        <img src={headerImg} alt="" className='w-auto h-auto' />
+                        <img src={headerImg} alt="" className='w-auto h-[150px]' />
                     </div>
                 </div>
             </div>

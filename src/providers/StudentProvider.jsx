@@ -33,12 +33,13 @@ const StudentProvider = ({ children }) => {
 
   };
 
-  const couponState = useState(false);
+  const couponState = useState('');
   useEffect(()=>{
     let coupon= Cookies.get('couponCode')
     if(coupon) {
       paymentApi.verifyModuleCoupon({coupon}).then(res=>{
-        couponState[1](true);
+        // console.log(res?.data?.coupon?.amount);
+        couponState[1](res?.data?.coupon?.amount);
       }).catch(err=>{
         console.log(err);
         Cookies.remove("couponCode");

@@ -229,7 +229,7 @@ const SidebarMenus = () => {
           <li className="navItem mb-1.5">
             <NavItem to="/referral">
               <AiFillGift className="!w-6 !h-6" />
-              <span>Referral</span>
+              <span>Refer & Earn</span>
             </NavItem>
           </li>
           <li className="navItem mb-1.5">

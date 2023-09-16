@@ -8,6 +8,10 @@ import {
     CircularProgress,
     TablePagination,
     Typography,
+    Modal, 
+    FormControl, 
+    InputLabel, 
+    OutlinedInput
 } from "@mui/material";
 
 //mux video
@@ -29,6 +33,13 @@ import csv from "../../assets/images/csv.svg";
 import doc from "../../assets/images/doc.svg";
 import landingImg from '../../assets/images/landing-pages/library.png';
 import settings from "../../api/settings";
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import paymentApi from '../../api/payment';
+import Cookies from "js-cookie";
+import lockIcon from '../../assets/images/lock.png';
+
+
+
 
 const LandingPage = () => {
 
@@ -196,6 +207,58 @@ const Library = () => {
     //     e.preventDefault(); // Prevent the default right-click behavior
     //   };
 
+
+    let {  couponState } = useContext(StudentContext);
+    const [isValidCoupon, setisValidCoupon] = couponState;
+    const [couponModal, setCouponModal] = useState(false);
+    const [couponData, setCouponData] = useState('');
+
+    function handleCouponDataSubmit(e) {
+        e.preventDefault();
+        // get a token after verifying the coupon from server set it in cookie
+        Cookies.set('couponCode', couponData, {expires: 730})
+        paymentApi.verifyModuleCoupon({coupon: couponData}).then(res=>{
+            setisValidCoupon(res?.data?.coupon?.amount)
+        }).catch(err=>{
+            console.log(err);
+        }).finally(()=>{
+            setCouponModal(false);
+        })
+    }
+
+    
+    function hasValidCoupon(order) {
+        // send the token to server if server verified it then change the status that this 
+        // user has the token and able to view all content
+        return isValidCoupon === 299 ;
+    }
+
+    const ModuleThumbnail = ({ src, isUnlock }) => {
+
+        if(isUnlock) {
+            return <div className=''>
+                {<img src={getFileImage(src)} alt="" />}
+                {/* <img src={src} alt="Module Thumbnail" className="w-full aspect-video h-auto object-cover" /> */}
+            </div>
+        }
+        return <>
+            {
+                <div class={`w-full aspect-video h-full !object-contain`} style={{
+                        backgroundImage: `url(${src})`, 
+                        backgroundSize:     'cover',
+                        backgroundRepeat:   'no-repeat',
+                        backgroundPosition: 'center center',
+                    }}>
+                    <div class="h-full w-full backdrop-brightness-100 backdrop-blur-md flex justify-center items-center">
+                        <img src={lockIcon} alt="module lock" className='w-32' />
+                        {/* <img src={getFileImage(item.file)} alt="" /> */}
+                    </div>
+                </div>
+            }
+        </>
+    }
+    
+
     return (
         <>
             {/* {!student?.libraryUnlock && <LandingPage />} */}
@@ -320,12 +383,17 @@ const Library = () => {
                             Library.map((item, index) => (
                                 <div className="flex flex-col items-center justify-center bg-white rounded-xl h-full 2xl:w-[19vw] xl:w-[18vw] lg:w-[28vw] shadow-[0px_10px_36px_rgba(0,0,0,0.16),0px_0px_0px_1px_rgba(0,0,0,0.06)] scale-95 hover:scale-100 duration-200 transition-transform hover:cursor-pointer"
                                     key={index}
-                                    onClick={
-                                        () => downloadItem(item.file)
-                                    }>
+                                    onClick={() => {
+                                        if( hasValidCoupon(item?.order) ) {
+                                            return downloadItem(item.file)
+                                        } else {
+                                            setCouponModal(true);
+                                        }
+                                    }}>
                                     <div className="h-[70%] flex flex-col items-center justify-center pb-4 pt-10">
                                         <div className="flex">
-                                            {<img src={getFileImage(item.file)} alt="" />}
+                                            {/* {<img src={getFileImage(item.file)} alt="" />} */}
+                                            <ModuleThumbnail src={item.file} isUnlock={hasValidCoupon()} />
                                         </div>
                                         <div>
                                             <p className="font-bold px-4 py-2">
@@ -384,6 +452,57 @@ const Library = () => {
                     })
                 }
                 className="mt-6" /> */}
+
+                <Modal
+                    open={couponModal}
+                    onClose={() => {
+                        setCouponModal(false);
+                        setCouponData('');
+                    }}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                >
+                    <Box sx={{
+                        position: 'absolute',
+                        top: '50%',
+                        left: '50%',
+                        transform: 'translate(-50%, -50%)',
+                        width: 350,
+                        // height: 350,
+                        bgcolor: 'background.paper',
+                        borderRadius: 6,
+                        boxShadow: 24,
+                        p: 4
+                    }}>
+                        <form onSubmit={handleCouponDataSubmit}>
+
+                            <div className='font-medium md:text-base lg:text-lg'>
+                                Kindly initiate the payment to get the coupon code…
+                            </div>
+                            <div className='mt-6'>
+                                <FormControl size='small' variant="outlined">
+                                    <InputLabel className='!text-sm' htmlFor="outlined-adornment-coupon">Coupon</InputLabel>
+                                    <OutlinedInput
+                                        id="outlined-adornment-coupon"
+                                        label="Coupon"
+                                        className='!text-sm'
+                                        onChange={(e) => setCouponData(e.target.value)}
+                                        value={couponData}
+                                    />
+                                </FormControl>
+                            </div>
+
+                            <button type='submit' className="mt-4 hover:bg-[#00285A] hover:text-white text-lg bg-transparent duration-300 border-2 border-[#00285A] text-[#00285A] py-1 max-md:text-base px-5 min-w-fit rounded-2xl justify-around flex items-center">
+                                <p className='text-lg font-semibold flex items-center justify-around'>
+                                    <strong className='text-sm md:text-base'>Submit </strong>
+                                    &nbsp; &nbsp;
+                                    <span className="w-6 h-6 border-1 rounded-full flex justify-center items-center bg-[#00285A] text-white"><ChevronRightIcon /></span>
+                                </p>
+                            </button>
+                        </form>
+
+                    </Box>
+                </Modal>
 
             </Box>
         </>

@@ -25,7 +25,7 @@ const StudentJourney = () => {
                     <div className='w-full rounded-full h-3 bg-[#00285A] relative'>
                         <div className='flex group-even:flex-col flex-col-reverse items-center absolute py-7 group-even:top-full group-odd:bottom-full left-0 w-full'>
                             <p className='text-center mx-auto font-medium text-sm'>Application Submitted</p>
-                            <p className='text-center mx-auto font-medium text-sm text-[#1E8F3D]'>Referee will be eligible for a reward of ₹500</p>
+                            {/* <p className='text-center mx-auto font-medium text-sm text-[#1E8F3D]'>Referee will be eligible for a reward of ₹500</p> */}
                         </div>
                         <span className='w-7 aspect-square bg-[#00285A] absolute rounded-full top-1/2 left-1/2  -translate-x-1/2 -translate-y-1/2 grid place-items-center text-white font-bold'>
                             <svg
