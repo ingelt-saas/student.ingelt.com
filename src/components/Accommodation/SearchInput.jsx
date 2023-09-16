@@ -74,10 +74,10 @@ const SearchInput = ({ searchValue, searchHandler }) => {
     return (
         <PopupState variant='popover'>
             {(popupState) => <>
-                <form onSubmit={formHandler} className='flex rounded-full overflow-hidden  max-sm:text-xs text-sm border-2 border-[#0C3C82] max-sm:w-full w-[260px] px-1 py-0.5 items-center' >
-                    <input onKeyUp={debounce(search, 1000)} {...bindFocus(popupState)} type='text' placeholder='Search by Collage, City and Country' className='focus:outline-none border-none bg-transparent pl-2 pr-1 flex-1' value={value} onChange={(e) => setValue(e.target.value)} />
+                <form onSubmit={formHandler} className='flex rounded-full overflow-hidden  max-sm:text-xs text-sm border-2 border-[#0C3C82] max-sm:w-full w-[280px] px-1 py-0.5 items-center' >
+                    <input onKeyUp={debounce(search, 1000)} {...bindFocus(popupState)} type='text' placeholder='Search by Collage, City and Country' className=' focus:outline-none border-none bg-transparent pl-2 flex-1' value={value} onChange={(e) => setValue(e.target.value)} />
                     <Tooltip title='Search by Collage, City and Country'>
-                        <button type='submit' className='rounded-full grid place-items-center bg-[#0C3C82] text-white w-8 h-8'>
+                        <button type='submit' className='rounded-full grid place-items-center bg-[#0C3C82] text-white p-1 relative right-0'>
                             <Search fontSize='small' />
                         </button>
                     </Tooltip>

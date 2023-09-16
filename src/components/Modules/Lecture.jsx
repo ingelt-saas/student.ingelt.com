@@ -123,7 +123,7 @@ const Lecture = ({ modules }) => {
     function hasValidCoupon(order) {
         // send the token to server if server verified it then change the status that this 
         // user has the token and able to view all content
-        return order === 1 || isValidCoupon;
+        return order === 1 || isValidCoupon === 299 ;
     }
 
     function handleCouponDataSubmit(e) {
@@ -131,7 +131,7 @@ const Lecture = ({ modules }) => {
         // get a token after verifying the coupon from server set it in cookie
         Cookies.set('couponCode', couponData, {expires: 730})
         paymentApi.verifyModuleCoupon({coupon: couponData}).then(res=>{
-            setisValidCoupon(res?.data?.validation)
+            setisValidCoupon(res?.data?.coupon?.amount)
         }).catch(err=>{
             console.log(err);
         }).finally(()=>{

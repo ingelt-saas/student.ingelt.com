@@ -78,6 +78,12 @@ const LoanPageTwo = () => {
         },
     ];
 
+    function importAll(r) {
+        return r.keys().map(r);
+    }
+
+    const images = importAll(require.context('../../assets/NewDesign/Bank logos', false, /\.(png|jpe?g|svg)$/));
+
 
     return (
         <div className='w-full gap-10 mt-10 flex flex-col'>
@@ -96,25 +102,41 @@ const LoanPageTwo = () => {
                                 <img src={loanImg} alt="" className='w-auto h-auto mx-auto' />
                                 <div className='flex flex-col gap-1 items-center'>
                                     <p className='text-normal text-sm max-sm:text-base text-center'>Loan amount upto </p>
-                                    <h2 className='text-xl max-sm:text-2xl font-bold text-center'>$ 10 Lakhs</h2>
+                                    <h2 className='text-xl max-sm:text-2xl font-bold text-center'>$ 1.5 Crore</h2>
                                 </div>
                             </div>
                             <div className='flex flex-col justify-between gap-1 bg-white max-sm:py-7 p-3 rounded-2xl shadow-lg'>
                                 <img src={interestImg} alt="" className='w-auto h-auto mx-auto' />
                                 <div className='flex flex-col gap-1 items-center'>
                                     <p className='text-normal text-sm max-sm:text-base text-center'>Interest rate starting</p>
-                                    <h2 className='text-xl max-sm:text-2xl font-bold text-center'>11.5%</h2>
+                                    <h2 className='text-xl max-sm:text-2xl font-bold text-center'>9%</h2>
                                 </div>
                             </div>
                             <div className='flex flex-col justify-between gap-1 bg-white max-sm:py-7 p-3 rounded-2xl shadow-lg'>
                                 <img src={clockImg} alt="" className='w-auto h-auto mx-auto' />
                                 <div className='flex flex-col gap-1 items-center'>
                                     <p className='text-normal text-sm max-sm:text-base text-center'>Minimum processing time</p>
-                                    <h2 className='text-xl max-sm:text-2xl font-bold text-center'>7</h2>
+                                    <h2 className='text-xl max-sm:text-2xl font-bold text-center'>7 Days</h2>
                                 </div>
                             </div>
                         </div>
                     </div>
+                <div className='flex justify-center mt-4'>
+                    <div className='w-full'>
+                        <div className='text-center mt-8'>
+                            <h1 className='text-xl md:text-3xl font-bold mx-auto text-[#001E43] w-fit relative'>Our Banking Partners</h1>
+                        </div>
+                        <div className='flex flex-wrap'>
+                            {/* <BankingPart /> */}
+                            {Array.isArray(images) && images.map((image, index) =>
+                                <div className={` ${index === 0 ? " sm:hidden " : "  "} w-[calc(100%/4)] sm:w-[calc(100%/5)] my-3 flex justify-center items-center`}>
+                                    <img draggable={false} src={image} className='px-2 sm:px-3' alt="" />
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                </div>
+
                 </div>
                 <div className='md:w-1/2'>
                     <div className='w-full bg-white rounded-[1.2rem] shadow-lg max-sm:px-2 max-sm:py-5 py-7 px-7'>
@@ -129,11 +151,7 @@ const LoanPageTwo = () => {
                     </div>
                 </div>
             </div>
-            <div className='flex justify-center'>
-                <div className='w-full md:max-w-[600px]'>
-                    <BankingPart />
-                </div>
-            </div>
+            
         </div>
     );
 }

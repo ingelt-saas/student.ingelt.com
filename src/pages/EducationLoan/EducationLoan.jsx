@@ -32,6 +32,7 @@ import Header from "../../components/shared/Header/Header";
 import settings from "../../api/settings";
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import LoanPageTwo from "../../components/EducationLoan/LoanPageTwo";
+import { Link } from "react-router-dom";
 
 
 const LandingPage = () => {
@@ -447,13 +448,13 @@ const EducationLoan = () => {
                 Are you looking for end to end education loan assistance?
               </h3>
               <br />
-              <button className="hover:bg-[#00285A] hover:text-white text-lg bg-transparent duration-300 border-2 border-[#00285A] text-[#00285A] py-1 max-md:text-base px-3 md:min-w-[180px] min-w-[150px] md:w-7/12 rounded-2xl justify-around flex items-center">
+              <Link to="//wa.me/+919205762929" className="hover:bg-[#00285A] hover:text-white text-lg bg-transparent duration-300 border-2 border-[#00285A] text-[#00285A] py-1 max-md:text-base px-3 md:min-w-[180px] min-w-[150px] md:w-7/12 rounded-2xl justify-around flex items-center">
                 <p className='text-lg font-semibold flex items-center justify-around'>
                   <strong className='text-sm md:text-base'> Talk to expert  </strong>
                   &nbsp; &nbsp;
                   <span className="w-6 h-6 border-1 rounded-full flex justify-center items-center bg-[#00285A] text-white"><ChevronRightIcon /></span>
                 </p>
-              </button>
+              </Link>
             </div>
           </div>
         </div>

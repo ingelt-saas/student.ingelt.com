@@ -218,11 +218,11 @@ const SpeakingSession = () => {
 
       <div className="flex max-md:flex-col gap-5 gap-x-5 mt-10">
         <div className="md:w-4/12 xl:w-5/12">
-          <div className="bg-white rounded-xl px-5 py-5 shadow-xl flex flex-col gap-y-3 min-h-full">
+          <div className="bg-white rounded-xl px-5 py-5 shadow-xl flex flex-col gap-y-4 min-h-full justify-between">
             {/* <UpcomingEvent /> */}
-            <div className="">
+            {/* <div className=""> */}
               <h3 className="text-2xl text-[#0C3C82] font-medium">How this one-to-one session is helpful</h3>
-              <ul className="mt-3 pl-4 list-disc">
+              <ul className="grow flex justify-between flex-col mt-3 pl-4 list-disc">
                 <li>Identify the learner's strengths and weaknesses</li>
                 <li>Instant feedback on errors</li>
                 <li>Teach new vocabulary and grammar</li>
@@ -234,7 +234,7 @@ const SpeakingSession = () => {
                 <li>International Phonetic Alphabet</li>
                 <li>Advance Speaking Techniques</li>
               </ul>
-            </div>
+            {/* </div> */}
           </div>
         </div>
 

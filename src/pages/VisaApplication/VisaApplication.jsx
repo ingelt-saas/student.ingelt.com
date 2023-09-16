@@ -441,12 +441,12 @@ const VisaApplication = () => {
         <div className="w-full sm:w-[30%]">
           <div className="rounded-2xl bg-white shadow-2xl px-5 py-5">
             <h3 className="text-xl my-1 font-semibold text-[#0C3C82]">
-              Schedule call with Registered Immegration Consultants
+              Schedule call with Registered Immigration Consultants
             </h3>
             <br />
             <button onClick={() => setOpenPaymentQr(true)} className="hover:bg-[#00285A] hover:text-white text-lg bg-transparent duration-300 border-2 border-[#00285A] text-[#00285A] py-1 max-md:text-base px-3 md:min-w-[180px] min-w-[150px] md:w-7/12 rounded-2xl justify-around flex items-center">
               <p className='text-lg font-semibold flex items-center justify-around'>
-                <strong className='text-sm md:text-base'> 50.00 USD </strong>
+                <strong className='text-sm md:text-base'> 5000.00 INR </strong>
                 &nbsp; &nbsp;
                 <span className="w-6 h-6 border-1 rounded-full flex justify-center items-center bg-[#00285A] text-white"><ChevronRightIcon /></span>
               </p>
@@ -458,7 +458,7 @@ const VisaApplication = () => {
       {/* page header end */}
 
       <div className="flex max-md:flex-col gap-5">
-        <div className="flex flex-col gap-10 md:w-1/2 md:px-10">
+        <div className="flex flex-col justify-evenly md:w-1/2 md:px-10">
           <div className="w-full">
             <Countries />
           </div>
@@ -547,6 +547,42 @@ const VisaApplication = () => {
                   {/* <ArrowDropDown /> */}
                 </div>
               </div>
+
+
+              <div className="inline-block relative mt-5 w-full">
+                <label htmlFor="IELTS_Score">
+                  What is your IELTS Score?
+                </label>
+                <input
+                  id="ieltsScore"
+                  className="block appearance-none w-full mt-2 bg-white border-none hover:border-gray-500 px-4 py-4 pr-8 rounded-xl shadow-xl leading-tight focus:outline-none focus:shadow-outline"
+                  placeholder="IELTS Score?"
+                >
+                  
+                </input>
+                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 mt-8 text-gray-700">
+                  {/* <ArrowDropDown /> */}
+                </div>
+              </div>
+
+
+              <div className="inline-block relative mt-5 w-full">
+                <label htmlFor="Travel_history">
+                  Do you have any travel history?
+                </label>
+                <select
+                  id="travelHistory"
+                  placeholder="Travel History"
+                  className="block appearance-none w-full mt-2 bg-white border-none hover:border-gray-500 px-4 py-4 pr-8 rounded-xl shadow-xl leading-tight focus:outline-none focus:shadow-outline"
+                  value="Yes"
+                >
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                </select>
+                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 mt-8 text-gray-700">
+                  {/* <ArrowDropDown /> */}
+                </div>
+              </div>
               <div className="inline-block relative mt-5 ml-2">
                 <p className="mb-2">Previous Refusal</p>
                 <input
@@ -584,7 +620,7 @@ const VisaApplication = () => {
       </div>
 
 
-      <div className="mt-10">
+      <div className="mt-0">
         <GoogleReview />
       </div>
 

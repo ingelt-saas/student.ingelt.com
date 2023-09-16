@@ -35,6 +35,11 @@ import Lecture from "../../components/Modules/Lecture";
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import pay4999Img from '../../assets/paymentQR/4999.png'
 
+import Cookies from "js-cookie";
+import lockIcon from '../../assets/images/lock.png';
+import { FormControl, InputLabel, OutlinedInput } from '@mui/material';
+
+
 const DateTimeDisplay = ({ value, type }) => {
   return (
     <div className="flex items-center w-fit">
@@ -236,6 +241,12 @@ const Modules = () => {
   const navigate = useNavigate();
   const [openPaymentQr, setOpenPaymentQr] = useState(false);
 
+
+  let {  couponState } = useContext(StudentContext);
+  const [isValidCoupon, setisValidCoupon] = couponState;
+  const [couponModal, setCouponModal] = useState(false);
+  const [couponData, setCouponData] = useState('');
+
   // context
   const { student } = useContext(StudentContext);
 
@@ -367,6 +378,56 @@ const Modules = () => {
     </div>
   }
 
+  
+    function handleCouponDataSubmit(e) {
+        e.preventDefault();
+        // get a token after verifying the coupon from server set it in cookie
+        Cookies.set('couponCode', couponData, {expires: 730})
+        paymentApi.verifyModuleCoupon({coupon: couponData}).then(res=>{
+            setisValidCoupon(res?.data?.coupon?.amount)
+        }).catch(err=>{
+            console.log(err);
+        }).finally(()=>{
+            setCouponModal(false);
+        })
+    }
+
+    
+    function hasValidCoupon(order) {
+        // send the token to server if server verified it then change the status that this 
+        // user has the token and able to view all content
+        return isValidCoupon === 299 ;
+    }
+
+    const ModuleThumbnail = ({ item, isUnlock }) => {
+
+        if(isUnlock) {
+            return <div className=''>
+              <Image
+                src={item.thumbnail}
+                alt={item.name}
+                className="w-full aspect-video h-auto object-cover"
+              />
+            </div>
+        }
+        return <>
+            {
+                <div class={`w-full aspect-video h-full !object-contain`} style={{
+                        backgroundImage: `url(${item.thumbnail})`, 
+                        backgroundSize:     'cover',
+                        backgroundRepeat:   'no-repeat',
+                        backgroundPosition: 'center center',
+                    }}>
+                    <div class="h-full w-full backdrop-brightness-100 backdrop-blur-md flex justify-center items-center">
+                        <img src={lockIcon} alt="module lock" className='w-32' />
+                        {/* <img src={getFileImage(item.file)} alt="" /> */}
+                    </div>
+                </div>
+            }
+        </>
+    }
+    
+
   return (
     <>
       {/* {!student?.modulesUnlock && <LandingPage />} */}
@@ -444,7 +505,7 @@ const Modules = () => {
             </button> */}
             <button
               onClick={() => setSearch({ page: "video" })}
-              className={`duration-200 transition-none ease-in ${page === "video" || !page
+              className={`text-sm duration-200 transition-none ease-in ${page === "video" || !page
                 ? "border-1 py-3 px-5 md:px-8 font-semibold text-[#1B3B7D] border-[#ECECEC] bg-white border-b-0 rounded-t-xl"
                 : "bg-[#F3F3F3] py-2 px-2 md:px-5 text-sm"
                 }`}
@@ -453,7 +514,7 @@ const Modules = () => {
             </button>
             <button
               onClick={() => setSearch({ page: "module_ppt" })}
-              className={`duration-200 transition-none ease-in ${page === "module_ppt"
+              className={`text-sm duration-200 transition-none ease-in ${page === "module_ppt"
                 ? "border-1 py-3 px-5 md:px-8 font-semibold text-[#1B3B7D] border-[#ECECEC] bg-white border-b-0 rounded-t-xl"
                 : "bg-[#F3F3F3] py-2 px-2 md:px-5 text-sm"
                 }`}
@@ -462,7 +523,7 @@ const Modules = () => {
             </button>
             {/* <button
                 onClick={() => setSearch({ page: "mock_test" })}
-                className={`duration-200 transition-none ease-in ${page === "mock_test"
+                className={`text-sm duration-200 transition-none ease-in ${page === "mock_test"
                   ? "border-1 py-3 px-5 md:px-8 font-semibold text-[#1B3B7D] border-[#ECECEC] bg-white border-b-0 rounded-t-xl"
                   : "bg-[#F3F3F3] py-2 px-2 md:px-5 text-sm"
                   }`}
@@ -471,7 +532,7 @@ const Modules = () => {
               </button> */}
             <button
               onClick={() => setSearch({ page: "library" })}
-              className={`duration-200 transition-none ease-in ${page === "library"
+              className={`text-sm duration-200 transition-none ease-in ${page === "library"
                 ? "border-1 py-3 px-5 md:px-8 font-semibold text-[#1B3B7D] border-[#ECECEC] bg-white border-b-0 rounded-t-xl"
                 : "bg-[#F3F3F3] py-2 px-2 md:px-5 text-sm"
                 }`}
@@ -495,13 +556,20 @@ const Modules = () => {
 
 
         {!loading &&
-          page === "module_ppt" && page === "mock_test" &&
+          page === "module_ppt" &&
           (Array.isArray(modules) && modules.length > 0 ? (
             <Box className="mt-5">
               <div className="grid 2xl:grid-cols-4 xl:grid-cols-4 md:grid-cols-2 gap-y-5 pt-10">
                 {modules.map((item, index) => (
                   <div
-                    onClick={() => handleView(item)}
+                    // onClick={() => handleView(item)}
+                    onClick={() => {
+                      if( hasValidCoupon(item?.order) ) {
+                          return handleView(item)
+                      } else {
+                          setCouponModal(true);
+                      }
+                  }}
                     className="p-3 relative bg-white rounded-xl h-full shadow-[0px_10px_36px_rgba(0,0,0,0.16),0px_0px_0px_1px_rgba(0,0,0,0.06)] scale-95 hover:scale-100 duration-200 transition-transform cursor-pointer"
                     key={index}
                   >
@@ -509,11 +577,13 @@ const Modules = () => {
                       <ModuleOverly releaseDate={item.releaseDate} />
                     )}
                     <div className="rounded-2xl overflow-hidden">
-                      <Image
+                      <ModuleThumbnail item={item} isUnlock={(hasValidCoupon())} />
+                      {/* <Image
                         src={item.thumbnail}
                         alt={item.name}
                         className="w-full aspect-video h-auto object-cover"
-                      />
+                      /> */}
+                      
                     </div>
                     <div className="mt-5">
                       <h4 className="flex justify-between gap-x-3 items-center">
@@ -653,6 +723,57 @@ const Modules = () => {
           open={Boolean(selectedFile)}
         />
       )}
+
+      <Modal
+        open={couponModal}
+        onClose={() => {
+          setCouponModal(false);
+          setCouponData('');
+        }}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: 350,
+          // height: 350,
+          bgcolor: 'background.paper',
+          borderRadius: 6,
+          boxShadow: 24,
+          p: 4
+        }}>
+          <form onSubmit={handleCouponDataSubmit}>
+
+            <div className='font-medium md:text-base lg:text-lg'>
+              Kindly initiate the payment to get the coupon code…
+            </div>
+            <div className='mt-6'>
+              <FormControl size='small' variant="outlined">
+                <InputLabel className='!text-sm' htmlFor="outlined-adornment-coupon">Coupon</InputLabel>
+                <OutlinedInput
+                  id="outlined-adornment-coupon"
+                  label="Coupon"
+                  className='!text-sm'
+                  onChange={(e) => setCouponData(e.target.value)}
+                  value={couponData}
+                />
+              </FormControl>
+            </div>
+
+            <button type='submit' className="mt-4 hover:bg-[#00285A] hover:text-white text-lg bg-transparent duration-300 border-2 border-[#00285A] text-[#00285A] py-1 max-md:text-base px-5 min-w-fit rounded-2xl justify-around flex items-center">
+              <p className='text-lg font-semibold flex items-center justify-around'>
+                <strong className='text-sm md:text-base'>Submit </strong>
+                &nbsp; &nbsp;
+                <span className="w-6 h-6 border-1 rounded-full flex justify-center items-center bg-[#00285A] text-white"><ChevronRightIcon /></span>
+              </p>
+            </button>
+          </form>
+
+        </Box>
+      </Modal>
     </>
   );
 };
