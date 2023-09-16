@@ -5,10 +5,10 @@ import videojs from 'video.js';
 import { getFileType } from '../../Modules/ModuleVideo';
 
 
-const ReviewItem = () => {
+const ReviewItem = ({ url }) => {
 
     // states
-    const [videoSource, setVideoSource] = useState({ src: 'https://assets.admitkard.com/videos/Rhitankar+Saha+Roy+_P_F_V2.mp4', type: 'video/mp4' });
+    const [videoSource, setVideoSource] = useState({ src: url, type: 'video/mp4' });
     const videoRef = useRef();
 
     // set video player
@@ -49,8 +49,8 @@ const ReviewItem = () => {
     }, [videoSource]);
 
     return <div className='flex flex-col rounded-xl overflow-hidden shadow-2xl'>
-        <div className='aspect-[9/16] group relative bg-[#0C3C82]'>
-            <video data-setup='{"aspectRatio":"9:16"}' id='video-js' ref={videoRef} className="video-js vjs-default-skin" />
+        <div className='aspect-[9/11] group relative bg-[#0C3C82]'>
+            <video data-setup='{"aspectRatio":"9:11"}' id='video-js' ref={videoRef} className="video-js vjs-default-skin" />
             {/* <img draggable={false} src="https://s3-alpha-sig.figma.com/img/1e42/16ef/b0757955d3b7a6cd2b223bc16541bfec?Expires=1695600000&Signature=keYfEKD6Tvlb6HyokRuCUcV79-K97Itxktk2naAXJ8AvWfwt67VVqwv59NsMYv2-TJuBvE99n-bzom8B~PiUY3sHkLm4NJ3mZOaoJwcgeTc~ENjah2Ywbot1E1kUonWHiBqkS-Gt6bxvXQEL3DTFmsW9m2Nb61U8YlN5g0g-5GylEIPxvBOaz3LZwG75A3Yrm7DaHukQqRMTg0RlUBVsY13VzHOvO3B4O3OjkKlYMpLyAXURUq3tY7f17KAECr3ssVKTFA6fH3kjeZJhkytf-2gXepY2YrzU~JipXIUpIkxYkuFgoCqQNoti6FgZeG9DCbWLjRxRP9hVmxt4dgzmVg__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4" alt="" className='w-full h-full object-cover' /> */}
             <svg
                 className='w-16 h-16 group-hover:hidden duration-200 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'
@@ -82,12 +82,19 @@ const ReviewItem = () => {
 
 const GoogleReview = () => {
 
+    const data = [
+        "https://assets.admitkard.com/videos/Subarna+Chakraborty_P_F_V2.mp4",
+        "https://assets.admitkard.com/videos/Rhitankar+Saha+Roy+_P_F_V2.mp4",
+        "https://assets.admitkard.com/videos/Tarushi+Gupta+_P_F_V2.mp4",
+        "https://assets.admitkard.com/videos/Subarna+Chakraborty_P_F_V2.mp4",
+    ];
+
     return (
         <>
             <div className='flex flex-col gap-10'>
                 <h1 className='font-semibold max-sm:text-2xl text-3xl text-[#0C3C82]'>Here form our students</h1>
                 <div className='grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
-                    {[...Array(4)].map((item, index) => <ReviewItem key={index} />)}
+                    {data.map((item, index) => <ReviewItem url={item} key={index} />)}
                 </div>
             </div>
         </>
