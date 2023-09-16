@@ -377,7 +377,7 @@ const Modules = () => {
           <div className="w-full sm:w-[70%] rounded-[1.2rem] flex justify-between relative items-center bg-white shadow-xl">
             <div className="px-7 flex flex-col gap-y-1 max-md:py-7 max-sm:px-5 max-md:items-center max-md:w-full">
 
-              <h1 className="text-2xl font-bold text-[#0C3C82]">Start your IELTS Speaking Practice </h1>
+              <h1 className="text-2xl font-bold text-[#0C3C82]">Premium IELTS Resources</h1>
               <p className="font-normal text-black opacity-75">Over 12,000+ IELTS Aspirants have got their desired band score</p>
             </div>
             <div className="overflow-hidden pr-3 max-w-[30%] max-md:hidden">
@@ -392,8 +392,8 @@ const Modules = () => {
 
           <div className="w-full sm:w-[30%]">
             <div className="rounded-2xl bg-white shadow-2xl px-5 py-5">
-              <h3 className="text-xl font-semibold text-[#0C3C82]">
-                Here is the schedule of speaking practice session booked by you
+              <h3 className="text-base my-2 font-semibold text-[#0C3C82]">
+                Get IELTS resources recommended by British Council Certified instructor
               </h3>
               <br />
               <button onClick={() => setOpenPaymentQr(true)} className="hover:bg-[#00285A] hover:text-white text-lg bg-transparent duration-300 border-2 border-[#00285A] text-[#00285A] py-1 max-md:text-base px-3 md:min-w-[180px] min-w-[150px] md:w-7/12 rounded-2xl justify-around flex items-center">
