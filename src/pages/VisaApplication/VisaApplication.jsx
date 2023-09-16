@@ -26,6 +26,7 @@ import {
 import { FormControl, MenuItem, OutlinedInput, Select, Modal } from "@mui/material";
 import Header from "../../components/shared/Header/Header";
 import VisaFAQ from "../../components/VisaApplication/VisaFAQ";
+import GoogleReview from "../../components/shared/GoogleReview/GoogleReview";
 
 const SelectMenu = ({ options, placeholder, value, handleChange, name }) => {
 
@@ -454,27 +455,6 @@ const VisaApplication = () => {
         </div>
       </div>
 
-      <Modal
-        open={openPaymentQr}
-        onClose={() => setOpenPaymentQr(false)}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={{
-          position: 'absolute',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          width: 350,
-          bgcolor: 'background.paper',
-          borderRadius: 6,
-          boxShadow: 24,
-          p: 4,
-        }}>
-          <img src={pay4999Img} alt="payment qr" /> <br />
-          <p className="font-medium text-sm text-center">Kindly confirm the payment status with our team and ask for the coupon code to open the IELTS Modules</p>
-        </Box>
-      </Modal>
       {/* page header end */}
 
       <div className="flex max-md:flex-col gap-5">
@@ -601,6 +581,11 @@ const VisaApplication = () => {
             </div>
           </form>}
         </div>
+      </div>
+
+
+      <div className="mt-10">
+        <GoogleReview />
       </div>
 
 
