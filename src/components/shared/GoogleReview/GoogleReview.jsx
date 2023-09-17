@@ -89,6 +89,8 @@ const GoogleReview = () => {
         "https://assets.admitkard.com/videos/Subarna+Chakraborty_P_F_V2.mp4",
     ];
 
+    return <></>;
+
     return (
         <>
             <div className='flex flex-col gap-10'>
