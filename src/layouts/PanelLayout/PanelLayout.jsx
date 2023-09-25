@@ -1,13 +1,14 @@
 import { Outlet, useLocation } from "react-router-dom";
 import SideBar from "../../components/shared/Sidebar/Sidebar";
 import { useEffect, useState } from "react";
-import { socket } from "../../contexts";
-import Cookies from "js-cookie";
+import { StudentContext, socket } from "../../contexts";
+import { useContext } from "react";
 
 
 const PanelLayout = () => {
 
   const location = useLocation();
+  const { student } = useContext(StudentContext);
 
   // Example state and state setter
   const [shouldApplyClasses, setShouldApplyClasses] = useState(true);
@@ -22,24 +23,28 @@ const PanelLayout = () => {
     }
   }, [location]);
 
-  // 
+  // set online students
   useEffect(() => {
-    let interval;
 
-    const sendActiveRequest = () => {
-      socket.emit('studentActivity', {
-        student_auth_token: Cookies.get("student_auth_token"),
-      });
+    const handleFocus = () => {
+      socket.emit('online-student', student.id);
     }
 
-    interval = setInterval(() => {
-      sendActiveRequest();
-    }, 1000 * 30);
+    const handleBlur = () => {
+      if (student) {
+        socket.emit("offline-student")
+      }
+    }
 
-    sendActiveRequest();
+    window.addEventListener('focus', handleFocus);
+    window.addEventListener('blur', handleBlur);
 
-    return () => clearInterval(interval);
-  }, []);
+    return () => {
+      window.removeEventListener('focus', handleFocus);
+      window.removeEventListener('blur', handleBlur);
+    }
+
+  }, [student]);
 
   return (
     <div className="flex flex-col lg:flex-row h-screen">

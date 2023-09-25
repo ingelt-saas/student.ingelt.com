@@ -12,12 +12,13 @@ import { ToastContainer } from "react-toastify";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const App = () => {
+
   useEffect(() => {
     if (localStorage.theme === "dark") {
       document.documentElement.classList.add("dark");
     }
   }, []);
-  
+
   const client = new QueryClient();
 
   return (
