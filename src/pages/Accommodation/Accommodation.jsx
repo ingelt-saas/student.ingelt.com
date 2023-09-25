@@ -144,6 +144,11 @@ const Accommodation = () => {
     useEffect(() => {
         (async () => {
             setLoading(true);
+
+            if (searchParams.get('id')) {
+                return;
+            }
+
             try {
 
                 const search = new URLSearchParams();
