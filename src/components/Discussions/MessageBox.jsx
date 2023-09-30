@@ -12,6 +12,7 @@ import ReportIcon from '@mui/icons-material/Report';
 import Flag from "react-world-flags";
 import { Verified } from '@mui/icons-material';
 import query from "../../api/query";
+import logo from '../../assets/images/logo.png';
 
 
 export const CountryFlag = ({ country, name }) => {
@@ -81,7 +82,8 @@ const MessageBox = ({ data, discussionReport, setReplyDiscussion }) => {
     discussionImages,
     discussionReports,
     ParentDiscussion,
-    senderVerified
+    senderVerified,
+    designation
   } = data;
 
   // Check if the message is from the student
@@ -164,12 +166,12 @@ const MessageBox = ({ data, discussionReport, setReplyDiscussion }) => {
 
         {/* sender image show */}
         <div className="px-2 w-[55px] h-[40px]">
-          <ProfileImage
+          {designation !== 'admin' ? <ProfileImage
             alt={senderName}
             gender={senderGender}
             src={senderImage}
             className={'h-10 w-10 rounded-full object-cover'}
-          />
+          /> : <img alt="InGelt Logo" src={logo} className={'h-10 w-10 rounded-full object-cover'} />}
         </div>
 
         <div className="flex flex-col gap-y-1 flex-1">
@@ -188,8 +190,8 @@ const MessageBox = ({ data, discussionReport, setReplyDiscussion }) => {
             <div className="flex flex-col gap-y-1 justify-start">
               <p className="flex text-xs font-semibold justify-between gap-x-4 text-[#1b3b7d] w-full">
                 <span>
-                  {senderName}
-                  {senderVerified ? <Verified className="!ml-1 !w-4 !h-4" /> : ''}
+                  {designation === 'admin' ? 'InGelt' : senderName}
+                  {designation !== 'admin' && senderVerified ? <Verified className="!ml-1 !w-4 !h-4" /> : ''}
                 </span>
                 <span className="flex gap-x-2 items-center">{<CountryFlag name={true} country={senderCountry} />}</span>
               </p>

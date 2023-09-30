@@ -223,7 +223,7 @@ const SidebarMenus = () => {
           <li className="navItem mb-1.5">
             <a href="https://g.page/r/CUZZJ7sFom8FEBM/review" target="_blank" rel="noreferrer" className="bg-transparent text-[#7A7C88] justify-start gap-3 flex items-center font-semibold  rounded-md duration-300 px-2 py-2 hover:bg-[#0064E133] hover:text-[#1B3B7D] text-sm">
               <VscFeedback className="!w-6 !h-6" />
-              <span>Feedback</span>
+              <span>Rate The App</span>
             </a>
           </li>
           <li className="navItem mb-1.5">
