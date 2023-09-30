@@ -121,21 +121,21 @@ const LoanPageTwo = () => {
                             </div>
                         </div>
                     </div>
-                <div className='flex justify-center mt-4'>
-                    <div className='w-full'>
-                        <div className='text-center mt-8'>
-                            <h1 className='text-xl md:text-3xl font-bold mx-auto text-[#001E43] w-fit relative'>Our Banking Partners</h1>
-                        </div>
-                        <div className='flex flex-wrap'>
-                            {/* <BankingPart /> */}
-                            {Array.isArray(images) && images.map((image, index) =>
-                                <div className={` ${index === 0 ? " sm:hidden " : "  "} w-[calc(100%/4)] sm:w-[calc(100%/5)] my-3 flex justify-center items-center`}>
-                                    <img draggable={false} src={image} className='px-2 sm:px-3' alt="" />
-                                </div>
-                            )}
+                    <div className='flex justify-center mt-4'>
+                        <div className='w-full'>
+                            <div className='text-center mt-8'>
+                                <h1 className='text-xl md:text-3xl font-bold mx-auto text-[#001E43] w-fit relative'>Our Banking Partners</h1>
+                            </div>
+                            <div className='flex flex-wrap'>
+                                {/* <BankingPart /> */}
+                                {Array.isArray(images) && images.map((image, index) =>
+                                    <div className={` ${index === 0 ? " sm:hidden " : "  "} w-[calc(100%/4)] sm:w-[calc(100%/5)] my-3 flex justify-center items-center`}>
+                                        <img draggable={false} src={image} className='px-2 sm:px-3' alt="" />
+                                    </div>
+                                )}
+                            </div>
                         </div>
                     </div>
-                </div>
 
                 </div>
                 <div className='md:w-1/2'>
@@ -151,7 +151,6 @@ const LoanPageTwo = () => {
                     </div>
                 </div>
             </div>
-            
         </div>
     );
 }

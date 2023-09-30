@@ -2,9 +2,6 @@ import React, { useEffect, useContext } from "react";
 import { StudentContext } from "../../contexts";
 import { useState } from "react";
 import welcomeSVG from "../../assets/images/scholar.svg";
-import loanSVG from "../../assets/images/loan.svg";
-import darkDownSVG from "../../assets/images/darkDown.svg";
-import img2 from "../../assets/images/Personal finance-pana.svg";
 // import { Country, State, City } from "country-state-city";
 import query from "../../api/query";
 import BankingPart from "../../components/EducationLoan/BankingPart"
@@ -17,23 +14,15 @@ import country from "../../assets/NewDesign/loan icon/country specific.svg";
 import preVisa from "../../assets/NewDesign/loan icon/pre visa.svg";
 import score from "../../assets/NewDesign/loan icon/score based.svg"
 import landingImg from '../../assets/images/landing-pages/education-load.svg';
-import {
-  Box,
-  CircularProgress,
-  FormControl,
-  TablePagination,
-  Select,
-  OutlinedInput,
-  MenuItem,
-  Typography,
-  Button,
-} from "@mui/material";
-import Header from "../../components/shared/Header/Header";
+import { Button } from "@mui/material";
 import settings from "../../api/settings";
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import LoanPageTwo from "../../components/EducationLoan/LoanPageTwo";
 import { Link } from "react-router-dom";
-
+import img from '../../assets/images/education-page-two.png';
+import loanImg from '../../assets/images/loan.png';
+import interestImg from '../../assets/images/interest-rate.png';
+import clockImg from '../../assets/images/fast-time.png';
 
 const LandingPage = () => {
 
@@ -94,187 +83,6 @@ const LandingPage = () => {
     </div>
   </div>;
 }
-
-const Page2 = () => {
-  return (
-    <div className="flex flex-row flex-wrap gap-y-10 gap-x-5 w-full  sm:m-auto">
-      <div className="w-full foo:block ">
-        <div className="flex gap-x-5 max-md:flex-col max-md:gap-y-5">
-          <Header title="Education Loan" subTitle="Optimal solution for overseas education loan" Img={welcomeSVG} scale={"scale-75"} />
-        </div>
-
-        <div className="flex w-full">
-          <div className="w-1/2 flex max-md:hidden">
-            <img
-              src={img2}
-              alt="welcome svg"
-              className="w-400 h-auto mx-auto my-10"
-            />
-          </div>
-          <div className="md:w-1/2 w-full">
-            <section className="body-font">
-              <div className="container px-5 pb-24 pt-10 mx-auto flex flex-wrap">
-                <div className="flex flex-wrap w-full">
-                  <div className=" md:pr-10 md:py-6">
-                    <div className="flex relative pb-12">
-                      {/* creating line */}
-                      <div className="h-full w-10 absolute inset-0 flex items-center justify-center">
-                        <div className="h-full w-2 bg-[#E5E9EF] pointer-events-none"></div>
-                      </div>
-                      <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#00285A] inline-flex items-center justify-center text-white relative z-10">
-                        <svg
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          className="w-5 h-5"
-                          viewBox="0 0 24 24"
-                        >
-                          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                        </svg>
-                      </div>
-                      <div className="flex-grow pl-4">
-                        <h2 className="font-extrabold title-font  text-[#00285A] mb-1 tracking-wider">
-                          Counselling
-                        </h2>
-                        <p className="leading-relaxed">
-                          Experience personalized counselling sessions with our
-                          expert advisors who will guide you through every step
-                          of your educational journey, helping you make informed
-                          decisions for a successful future.
-                        </p>
-                      </div>
-                    </div>
-                    <div className="flex relative pb-12">
-                      {/* creating line */}
-                      <div className="h-full w-10 absolute inset-0 flex items-center justify-center">
-                        <div className="h-full w-2 bg-[#E5E9EF] pointer-events-none"></div>
-                      </div>
-                      <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#E5E9EF] inline-flex items-center justify-center text-white relative z-10">
-                        <svg
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          className="w-5 h-5"
-                          viewBox="0 0 24 24"
-                        >
-                          <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
-                        </svg>
-                      </div>
-                      <div className="flex-grow pl-4">
-                        <h2 className="font-extrabold title-font  text-[#00285A] mb-1 tracking-wider">
-                          Document Collection
-                        </h2>
-                        <p className="leading-relaxed">
-                          Simplify the document collection process with our
-                          streamlined services, ensuring all necessary paperwork
-                          is organized and submitted accurately, saving you time
-                          and effort.
-                        </p>
-                      </div>
-                    </div>
-                    <div className="flex relative pb-12">
-                      {/* creating line */}
-                      <div className="h-full w-10 absolute inset-0 flex items-center justify-center">
-                        <div className="h-full w-2 bg-[#E5E9EF] pointer-events-none"></div>
-                      </div>
-                      <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#E5E9EF] inline-flex items-center justify-center text-white relative z-10">
-                        <svg
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          className="w-5 h-5"
-                          viewBox="0 0 24 24"
-                        >
-                          <circle cx="12" cy="5" r="3"></circle>
-                          <path d="M12 22V8M5 12H2a10 10 0 0020 0h-3"></path>
-                        </svg>
-                      </div>
-                      <div className="flex-grow pl-4">
-                        <h2 className="font-extrabold title-font  text-[#00285A] mb-1 tracking-wider">
-                          File Preparation
-                        </h2>
-                        <p className="leading-relaxed">
-                          Leave the meticulous file preparation to our experts,
-                          who will meticulously organize and compile your
-                          documents to meet the requirements, ensuring a smooth
-                          application process
-                        </p>
-                      </div>
-                    </div>
-                    <div className="flex relative pb-12">
-                      {/* creating line */}
-                      <div className="h-full w-10 absolute inset-0 flex items-center justify-center">
-                        <div className="h-full w-2 bg-[#E5E9EF] pointer-events-none "></div>
-                      </div>
-                      <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#E5E9EF] inline-flex items-center justify-center text-white relative z-10">
-                        <svg
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          className="w-5 h-5"
-                          viewBox="0 0 24 24"
-                        >
-                          <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"></path>
-                          <circle cx="12" cy="7" r="4"></circle>
-                        </svg>
-                      </div>
-                      <div className="flex-grow pl-4">
-                        <h2 className="font-extrabold title-font  text-[#00285A] mb-1 tracking-wider">
-                          Applied for Loan
-                        </h2>
-                        <p className="leading-relaxed">
-                          With our help, simplify the loan application process
-                          as we walk you through the necessary paperwork and
-                          assist you in obtaining funding for your educational
-                          endeavours.
-                        </p>
-                      </div>
-                    </div>
-                    <div className="flex relative">
-                      <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#E5E9EF] inline-flex items-center justify-center text-white relative z-10">
-                        <svg
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          className="w-5 h-5"
-                          viewBox="0 0 24 24"
-                        >
-                          <path d="M22 11.08V12a10 10 0 11-5.93-9.14"></path>
-                          <path d="M22 4L12 14.01l-3-3"></path>
-                        </svg>
-                      </div>
-                      <div className="flex-grow pl-4">
-                        <h2 className="font-extrabold title-font  text-[#00285A] mb-1 tracking-wider">
-                          Loan Disbursed
-                        </h2>
-                        <p className="leading-relaxed">
-                          Explore a hassle-free loan disbursement process as we
-                          ensure timely and seamless transfer of funds,
-                          empowering you to pursue your education without
-                          financial limitations
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </section>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
 
 const EducationLoan = () => {
 
@@ -390,41 +198,22 @@ const EducationLoan = () => {
       img: country,
       text: "Country Specific Loan Counselling",
     },
-    {
-      img: preVisa,
-      text: "Pre Visa Disbursal",
-    },
-    {
-      img: score,
-      text: "Score Based Loan Structuring",
-    }
+    // {
+    //   img: preVisa,
+    //   text: "Pre Visa Disbursal",
+    // },
+    // {
+    //   img: score,
+    //   text: "Score Based Loan Structuring",
+    // }
   ]
-
 
   return (
     <>
       {!student?.educationLoanUnlock && <LandingPage />}
-      {student?.educationLoanUnlock && <div className="sm:px-10 sm:py-6 p-2">
+      {student?.educationLoanUnlock && <div className="sm:py-6 p-2 sm:px-5">
 
         {/* header start */}
-        {/* <div className="flex-col flex sm:flex-row gap-5 mb-5">
-          <div className="w-full md:w-[70%]">
-            <Header title="Education Loan" subTitle="Optimal solution for overseas education loan" Img={welcomeSVG} scale="scale-75" width="full" />
-          </div>
-          <div className="w-full sm:w-[30%]">
-            <div style={{ boxShadow: ' 0px 0px 0px 1px rgba(0, 0, 0, 0.06), 0px 5px 36px 0px rgba(0, 0, 0, 0.16)' }} className="bg-white h-full w-full p-5 rounded-2xl flex justify-between flex-col gap-y-4">
-              <p className="text-[#00285A] font-semibold text-base md:text-sm lg:text-base">Are you looking for end to end education loan assistance?</p>
-              <button className="hover:bg-[#00285A] hover:text-white text-lg bg-transparent duration-300 border-2 border-[#00285A] text-[#00285A] py-1 max-md:text-base px-3 min-w-fit w-4/12 sm:w-7/12 md:w-min rounded-2xl justify-around flex items-center">
-                <p className='text-lg font-semibold flex items-center justify-around'>
-                  <strong className='text-sm md:text-base'> Talk to expert </strong>
-                  &nbsp; &nbsp;
-                  <span className="w-6 h-6 border-1 rounded-full flex justify-center items-center bg-[#00285A] text-white"><ChevronRightIcon /></span>
-                </p>
-              </button>
-            </div>
-          </div>
-        </div> */}
-
         <div className="flex-col flex sm:flex-row gap-5">
           <div className="w-full sm:w-[70%] rounded-[1.2rem] flex justify-between relative items-center bg-white shadow-xl">
             <div className="px-7 flex flex-col gap-y-1 max-md:py-7 max-sm:px-5 max-md:items-center max-md:w-full">
@@ -461,19 +250,43 @@ const EducationLoan = () => {
         {/* header end */}
 
         {!page2 ? (
-          <div className="flex max-md:flex-col w-full justify-between items-center">
-            <div className="w-1/2 max-md:w-full flex flex-col justify-center items-center">
-              {/* <img
-                  src={loanSVG}
-                  alt="welcome svg"
-                  className="w-400 h-auto mx-auto my-10"
-                /> */}
+          <div className="flex max-md:flex-col gap-5 max-md:gap-10 w-full mt-10">
+            <div className="w-3/5 max-md:w-full flex flex-col justify-center items-center">
 
-              <BankingPart />
-              <div className="flex mt-8 flex-wrap gap-x-2 2xl:gap-x-2 xl:gap-x-3 gap-y-3 items-center justify-center w-full max-xl:hidden ">
+              <div className='flex flex-col items-center gap-10 w-full'>
+                <div className='mx-auto w-[200px]'>
+                  <img src={img} alt='' className='w-full h-auto' />
+                </div>
+
+                <div className='grid max-sm:grid-cols-1 w-full grid-cols-3 gap-3'>
+                  <div className='flex flex-col justify-between gap-1 bg-white max-sm:py-7 p-3 rounded-2xl shadow-lg'>
+                    <img src={loanImg} alt="" className='w-auto h-auto mx-auto' />
+                    <div className='flex flex-col gap-1 items-center'>
+                      <p className='text-normal text-sm max-sm:text-base text-center'>Loan amount upto </p>
+                      <h2 className='text-xl max-sm:text-2xl font-bold text-center'>$ 1.5 Crore</h2>
+                    </div>
+                  </div>
+                  <div className='flex flex-col justify-between gap-1 bg-white max-sm:py-7 p-3 rounded-2xl shadow-lg'>
+                    <img src={interestImg} alt="" className='w-auto h-auto mx-auto' />
+                    <div className='flex flex-col gap-1 items-center'>
+                      <p className='text-normal text-sm max-sm:text-base text-center'>Interest rate starting</p>
+                      <h2 className='text-xl max-sm:text-2xl font-bold text-center'>9%</h2>
+                    </div>
+                  </div>
+                  <div className='flex flex-col justify-between gap-1 bg-white max-sm:py-7 p-3 rounded-2xl shadow-lg'>
+                    <img src={clockImg} alt="" className='w-auto h-auto mx-auto' />
+                    <div className='flex flex-col gap-1 items-center'>
+                      <p className='text-normal text-sm max-sm:text-base text-center'>Minimum processing time</p>
+                      <h2 className='text-xl max-sm:text-2xl font-bold text-center'>7 Days</h2>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="grid my-8 max-sm:grid-cols-2 sm:grid-cols-3 md:grid-cols-2 xl:grid-cols-3 gap-4">
                 {icons.map((item, index) => {
                   return (
-                    <div key={index} className="flex items-center justify-start rounded-xl w-56 px-5 py-3">
+                    <div key={index} className="flex items-center justify-start rounded-xl px-2 py-2">
                       <img src={item.img} className="w-10 h-10 mr-
                                 3" alt="icon" />
                       <p className="font-semibold text-sm ml-3">{item.text}</p>
@@ -481,12 +294,13 @@ const EducationLoan = () => {
                   )
                 })}
               </div>
-            </div>
 
+              <BankingPart />
+            </div>
             <div className="w-2/5 max-md:w-full max-md:pb-10">
               <form
                 onSubmit={onSubmit}
-                className="flex flex-col items-center md:items-start h-full justify-center"
+                className="flex flex-col items-center md:items-start justify-center"
               >
                 {/* <p className="xl:text-3xl text-xl font-bold">text</p> */}
                 <div className="flex flex-col max-lg:items-start w-full justify-center">
