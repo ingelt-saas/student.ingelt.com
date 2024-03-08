@@ -21,10 +21,10 @@ const StudentProvider = ({ children }) => {
   });
 
   const logOut = () => {
-    if (process.env.NODE_ENV === 'development') {
+    if (process.env.NODE_ENV === 'priyanshu') {
       Cookies.remove("student_auth_token", { path: '/' });
     } else {
-      Cookies.remove("student_auth_token", { path: '/', domain: 'ingelt.com' });
+      Cookies.remove("student_auth_token", { path: '/', domain: 'ingeltboard.com' });
     }
     Cookies.remove("couponCode");
     studentFetch();

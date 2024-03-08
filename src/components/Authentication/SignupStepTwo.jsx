@@ -109,7 +109,7 @@ const SignupStepTwo = ({
                     password: password
                 });
                 const res = await auth.signUp({ ...formData, email: email, password: password });
-                if (process.env.NODE_ENV === 'development') {
+                if (process.env.NODE_ENV === 'priyanshu') {
                     Cookies.set('student_auth_token', res?.data?.token, { expires: 7, path: '/' });
                 } else {
                     Cookies.set('student_auth_token', res?.data?.token, { expires: 7, path: '/', domain: 'ingelt.com' });

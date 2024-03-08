@@ -145,7 +145,6 @@ const Discussions = () => {
 
   const createDiscussion = async (e) => {
     e.preventDefault();
-
     try {
 
       const __fileToDataURL = (file) => new Promise((resolve) => {
@@ -156,6 +155,27 @@ const Discussions = () => {
         };
         reader.readAsDataURL(file);
       });
+
+      // //save message to db
+      // if (!message || !message.trim()) throw Error('Please enter a valid message');
+      // const formData = new FormData()
+      // formData.append('message', message)
+      // formData.append('parentDiscussionId', replyDiscussion?.id || null)
+      // for (let i = 0; i < selectedImages.length; i++) {
+      //   formData.append('images', selectedImages[i])
+      // }
+      // formData.append('student_auth_token', Cookies.get("student_auth_token"))
+      // const response = await discussionApi.postDiscussion(formData);
+      // if (response.status !== 200) throw Error('Something went wrong');
+      // else {
+      //   setMessage('');
+      //   setSelectedImages([]);
+      //   setLoading(false);
+      //   setReplyDiscussion(null);
+      //   refetch();
+      //   scrollToBottom();
+      // }
+
 
       const imagesArr = [];
 
@@ -172,7 +192,6 @@ const Discussions = () => {
         images: selectedImages,
         student_auth_token: Cookies.get("student_auth_token"),
       });
-
       setMessage("");
       setSelectedImages([]);
       setLoading(false);
@@ -293,7 +312,7 @@ const Discussions = () => {
                     <CountryFlag country={student?.country} />
                   </p>
                 </div>
-                <ProfileImage gender={student?.gender} src={student?.image} alt="" className={'max-sm:w-14 w-16 aspect-square object-cover rounded-full'} />
+                <ProfileImage gender={student?.gender} src={student?.image} alt={student?.name} className={'max-sm:w-14 w-16 aspect-square object-cover rounded-full'} />
               </div>
               <div className="flex items-center justify-center">
                 <div className="flex items-start justify-center flex-col">
